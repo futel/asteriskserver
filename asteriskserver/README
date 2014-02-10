@@ -1,0 +1,10 @@
+futel asterisk server on 32-bit centos
+
+vagrant box add test_32 http://developer.nrel.gov/downloads/vagrant-boxes/CentOS-6.5-i386-v20140110.box
+
+vagrant init
+vagrant up
+vagrant ssh
+vagrant halt
+vagrant destroy
+
