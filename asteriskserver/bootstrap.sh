@@ -34,12 +34,14 @@ useradd -m asterisk -s /bin/false
 cd /vagrant/src
 tar xvf pyst-0.6.50.tar.gz
 cd pyst-0.6.50
-sudo python setup.py install --prefix=/usr/local
-sudo ln -s /usr/local/lib/python2.6/site-packages/asterisk/ /usr/lib/python2.6/site-packages/
+python setup.py install --prefix=/usr/local
+ln -s /usr/local/lib/python2.6/site-packages/asterisk/ /usr/lib/python2.6/site-packages/
 
 # setup festival server
 # XXX this is not exactly safe
-echo "su -s /bin/bash nobody -c '/usr/bin/festival --server &'" | sudo tee -a /etc/rc.d/rc.local
+echo "su -s /bin/bash nobody -c '/usr/bin/festival --server &'" >> /etc/rc.d/rc.local
+# and run it now
+/etc/rc.d/rc.local
 
 # XXX build, install asterisk from source
 # XXX remove the firewall again?
