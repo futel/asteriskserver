@@ -1,7 +1,10 @@
 #!/usr/bin/env bash
 
+# if not virtualbox:
 # XXX add users and access
-#     will probably want that for when not virtualbox
+# XXX uncomment wheel access in /etc/sudoers
+# XXX edit /etc/ssh/sshd_config
+
 # XXX kill firewall for now, fix it later?
 
 # setup centos
@@ -31,7 +34,7 @@ useradd -m asterisk -s /bin/false
 # XXX install dyndns client?
 
 # install pyst
-cd /vagrant/src
+cd /vagrant/src                 # XXX faster to do this in /tmp or something
 tar xvf pyst-0.6.50.tar.gz
 cd pyst-0.6.50
 python setup.py install --prefix=/usr/local
@@ -43,7 +46,32 @@ echo "su -s /bin/bash nobody -c '/usr/bin/festival --server &'" >> /etc/rc.d/rc.
 # and run it now
 /etc/rc.d/rc.local
 
-# XXX build, install asterisk from source
+# build, install asterisk from source
+mkdir /opt/asterisk
+chown asterisk:asterisk /opt/asterisk
+cd /tmp # can't chown in /vagrant
+tar xvf /vagrant/src/asterisk-11-current.tar.gz
+find asterisk-11.5.1 -exec chown asterisk:asterisk {} \;
+cd asterisk-11.5.1
+# XXX if 64bit, --libdir=/usr/lib64, but must be root to install?
+sudo -u asterisk ./configure --libdir=/usr/lib64 --prefix=/opt/asterisk --sysconfdir=/opt/asterisk --localstatedir=/opt/asterisk
+# XXX we created these files with 'make menuselect' and quitting without
+#     selecting or deselecting anything.  We want to pare this down.
+cp /vagrant/src/menuselect.makeopts .
+chown asterisk:asterisk menuselect.makeopts
+cp /vagrant/src/menuselect.makedeps .
+chown asterisk:asterisk menuselect.makedeps
+sudo -u asterisk make
+# XXX if we were 64 bit, we must be root to do this, do we need to chown
+#     back to asterisk in that case?
+sudo -u asterisk make install
+# XXX want to pare this down
+sudo -u asterisk make samples
+make config #as root
+# this adds ASTARGS="-U asterisk"
+cp /vagrant/src/safe_asterisk /opt/asterisk/sbin
+chown asterisk:asterisk /opt/asterisk/sbin/safe_asterisk
+
 # XXX remove the firewall again?
 # XXX clone the git repo into /opt/asterisk/asterisk
 # XXX edit sip.conf to match repo
