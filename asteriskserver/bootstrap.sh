@@ -67,16 +67,52 @@ sudo -u asterisk make
 sudo -u asterisk make install
 # XXX want to pare this down
 sudo -u asterisk make samples
-make config #as root
+make config # as root
 # this adds ASTARGS="-U asterisk"
 cp /vagrant/src/safe_asterisk /opt/asterisk/sbin
 chown asterisk:asterisk /opt/asterisk/sbin/safe_asterisk
 
 # XXX remove the firewall again?
-# XXX clone the git repo into /opt/asterisk/asterisk
-# XXX edit sip.conf to match repo
-# XXX Setup SIP trunk for an outgoing route with callcentric DID
+
+# add the git host key
+cat /vagrant/src/known_hosts | sudo -u asterisk tee -a /home/asterisk/.ssh/known_hosts
+# clone the git repos into the asterisk tree
+cd /opt/asterisk
+rm -rf asterisk
+sudo -u asterisk git clone https://github.com/kra/futel-ceres-opt-asterisk-asterisk.git asterisk
+# XXX on ceres, this was /opt/asterisk/var/lib/asterisk
+#     looking at config.log in the build directory, it looks like localstatedir
+#     was defined differently there for some reason.  Probably OK.
+cd /opt/asterisk/lib/asterisk
+rm -rf agi-bin
+sudo -u asterisk git clone https://github.com/lboom/futel-ceres-opt-asterisk-var-lib-asterisk-agi-bin.git agi-bin
+
+# copy vm_futel_users.inc template
+cat /vagrant/src/vm_futel_users.inc | sudo -u asterisk tee -a /opt/asterisk/asterisk/vm_futel_users.inc
+
+# XXX sip.conf externhost, externip must be customized for each host
+# XXX sip.conf localnet, nat probably must be customized for each host
 # XXX edit sip_callcentric.conf
 # XXX edit extensions_secret.conf
-# XXX perform ops doc actions
-# XXX perform voicemail doc actions
+# XXX edit vm_futel_users.inc
+#     these should refer to an /opt/futel/etc conf file?
+
+# if we removed any firewall,
+# service add iptables
+# chkconfig --add iptables
+/vagrant/src/iptables.sh
+service iptables save
+
+# setup backups
+adduser backup
+usermod -a -G asterisk backup
+sudo -u backup mkdir /home/backup/.ssh
+sudo -u backup chmod go-rx /home/backup/.ssh
+# XXX copy backup key to backup's ~/.ssh/authorized_keys
+# XXX make this for an unpriveleged user on eurydice so we can put it in src
+# XXX would be better to make backup's shell rsync or something
+# XXX backup user can't see /var/log/messages, /etc, /home
+
+# XXX logwatch
+
+# XXX restart asterisk and whatever net is needed, or reboot
