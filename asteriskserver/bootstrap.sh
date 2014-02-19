@@ -5,7 +5,8 @@
 # XXX uncomment wheel access in /etc/sudoers
 # XXX edit /etc/ssh/sshd_config
 
-# XXX kill firewall for now, fix it later?
+# XXX kill firewall for now, fix it later?  Not needed anymore?
+#     /etc/init.d/iptables stop
 
 # setup centos
 yum -y groupremove "FCoE Storage Client"
@@ -31,7 +32,7 @@ rpm -Uvh http://download.fedoraproject.org/pub/epel/6/i386/epel-release-6-8.noar
 useradd -m asterisk -s /bin/false
 
 # XXX make sure hostname is in /etc/hosts
-# XXX install dyndns client?
+# XXX install dyndns client if necessary?
 
 # install pyst
 cd /vagrant/src                 # XXX faster to do this in /tmp or something
@@ -49,58 +50,76 @@ echo "su -s /bin/bash nobody -c '/usr/bin/festival --server &'" >> /etc/rc.d/rc.
 # build, install asterisk from source
 mkdir /opt/asterisk
 chown asterisk:asterisk /opt/asterisk
-cd /tmp # can't chown in /vagrant
-tar xvf /vagrant/src/asterisk-11-current.tar.gz
-find asterisk-11.5.1 -exec chown asterisk:asterisk {} \;
+cd /tmp # can't chown in /vagrant, and this is faster
+sudo -u asterisk tar xvf /vagrant/src/asterisk-11-current.tar.gz
 cd asterisk-11.5.1
 # XXX if 64bit, --libdir=/usr/lib64, but must be root to install?
-sudo -u asterisk ./configure --libdir=/usr/lib64 --prefix=/opt/asterisk --sysconfdir=/opt/asterisk --localstatedir=/opt/asterisk
+#     maybe we can put libdir within the prefix?
+sudo -u asterisk ./configure --prefix=/opt/asterisk --exec_prefix=/opt/asterisk
+# XXX if virtualbox, add CFLAGS=-march=core2
+# http://gentoo-what-did-you-say.blogspot.com/2011/07/finding-cpu-flags-using-gcc.html
 # XXX we created these files with 'make menuselect' and quitting without
 #     selecting or deselecting anything.  We want to pare this down.
+# XXX may be broken, make menuselect if so
 cp /vagrant/src/menuselect.makeopts .
 chown asterisk:asterisk menuselect.makeopts
 cp /vagrant/src/menuselect.makedeps .
 chown asterisk:asterisk menuselect.makedeps
+# XXX if we configured with CFLAGS, edit menuselect.makeopts
+#MENUSELECT_CFLAGS=LOADABLE_MODULES 
 sudo -u asterisk make
-# XXX if we were 64 bit, we must be root to do this, do we need to chown
-#     back to asterisk in that case?
+
+# XXX if we were 64 bit, we must be root to do this because of libdir,
+#     do we need to chown back to asterisk in that case?
 sudo -u asterisk make install
 # XXX want to pare this down
 sudo -u asterisk make samples
 make config # as root
+# XXX make install-logrotate?
 # this adds ASTARGS="-U asterisk"
+# XXX make sure this works
 cp /vagrant/src/safe_asterisk /opt/asterisk/sbin
 chown asterisk:asterisk /opt/asterisk/sbin/safe_asterisk
 
-# XXX remove the firewall again?
-
 # add the git host key
+mkdir /home/asterisk/.ssh
+chown asterisk:asterisk /home/asterisk/.ssh
 cat /vagrant/src/known_hosts | sudo -u asterisk tee -a /home/asterisk/.ssh/known_hosts
+chmod go-rwx /home/asterisk/.ssh
+
 # clone the git repos into the asterisk tree
 cd /opt/asterisk
-rm -rf asterisk
+rm -rf etc/asterisk
 sudo -u asterisk git clone https://github.com/kra/futel-ceres-opt-asterisk-asterisk.git asterisk
-# XXX on ceres, this was /opt/asterisk/var/lib/asterisk
-#     looking at config.log in the build directory, it looks like localstatedir
-#     was defined differently there for some reason.  Probably OK.
-cd /opt/asterisk/lib/asterisk
+cd /opt/asterisk/var/lib/asterisk
 rm -rf agi-bin
 sudo -u asterisk git clone https://github.com/lboom/futel-ceres-opt-asterisk-var-lib-asterisk-agi-bin.git agi-bin
 
 # copy vm_futel_users.inc template
-cat /vagrant/src/vm_futel_users.inc | sudo -u asterisk tee -a /opt/asterisk/asterisk/vm_futel_users.inc
+cat /vagrant/src/vm_futel_users.inc | sudo -u asterisk tee -a /opt/asterisk/etc/asterisk/vm_futel_users.inc
+# XXX this has an XXXX password for the user in there, can we just keep that
+#     and make it a dummy mbox?  Else edit password.
 
-# XXX sip.conf externhost, externip must be customized for each host
-# XXX sip.conf localnet, nat probably must be customized for each host
-# XXX edit sip_callcentric.conf
-# XXX edit extensions_secret.conf
-# XXX edit vm_futel_users.inc
-#     these should refer to an /opt/futel/etc conf file?
+# XXX sip.conf:
+#     if behind firewall with a DNS name,
+#     externhost=<hostname> localnet=<addrs in firewall> nat=force_rport,comedia
+#     if virtualbox:
+#     externip=<router ip>
+#     localnet=10.0.0.0/255.255.255.0
+#     localnet=192.168.0.0/255.255.255.0
+#     nat=force_rport,comedia
+# XXX peform the edits that have secrets:
+#     edit sip_callcentric.conf
+#     edit extensions_secret.conf
+#     secrets should refer to an /opt/futel/etc conf file for easier setup
 
-# if we removed any firewall,
-# service add iptables
-# chkconfig --add iptables
+# XXX sigh, this can be made unnecessary
+find . -exec chown asterisk:asterisk {} \;
+
+# XXX will need more ports for iax2 later - asterisk to asterisk
 /vagrant/src/iptables.sh
+# XXX if on virtualbox, default ssh port for 'vagrant ssh':
+#     iptables -A INPUT -p tcp --dport 22 -j ACCEPT
 service iptables save
 
 # setup backups
@@ -109,10 +128,9 @@ usermod -a -G asterisk backup
 sudo -u backup mkdir /home/backup/.ssh
 sudo -u backup chmod go-rx /home/backup/.ssh
 # XXX copy backup key to backup's ~/.ssh/authorized_keys
-# XXX make this for an unpriveleged user on eurydice so we can put it in src
 # XXX would be better to make backup's shell rsync or something
 # XXX backup user can't see /var/log/messages, /etc, /home
 
 # XXX logwatch
 
-# XXX restart asterisk and whatever net is needed, or reboot
+# XXX restart asterisk, or reboot
