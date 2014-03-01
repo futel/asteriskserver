@@ -5,8 +5,13 @@
 VAGRANTFILE_API_VERSION = "2"
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
-  config.vm.box = "test_32"
+  # to bootstrap from test_32 to centos6_32_baseinstall
+  #config.vm.box = "test_32"
+  #config.vm.provision :shell, :path => "centos6_32_baseinstall.sh" 
+  # XXX then fix_package.sh, see README
 
+  # to bootstrap from centos6_32_baseinstall
+  config.vm.box = "centos6_32_baseinstall"
   config.vm.provision :shell, :path => "bootstrap.sh"
 
   # The url from where the 'config.vm.box' box will be fetched if it
@@ -39,7 +44,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   config.vm.provider :virtualbox do |vb|
     # Don't boot with headless mode
-    #vb.gui = true
+    vb.gui = true
     # bridged network, probably specific setup for each host
     config.vm.network :public_network, :bridge => 'wlan0'
   end

@@ -1,10 +1,42 @@
-futel asterisk server on 32-bit centos
+Provision a futel asterisk server on 32-bit centos
 
 vagrant box add test_32 http://developer.nrel.gov/downloads/vagrant-boxes/CentOS-6.5-i386-v20140110.box
 
 vagrant init
+
+make boxes:
+We will start with test_32,
+update centos to get centos6_32_baseinstall,
+install/config to get an asterisk box.
+Before making any package, must rm the mac addrs in /etc/udev/rules.d
+After making any package, must run fix_package.sh and make it from that again
+
+# make centos6_32_baseinstall from test_32
+# edit Vagrantfile
+config.vm.box = "test_32"
+config.vm.provision :shell, :path => "centos6_32_baseinstall.sh" 
 vagrant up
-vagrant ssh
 vagrant halt
+vagrant package --base asteriskserver_default_...
+mv package.box centos6_32_baseinstall.box
+vagrant box add centos6_32_baseinstall centos6_32_baseinstall.box
 vagrant destroy
 
+# fix and replace centos6_32_baseinstall
+# edit Vagrantfile
+config.vm.box = "centos6_32_baseinstall"
+# no bootstrap file, we don't share disk, could do in Vagrantfile though
+vagrant up
+vagrant ssh # and run the commands in fix_package.sh
+vagrant halt
+vagrant package --base asteriskserver_default_...
+mv package.box centos6_32_baseinstall.box
+vagrant box remove centos6_32_baseinstall
+vagrant box add centos6_32_baseinstall centos6_32_baseinstall.box
+vagrant destroy
+
+# make asteriskfoo from centos6_32_baseinstall
+# edit Vagrantfile
+config.vm.box = "centos6_32_baseinstall"
+config.vm.provision :shell, :path => "bootstrap.sh"
+vagrant up

@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# bootstrap from centos6_32_baseinstall
 
 set -x # print commands as executed
 
@@ -12,26 +13,6 @@ dmidecode | grep -q 'Product Name:.*VirtualBox' && virtualbox=true
 # XXX add users and access
 # XXX uncomment wheel access in /etc/sudoers
 # XXX edit /etc/ssh/sshd_config
-
-# setup centos
-yum -y groupremove "FCoE Storage Client"
-yum -y groupremove "iSCSI Storage Client"
-yum -y groupremove "Network file system client"
-yum -y groupremove "Storage Availability Tools"
-yum -y remove audit rpcbind selinux-policy selinux-policy-targeted
-yum -y update
-
-yum -y install man
-yum -y install vim-enhanced gcc gcc-g++ make automake libtool autoconf
-yum -y install mlocate lynx cvs git subversion strace ltrace wget lsof tcpdump
-yum -y install openssh openssh-server openssh-clients
-yum -y install openssl-devel
-yum -y install ncurses-devel libxml2-devel newt-devel kernel-devel sqlite-devel
-yum -y install libuuid-devel
-yum -y install festival # if running festival locally
-
-# install epel
-rpm -Uvh http://download.fedoraproject.org/pub/epel/6/i386/epel-release-6-8.noarch.rpm
 
 # add non-root user for asterisk
 useradd -m asterisk -s /bin/false
@@ -78,8 +59,8 @@ else
 fi
 
 chown asterisk:asterisk menuselect.makeopts
-#cp /vagrant/src/menuselect.makedeps .
-#chown asterisk:asterisk menuselect.makedeps
+cp /vagrant/src/menuselect.makedeps .
+chown asterisk:asterisk menuselect.makedeps
 sudo -u asterisk make
 
 # XXX if we were 64 bit, we must be root to do this because of libdir,
@@ -151,3 +132,5 @@ sudo -u backup chmod go-rx /home/backup/.ssh
 
 service asterisk stop
 service asterisk start
+
+# XXX better take out the vagrant defaults or start with a different base!
