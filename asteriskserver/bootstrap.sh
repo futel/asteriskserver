@@ -9,10 +9,32 @@ set -x # print commands as executed
 virtualbox=false
 dmidecode | grep -q 'Product Name:.*VirtualBox' && virtualbox=true
 
+# XXX set this up if not virtualbox
+# XXX will need more ports for iax2 later - asterisk to asterisk
+#/vagrant/src/iptables.sh
+# XXX if on virtualbox, default ssh port for 'vagrant ssh':
+#     iptables -A INPUT -p tcp --dport 22 -j ACCEPT
+#service iptables save
+# XXX remove vagrant stuff like users
+
+# XXX kill firewall for now because we didn't update the ssh port
+# XXX also need to disable service for when we reboot
+/etc/init.d/iptables stop
+
 # if not virtualbox:
 # XXX add users and access
 # XXX uncomment wheel access in /etc/sudoers
 # XXX edit /etc/ssh/sshd_config
+
+# setup backups
+adduser backup
+usermod -a -G asterisk backup
+sudo -u backup mkdir /home/backup/.ssh
+sudo -u backup chmod go-rx /home/backup/.ssh
+# if not a devbox:
+# XXX copy backup key to backup's ~/.ssh/authorized_keys
+# XXX would be better to make backup's shell rsync or something
+# XXX backup user can't see /var/log/messages, /etc, /home
 
 # add non-root user for asterisk
 useradd -m asterisk -s /bin/false
@@ -39,28 +61,38 @@ chown asterisk:asterisk /opt/asterisk
 cd /tmp
 sudo -u asterisk tar xvf /vagrant/src/asterisk-11-current.tar.gz
 cd asterisk-11.5.1
-# XXX if 64bit, --libdir=/usr/lib64, but must be root to install?
-#     maybe we can put libdir within the prefix?
-if [ $virtualbox = true ]; then
-    # virtualbox on ubuntu thinkpad
-    # http://gentoo-what-did-you-say.blogspot.com/2011/07/finding-cpu-flags-using-gcc.html
-    CFLAGS=-march=core2
-fi
-sudo -u asterisk ./configure --prefix=/opt/asterisk --exec_prefix=/opt/asterisk
-#CFLAGS=$CFLAGS
 
-# XXX we created these files with 'make menuselect' and quitting without
-#     selecting or deselecting anything.  We want to pare this down.
+# # XXX if 64bit, --libdir=/usr/lib64, but must be root to install?
+# #     maybe we can put libdir within the prefix?
+# if [ $virtualbox = true ]; then
+#     # virtualbox on ubuntu thinkpad
+#     # http://gentoo-what-did-you-say.blogspot.com/2011/07/finding-cpu-flags-using-gcc.html
+#     CFLAGS=-march=core2
+# fi
+sudo -u asterisk ./configure --prefix=/opt/asterisk --exec_prefix=/opt/asterisk #CFLAGS=$CFLAGS
+
+# do some things that make menuselect does
+# XXX what a crock!  Some of these may be superstition.
+sudo -u asterisk make menuselect.makeopts menuselect-tree
+sudo -u asterisk make menuselect/cmenuselect menuselect/nmenuselect menuselect/gmenuselect
+sudo -u asterisk rm -f channels/h323/Makefile.ast main/asterisk
+
+# create files normally done with make menuselect
+# XXX need to pare these files down
 if [ $virtualbox = true ]; then
-    # we set CFLAGS
-    cp /vagrant/src/menuselect.makeopts.virtualbox ./menuselect.makeopts
+    /bin/cp -f /vagrant/src/menuselect.makeopts.virtualbox ./menuselect.makeopts
 else
-    cp /vagrant/src/menuselect.makeopts.ceres ./menuselect.makeopts
+    /bin/cp -f /vagrant/src/menuselect.makeopts.ceres ./menuselect.makeopts
+fi
+/bin/cp -f /vagrant/src/menuselect.makedeps ./menuselect.makedeps
+/bin/cp -f /vagrant/src/menuselect-tree ./menuselect-tree
+
+# # alternative, create a smaller menuselect file starting with:
+# sudo -u asterisk menuselect/menuselect --enable-all menuselect.makeopts
+if [ $virtualbox = true ]; then
+    sudo -u asterisk menuselect/menuselect --disable BUILD_NATIVE menuselect.makeopts
 fi
 
-chown asterisk:asterisk menuselect.makeopts
-cp /vagrant/src/menuselect.makedeps .
-chown asterisk:asterisk menuselect.makedeps
 sudo -u asterisk make
 
 # XXX if we were 64 bit, we must be root to do this because of libdir,
@@ -68,10 +100,11 @@ sudo -u asterisk make
 sudo -u asterisk make install
 # XXX want to pare this down
 sudo -u asterisk make samples
+
 make config # as root
 # XXX make install-logrotate?
 # this adds ASTARGS="-U asterisk"
-cp /vagrant/src/safe_asterisk /opt/asterisk/sbin
+sudo -u asterisk cp /vagrant/src/safe_asterisk /opt/asterisk/sbin
 chown asterisk:asterisk /opt/asterisk/sbin/safe_asterisk
 
 # add the git host key so we can clone
@@ -93,40 +126,28 @@ cat /vagrant/src/vm_futel_users.inc | sudo -u asterisk tee /opt/asterisk/etc/ast
 # XXX this has an XXXX password for the user in there, can we just keep that
 #     and make it a dummy mbox?  Else edit password.
 
-# XXX sip.conf:
-#     if behind firewall with a DNS name,
-#     externhost=<hostname> localnet=<addrs in firewall> nat=force_rport,comedia
-#     if virtualbox:
-#     externip=<router ip>
-#     localnet=10.0.0.0/255.255.255.0
-#     localnet=192.168.0.0/255.255.255.0
-#     nat=force_rport,comedia
-# XXX peform the edits that have secrets:
-#     edit sip_callcentric.conf
-#     edit extensions_secret.conf
-#     secrets should refer to an /opt/futel/etc conf file for easier setup
+exit # XXX
+
+# # XXX sip.conf:
+# # XXX should refer to an /opt/futel/etc conf file for easier setup
+# if [ $virtualbox = true ]; then
+# #     if virtualbox:
+# #     no externhost
+# #     externip=<router ip>
+# #     localnet=192.168.0.0/255.255.255.0 # this is stdardized by vagrant, right?
+# else
+# #     if behind firewall with a DNS name,
+# #     externhost=<hostname> localnet=<addrs in firewall>
+# #     localnet=10.0.0.0/255.255.255.0 # or whatevs
+# fi
+
+# write the files that have secrets
+# XXX secrets should refer to an /opt/futel/etc conf file for easier setup
+cat /vagrant/sip_callcentric.conf | sudo -u asterisk tee /opt/asterisk/etc/asterisk/sip_callcentric.conf
+cat /vagrant/extensions_secret.conf | sudo -u asterisk tee /opt/asterisk/etc/asterisk/extensions_secret.conf
 
 # XXX sigh, this can be made unnecessary
 find /opt/asterisk -exec chown asterisk:asterisk {} \;
-
-# XXX will need more ports for iax2 later - asterisk to asterisk
-/vagrant/src/iptables.sh
-# XXX if on virtualbox, default ssh port for 'vagrant ssh':
-#     iptables -A INPUT -p tcp --dport 22 -j ACCEPT
-service iptables save
-
-# XXX kill firewall for now because we didn't update the ssh port
-/etc/init.d/iptables stop
-
-# setup backups
-adduser backup
-usermod -a -G asterisk backup
-sudo -u backup mkdir /home/backup/.ssh
-sudo -u backup chmod go-rx /home/backup/.ssh
-# if not a devbox:
-# XXX copy backup key to backup's ~/.ssh/authorized_keys
-# XXX would be better to make backup's shell rsync or something
-# XXX backup user can't see /var/log/messages, /etc, /home
 
 # XXX logwatch
 
