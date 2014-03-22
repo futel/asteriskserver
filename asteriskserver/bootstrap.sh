@@ -126,23 +126,9 @@ cat /vagrant/src/vm_futel_users.inc | sudo -u asterisk tee /opt/asterisk/etc/ast
 # XXX this has an XXXX password for the user in there, can we just keep that
 #     and make it a dummy mbox?  Else edit password.
 
-exit # XXX
-
-# # XXX sip.conf:
-# # XXX should refer to an /opt/futel/etc conf file for easier setup
-# if [ $virtualbox = true ]; then
-# #     if virtualbox:
-# #     no externhost
-# #     externip=<router ip>
-# #     localnet=192.168.0.0/255.255.255.0 # this is stdardized by vagrant, right?
-# else
-# #     if behind firewall with a DNS name,
-# #     externhost=<hostname> localnet=<addrs in firewall>
-# #     localnet=10.0.0.0/255.255.255.0 # or whatevs
-# fi
-
 # write the files that have secrets
 # XXX secrets should refer to an /opt/futel/etc conf file for easier setup
+cat /vagrant/sip_local.conf | sudo -u asterisk tee /opt/asterisk/etc/asterisk/sip_local.conf
 cat /vagrant/sip_callcentric.conf | sudo -u asterisk tee /opt/asterisk/etc/asterisk/sip_callcentric.conf
 cat /vagrant/extensions_secret.conf | sudo -u asterisk tee /opt/asterisk/etc/asterisk/extensions_secret.conf
 
