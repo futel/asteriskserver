@@ -1,0 +1,21 @@
+; adding to the general stanza probably prevents using other DIDs
+
+[general](+)
+register =>
+
+[callcentric](+)
+defaultuser=
+fromuser=
+secret=
+
+; 666: sip box at elijah's house
+[666](+)
+secret=
+
+; 667: sip box at karl's house line 1
+[667](+)
+secret=
+
+; 668: sip box at karl's house line 2
+[668](+)
+secret=
