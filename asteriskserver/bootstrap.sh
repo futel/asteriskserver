@@ -39,7 +39,6 @@ sudo -u backup chmod go-rx /home/backup/.ssh
 # add non-root user for asterisk
 useradd -m asterisk -s /bin/false
 
-# XXX make sure hostname is in /etc/hosts
 # XXX install dyndns client if necessary?
 
 # install pyst
@@ -50,6 +49,7 @@ python setup.py install --prefix=/usr/local
 ln -s /usr/local/lib/python2.6/site-packages/asterisk/ /usr/lib/python2.6/site-packages/
 
 # setup festival server
+# XXX need a real daemon
 # XXX this is not exactly safe
 echo "su -s /bin/bash nobody -c '/usr/bin/festival --server &'" >> /etc/rc.d/rc.local
 # and run it now
@@ -95,7 +95,7 @@ fi
 
 sudo -u asterisk make
 
-# XXX if we were 64 bit, we must be root to do this because of libdir,
+# XXX if we were 64 bit, we must be root to do this because of libdir?
 #     do we need to chown back to asterisk in that case?
 sudo -u asterisk make install
 # XXX want to pare this down
@@ -117,10 +117,8 @@ chmod go-rwx /home/asterisk/.ssh
 cd /opt/asterisk
 rm -rf etc/asterisk
 sudo -u asterisk git clone https://github.com/kra/futel-ceres-opt-asterisk-asterisk.git etc/asterisk
-cd /opt/asterisk/var/lib/asterisk
-rm -rf agi-bin
-sudo -u asterisk git clone https://github.com/lboom/futel-ceres-opt-asterisk-var-lib-asterisk-agi-bin.git agi-bin
-cd /opt/asterisk
+rm -rf var/lib/asterisk/agi-bin
+sudo -u asterisk git clone https://github.com/lboom/futel-ceres-opt-asterisk-var-lib-asterisk-agi-bin.git var/lib/asterisk/agi-bin
 sudo -u asterisk git clone https://github.com/kra/futel-opt-asterisk-var-lib-asterisk-sounds-futel.git var/lib/asterisk/sounds/futel
 # copy vm_futel_users.inc template
 cat /vagrant/src/vm_futel_users.inc | sudo -u asterisk tee /opt/asterisk/etc/asterisk/vm_futel_users.inc
@@ -142,3 +140,4 @@ service asterisk stop
 service asterisk start
 
 # XXX better take out the vagrant defaults or start with a different base!
+#     vagrant user and keys, ssh port, ssh config? what else?
