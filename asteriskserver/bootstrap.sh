@@ -120,7 +120,8 @@ sudo -u asterisk git clone https://github.com/kra/futel-ceres-opt-asterisk-aster
 cd /opt/asterisk/var/lib/asterisk
 rm -rf agi-bin
 sudo -u asterisk git clone https://github.com/lboom/futel-ceres-opt-asterisk-var-lib-asterisk-agi-bin.git agi-bin
-
+cd /opt/asterisk
+sudo -u asterisk git clone https://github.com/kra/futel-opt-asterisk-var-lib-asterisk-sounds-futel.git var/lib/asterisk/sounds/futel
 # copy vm_futel_users.inc template
 cat /vagrant/src/vm_futel_users.inc | sudo -u asterisk tee /opt/asterisk/etc/asterisk/vm_futel_users.inc
 # XXX this has an XXXX password for the user in there, can we just keep that
