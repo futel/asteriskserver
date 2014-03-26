@@ -139,5 +139,6 @@ find /opt/asterisk -exec chown asterisk:asterisk {} \;
 service asterisk stop
 service asterisk start
 
-# XXX better take out the vagrant defaults or start with a different base!
+# XXX Better take out the vagrant defaults or start with a different base!
 #     vagrant user and keys, ssh port, ssh config? what else?
+#     Probably better to start with a less-vagranty base box?
