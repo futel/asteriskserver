@@ -5,12 +5,15 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   # we only run one machine, but define a name so we can deploy to different
   # providers
-  config.vm.define "foo"
+  #config.vm.define "foo"
+  #config.vm.define "virtualbox"
 
-  config.ssh.private_key_path = "~/.ssh/id_rsa"
+  # we will want another ssh key for non-virtualbox
+  #config.ssh.private_key_path = "~/.ssh/id_rsa"
 
-  # to bootstrap from test_32 to centos6_32_baseinstall
+  # to bootstrap from test_32 or digital_ocean to centos6_32_baseinstall
   #config.vm.box = "test_32"
+  #config.vm.box = "digital_ocean"
   #config.vm.provision :shell, :path => "centos6_32_baseinstall.sh" 
   # XXX then fix_package.sh, see README
 
