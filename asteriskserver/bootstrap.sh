@@ -8,19 +8,25 @@ set -x # print commands as executed
 # manually.
 virtualbox=false
 dmidecode | grep -q 'Product Name:.*VirtualBox' && virtualbox=true
-
-# XXX set this up if not virtualbox
-# XXX will need more ports for iax2 later - asterisk to asterisk
-#/vagrant/src/iptables.sh
-# XXX if on virtualbox, default ssh port for 'vagrant ssh':
-#     iptables -A INPUT -p tcp --dport 22 -j ACCEPT
-#service iptables save
 # XXX remove vagrant stuff like users
 
-# XXX kill firewall for now because we didn't update the ssh port
-# XXX also need to disable service for when we reboot
+# XXX will need more ports for iax2 later - asterisk to asterisk
+# this is ugly but works
 /etc/init.d/iptables stop
-
+if [ $virtualbox = true ]; then
+    cd /vagrant/src/
+    ./iptables.sh
+	# XXX can do this by rule number
+	iptables -D INPUT -p tcp --dport 42422 -j ACCEPT
+	iptables -A INPUT -p tcp --dport 22 -j ACCEPT
+	service iptables save
+	service iptables restart
+else
+	cd /vagrant/src/
+	./iptables.sh
+	service iptables save
+	service iptables restart
+fi
 # if not virtualbox:
 # XXX add users and access
 # XXX uncomment wheel access in /etc/sudoers
