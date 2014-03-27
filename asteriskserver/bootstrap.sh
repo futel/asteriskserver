@@ -26,16 +26,6 @@ dmidecode | grep -q 'Product Name:.*VirtualBox' && virtualbox=true
 # XXX uncomment wheel access in /etc/sudoers
 # XXX edit /etc/ssh/sshd_config
 
-# setup backups
-adduser backup
-usermod -a -G asterisk backup
-sudo -u backup mkdir /home/backup/.ssh
-sudo -u backup chmod go-rx /home/backup/.ssh
-# if not a devbox:
-# XXX copy backup key to backup's ~/.ssh/authorized_keys
-# XXX would be better to make backup's shell rsync or something
-# XXX backup user can't see /var/log/messages, /etc, /home
-
 # add non-root user for asterisk
 useradd -m asterisk -s /bin/false
 
@@ -49,7 +39,7 @@ python setup.py install --prefix=/usr/local
 ln -s /usr/local/lib/python2.6/site-packages/asterisk/ /usr/lib/python2.6/site-packages/
 
 # setup festival server
-# XXX need a real daemon
+# XXX need a real daemon, this goes down
 # XXX this is not exactly safe
 echo "su -s /bin/bash nobody -c '/usr/bin/festival --server &'" >> /etc/rc.d/rc.local
 # and run it now
@@ -79,19 +69,17 @@ sudo -u asterisk rm -f channels/h323/Makefile.ast main/asterisk
 
 # create files normally done with make menuselect
 # XXX need to pare these files down
-if [ $virtualbox = true ]; then
-    /bin/cp -f /vagrant/src/menuselect.makeopts.virtualbox ./menuselect.makeopts
-else
-    /bin/cp -f /vagrant/src/menuselect.makeopts.ceres ./menuselect.makeopts
-fi
+#     alternative, create a smaller menuselect file starting with:
+#     sudo -u asterisk menuselect/menuselect --enable-all menuselect.makeopts
+# the virtualbox version is used for virtualbox and digital ocean
+/bin/cp -f /vagrant/src/menuselect.makeopts.virtualbox ./menuselect.makeopts
+# virtualbox, digital ocean, and probably all virtual providers disbable native
+# optimizations
+sudo -u asterisk menuselect/menuselect --disable BUILD_NATIVE menuselect.makeopts
+# the ceres version is used for... ceres
+#/bin/cp -f /vagrant/src/menuselect.makeopts.ceres ./menuselect.makeopts
 /bin/cp -f /vagrant/src/menuselect.makedeps ./menuselect.makedeps
 /bin/cp -f /vagrant/src/menuselect-tree ./menuselect-tree
-
-# # alternative, create a smaller menuselect file starting with:
-# sudo -u asterisk menuselect/menuselect --enable-all menuselect.makeopts
-if [ $virtualbox = true ]; then
-    sudo -u asterisk menuselect/menuselect --disable BUILD_NATIVE menuselect.makeopts
-fi
 
 sudo -u asterisk make
 
@@ -138,6 +126,16 @@ find /opt/asterisk -exec chown asterisk:asterisk {} \;
 
 service asterisk stop
 service asterisk start
+
+# setup backups
+adduser backup
+usermod -a -G asterisk backup
+sudo -u backup mkdir /home/backup/.ssh
+sudo -u backup chmod go-rx /home/backup/.ssh
+# if not a devbox:
+# XXX copy backup key to backup's ~/.ssh/authorized_keys
+# XXX would be better to make backup's shell rsync or something
+# XXX backup user can't see /var/log/messages, /etc, /home
 
 # XXX Better take out the vagrant defaults or start with a different base!
 #     vagrant user and keys, ssh port, ssh config? what else?
