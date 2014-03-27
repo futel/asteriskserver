@@ -10,7 +10,7 @@ yum -y groupremove "Storage Availability Tools"
 yum -y remove audit rpcbind selinux-policy selinux-policy-targeted
 
 yum -y install man
-yum -y install vim-enhanced gcc gcc-g++ make automake libtool autoconf
+yum -y install vim-enhanced gcc gcc-c++ make automake libtool autoconf
 yum -y install mlocate lynx cvs git subversion strace ltrace wget lsof tcpdump
 yum -y install openssh openssh-server openssh-clients
 yum -y install openssl-devel
