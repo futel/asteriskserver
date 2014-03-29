@@ -6,18 +6,13 @@ install/config to get an asterisk box.
 
 ## Deploy to virtualbox:
 
-Before making any package, must rm the mac addrs in /etc/udev/rules.d
-After making any package, must run fix_package.sh and make it from that again
-
 # Make boxes and init:
 vagrant box add test_32 http://developer.nrel.gov/downloads/vagrant-boxes/CentOS-6.5-i386-v20140110.box
 vagrant init
 
 # make centos6_32_baseinstall from test_32
 
-# edit Vagrantfile
-config.vm.box = "test_32"
-config.vm.provision :shell, :path => "centos6_32_baseinstall.sh" 
+export vagrantbox=test_32
 vagrant up
 vagrant halt
 vagrant package --base asteriskserver_default_...
@@ -27,9 +22,7 @@ vagrant destroy
 
 # fix and replace centos6_32_baseinstall
 
-# edit Vagrantfile
-config.vm.box = "centos6_32_baseinstall"
-# no bootstrap file, we don't share disk, could do in Vagrantfile though
+export vagrantbox=centos6_32_baseinstall_fix
 vagrant up
 vagrant ssh # and run the commands in fix_package.sh
 vagrant halt
@@ -39,15 +32,24 @@ vagrant box remove centos6_32_baseinstall
 vagrant box add centos6_32_baseinstall ../centos6_32_baseinstall.box
 vagrant destroy
 
-# make asteriskfoo from centos6_32_baseinstall
+# make centos6_32_baseconfig from centos6_32_baseinstall
+export vagrantbox=centos6_32_baseinstall
+vagrant up
+vagrant halt
+vagrant package --base asteriskserver_default_...
+mv package.box ../centos6_32_baseconfig.box
+vagrant box add ../centos6_32_baseconfig ../centos6_32_baseconfig.box
+vagrant destroy
 
+# make asteriskbox from centos6_32_baseinstall
+export vagrantbox=centos6_32_baseconfig
 # edit Vagrantfile
 config.vm.box = "centos6_32_baseinstall"
 config.vm.provision :shell, :path => "bootstrap.sh"
 
 # write secrets files
-# sip_callcentric.conf
-# extensions_secret.conf
+# conf/sip_callcentric.conf
+# conf/extensions_secret.conf
 
 vagrant up
 
@@ -58,11 +60,15 @@ snapshots, which is bogus.
 
 vagrant plugin install vagrant-digitalocean
 # XXX wtf is even in this box
+#     we will want to start with a less vagranty box
 vagrant box add test_32 http://developer.nrel.gov/downloads/vagrant-boxes/CentOS-6.5-i386-v20140110.box
+
+# edit Vagrantfile in ~/.vagrant.d for digital ocean secrets
+# this is bogus, maybe set env vars instead
+config.vm.provider :digital_ocean do |provider| ...
 
 # edit Vagrantfile
 config.vm.box = "digital_ocean"
-config.vm.provider :digital_ocean do |provider| ...
 
 vagrant up --provider=digital_ocean
 vagrant ssh -c "yum -y install rsync"
@@ -76,7 +82,11 @@ vagrant halt; vagrant up; vagrant halt
 # save snapshot centos6_32_baseinstall
 
 # edit Vagrantfile
-config.vm.provision :shell, :path => "bootstrap.sh"
-
+config.vm.provision :shell, :path => "centos6_32_baseconfig.sh" 
 vagrant provision
-# save snapshot bootstrap
+# save snapshot centos6_32_baseconfig
+
+# edit Vagrantfile
+config.vm.provision :shell, :path => "bootstrap.sh"
+vagrant provision
+# save snapshot asteriskbox

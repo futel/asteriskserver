@@ -1,7 +1,9 @@
 #!/usr/bin/env bash
 # bootstrap centos6_32_baseinstall from test_32
+# this does all the package downloading and installing
+# we probably want to store these locally to reduce net and bootstrap time
 
-set -x # print commands as executed
+set -x
 
 yum -y groupremove "FCoE Storage Client"
 yum -y groupremove "iSCSI Storage Client"
@@ -29,4 +31,4 @@ yum -y update
 # /etc/init.d/vboxadd setup
 
 # make sure a virtualbox clone won't try to get old mac addrs after packaging
-rm /etc/udev/rules.d/70-persistent-net.rules
+#rm /etc/udev/rules.d/70-persistent-net.rules

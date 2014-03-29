@@ -121,9 +121,9 @@ cat /vagrant/src/vm_futel_users.inc | sudo -u asterisk tee /opt/asterisk/etc/ast
 
 # write the files that have secrets
 # XXX secrets should refer to an /opt/futel/etc conf file for easier setup
-cat /vagrant/sip_local.conf | sudo -u asterisk tee /opt/asterisk/etc/asterisk/sip_local.conf
-cat /vagrant/sip_callcentric.conf | sudo -u asterisk tee /opt/asterisk/etc/asterisk/sip_callcentric.conf
-cat /vagrant/extensions_secret.conf | sudo -u asterisk tee /opt/asterisk/etc/asterisk/extensions_secret.conf
+cat /vagrant/conf/sip_local.conf | sudo -u asterisk tee /opt/asterisk/etc/asterisk/sip_local.conf
+cat /vagrant/conf/sip_callcentric.conf | sudo -u asterisk tee /opt/asterisk/etc/asterisk/sip_callcentric.conf
+cat /vagrant/conf/extensions_secret.conf | sudo -u asterisk tee /opt/asterisk/etc/asterisk/extensions_secret.conf
 
 # XXX sigh, this can be made unnecessary
 find /opt/asterisk -exec chown asterisk:asterisk {} \;
