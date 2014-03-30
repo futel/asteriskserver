@@ -10,33 +10,6 @@ virtualbox=false
 dmidecode | grep -q 'Product Name:.*VirtualBox' && virtualbox=true
 # XXX remove vagrant stuff like users
 
-# XXX will need more ports for iax2 later - asterisk to asterisk
-# this is ugly but works
-/etc/init.d/iptables stop
-if [ $virtualbox = true ]; then
-    cd /vagrant/src/
-    ./iptables.sh
-	# XXX can do this by rule number
-	iptables -D INPUT -p tcp --dport 42422 -j ACCEPT
-	iptables -A INPUT -p tcp --dport 22 -j ACCEPT
-	service iptables save
-	service iptables restart
-else
-	cd /vagrant/src/
-	./iptables.sh
-	service iptables save
-	service iptables restart
-fi
-# if not virtualbox:
-# XXX add users and access
-# XXX uncomment wheel access in /etc/sudoers
-# XXX edit /etc/ssh/sshd_config
-
-# add non-root user for asterisk
-useradd -m asterisk -s /bin/false
-
-# XXX install dyndns client if necessary?
-
 # install pyst
 cd /tmp
 tar xvf /vagrant/src/pyst-0.6.50.tar.gz
@@ -132,16 +105,6 @@ find /opt/asterisk -exec chown asterisk:asterisk {} \;
 
 service asterisk stop
 service asterisk start
-
-# setup backups
-adduser backup
-usermod -a -G asterisk backup
-sudo -u backup mkdir /home/backup/.ssh
-sudo -u backup chmod go-rx /home/backup/.ssh
-# if not a devbox:
-# XXX copy backup key to backup's ~/.ssh/authorized_keys
-# XXX would be better to make backup's shell rsync or something
-# XXX backup user can't see /var/log/messages, /etc, /home
 
 # XXX Better take out the vagrant defaults or start with a different base!
 #     vagrant user and keys, ssh port, ssh config? what else?
