@@ -59,13 +59,17 @@ vagrant up
 
 ## Deploy to digital ocean
 
+XXX this does not work with non-vagrant users/passwords
+XXX not sure if I'm doing it wrong, may be possible to set up properly with
+XXX vagrantfile config for initial creation; until then, just use bootstrap
+XXX scripts
+
 Since we can't yet package boxes from digital ocean, we will save
 snapshots, which is bogus.
 
 vagrant plugin install vagrant-digitalocean
 # XXX wtf is even in this box
 #     we will want to start with a less vagranty box
-vagrant box add test_32 http://developer.nrel.gov/downloads/vagrant-boxes/CentOS-6.5-i386-v20140110.box
 
 # edit Vagrantfile in ~/.vagrant.d for digital ocean secrets
 # this is bogus, maybe set env vars instead
@@ -73,6 +77,7 @@ config.vm.provider :digital_ocean do |provider| ...
 
 # edit Vagrantfile
 config.vm.box = "digital_ocean"
+config.vm.box_url = "https://github.com/smdahlen/vagrant-digitalocean/raw/master/box/digital_ocean.box"
 
 vagrant up --provider=digital_ocean
 vagrant ssh -c "yum -y install rsync"
