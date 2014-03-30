@@ -3,8 +3,8 @@ VAGRANTFILE_API_VERSION = "2"
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
-  # we only run one machine, but define a name so we can deploy to different
-  # providers
+  # We only run one machine, but define names so we can deploy to different
+  # providers.  If not set, "default", can only use the current provider.
   #config.vm.define "foo"
   #config.vm.define "virtualbox"
 

@@ -53,7 +53,7 @@ vagrant box add centos6_32_baseconfig ../centos6_32_baseconfig.box
 vagrant destroy
 
 # make asteriskbox from centos6_32_baseinstall
-# write secrets files in conf referenced by bootstrap.sh
+# write secrets files in conf referenced by bootstrap.sh and id_rsa id_rsa.pub
 export vagrantbox=centos6_32_baseconfig
 vagrant up
 
