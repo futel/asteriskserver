@@ -4,7 +4,7 @@ We will start with test_32,
 update centos to get centos6_32_baseinstall,
 install/config to get an asterisk box.
 
-## Deploy to virtualbox:
+## Deploy to virtualbox with vagrant:
 
 # Make boxes and init:
 vagrant box add test_32 http://developer.nrel.gov/downloads/vagrant-boxes/CentOS-6.5-i386-v20140110.box
@@ -57,12 +57,11 @@ vagrant destroy
 export vagrantbox=centos6_32_baseconfig
 vagrant up
 
-## Deploy to digital ocean
+## Deploy prod to digital ocean with vagrant
 
 XXX this does not work with non-vagrant users/passwords
 XXX not sure if I'm doing it wrong, may be possible to set up properly with
-XXX vagrantfile config for initial creation; until then, just use bootstrap
-XXX scripts
+XXX vagrantfile config for initial creation?
 
 Since we can't yet package boxes from digital ocean, we will save
 snapshots, which is bogus.
@@ -88,14 +87,38 @@ config.vm.provision :shell, :path => "centos6_32_baseinstall.sh"
 vagrant provision
 # reboot might be necessary since we still do virtualbox interface cleanup
 vagrant halt; vagrant up; vagrant halt
-# save snapshot centos6_32_baseinstall
+# save snapshot centos6_32_baseinstall_prod
 
 # edit Vagrantfile
 config.vm.provision :shell, :path => "centos6_32_baseconfig.sh" 
 vagrant provision
-# save snapshot centos6_32_baseconfig
+# save snapshot centos6_32_baseconfig_prod
 
 # edit Vagrantfile
 config.vm.provision :shell, :path => "bootstrap.sh"
 vagrant provision
-# save snapshot asteriskbox
+# save snapshot asteriskbox_prod
+
+## Deploy prod to digital ocean manually
+
+create extension at callcentric
+
+create droplet
+hostname futel-prod
+size smallest
+region San Francisco 1
+image CentOS 6.5 x32
+ssh key (personal key)
+
+create conf/sip_callcentric.conf.prod conf/sip_local.conf.prod
+
+scp -r conf root@<ip>/tmp
+scp -r src root@<ip>/tmp
+ssh root@<ip> tmp/src/centos6_32_baseinstall.sh
+ssh root@<ip> "reboot now"
+ssh root@<ip> "halt now"
+save snapshot centos6_32_baseinstall_prod
+...XXX
+
+
+
