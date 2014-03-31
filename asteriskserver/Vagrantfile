@@ -12,14 +12,14 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     # boot from test_32 or digital_ocean to centos6_32_baseinstall
     config.vm.box = "test_32"
     #config.vm.box = "digital_ocean"
-    config.vm.provision :shell, :path => "centos6_32_baseinstall.sh" 
+    config.vm.provision :shell, :path => "src/centos6_32_baseinstall.sh" 
   elsif ENV['vagrantbox'] == 'centos6_32_baseinstall_fix'
     # boot from centos6_32_baseinstall and manually fix, see README
     config.vm.box = "centos6_32_baseinstall"
   elsif ENV['vagrantbox'] == 'centos6_32_baseinstall'
     # boot from centos6_32_baseinstall to centos6_32_baseconfig
     config.vm.box = "centos6_32_baseinstall"
-    config.vm.provision :shell, :path => "centos6_32_baseconfig.sh"
+    config.vm.provision :shell, :path => "src/centos6_32_baseconfig.sh"
   elsif ENV['vagrantbox'] == 'centos6_32_baseconfig'
     # boot from centos6_32_baseconfig to asteriskbox
     # # we put ssh on 42422, so override default 2222 guest port if virtualbox
@@ -31,7 +31,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     # config.ssh.guest_port = 42422
     # config.ssh.port = 2222
     config.vm.box = "centos6_32_baseconfig"
-    config.vm.provision :shell, :path => "bootstrap.sh"
+    config.vm.provision :shell, :path => "src/bootstrap.sh"
   end
 
   config.vm.provider :virtualbox do |vb|
