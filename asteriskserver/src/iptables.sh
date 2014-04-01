@@ -11,6 +11,8 @@ iptables -A INPUT -i lo -j ACCEPT
 # XXX this gets resolved, want it to be hostname based
 # XXX should instead have a VPN!
 iptables -A INPUT --src futel2.dyndns.org -j ACCEPT
+# XXX cmon at least get a dyndns address
+iptables -A INPUT -s 67.171.136.104 -j ACCEPT
 # allow established connections
 iptables -A INPUT -m state --state ESTABLISHED,RELATED -j ACCEPT
 # let ssh in
