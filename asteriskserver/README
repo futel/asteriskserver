@@ -34,6 +34,7 @@ vagrant destroy
 # make centos6_32_baseconfig from centos6_32_baseinstall
 export vagrantbox=centos6_32_baseinstall
 vagrant up
+# XXX add address of each sip client to iptables.sh and reprovision
 vagrant halt
 vagrant package --base asteriskserver_default_...
 mv package.box ../centos6_32_baseconfig.box
@@ -101,24 +102,33 @@ vagrant provision
 
 ## Deploy prod to digital ocean manually
 
-create extension at callcentric
-
-create droplet
+all droplets:
 hostname futel-prod
 size smallest
 region San Francisco 1
-image CentOS 6.5 x32
 ssh key (personal key)
+
+create droplet from image CentOS 6.5 x32
+
+create extension at callcentric
 
 create conf/sip_callcentric.conf.prod conf/sip_local.conf.prod
 
-scp -r conf root@<ip>/tmp
-scp -r src root@<ip>/tmp
-ssh root@<ip> tmp/src/centos6_32_baseinstall.sh
+scp -r conf root@<ip>:/tmp
+scp -r src root@<ip>:/tmp
+ssh root@<ip> "ln -s /tmp /vagrant"
+ssh root@<ip> /vagrant/src/centos6_32_baseinstall.sh
+# XXX should delete /tmp/src /tmp/conf
 ssh root@<ip> "reboot now"
 ssh root@<ip> "halt now"
 save snapshot centos6_32_baseinstall_prod
-...XXX
 
-
-
+create droplet from snapshot centos6_32_baseinstall_prod
+# XXX add address of each sip client to src/iptables.sh
+scp -r conf root@<ip>:/tmp
+scp -r src root@<ip>;/tmp
+ssh root@<ip> "ln -s /tmp /vagrant"
+ssh root@<ip> /vagrant/src/centos6_32_baseconfig.sh
+ssh -t -i conf/id_rsa futel@<ip> "sudo rm -rf /tmp/src /tmp/conf"
+ssh -t -i conf/id_rsa futel@<ip> "sudo halt now"
+save snapshot centos6_32_baseconfig_prod
