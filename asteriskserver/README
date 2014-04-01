@@ -126,9 +126,22 @@ save snapshot centos6_32_baseinstall_prod
 create droplet from snapshot centos6_32_baseinstall_prod
 # XXX add address of each sip client to src/iptables.sh
 scp -r conf root@<ip>:/tmp
-scp -r src root@<ip>;/tmp
+scp -r src root@<ip>:/tmp
 ssh root@<ip> "ln -s /tmp /vagrant"
 ssh root@<ip> /vagrant/src/centos6_32_baseconfig.sh
 ssh -t -i conf/id_rsa futel@<ip> "sudo rm -rf /tmp/src /tmp/conf"
 ssh -t -i conf/id_rsa futel@<ip> "sudo halt now"
 save snapshot centos6_32_baseconfig_prod
+
+create droplet from snapshot centos6_32_baseinstall_prod
+# XXX add address of each sip client to src/iptables.sh
+scp -i conf/id_rsa -r conf futel@<ip>:/tmp
+scp -i conf/id_rsa -r src futel@<ip>:/tmp
+ssh -i conf/id_rsa futel@<ip> "sudo ln -s /tmp /vagrant"
+ssh -i conf/id_rsa futel@<ip> "sudo cp /vagrant/conf/sip_local.conf.prod /vagrant/conf/sip_local.conf"
+ssh -i conf/id_rsa futel@<ip> "sudo cp /vagrant/conf/sip_callcentric.conf.prod /vagrant/conf/sip_callcentric.conf"
+ssh -t -i conf/id_rsa futel@<ip> "sudo /vagrant/src/bootstrap.sh"
+# XXX need to service asterisk stop/start again?
+ssh -t -i conf/id_rsa futel@<ip> "sudo rm -rf /tmp/src /tmp/conf"
+ssh -t -i conf/id_rsa futel@<ip> "sudo halt now"
+save snapshot centos6_32_asteriskbox
