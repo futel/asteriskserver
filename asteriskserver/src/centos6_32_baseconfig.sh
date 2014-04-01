@@ -13,7 +13,6 @@ service sshd restart
 service iptables save
 service iptables restart
 
-# if not virtualbox:
 # add a futel user to log in as, and for vagrant commands
 useradd -m futel
 mkdir /home/futel/.ssh
@@ -32,8 +31,10 @@ useradd -m asterisk -s /bin/false
 # add backup user
 adduser backup
 usermod -a -G asterisk backup
-sudo -u backup mkdir /home/backup/.ssh
-sudo -u backup chmod go-rx /home/backup/.ssh
-# XXX add backup user's key on server to local backup's ~/.ssh/authorized_keys
+mkdir /home/backup/.ssh
+cp /vagrant/src/backup_id_rsa.pub /home/backup/.ssh/authorized_keys
+chown -R backup:asterisk /home/backup/.ssh
+chmod -R go-rwx /home/backup/.ssh
+# XXX add backup task to eurydice
 # XXX would be better to make backup's shell rsync or something
 # XXX backup user can't see /var/log/messages, /etc, /home
