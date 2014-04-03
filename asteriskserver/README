@@ -94,6 +94,7 @@ vagrant halt; vagrant up; vagrant halt
 config.vm.provision :shell, :path => "centos6_32_baseconfig.sh" 
 vagrant provision
 # save snapshot centos6_32_baseconfig_prod
+# don't set up backups on eurydice since not deployed
 
 # edit Vagrantfile
 config.vm.provision :shell, :path => "bootstrap.sh"
@@ -132,8 +133,9 @@ ssh root@<ip> /vagrant/src/centos6_32_baseconfig.sh
 ssh -t -i conf/id_rsa futel@<ip> "sudo rm -rf /tmp/src /tmp/conf"
 ssh -t -i conf/id_rsa futel@<ip> "sudo halt now"
 save snapshot centos6_32_baseconfig_prod
+copy src/backup.sh to /etc/cron.d/backup-futel-prod on eurydice
 
-create droplet from snapshot centos6_32_baseinstall_prod
+create droplet from snapshot centos6_32_baseconfig_prod
 # XXX add address of each sip client to src/iptables.sh
 scp -i conf/id_rsa -r conf futel@<ip>:/tmp
 scp -i conf/id_rsa -r src futel@<ip>:/tmp
