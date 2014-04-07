@@ -112,6 +112,7 @@ ssh key (personal key)
 create droplet from image CentOS 6.5 x32
 
 create extension at callcentric
+create DID forwarding rule sending incoming number to extension
 
 create conf/sip_callcentric.conf.prod conf/sip_local.conf.prod
 
