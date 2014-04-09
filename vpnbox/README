@@ -1,0 +1,21 @@
+## Deploy vpnbox to digital ocean manually
+
+all droplets:
+hostname futel-vpnbox
+size smallest
+region San Francisco 1
+ssh key (personal key)
+
+create droplet from snapshot centos6_32_baseinstall_prod
+
+DO_IP=<ip>
+scp -r . root@$DO_IP:/tmp/vagrant
+ssh root@$DO_IP "ln -s /tmp/vagrant /vagrant"
+ssh root@$DO_IP /vagrant/vpnbox/src/vpnbox.sh
+ssh -t -i conf/id_rsa futel@$DO_IP "sudo rm -rf /tmp/src /tmp/conf"
+ssh -t -i conf/id_rsa futel@$DO_IP "sudo halt now"
+save snapshot vpnbox
+
+create droplet from snapshot vpnbox
+
+# XXX update ip in vpnbox/src/client.ovpn
