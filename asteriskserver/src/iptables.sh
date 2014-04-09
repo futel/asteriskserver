@@ -15,7 +15,7 @@ iptables -A INPUT --src futel2.dyndns.org -j ACCEPT
 iptables -A INPUT -s 67.171.136.104 -j ACCEPT
 # allow established connections
 iptables -A INPUT -m state --state ESTABLISHED,RELATED -j ACCEPT
-# let ssh in
+# let ssh in from anywhere
 # XXX would be better to have this on a different port
 #iptables -A INPUT -p tcp --dport 42422 -j ACCEPT
 iptables -A INPUT -p tcp --dport 22 -j ACCEPT

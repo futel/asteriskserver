@@ -82,24 +82,30 @@ config.vm.box_url = "https://github.com/smdahlen/vagrant-digitalocean/raw/master
 vagrant up --provider=digital_ocean
 vagrant ssh -c "yum -y install rsync"
 
-# edit Vagrantfile
-config.vm.provision :shell, :path => "centos6_32_baseinstall.sh" 
+...etc
 
-vagrant provision
-# reboot might be necessary since we still do virtualbox interface cleanup
-vagrant halt; vagrant up; vagrant halt
-# save snapshot centos6_32_baseinstall_prod
+## Deploy vpnbox to digital ocean manually
 
-# edit Vagrantfile
-config.vm.provision :shell, :path => "centos6_32_baseconfig.sh" 
-vagrant provision
-# save snapshot centos6_32_baseconfig_prod
-# don't set up backups on eurydice since not deployed
+all droplets:
+hostname futel-vpnbox
+size smallest
+region San Francisco 1
+ssh key (personal key)
 
-# edit Vagrantfile
-config.vm.provision :shell, :path => "bootstrap.sh"
-vagrant provision
-# save snapshot asteriskbox_prod
+create droplet from snapshot centos6_32_baseinstall_prod
+
+DO_IP=<ip>
+scp -r . root@$DO_IP:/tmp/vagrant
+ssh root@$DO_IP "ln -s /tmp/vagrant /vagrant"
+ssh root@$DO_IP /vagrant/vpnbox/src/vpnbox.sh
+ssh -t -i conf/id_rsa futel@$DO_IP "sudo rm -rf /tmp/src /tmp/conf"
+ssh -t -i conf/id_rsa futel@$DO_IP "sudo halt now"
+save snapshot vpnbox
+
+create droplet from snapshot vpnbox
+
+# XXX update ip in vpnbox/src/client.ovpn
+
 
 ## Deploy prod to digital ocean manually
 
@@ -116,9 +122,8 @@ create DID forwarding rule sending incoming number to extension
 
 create conf/sip_callcentric.conf.prod conf/sip_local.conf.prod
 
-scp -r conf root@<ip>:/tmp
-scp -r src root@<ip>:/tmp
-ssh root@<ip> "ln -s /tmp /vagrant"
+scp -r . root@<ip>:/tmp/vagrant
+ssh root@<ip> "ln -s /tmp/vagrant /vagrant"
 ssh root@<ip> /vagrant/src/centos6_32_baseinstall.sh
 # XXX should delete /tmp/src /tmp/conf
 ssh root@<ip> "reboot now"
@@ -127,9 +132,8 @@ save snapshot centos6_32_baseinstall_prod
 
 create droplet from snapshot centos6_32_baseinstall_prod
 # XXX add address of each sip client to src/iptables.sh
-scp -r conf root@<ip>:/tmp
-scp -r src root@<ip>:/tmp
-ssh root@<ip> "ln -s /tmp /vagrant"
+scp -i conf/id_rsa -r . futel@<ip>:/tmp/vagrant
+ssh -i conf/id_rsa futel@<ip> "sudo ln -s /tmp/vagrant /vagrant"
 ssh root@<ip> /vagrant/src/centos6_32_baseconfig.sh
 ssh -t -i conf/id_rsa futel@<ip> "sudo rm -rf /tmp/src /tmp/conf"
 ssh -t -i conf/id_rsa futel@<ip> "sudo halt now"
@@ -138,9 +142,8 @@ copy src/backup.sh to /etc/cron.d/backup-futel-prod on eurydice
 
 create droplet from snapshot centos6_32_baseconfig_prod
 # XXX add address of each sip client to src/iptables.sh
-scp -i conf/id_rsa -r conf futel@<ip>:/tmp
-scp -i conf/id_rsa -r src futel@<ip>:/tmp
-ssh -i conf/id_rsa futel@<ip> "sudo ln -s /tmp /vagrant"
+scp -i conf/id_rsa -r . futel@<ip>:/tmp/vagrant
+ssh -i conf/id_rsa futel@<ip> "sudo ln -s /tmp/vagrant /vagrant"
 ssh -i conf/id_rsa futel@<ip> "sudo cp /vagrant/conf/sip_local.conf.prod /vagrant/conf/sip_local.conf"
 ssh -i conf/id_rsa futel@<ip> "sudo cp /vagrant/conf/sip_callcentric.conf.prod /vagrant/conf/sip_callcentric.conf"
 ssh -t -i conf/id_rsa futel@<ip> "sudo /vagrant/src/bootstrap.sh"
