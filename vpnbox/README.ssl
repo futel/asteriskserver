@@ -1,0 +1,54 @@
+## set up openvpn keys with openvpn's easy-rsa
+
+# this is where ubuntu puts it, other distros differ
+cp -r /usr/share/doc/openvpn/examples/easy-rsa/ .
+cd easy-rsa/2.0
+ln -s openssl-1.0.0.cnf openssl.cnf
+source ./vars
+
+# set up ca and server
+# some of these are interactive, can we set up args beforehand?
+./build-ca
+./build-key-server server
+cd keys
+cp keys/ca.crt keys/ca.key keys/dh1024.pem keys/server.crt keys/server.csr keys/server.key ~/Documents/futel-installation/vpnbox/conf/
+
+# set up client
+./build-key client
+# set up client.conf
+# give client.crt client.csr client.key client.conf to client
+
+
+## alternative, set up openssl keys with openssl commands
+# XXX I'm supposed to know how to do this, but we're missing something
+
+# create certificate authority
+openssl genrsa -des3 -passout pass:cheese -out ca.key 2048
+openssl rsa -passin pass:cheese -in ca.key -out ca.key
+# XXX enter config including cn futel-ca during this?
+openssl req -new -x509 -days 365 -key ca.key -out ca.crt
+
+# create server key and certificate
+openssl genrsa -des3 -passout pass:cheese -out server.key 2048
+openssl rsa -passin pass:cheese -in server.key -out server.key
+# XXX enter config including cn futel-server during this?
+openssl req -new -key server.key -out server.csr
+#openssl ca -batch -days 365 -in server.csr -out server.crt -keyfile ca.key -cert ca.crt
+openssl x509 -req -days 365 -in server.csr -signkey server.key -out server.crt
+
+# test
+# XXX we are broken, we need to trust the server with the ca
+#     maybe because we skipped the openssl ca step?
+openssl verify -CAfile ca.crt  server.crt
+
+# create diffie-hellman parameters
+openssl dhparam -out dh2048.pem 2048
+
+# create client key and certificate
+#openssl req -days 365 -new  -keyout client.key -out client.csr
+#openssl ca -days 365 -out client.crt -in client.csr
+openssl genrsa -des3 -passout pass:cheese -out client.key 2048
+openssl rsa -passin pass:cheese -in client.key -out client.key
+# XXX enter config including cn futel-client during this?
+openssl req -new -key client.key -out client.csr
+openssl x509 -req -days 365 -in client.csr -CA ca.crt -CAkey ca.key -set_serial 01 -out client.crt

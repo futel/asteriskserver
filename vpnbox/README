@@ -1,5 +1,7 @@
 ## Deploy vpnbox to digital ocean manually
 
+create keys in conf from README.ssl
+
 all droplets:
 hostname futel-vpnbox
 size smallest
@@ -7,15 +9,20 @@ region San Francisco 1
 ssh key (personal key)
 
 create droplet from snapshot centos6_32_baseinstall_prod
+add server and ca keys in conf from README.ssl
 
 DO_IP=<ip>
-scp -r . root@$DO_IP:/tmp/vagrant
-ssh root@$DO_IP "ln -s /tmp/vagrant /vagrant"
-ssh root@$DO_IP /vagrant/vpnbox/src/vpnbox.sh
-ssh -t -i conf/id_rsa futel@$DO_IP "sudo rm -rf /tmp/src /tmp/conf"
-ssh -t -i conf/id_rsa futel@$DO_IP "sudo halt now"
+scp -o StrictHostKeyChecking=no -r . root@$DO_IP:/tmp/vagrant
+ssh -o StrictHostKeyChecking=no root@$DO_IP "ln -s /tmp/vagrant /vagrant"
+ssh -o StrictHostKeyChecking=no root@$DO_IP /vagrant/src/vpnbox.sh
+ssh -o StrictHostKeyChecking=no -t -i conf/id_rsa futel@$DO_IP "sudo rm -rf /tmp/vagrant"
+ssh -o StrictHostKeyChecking=no -t -i conf/id_rsa futel@$DO_IP "sudo halt now"
 save snapshot vpnbox
 
 create droplet from snapshot vpnbox
 
-# XXX update ip in vpnbox/src/client.ovpn
+## set up openvpn client
+# XXX this is really done on the asterisk box
+add client keys and client.conf from README.ssl
+# XXX make this a service
+# cd conf && sudo openvpn --config client.conf
