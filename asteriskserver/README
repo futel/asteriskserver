@@ -99,32 +99,31 @@ create DID forwarding rule sending incoming number to extension
 
 create conf/sip_callcentric.conf.prod conf/sip_local.conf.prod
 
-scp -r . root@<ip>:/tmp/vagrant
-ssh root@<ip> "ln -s /tmp/vagrant /vagrant"
-ssh root@<ip> /vagrant/src/centos6_32_baseinstall.sh
-# XXX should delete /tmp/src /tmp/conf
-ssh root@<ip> "reboot now"
-ssh root@<ip> "halt now"
+DO_IP=<ip>
+scp -o StrictHostKeyChecking=no -r . root@$DO_IP:/tmp/vagrant
+ssh -o StrictHostKeyChecking=no root@$DO_IP /tmp/vagrant/src/centos6_32_baseinstall.sh
+ssh -o StrictHostKeyChecking=no root@$DO_IP "rm -rf /tmp/vagrant"
+ssh -o StrictHostKeyChecking=no root@$DO_IP "halt now"
 save snapshot centos6_32_baseinstall_prod
 
 create droplet from snapshot centos6_32_baseinstall_prod
 # XXX add address of each sip client to src/iptables.sh
-scp -i conf/id_rsa -r . futel@<ip>:/tmp/vagrant
-ssh -i conf/id_rsa futel@<ip> "sudo ln -s /tmp/vagrant /vagrant"
-ssh root@<ip> /vagrant/src/centos6_32_baseconfig.sh
-ssh -t -i conf/id_rsa futel@<ip> "sudo rm -rf /tmp/src /tmp/conf"
-ssh -t -i conf/id_rsa futel@<ip> "sudo halt now"
+scp -o StrictHostKeyChecking=no -i conf/id_rsa -r . futel@$DO_IP:/tmp/vagrant
+ssh -o StrictHostKeyChecking=no -i conf/id_rsa futel@$DO_IP "sudo ln -s /tmp/vagrant /vagrant"
+ssh -o StrictHostKeyChecking=no root@$DO_IP /vagrant/src/centos6_32_baseconfig.sh
+ssh -o StrictHostKeyChecking=no -t -i conf/id_rsa futel@$DO_IP "sudo rm -rf /tmp/vagrant"
+ssh -o StrictHostKeyChecking=no -t -i conf/id_rsa futel@$DO_IP "sudo halt now"
 save snapshot centos6_32_baseconfig_prod
 copy src/backup.sh to /etc/cron.d/backup-futel-prod on eurydice
 
 create droplet from snapshot centos6_32_baseconfig_prod
 # XXX add address of each sip client to src/iptables.sh
-scp -i conf/id_rsa -r . futel@<ip>:/tmp/vagrant
-ssh -i conf/id_rsa futel@<ip> "sudo ln -s /tmp/vagrant /vagrant"
-ssh -i conf/id_rsa futel@<ip> "sudo cp /vagrant/conf/sip_local.conf.prod /vagrant/conf/sip_local.conf"
-ssh -i conf/id_rsa futel@<ip> "sudo cp /vagrant/conf/sip_callcentric.conf.prod /vagrant/conf/sip_callcentric.conf"
-ssh -t -i conf/id_rsa futel@<ip> "sudo /vagrant/src/bootstrap.sh"
+scp -o StrictHostKeyChecking=no -i conf/id_rsa -r . futel@$DO_IP:/tmp/vagrant
+ssh -o StrictHostKeyChecking=no -i conf/id_rsa futel@$DO_IP "sudo ln -s /tmp/vagrant /vagrant"
+ssh -o StrictHostKeyChecking=no -i conf/id_rsa futel@$DO_IP "sudo cp /vagrant/conf/sip_local.conf.prod /vagrant/conf/sip_local.conf"
+ssh -o StrictHostKeyChecking=no -i conf/id_rsa futel@$DO_IP "sudo cp /vagrant/conf/sip_callcentric.conf.prod /vagrant/conf/sip_callcentric.conf"
+ssh -o StrictHostKeyChecking=no -t -i conf/id_rsa futel@$DO_IP "sudo /vagrant/src/bootstrap.sh"
 # XXX need to service asterisk stop/start again?
-ssh -t -i conf/id_rsa futel@<ip> "sudo rm -rf /tmp/src /tmp/conf"
-ssh -t -i conf/id_rsa futel@<ip> "sudo halt now"
+ssh -o StrictHostKeyChecking=no -t -i conf/id_rsa futel@$DO_IP "sudo rm -rf /tmp/src /tmp/conf"
+ssh -o StrictHostKeyChecking=no -t -i conf/id_rsa futel@$DO_IP "sudo halt now"
 save snapshot centos6_32_asteriskbox
