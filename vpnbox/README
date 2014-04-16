@@ -9,11 +9,10 @@ region San Francisco 1
 ssh key (personal key)
 
 create droplet from snapshot centos6_32_baseinstall_prod
-add server and ca keys in conf from README.ssl
+add server and ca keys to conf from README.ssl
 
 DO_IP=<ip>
-scp -o StrictHostKeyChecking=no -r . root@$DO_IP:/tmp/vagrant
-ssh -o StrictHostKeyChecking=no root@$DO_IP "ln -s /tmp/vagrant /vagrant"
+scp -o StrictHostKeyChecking=no -r . root@$DO_IP:/vagrant
 ssh -o StrictHostKeyChecking=no root@$DO_IP /vagrant/src/vpnbox.sh
 ssh -o StrictHostKeyChecking=no -t -i conf/id_rsa futel@$DO_IP "sudo rm -rf /tmp/vagrant"
 ssh -o StrictHostKeyChecking=no -t -i conf/id_rsa futel@$DO_IP "sudo halt now"
