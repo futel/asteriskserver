@@ -1,6 +1,4 @@
-# XXX would be better to have this on a different port
-#Port 42422
-Port 22
+Port 42422
 Protocol 2
 SyslogFacility AUTHPRIV
 PermitRootLogin no
