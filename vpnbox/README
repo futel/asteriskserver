@@ -3,7 +3,7 @@
 create keys in conf from README.ssl
 
 all droplets:
-hostname futel-vpnbox
+hostname vpnbox
 size smallest
 region San Francisco 1
 ssh key (personal key)
@@ -14,8 +14,8 @@ add server and ca keys to conf from README.ssl
 DO_IP=<ip>
 scp -o StrictHostKeyChecking=no -r . root@$DO_IP:/vagrant
 ssh -o StrictHostKeyChecking=no root@$DO_IP /vagrant/src/vpnbox.sh
-ssh -o StrictHostKeyChecking=no -t -i conf/id_rsa futel@$DO_IP "sudo rm -rf /tmp/vagrant"
-ssh -o StrictHostKeyChecking=no -t -i conf/id_rsa futel@$DO_IP "sudo halt now"
+ssh -p42422 -o StrictHostKeyChecking=no -t -i conf/id_rsa futel@$DO_IP "sudo rm -rf /tmp/vagrant"
+ssh -p42422 -o StrictHostKeyChecking=no -t -i conf/id_rsa futel@$DO_IP "sudo halt now"
 save snapshot vpnbox
 
 create droplet from snapshot vpnbox
