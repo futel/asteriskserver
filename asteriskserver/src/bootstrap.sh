@@ -87,15 +87,17 @@ sudo -u asterisk git clone https://github.com/kra/futel-ceres-opt-asterisk-aster
 rm -rf var/lib/asterisk/agi-bin
 sudo -u asterisk git clone https://github.com/lboom/futel-ceres-opt-asterisk-var-lib-asterisk-agi-bin.git var/lib/asterisk/agi-bin
 sudo -u asterisk git clone https://github.com/kra/futel-opt-asterisk-var-lib-asterisk-sounds-futel.git var/lib/asterisk/sounds/futel
-# copy vm_futel_users.inc template
-cat /vagrant/src/vm_futel_users.inc | sudo -u asterisk tee /opt/asterisk/etc/asterisk/vm_futel_users.inc
-# XXX this has an XXXX password for the user in there, can we just keep that
-#     and make it a dummy mbox?  Else edit password.
 
-# write the files that have secrets
+# write the config files
+# XXX this has an XXXX password for the user in there, can we just keep that
+#     and make it a dummy mbox?  Else must include that from a secrets conf?
+cat /vagrant/src/vm_futel_users.inc | sudo -u asterisk tee /opt/asterisk/etc/asterisk/vm_futel_users.inc
+
+# write the config files that are local or have secrets
 # XXX secrets should refer to an /opt/futel/etc conf file for easier setup
 cat /vagrant/conf/sip_local.conf | sudo -u asterisk tee /opt/asterisk/etc/asterisk/sip_local.conf
 cat /vagrant/conf/sip_callcentric.conf | sudo -u asterisk tee /opt/asterisk/etc/asterisk/sip_callcentric.conf
+cat /vagrant/conf/extensions_local.conf | sudo -u asterisk tee /opt/asterisk/etc/asterisk/extensions_local.conf
 cat /vagrant/conf/extensions_secret.conf | sudo -u asterisk tee /opt/asterisk/etc/asterisk/extensions_secret.conf
 
 # XXX sigh, this can be made unnecessary
