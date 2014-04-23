@@ -84,46 +84,33 @@ vagrant ssh -c "yum -y install rsync"
 
 ...etc
 
-## Deploy prod to digital ocean manually
+## Deploy prod or stage to digital ocean manually
 
 all droplets:
-hostname futel-prod
+hostname futel-prod|stage
 size smallest
 region San Francisco 1
 ssh key (personal key)
 
-create droplet from image CentOS 6.5 x32
-
 create extension at callcentric
-create DID forwarding rule sending incoming number to extension
+create DID forwarding rule sending incoming number to extension at callcentric
+(just do this for prod, when promoting stage, change it to new extension)
 
-create conf/sip_callcentric.conf.prod conf/sip_local.conf.prod
+in conf:
+create sip_callcentric.conf sip_local.conf
+create extensions_local.conf extensions_secret.conf
+create id_rsa id_rsa.pub
 
-DO_IP=<ip>
-scp -o StrictHostKeyChecking=no -r . root@$DO_IP:/tmp/vagrant
-ssh -o StrictHostKeyChecking=no root@$DO_IP /tmp/vagrant/src/centos6_32_baseinstall.sh
-ssh -o StrictHostKeyChecking=no root@$DO_IP "rm -rf /tmp/vagrant"
-ssh -o StrictHostKeyChecking=no root@$DO_IP "halt now"
-save snapshot centos6_32_baseinstall_prod
+create droplet from image CentOS 6.5 x32
+src/make_baseinstall.sh <ip>
+save snapshot baseinstall_prod|stage
 
-create droplet from snapshot centos6_32_baseinstall_prod
+create droplet from snapshot baseinstall_prod|stage
 # XXX add address of each sip client to src/iptables.sh
-scp -o StrictHostKeyChecking=no -i conf/id_rsa -r . futel@$DO_IP:/tmp/vagrant
-ssh -o StrictHostKeyChecking=no -i conf/id_rsa futel@$DO_IP "sudo ln -s /tmp/vagrant /vagrant"
-ssh -o StrictHostKeyChecking=no root@$DO_IP /vagrant/src/centos6_32_baseconfig.sh
-ssh -o StrictHostKeyChecking=no -t -i conf/id_rsa futel@$DO_IP "sudo rm -rf /tmp/vagrant"
-ssh -o StrictHostKeyChecking=no -t -i conf/id_rsa futel@$DO_IP "sudo halt now"
-save snapshot centos6_32_baseconfig_prod
+src/make_baseconfig.sh <ip>
+save snapshot baseconfig_prod|stage
 copy src/backup.sh to /etc/cron.d/backup-futel-prod on eurydice
 
-create droplet from snapshot centos6_32_baseconfig_prod
-# XXX add address of each sip client to src/iptables.sh
-scp -o StrictHostKeyChecking=no -i conf/id_rsa -r . futel@$DO_IP:/tmp/vagrant
-ssh -o StrictHostKeyChecking=no -i conf/id_rsa futel@$DO_IP "sudo ln -s /tmp/vagrant /vagrant"
-ssh -o StrictHostKeyChecking=no -i conf/id_rsa futel@$DO_IP "sudo cp /vagrant/conf/sip_local.conf.prod /vagrant/conf/sip_local.conf"
-ssh -o StrictHostKeyChecking=no -i conf/id_rsa futel@$DO_IP "sudo cp /vagrant/conf/sip_callcentric.conf.prod /vagrant/conf/sip_callcentric.conf"
-ssh -o StrictHostKeyChecking=no -t -i conf/id_rsa futel@$DO_IP "sudo /vagrant/src/bootstrap.sh"
-# XXX need to service asterisk stop/start again?
-ssh -o StrictHostKeyChecking=no -t -i conf/id_rsa futel@$DO_IP "sudo rm -rf /tmp/src /tmp/conf"
-ssh -o StrictHostKeyChecking=no -t -i conf/id_rsa futel@$DO_IP "sudo halt now"
-save snapshot centos6_32_asteriskbox
+create droplet from snapshot baseconfig_prod|stage
+src/make_asteriskbox.sh <ip>
+save snapshot asteriskbox_prod|stage
