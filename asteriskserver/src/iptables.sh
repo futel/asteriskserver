@@ -15,13 +15,9 @@ iptables -A INPUT -i lo -j ACCEPT
 # allow established connections
 iptables -A INPUT -m state --state ESTABLISHED,RELATED -j ACCEPT
 
-# allow from each asterisk box and client
-# XXX this gets resolved, want it to be hostname based
-# XXX should instead have a VPN!
-#iptables -A INPUT --src futel2.dyndns.org -j ACCEPT
-# XXX cmon at least get a dyndns address
-# XXX this only needs the asterisk ports
-iptables -A INPUT -s 67.160.151.198 -j ACCEPT
+# allow from the vpn
+# XXX this only needs the asterisk and ssh ports
+iptables -A INPUT -s 107.170.218.225 -j ACCEPT
 # let ssh in from anywhere
 # XXX would be better to have this on a different port
 #iptables -A INPUT -p tcp --dport 42422 -j ACCEPT

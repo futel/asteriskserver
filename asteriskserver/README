@@ -110,7 +110,16 @@ create droplet from snapshot baseinstall_prod|stage
 src/make_baseconfig.sh <ip>
 save snapshot baseconfig_prod|stage
 copy src/backup.sh to /etc/cron.d/backup-futel-prod on eurydice
+XXX need one for stage too
 
 create droplet from snapshot baseconfig_prod|stage
 src/make_asteriskbox.sh <ip>
 save snapshot asteriskbox_prod|stage
+
+## set up client
+
+forward openvpn ports on whatever firewall is between youse
+set up an openvpn router
+http://www.dd-wrt.com/wiki/index.php/VPN_(the_easy_way)_v24%2B#Client_Configuration_-_DD-WRT
+set up pap device
+
