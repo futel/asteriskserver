@@ -1,0 +1,86 @@
+## Deploy a futel asterisk server on 32-bit centos.
+
+We will start with test_32,
+update centos to get centos6_32_baseinstall,
+install/config to get an asterisk box.
+
+## Deploy to virtualbox with vagrant:
+
+# Make boxes and init:
+vagrant box add test_32 http://developer.nrel.gov/downloads/vagrant-boxes/CentOS-6.5-i386-v20140110.box
+vagrant init
+
+# make centos6_32_baseinstall from test_32
+export vagrantbox=test_32
+vagrant up
+vagrant halt
+vagrant package --base asteriskserver_default_...
+mv package.box ../centos6_32_baseinstall.box
+vagrant box add ../centos6_32_baseinstall centos6_32_baseinstall.box
+vagrant destroy
+
+# fix and replace centos6_32_baseinstall without synced files
+export vagrantbox=centos6_32_baseinstall
+vagrant up  --no-provision
+cat src/fix_package.sh | vagrant ssh -c 'cat>/tmp/fix_package.sh'
+vagrant ssh -c 'sudo sh /tmp/fix_package.sh'
+vagrant halt
+vagrant package --base asteriskserver_default_...
+mv package.box ../centos6_32_baseinstall.box
+vagrant box remove centos6_32_baseinstall
+vagrant box add centos6_32_baseinstall ../centos6_32_baseinstall.box
+vagrant destroy
+
+# make centos6_32_baseconfig from centos6_32_baseinstall
+export vagrantbox=centos6_32_baseinstall
+vagrant up
+# XXX add address of each sip client to iptables.sh and reprovision
+vagrant halt
+vagrant package --base asteriskserver_default_...
+mv package.box ../centos6_32_baseconfig.box
+vagrant box add centos6_32_baseconfig ../centos6_32_baseconfig.box
+vagrant destroy
+
+# fix and replace centos6_32_baseconfig without synced files, sigh
+export vagrantbox=centos6_32_baseconfig
+vagrant up --no-provision
+cat src/fix_package.sh | vagrant ssh -c 'cat>/tmp/fix_package.sh'
+vagrant ssh -c 'sudo sh /tmp/fix_package.sh'
+vagrant halt
+vagrant package --base asteriskserver_default_...
+mv package.box ../centos6_32_baseconfig.box
+vagrant box remove centos6_32_baseconfig
+vagrant box add centos6_32_baseconfig ../centos6_32_baseconfig.box
+vagrant destroy
+
+# make asteriskbox from centos6_32_baseinstall
+# write secrets files in conf referenced by bootstrap.sh and id_rsa id_rsa.pub
+export vagrantbox=centos6_32_baseconfig
+vagrant up
+
+## Deploy prod to digital ocean with vagrant
+
+XXX this does not work with non-vagrant users/passwords
+XXX not sure if I'm doing it wrong, may be possible to set up properly with
+XXX vagrantfile config for initial creation?
+
+Since we can't yet package boxes from digital ocean, we will save
+snapshots, which is bogus.
+
+vagrant plugin install vagrant-digitalocean
+# XXX wtf is even in this box
+#     we will want to start with a less vagranty box
+
+# edit Vagrantfile in ~/.vagrant.d for digital ocean secrets
+# this is bogus, maybe set env vars instead
+config.vm.provider :digital_ocean do |provider| ...
+
+# edit Vagrantfile
+config.vm.box = "digital_ocean"
+config.vm.box_url = "https://github.com/smdahlen/vagrant-digitalocean/raw/master/box/digital_ocean.box"
+
+vagrant up --provider=digital_ocean
+vagrant ssh -c "yum -y install rsync"
+
+...etc
+
