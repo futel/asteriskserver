@@ -1,7 +1,7 @@
 #!/bin/sh                                                                       
 # back up futel directories of interest with rsync                              
 
-HOST=
+HOST=futel-prod.phu73l.net
 DIRNAME=prod
 
 REMOTEDIR=/opt/asterisk
