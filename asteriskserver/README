@@ -1,56 +1,58 @@
-## Deploy prod or stage to digital ocean manually
-(normally, deploy stage and promote to prod)
+## Ongoing:
+have futel-vpnbox
+copy src/backup.sh to /etc/cron.d/backup-futel-prod on eurydice
+have a callcentric DID forwarding rule  pointing the incoming number to prod
+have a callcentric DID forwarding rule pointing the VM number to prod
+
+## Deploy stage to digital ocean manually
+(or prod, but normally, deploy stage and promote to prod)
 
 all droplets:
-hostname futel-prod|stage
+hostname futel-stage
 size smallest
 region San Francisco 1
 ssh key (personal key)
 
-create extension at callcentric
-if creating new prod,
-create DID forwarding rule sending incoming number to extension at callcentric
-preferences/did forwarding
-
 in conf:
-create sip_callcentric.conf sip_local.conf
+create sip_callcentric.conf.<conf_version> sip_local.conf.<conf_version>
 create extensions_local.conf extensions_secret.conf
 create id_rsa id_rsa.pub
 
 create droplet from image CentOS 6.5 x32
 src/make_baseinstall.sh <ip>
-save snapshot baseinstall_prod|stage
+save snapshot baseinstall_stage
 
-create droplet from snapshot baseinstall_prod|stage
+create droplet from snapshot baseinstall_stage
 # XXX add address of each sip client to src/iptables.sh
 src/make_baseconfig.sh <ip>
-save snapshot baseconfig_prod|stage
-copy src/backup.sh to /etc/cron.d/backup-futel-prod on eurydice
-XXX need one for stage too
+save snapshot baseconfig_stage
 
-create droplet from snapshot baseconfig_prod|stage
+create droplet from snapshot baseconfig_stage
 src/make_asteriskbox.sh <ip> <conf_version>
-save snapshot asteriskbox_prod|stage
+save snapshot asteriskbox_stage, or don't
 
-create A record for futel-stage
+create or replace A record for new futel-stage
+wait for DNS to propagate
 
 ## promote stage to prod
 
-XXX copy content from prod to stage
-XXX shut down prod, or better just stop content from being added
+if there are any uncheckedin recordings, copy from /opt/asterisk/var/lib/asterisk/sounds/futel from prod to stage, and check in
+src/promote_stage.sh futel-stage.phu73l.net # or ip address if not propagated
 rename futel-stage droplet to futel-prod
 change A record for futel-prod to point to new futel-prod
 delete A record for futel-stage
+shut down old prod
 wait for DNS to propagate # XXX this takes tens of minutes
-update DID forwarding rule sending incoming number to extension at callcentric
-test new prod
+update DID forwarding rule sending incoming prod number to new prod's extension
 snapshot and destroy old futel-prod
 
 ## set up client
 
-XXX forward openvpn ports on whatever firewall is between youse? openvpn makes
+XXX forward asterisk ports on whatever firewall is between youse? openvpn makes
     this unnecessary?
+XXX forward openvpn ports on whatever firewall is between youse?
 set up an openvpn router
 http://www.dd-wrt.com/wiki/index.php/VPN_(the_easy_way)_v24%2B#Client_Configuration_-_DD-WRT
-set up pap device
+set up pap device pointing to futel-prod or futel-stage
+
 
