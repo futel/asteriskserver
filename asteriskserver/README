@@ -42,6 +42,7 @@ rename futel-stage droplet to futel-prod
 change A record for futel-prod to point to new futel-prod
 delete A record for futel-stage
 shut down old prod
+take snapshot futel-prod
 wait for DNS to propagate # XXX this takes tens of minutes
 update DID forwarding rule sending incoming prod number to new prod's extension
 snapshot and destroy old futel-prod
