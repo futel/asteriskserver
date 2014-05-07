@@ -6,7 +6,8 @@ DIRNAME=prod
 
 REMOTEDIR=/opt/asterisk
 KEYFILE=/opt/futel/ssh/id_rsa
-SSHCMD="ssh -i $KEYFILE -p 42422"
+#SSHCMD="ssh -i $KEYFILE -p 42422"
+SSHCMD="ssh -i $KEYFILE"
 USER=backup
 DATE=`date "+%Y-%m"`
 LOCALDIR=/opt/futel/backups/$DIRNAME/$DATE

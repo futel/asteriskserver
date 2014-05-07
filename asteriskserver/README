@@ -1,6 +1,6 @@
 ## Ongoing:
 have futel-vpnbox
-copy src/backup.sh to /etc/cron.d/backup-futel-prod on eurydice
+copy src/backup.sh to /etc/cron.daily/backup-futel-prod on eurydice
 have a callcentric DID forwarding rule  pointing the incoming number to prod
 have a callcentric DID forwarding rule pointing the VM number to prod
 
