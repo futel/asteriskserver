@@ -1,6 +1,7 @@
 ## Ongoing:
 have futel-vpnbox
 copy src/backup.sh to /etc/cron.daily/backup-futel-prod on eurydice
+
 have a callcentric DID forwarding rule  pointing the incoming number to prod
 have a callcentric DID forwarding rule pointing the VM number to prod
 
@@ -13,6 +14,9 @@ size smallest
 region San Francisco 1
 ssh key (personal key)
 
+SSH into prod to find out what conf version is being used:
+ssh -o StrictHostKeyChecking=no -t -i conf/id_rsa futel@futel-prod.phu73l.net
+
 in conf:
 create sip_callcentric.conf.<conf_version> sip_local.conf.<conf_version>
 create extensions_local.conf extensions_secret.conf
@@ -23,7 +27,6 @@ src/make_baseinstall.sh <ip>
 save snapshot baseinstall_stage
 
 create droplet from snapshot baseinstall_stage
-# XXX add address of each sip client to src/iptables.sh
 src/make_baseconfig.sh <ip>
 save snapshot baseconfig_stage
 
@@ -36,16 +39,19 @@ wait for DNS to propagate
 
 ## promote stage to prod
 
+make a snapshot of prod XXX short downtime
 if there are any uncheckedin recordings, copy from /opt/asterisk/var/lib/asterisk/sounds/futel from prod to stage, and check in
 src/promote_stage.sh futel-stage.phu73l.net # or ip address if not propagated
+rename futel-prod droplet to futel-prod-back
 rename futel-stage droplet to futel-prod
 change A record for futel-prod to point to new futel-prod
-delete A record for futel-stage
-shut down old prod
-take snapshot futel-prod
-wait for DNS to propagate # XXX this takes tens of minutes
+change A record for futel-stage to point to old futel-prod
+wait for DNS to propagate
+# XXX DNS takes hours, which is probably OK if SIP devices are talking to 
+      hostnames, but incoming calls won't go to the right place
 update DID forwarding rule sending incoming prod number to new prod's extension
-snapshot and destroy old futel-prod
+test futel-prod
+shut down, destroy droplet futel-prod-back
 
 ## set up client
 
