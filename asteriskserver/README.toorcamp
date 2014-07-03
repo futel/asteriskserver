@@ -1,0 +1,30 @@
+install asteriskbox on local box for toorcamp
+
+start with centos 6.5 32bit
+
+create sip_local.conf and sip_callcentric.conf
+
+cp -r futel-installation /tmp
+ln -s /tmp/futel-installation/asteriskserver /tmp/vagrant
+
+/tmp/vagrant/src/centos6_32_baseinstall.sh
+
+# XXX this does not do iptables
+/tmp/vagrant/src/centos6_32_baseconfig_toorcamp.sh
+
+ln -s /tmp/vagrant /vagrant
+export conf_version=persephone
+# XXX extern_ip for sip_local.conf
+cp /vagrant/conf/sip_local.conf.$conf_version /vagrant/conf/sip_local.conf
+cp /vagrant/conf/sip_callcentric.conf.$conf_version /vagrant/conf/sip_callcentric.conf
+chown -Rv asterisk:asterisk /tmp/futel-installation
+as user futel
+/vagrant/src/bootstrap.sh
+
+# XXX
+# update sip_callcentric.conf.persephone to point to new sip provider
+# update sip.conf to point to new sip provider
+
+# XXX remove ~/futel-installation afore we get hack'd
+# XXX reboot now?
+
