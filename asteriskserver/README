@@ -61,5 +61,9 @@ XXX forward openvpn ports on whatever firewall is between youse?
 set up an openvpn router
 http://www.dd-wrt.com/wiki/index.php/VPN_(the_easy_way)_v24%2B#Client_Configuration_-_DD-WRT
 set up pap device pointing to futel-prod or futel-stage
+proxy/outbound proxy pointing to asterisk domain name
+extension/user ID 668
+password
+
 
 
