@@ -25,10 +25,3 @@ yum -y update
 # install epel
 # why do we need this again?
 # rpm -Uvh http://download.fedoraproject.org/pub/epel/6/i386/epel-release-6-8.noarch.rpm
-
-# must update virtualbox tools after update
-# XXX this needs to be done after booting the new box
-# /etc/init.d/vboxadd setup
-
-# make sure a virtualbox clone won't try to get old mac addrs after packaging
-#rm /etc/udev/rules.d/70-persistent-net.rules
