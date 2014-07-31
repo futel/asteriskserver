@@ -31,7 +31,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     # config.ssh.guest_port = 42422
     # config.ssh.port = 2222
     config.vm.box = "centos6_32_baseconfig"
-    config.vm.provision :shell, :path => "src/bootstrap.sh"
+    config.vm.provision :shell, :path => "src/bootstrap.sh",
+                        :args => "virtualbox"
   end
 
   config.vm.provider :virtualbox do |vb|

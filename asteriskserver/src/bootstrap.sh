@@ -3,6 +3,11 @@
 
 set -x # print commands as executed
 
+conf_version=$1
+
+cp /vagrant/conf/sip_local.conf.$conf_version /vagrant/conf/sip_local.conf
+cp /vagrant/conf/sip_callcentric.conf.$conf_version /vagrant/conf/sip_callcentric.conf
+
 # Are we in a virtualbox?  Should just have vagrant send this as an arg.
 # Wasn't able to pass the value of config.vm.provider, but could just set it
 # manually.
@@ -89,8 +94,6 @@ sudo -u asterisk git clone https://github.com/lboom/futel-ceres-opt-asterisk-var
 sudo -u asterisk git clone https://github.com/kra/futel-opt-asterisk-var-lib-asterisk-sounds-futel.git var/lib/asterisk/sounds/futel
 
 # write the config files
-# XXX this has an XXXX password for the user in there, can we just keep that
-#     and make it a dummy mbox?  Else must include that from a secrets conf?
 cat /vagrant/src/vm_futel_users.inc | sudo -u asterisk tee /opt/asterisk/etc/asterisk/vm_futel_users.inc
 
 # write the config files that are local or have secrets
