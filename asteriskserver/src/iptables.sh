@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# how to set up /etc/sysconfig/iptables on ceres
+# how to set up /etc/sysconfig/iptables on an asteriskbox instance
 # do this and then service iptables save
 
 # clear all
@@ -16,6 +16,7 @@ iptables -A INPUT -i lo -j ACCEPT
 iptables -A INPUT -m state --state ESTABLISHED,RELATED -j ACCEPT
 
 # allow from the vpn
+# XXX use futel-vpnbox.phu73l.net
 # XXX this only needs the asterisk and ssh ports
 iptables -A INPUT -s 107.170.218.225 -j ACCEPT
 # let ssh in from anywhere
