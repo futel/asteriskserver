@@ -60,7 +60,7 @@ vagrant destroy
 export vagrantbox=centos6_32_baseconfig
 vagrant up
 
-# XXX may want openvpn client if no router?
+# to install optional openvpn client from VM
 rpm -Uvh http://download.fedoraproject.org/pub/epel/6/i386/epel-release-6-8.noarch.rpm
 yum install openvpn
 copy conf from vpnbox
