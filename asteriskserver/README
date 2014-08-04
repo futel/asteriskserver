@@ -19,7 +19,7 @@ ssh -o StrictHostKeyChecking=no -t -i conf/id_rsa futel@futel-prod.phu73l.net
 
 in conf:
 create sip_callcentric.conf.<conf_version> sip_local.conf.<conf_version>
-create extensions_local.conf extensions_secret.conf
+create sip_secret.conf extensions_local.conf extensions_secret.conf
 create id_rsa id_rsa.pub
 
 create droplet from image CentOS 6.5 x32

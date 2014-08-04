@@ -7,15 +7,3 @@ register =>
 defaultuser=
 fromuser=
 secret=
-
-; 666: sip box at elijah's house
-[666](+)
-secret=
-
-; 667: sip box at karl's house
-[667](+)
-secret=
-
-; 668: sip box at karl's house
-[668](+)
-secret=

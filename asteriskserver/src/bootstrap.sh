@@ -97,9 +97,10 @@ sudo -u asterisk git clone https://github.com/kra/futel-opt-asterisk-var-lib-ast
 cat /vagrant/src/vm_futel_users.inc | sudo -u asterisk tee /opt/asterisk/etc/asterisk/vm_futel_users.inc
 
 # write the config files that are local or have secrets
-# XXX secrets should refer to an /opt/futel/etc conf file for easier setup
+# maybe secrets should refer to an /opt/futel/etc conf file for easier setup
 cat /vagrant/conf/sip_local.conf | sudo -u asterisk tee /opt/asterisk/etc/asterisk/sip_local.conf
 cat /vagrant/conf/sip_callcentric.conf | sudo -u asterisk tee /opt/asterisk/etc/asterisk/sip_callcentric.conf
+cat /vagrant/conf/sip_secret.conf | sudo -u asterisk tee /opt/asterisk/etc/asterisk/sip_secret.conf
 cat /vagrant/conf/extensions_local.conf | sudo -u asterisk tee /opt/asterisk/etc/asterisk/extensions_local.conf
 cat /vagrant/conf/extensions_secret.conf | sudo -u asterisk tee /opt/asterisk/etc/asterisk/extensions_secret.conf
 
