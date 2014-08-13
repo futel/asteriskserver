@@ -13,7 +13,6 @@ cp /vagrant/conf/sip_callcentric.conf.$conf_version /vagrant/conf/sip_callcentri
 # manually.
 virtualbox=false
 dmidecode | grep -q 'Product Name:.*VirtualBox' && virtualbox=true
-# XXX remove vagrant stuff like users
 
 # install pyst
 cd /tmp
@@ -94,6 +93,7 @@ sudo -u asterisk git clone https://github.com/lboom/futel-ceres-opt-asterisk-var
 sudo -u asterisk git clone https://github.com/kra/futel-opt-asterisk-var-lib-asterisk-sounds-futel.git var/lib/asterisk/sounds/futel
 
 # write the config files
+# XXX just put this in the etc/asterisk repo
 cat /vagrant/src/vm_futel_users.inc | sudo -u asterisk tee /opt/asterisk/etc/asterisk/vm_futel_users.inc
 
 # write the config files that are local or have secrets
@@ -111,7 +111,3 @@ find /opt/asterisk -exec chown asterisk:asterisk {} \;
 
 service asterisk stop
 service asterisk start
-
-# XXX Better take out the vagrant defaults or start with a different base!
-#     vagrant user and keys, ssh port, ssh config? what else?
-#     Probably better to start with a less-vagranty base box?

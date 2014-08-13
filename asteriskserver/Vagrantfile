@@ -11,7 +11,6 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   if ENV['vagrantbox'] == 'test_32'
     # boot from test_32 or digital_ocean to centos6_32_baseinstall
     config.vm.box = "test_32"
-    #config.vm.box = "digital_ocean"
     config.vm.provision :shell, :path => "src/centos6_32_baseinstall.sh" 
   elsif ENV['vagrantbox'] == 'centos6_32_baseinstall_fix'
     # boot from centos6_32_baseinstall and manually fix, see README
