@@ -1,0 +1,199 @@
+[general]
+static=yes
+writeprotect=no
+clearglobalvars=no
+
+[globals]
+TRUNK=DAHDI/G2					; Trunk interface
+
+[from-callcentric]
+; set variable to the number called, in SIP_HEADER(To)
+; callcentric gives this as the number called
+; ipkall forwards to callcentric, so gives this as the callcentric sip number
+;exten => s,1,Set(caller=${CUT(CUT(SIP_HEADER(To),@,1),:,2)})
+same => n,Goto(routing-menu,s,1)
+
+[routing-menu]
+; route to appropriate menu based on call origin
+; ring phone on number given as outgoing call ID
+; callcentric rings phone
+;exten => s,1,gotoIf($["${caller}" = "18452055004"]?ring)
+;lexten => s,n,gotoIf($["${caller}" = "19142366071"]?ring)
+; callcentric goes to VM number
+;exten => s,n,gotoIf($["${caller}" = "19142366071"]?menu)
+; everything rings phone
+exten => s,1,Goto(incoming-ring,s,1)
+; any sip forwarded to callcentric goes to VM number
+;exten => s,n,gotoIf($["${caller}" = "17772732286"]?menu)
+; first given will be what will fall through
+;exten => s,n(menu),Goto(incoming-menu,s,1)
+;exten => s,n(ring),Goto(incoming-ring,s,1)
+
+[incoming-ring]
+; ring the phone
+exten => s,1,Dial(SIP/${incoming_extension},300)
+
+[outgoingdialtone]
+; dialtone that lets us make a domestic call only
+; block these, but this prevents failure on first bad digit
+;exten => _1900XXXXXXX,1,Busy
+;exten => _1976XXXXXXX,1,Busy
+; send these to dialplan
+exten => _1[2-8]XXNXXXXXX,1,Dial(SIP/${EXTEN}@callcentric)
+exten => _[2-8]XXNXXXXXX,1,Dial(SIP/1${EXTEN}@callcentric)
+exten => _1[2-9][1-9]XNXXXXXX,1,Dial(SIP/${EXTEN}@callcentric)
+exten => _[2-9][1-9]XNXXXXXX,1,Dial(SIP/1${EXTEN}@callcentric)
+; send any three digit extension to local
+exten => _XXX,1,Dial(SIP/${EXTEN})
+
+; XXX this is misnamed, it's the outgoing context to send the user to
+;     picked up
+[to-callcentric]
+exten => 999,1,Goto(outgoing-menu,s,1)
+
+[macro-say]
+    exten => s,1,Set(dir=/opt/asterisk/var/lib/asterisk/sounds/futel/recordings/karl_baz/)
+    exten => s,2,Background(${dir}${ARG1})
+
+[outgoing-menu]
+   exten => s,1,Answer(500)
+   same => n,WaitExten(0.25)
+   same => n,Macro(say,welcome-to-fewtel)
+   ;same => n,Macro(say,this-phone-cannot-be-used-to-dial-9-1-1)
+   same => n,Macro(say,to-make-a-call)
+   same => n,Macro(say,press-one)
+   same => n,Macro(say,for-voicemail)
+   same => n,Macro(say,press-two)
+   same => n,Macro(say,for-the-directory)
+   same => n,Macro(say,press-three)
+   ;
+   same => n,Macro(say,for-the-geiger-counter)
+   same => n,Macro(say,press-four)
+   ;
+   same => n,Macro(say,for-the-operator)
+   same => n,Macro(say,press-zero)
+   same => n,WaitExten(0.25)
+   same => n,Goto(2)
+   exten => 1,1,Goto(outgoing-ivr,s,1)
+   exten => 2,1,Goto(voicemail-ivr,s,1)
+   exten => 3,1,Goto(directory-ivr,s,1)
+   exten => 4,1,AGI(read_geiger.agi)
+   exten => 0,1,Goto(operator-ivr,s,1)
+   ; secret recording menu
+   exten => 9,1,Goto(record,s,1)
+
+[incoming-menu]
+    exten => s,1,Answer(500)
+    same => n,WaitExten(0.25)
+    same => n,Macro(say,welcome-to-fewtel)
+    same => n,Macro(say,to-check-your-voicemail)
+    same => n,Macro(say,press-one)
+    same => n,Macro(say,to-leave-a-voicemail)
+    same => n,Macro(say,press-two)
+    same => n,WaitExten(0.25)
+    same => n,Goto(2)
+    ; check voicemail
+    exten => 1,1,VoiceMailMain()
+    ; leave voicemail
+    exten => 2,1,VoiceMail()
+    ; secret admin menu
+    exten => 8,1,Goto(incoming-admin-ivr,s,1)
+    ; secret recording menu
+    exten => 9,1,Goto(record,s,1)
+
+[incoming-admin-ivr]
+    exten => s,1,Authenticate(${admin_password})
+    same => n,Wait(0.25)	;avoid digits leaking into next menu
+    same => n,Goto(outgoing-menu,s,1)
+
+[outgoing-ivr]
+   exten => s,1,DISA(no-password,outgoingdialtone)
+
+[voicemail-ivr]
+    exten => s,1,WaitExten(0.25)
+    same => n,Macro(say,to-check-your-voicemail)
+    same => n,Macro(say,press-one)
+    same => n,Macro(say,to-create-a-new-voicemail-box)
+    same => n,Macro(say,press-two)
+    same => n,Macro(say,to-leave-a-voicemail)
+    same => n,Macro(say,press-three)
+    same => n,WaitExten(0.25)
+    same => n,Goto(1)
+    ; check voicemail
+    exten => 1,1,VoiceMailMain()
+    ; create vm
+    exten => 2,1,AGI(next_vm.agi)
+    same => n,system(/opt/asterisk/sbin/asterisk -x "voicemail reload")
+    same => n,VoiceMailMain(${vmbox})
+    ; leave voicemail
+    exten => 3,1,VoiceMail()
+        
+[directory-ivr]
+    exten => s,1,WaitExten(0.25)
+    ;same => n,Macro(say,for-the-mayor)
+    ;same => n,Macro(say,press-one)
+    same => n,Macro(say,to-apologize)
+    same => n,Macro(say,press-two)
+    ;same => n,Macro(say,for-the-weather-forcast)
+    ;same => n,Macro(say,press-three)
+    ;same => n,Macro(say,for-amtrak)
+    ;same => n,Macro(say,press-four)
+    ;same => n,Macro(say,for-the-trymet-transit-tracker)
+    ;same => n,Macro(say,press-five)
+    same => n,Macro(say,to-access-your-multnomah-county-library-account)
+    same => n,Macro(say,press-six)
+    same => n,Macro(say,for-the-collectors-net-inbound-portal)
+    same => n,Macro(say,press-seven)
+    same => n,Macro(say,for-lance-e-pants)
+    same => n,Macro(say,press-eight)
+    ;same => n,Macro(say,for-the-mutant-message-service)
+    ;same => n,Macro(say,press-nine)
+    same => n,WaitExten(0.25)
+    same => n,Goto(1)
+    exten => 1,1,Goto(mayor-vm,s,1)
+    exten => 2,1,Goto(apology-line,s,1)
+    ;exten => 3,1,Goto(dial-a-forecast,s,1)
+    ;exten => 4,1,Goto(ask-julie-amtrak,s,1)
+    exten => 5,1,Goto(trimet-transit-tracker,s,1)
+    exten => 6,1,Goto(lib-account-line,s,1)
+    exten => 7,1,Goto(cnet-portal,s,1)
+    exten => 8,1,Goto(lance-e-pants,s,1)
+    ;exten => 9,1,Goto(mutant-message-service,s,1)
+  
+; directory
+[mayor-vm]
+	exten => s,1,Dial(SIP/callcentric/15038234740,300,)
+
+[apology-line]
+	exten => s,1,Dial(SIP/callcentric/13472012446,300,)
+
+; [dial-a-forecast]
+; 	exten => s,1,Dial(SIP/callcentric/15032619246,300,)
+
+[record]
+    exten => s,1,AGI(record.agi)
+
+[trimet-transit-tracker]
+	exten => s,1,Dial(SIP/callcentric/15032387433,300,)
+
+[lib-account-line]
+	exten => s,1,Dial(SIP/callcentric/15039885342,300,)
+
+[cnet-portal]
+	exten => s,1,Dial(SIP/callcentric/12062036610,300,)
+
+[lance-e-pants]
+	exten => s,1,Dial(SIP/callcentric/${e_pants},300,)
+
+[operator-ivr]
+;exten => s,1,Dial(${operator_string},300,)
+;exten => 129,1,Playback(some_announce) ; Important, see notes
+;exten => s,1,Queue(operator,tT,,,300) ;dont set n option until really needed
+exten => s,1,Queue(operator,n,,300)
+;exten => 129,3,Playback(some_announce_after_leaving_queue)
+;same => n,Voicemail(s1234)
+same => n,Macro(say,goodbye)
+
+#include extensions_secret.conf
+#include extensions_local.conf
+
