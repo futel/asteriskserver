@@ -93,10 +93,6 @@ rm -rf /opt/asterisk/var/lib/asterisk/agi-bin
 sudo -u asterisk git clone https://github.com/lboom/futel-ceres-opt-asterisk-var-lib-asterisk-agi-bin.git /opt/asterisk/var/lib/asterisk/agi-bin
 sudo -u asterisk git clone https://github.com/kra/futel-opt-asterisk-var-lib-asterisk-sounds-futel.git /opt/asterisk/var/lib/asterisk/sounds/futel
 
-# write the config files
-# XXX just put this in the etc/asterisk repo
-cat /vagrant/src/vm_futel_users.inc | sudo -u asterisk tee /opt/asterisk/etc/asterisk/vm_futel_users.inc
-
 # write the config files that are local or have secrets
 # maybe secrets should refer to an /opt/futel/etc conf file for easier setup
 cat /vagrant/conf/sip_local.conf | sudo -u asterisk tee /opt/asterisk/etc/asterisk/sip_local.conf
