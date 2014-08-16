@@ -78,6 +78,10 @@ make config # as root
 sudo -u asterisk cp /vagrant/src/safe_asterisk /opt/asterisk/sbin
 chown asterisk:asterisk /opt/asterisk/sbin/safe_asterisk
 
+# copy asterisk conf into the asterisk tree
+rm -rf /opt/asterisk/etc/asterisk
+sudo -u asterisk cp -r /vagrant/src/etc-asterisk /opt/asterisk/etc/asterisk
+
 # add the git host key so we can clone
 mkdir /home/asterisk/.ssh
 chown asterisk:asterisk /home/asterisk/.ssh
@@ -85,12 +89,9 @@ cat /vagrant/src/known_hosts | sudo -u asterisk tee -a /home/asterisk/.ssh/known
 chmod go-rwx /home/asterisk/.ssh
 
 # clone the git repos into the asterisk tree
-cd /opt/asterisk
-rm -rf etc/asterisk
-sudo -u asterisk git clone https://github.com/kra/futel-ceres-opt-asterisk-asterisk.git etc/asterisk
-rm -rf var/lib/asterisk/agi-bin
-sudo -u asterisk git clone https://github.com/lboom/futel-ceres-opt-asterisk-var-lib-asterisk-agi-bin.git var/lib/asterisk/agi-bin
-sudo -u asterisk git clone https://github.com/kra/futel-opt-asterisk-var-lib-asterisk-sounds-futel.git var/lib/asterisk/sounds/futel
+rm -rf /opt/asterisk/var/lib/asterisk/agi-bin
+sudo -u asterisk git clone https://github.com/lboom/futel-ceres-opt-asterisk-var-lib-asterisk-agi-bin.git /opt/asterisk/var/lib/asterisk/agi-bin
+sudo -u asterisk git clone https://github.com/kra/futel-opt-asterisk-var-lib-asterisk-sounds-futel.git /opt/asterisk/var/lib/asterisk/sounds/futel
 
 # write the config files
 # XXX just put this in the etc/asterisk repo
