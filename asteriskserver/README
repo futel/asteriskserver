@@ -15,12 +15,12 @@ region San Francisco 1
 ssh key (personal key)
 
 SSH into prod to find out what conf version is being used:
-ssh -o StrictHostKeyChecking=no -t -i conf/id_rsa futel@futel-prod.phu73l.net
+ssh -o StrictHostKeyChecking=no -t -i conf/id_rsa futel@futel-prod.phu73l.net 'grep "foo\|bar" /opt/asterisk/etc/asterisk/sip_local.conf /opt/asterisk/etc/asterisk/sip_callcentric.conf'
 
-in conf:
-create sip_callcentric.conf.<conf_version> sip_local.conf.<conf_version>
-create sip_secret.conf extensions_local.conf extensions_secret.conf
-create id_rsa id_rsa.pub
+in conf, create or have:
+sip_callcentric.conf.<conf_version> sip_local.conf.<conf_version>
+sip_secret.conf extensions_local.conf extensions_secret.conf
+id_rsa id_rsa.pub
 
 create droplet from image CentOS 6.5 x32
 src/make_baseinstall.sh <ip>
