@@ -1,0 +1,86 @@
+#!/usr/bin/env python
+
+from asterisk import *
+import util
+
+agi = agi.AGI()
+
+ASTERISK_DIR = '/opt/asterisk/etc/asterisk'
+VM_USER_FILE = 'vm_futel_users.inc'
+
+def next_vm():
+    """ return the next voicemailbox number """
+    # XXX assume one exists!  Should default to 1000
+    vfile = '/'.join((ASTERISK_DIR, VM_USER_FILE))
+    # XXX do this smarter to not have the entire user file in memory
+    vfile = open(vfile)
+    lines = vfile.readlines()
+    lastline = lines[-1]
+    fields = lastline.split()
+    last_mailbox = int(fields[0]) + 1
+    return last_mailbox
+
+def write_vm(vmbox, password):
+    """ Create a voicemailbox line. """
+    agi.verbose(
+        'Creating voicemailbox %s with password %s' % (vmbox, password))
+    vmline = (
+        '%s => %s,,,,attach=no|saycid=no|envelope=no|delete=no\n' %
+        (vmbox, password))
+    vfile = '/'.join((ASTERISK_DIR, VM_USER_FILE))
+    vfile = open(vfile, 'a')
+    vfile.write(vmline)
+    vfile.close()
+
+def get_pw():
+    """ Collect a 4-digit password from the user and return it. """
+    def _get_pw():
+        # XXX nonoptimal, there should be better input help -
+        #     don't collect partial passwords, say help when user waits.
+        #     For now, block forever
+        TIMEOUT=-1
+        util.say(agi, 'enter-a-four-digit-password-for-your-voicemail-box')
+        digit_0 = agi.wait_for_digit(timeout=TIMEOUT)
+        digit_1 = agi.wait_for_digit(timeout=TIMEOUT)
+        digit_2 = agi.wait_for_digit(timeout=TIMEOUT)
+        digit_3 = agi.wait_for_digit(timeout=TIMEOUT)
+        digits = ''.join((digit_0, digit_1, digit_2, digit_3))        
+        return(digits)
+    pw = ''
+    while not pw:
+        agi.verbose('collecting password')
+        pw = _get_pw()
+    agi.verbose('got password %s' % pw)
+    return pw
+
+def say_pw(digits):
+    """ Say the password. """
+    util.say(agi, 'your-password-is')
+    agi.say_digits(digits)    
+    util.say(agi, 'again')
+    util.say(agi, 'your-password-is')
+    agi.say_digits(digits)
+
+def say_vmbox(digits):
+    """ Say the voice mail box. """
+    util.say(agi, 'your-voicemail-box-is')
+    agi.say_digits(digits)    
+    util.say(agi, 'again')
+    util.say(agi, 'your-voicemail-box-is')
+    agi.say_digits(digits)
+
+def say_next():
+    util.say(agi, 'you-will-now-experience-the-voicemail-menu')
+        
+def main():
+    password = get_pw()
+    say_pw(password)
+    vmbox = next_vm()
+    agi.set_variable("vmbox", int(vmbox))
+    say_vmbox(vmbox)    
+    write_vm(vmbox, password)
+    say_next()
+
+agi.answer()
+util.agi_tracebacker(agi, main)
+#agi.hangup()

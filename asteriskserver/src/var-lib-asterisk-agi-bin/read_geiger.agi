@@ -1,0 +1,149 @@
+#!/usr/bin/env python
+"""
+Read geiger counter output.
+"""
+
+from asterisk import *
+import util
+import time
+
+agi = agi.AGI()
+
+#GEIGER_PIPE = '/tmp/pipe'
+GEIGER_PIPE = '/dev/ttyUSB0'
+
+# http://radiationsurvival.blogspot.com/
+# 1 Sv will cause illness and risk serious health problems or death
+# 1-2 nausea, headache, 5% death
+# 3-6 + vomiting, cognitive issues, 50% death
+# 6-8 100% dead in 7 days
+# 30+ 100% dead immediately
+# 4 sieverts = half will die
+# 10 sieverts = almost all will die
+# avg public exposure 0.26 uSv/hr
+# avg nuclear worker exposure 3-25 uSv/hr
+
+# uSv/hr is cumulative over an hour?
+# 500 CPM = 0.5 mR/hr milliRad
+# 1 rem = 0.01 Sv
+# 120 CPM = 1 uSv/hr
+# 2 CPS = 1 uSv/hr
+# 100 CPM = 1 uSv/hr?
+# 1 CPM = 0.01 uSv/hr?
+# 1 CPS = 60 CPM = 0.6 uSv/hr?
+
+
+# thank you http://codereview.stackexchange.com/questions/39183/python-converter-number-to-english
+NUMBER_WORDS = {
+    0 : "zero",
+    1 : "one",
+    2 : "two",
+    3 : "three",
+    4 : "four",
+    5 : "five",
+    6 : "six",
+    7 : "seven",
+    8 : "eight",
+    9 : "nine",
+    10 : "ten",
+    11 : "eleven",
+    12 : "twelve",
+    13 : "thirteen",
+    14 : "fourteen",
+    15 : "fifteen",
+    16 : "sixteen",
+    17 : "seventeen",
+    18 : "eighteen",
+    19 : "nineteen",
+    20 : "twenty",
+    30 : "thirty",
+    40 : "forty",
+    50 : "fifty",
+    60 : "sixty",
+    70 : "seventy",
+    80 : "eighty",
+    90 : "ninety"
+}
+def int_to_words(num):
+    #Works up to 99,999
+    num = str(num)
+    analyze = 0
+    postfix = remainder = None
+    string = ""
+    if len(num) > 4:
+        analyze = int(num[0:2])
+        remainder = num[2:]
+        postfix = " thousand "
+    elif len(num) > 3:
+        analyze = int(num[0:1])
+        remainder = num[1:]
+        postfix = " thousand "
+    elif len(num) > 2:
+        analyze = int(num[0:1])
+        remainder = num[1:]
+        postfix = " hundred "
+        #if int(remainder) > 0:
+        #    postfix += "and "
+    elif int(num) in NUMBER_WORDS:
+        analyze = int(num)
+    else:
+        analyze = int(num[0:1] + "0")
+        remainder = num[1:]
+        postfix = "-"
+    string = NUMBER_WORDS[analyze]
+    if postfix is not None:
+        string += postfix
+    if remainder is not None and int(remainder) > 0:
+        return string + int_to_words(remainder)
+    else:
+        return string
+
+def get_counter_cpss(agi, num=10, err=5):
+    """
+    Return num counter lines, or raise if err errors are hit before num
+    lines are found.
+    """
+    with open(GEIGER_PIPE) as geiger_file:
+        while num:
+            line = geiger_file.readline().strip()
+            if line:
+                util.say(agi, 'scanning')
+                try:
+                    yield line_to_cps(line)
+                    num -= 1
+                except:
+                    err -= 1
+                    if err <= 0:
+                        raise
+
+def get_usvs(counts):
+    # 1 CPS = 60 CPM = 0.6 uSv/hr?
+    return sum(counts) * 0.6
+
+def line_to_cps(line):
+    """ Yield floats of uSv values from line, or raise. """
+    # all are cumulative?
+    # CPS, 1, CPM, 7, uSv/hr, 0.03, SLOW
+    return int(line.split(',')[1].strip())
+
+def float_to_words(f):
+    """ Return sayable string for float f. """
+    (i, dec) = str(f).split('.')
+    (i, dec) = ['-'.join(int_to_words(part).split()) for part in (i, dec)]
+    return '-'.join([i, 'point', dec])
+
+def main():
+    while True:
+        util.say(agi, 'please-place-the-sample-near-the-radiation-detector')
+        util.say(agi, 'then-press-any-key')
+        dummy = agi.wait_for_digit(timeout=-1)
+        usv = get_usvs(get_counter_cpss(agi))
+        util.say(agi, 'the-sample-is-emitting')
+        util.say(agi, float_to_words(usv))
+        util.say(agi, 'micro-sieverts-per-hour')
+        time.sleep(1)
+
+agi.answer()
+util.agi_tracebacker(agi, main)
+main()
+agi.hangup()
