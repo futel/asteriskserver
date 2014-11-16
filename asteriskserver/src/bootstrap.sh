@@ -32,7 +32,8 @@ echo "su -s /bin/bash nobody -c '/usr/bin/festival --server &'" >> /etc/rc.d/rc.
 mkdir /opt/asterisk
 chown asterisk:asterisk /opt/asterisk
 cd /tmp
-sudo -u asterisk tar xvf /vagrant/src/asterisk-11-current.tar.gz
+cp /vagrant/src/asterisk-11-current.tar.gz . # to get around perm issues
+sudo -u asterisk tar xvf asterisk-11-current.tar.gz
 cd asterisk-11.5.1
 
 # # XXX if 64bit, --libdir=/usr/lib64, but must be root to install?
@@ -82,16 +83,13 @@ chown asterisk:asterisk /opt/asterisk/sbin/safe_asterisk
 rm -rf /opt/asterisk/etc/asterisk
 sudo -u asterisk cp -r /vagrant/src/etc-asterisk /opt/asterisk/etc/asterisk
 
-# add the git host key so we can clone
-mkdir /home/asterisk/.ssh
-chown asterisk:asterisk /home/asterisk/.ssh
-cat /vagrant/src/known_hosts | sudo -u asterisk tee -a /home/asterisk/.ssh/known_hosts
-chmod go-rwx /home/asterisk/.ssh
-
-# clone the git repos into the asterisk tree
+# copy asterisk scripts into the asterisk tree
 rm -rf /opt/asterisk/var/lib/asterisk/agi-bin
-sudo -u asterisk git clone https://github.com/lboom/futel-ceres-opt-asterisk-var-lib-asterisk-agi-bin.git /opt/asterisk/var/lib/asterisk/agi-bin
-sudo -u asterisk git clone https://github.com/kra/futel-opt-asterisk-var-lib-asterisk-sounds-futel.git /opt/asterisk/var/lib/asterisk/sounds/futel
+sudo -u asterisk cp -r /vagrant/src/var-lib-asterisk-agi-bin /opt/asterisk/var/lib/asterisk/agi-bin
+
+# copy asterisk sounds into the asterisk tree
+rm -rf /opt/asterisk/var/lib/asterisk/sounds/futel
+sudo -u asterisk cp -r /vagrant/src/var-lib-asterisk-sounds-futel /opt/asterisk/var/lib/asterisk/sounds/futel
 
 # write the config files that are local or have secrets
 # maybe secrets should refer to an /opt/futel/etc conf file for easier setup
