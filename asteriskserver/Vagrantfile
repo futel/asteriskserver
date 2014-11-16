@@ -8,8 +8,11 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   #config.vm.define "foo"
   #config.vm.define "virtualbox"
 
+  config.vm.synced_folder ".", "/vagrant",
+    :mount_options => ["dmode=777,fmode=777"]
+
   if ENV['vagrantbox'] == 'test_32'
-    # boot from test_32 or digital_ocean to centos6_32_baseinstall
+    # boot from test_32 or digital_ocean to centobs6_32_baseinstall
     config.vm.box = "test_32"
     config.vm.provision :shell, :path => "src/centos6_32_baseinstall.sh" 
   elsif ENV['vagrantbox'] == 'centos6_32_baseinstall_fix'
