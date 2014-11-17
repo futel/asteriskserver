@@ -64,7 +64,7 @@ vagrant destroy
 # id_rsa, id_rsa.pub
 export vagrantbox=centos6_32_baseconfig
 vagrant up
-# XXX service iptables stop?
+# probably have to service iptables stop?
 
 # to install optional openvpn client from VM, for testing w/o vpnbox
 rpm -Uvh http://download.fedoraproject.org/pub/epel/6/i386/epel-release-6-8.noarch.rpm
