@@ -21,7 +21,8 @@ def agi_tracebacker(agi_o, func, *args, **kwargs):
 def say(agi_o, filename):
     for statement_dir in statement_dirs:
         path = statement_dir + filename
-        # must check for file existence, agi won't return or raise meaningfully
+        # must check for file existence, agi won't return or raise
+        # meaningfully
         if os.path.isfile(path + '.gsm'):
             return agi_o.stream_file(path)
     # this seems to be parsed into args, punctuation may break it
