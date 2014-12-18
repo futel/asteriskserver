@@ -1,11 +1,24 @@
 ## set up client
 
-XXX forward asterisk ports on whatever firewall is between youse? openvpn makes
-    this unnecessary?
-XXX forward openvpn ports on whatever firewall is between youse?
 set up an openvpn router
 http://www.dd-wrt.com/wiki/index.php/VPN_(the_easy_way)_v24%2B#Client_Configuration_-_DD-WRT
 set up pap device pointing to futel-prod or futel-stage
 proxy/outbound proxy pointing to asterisk domain name
 extension/user ID 668
 password
+
+test client on laptop
+
+have conf directory containing client.conf ca.crt client.crt client.key from
+vpnbox
+sudo openvpn --config conf/client.conf # XXX want only for futel-prod.phu73l.net
+# XXX this gets inactivity timeout, ping to keep alive?
+pick an unused extension from sip.conf, for example one in your test range
+get the secret for the extension from sip_secret.conf
+
+set up linphone
+sip:700@futel-prod.phu73l.net
+<sip:futel-prod.phu73l.net>
+when prompted, enter secret
+
+dial 999

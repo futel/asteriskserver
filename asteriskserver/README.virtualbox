@@ -69,5 +69,4 @@ vagrant up
 # to install optional openvpn client from VM, for testing w/o vpnbox
 rpm -Uvh http://download.fedoraproject.org/pub/epel/6/i386/epel-release-6-8.noarch.rpm
 yum install openvpn
-copy conf from vpnbox
-sudo openvpn --config conf/client.conf
+test as in README.client
