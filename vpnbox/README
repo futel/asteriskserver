@@ -20,8 +20,3 @@ save snapshot vpnbox
 
 create droplet from snapshot vpnbox
 
-## set up openvpn client
-# XXX this is really done on the asterisk box
-add client keys and client.conf from README.ssl
-# XXX make this a service
-# sudo openvpn --config conf/client.conf

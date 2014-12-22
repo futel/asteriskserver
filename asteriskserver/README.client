@@ -1,6 +1,18 @@
 ## set up client
 
 set up an openvpn router
+http://www.dd-wrt.com/wiki/index.php/VPN_(the_easy_way)_v24%2B
+flash _vpn_ firmware
+setup/basic: local IP address 10.0.0.1 (or whatev doesn't match upstream)
+services/vpn:
+openvpn client enable
+server name futel-vpnbox.phu73l.net XXX or IP?
+LZO enable
+paste vpnbox/conf/ca.crt into public server cert
+paste vpnbox/conf/client.crt into public client cert
+paste vpnbox/conf/client.key into private client key
+
+
 http://www.dd-wrt.com/wiki/index.php/VPN_(the_easy_way)_v24%2B#Client_Configuration_-_DD-WRT
 set up pap device pointing to futel-prod or futel-stage
 proxy/outbound proxy pointing to asterisk domain name
