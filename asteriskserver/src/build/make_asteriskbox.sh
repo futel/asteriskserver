@@ -2,18 +2,17 @@
 # bootstrap from centos6_32_baseinstall
 
 set -x # print commands as executed
+# sigh
+#BUILDDIR=`dirname "$0"`
+BUILDDIR=/vagrant/src/build
 
 conf_version=$1
 
-# move customized config files into build conf location
-cp /vagrant/conf/sip_local.conf.$conf_version /vagrant/conf/sip_local.conf
-cp /vagrant/conf/sip_callcentric.conf.$conf_version /vagrant/conf/sip_callcentric.conf
-
-# Are we in a virtualbox?  Should just have vagrant send this as an arg.
-# Wasn't able to pass the value of config.vm.provider, but could just set it
-# manually.
-virtualbox=false
-dmidecode | grep -q 'Product Name:.*VirtualBox' && virtualbox=true
+# # Are we in a virtualbox?  Should just have vagrant send this as an arg.
+# # Wasn't able to pass the value of config.vm.provider, but could just set it
+# # manually.
+# virtualbox=false
+# dmidecode | grep -q 'Product Name:.*VirtualBox' && virtualbox=true
 
 # install pyst
 cd /tmp
@@ -74,29 +73,16 @@ sudo -u asterisk make samples
 
 make config # as root
 # XXX make install-logrotate?
+
 # this adds ASTARGS="-U asterisk"
 sudo -u asterisk cp /vagrant/src/safe_asterisk /opt/asterisk/sbin
-chown asterisk:asterisk /opt/asterisk/sbin/safe_asterisk
+#chown asterisk:asterisk /opt/asterisk/sbin/safe_asterisk
 
 # copy asterisk conf into the asterisk tree
 rm -rf /opt/asterisk/etc/asterisk
 sudo -u asterisk cp -r /vagrant/src/etc-asterisk /opt/asterisk/etc/asterisk
 
-# copy asterisk scripts into the asterisk tree
-rm -rf /opt/asterisk/var/lib/asterisk/agi-bin
-sudo -u asterisk cp -r /vagrant/src/var-lib-asterisk-agi-bin /opt/asterisk/var/lib/asterisk/agi-bin
-
-# copy asterisk sounds into the asterisk tree
-rm -rf /opt/asterisk/var/lib/asterisk/sounds/futel
-sudo -u asterisk cp -r /vagrant/src/var-lib-asterisk-sounds-futel /opt/asterisk/var/lib/asterisk/sounds/futel
-
-# write the config files that are local or have secrets
-# maybe secrets should refer to an /opt/futel/etc conf file for easier setup
-cat /vagrant/conf/sip_local.conf | sudo -u asterisk tee /opt/asterisk/etc/asterisk/sip_local.conf
-cat /vagrant/conf/sip_callcentric.conf | sudo -u asterisk tee /opt/asterisk/etc/asterisk/sip_callcentric.conf
-cat /vagrant/conf/sip_secret.conf | sudo -u asterisk tee /opt/asterisk/etc/asterisk/sip_secret.conf
-cat /vagrant/conf/extensions_local.conf | sudo -u asterisk tee /opt/asterisk/etc/asterisk/extensions_local.conf
-cat /vagrant/conf/extensions_secret.conf | sudo -u asterisk tee /opt/asterisk/etc/asterisk/extensions_secret.conf
+$BUILDDIR/make_install.sh $conf_version
 
 # XXX sigh, this can be made unnecessary
 find /opt/asterisk -exec chown asterisk:asterisk {} \;
