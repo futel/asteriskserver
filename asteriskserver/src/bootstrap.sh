@@ -5,6 +5,7 @@ set -x # print commands as executed
 
 conf_version=$1
 
+# move customized config files into build conf location
 cp /vagrant/conf/sip_local.conf.$conf_version /vagrant/conf/sip_local.conf
 cp /vagrant/conf/sip_callcentric.conf.$conf_version /vagrant/conf/sip_callcentric.conf
 
@@ -60,8 +61,6 @@ sudo -u asterisk rm -f channels/h323/Makefile.ast main/asterisk
 # virtualbox, digital ocean, and probably all virtual providers disbable native
 # optimizations
 sudo -u asterisk menuselect/menuselect --disable BUILD_NATIVE menuselect.makeopts
-# the ceres version is used for... ceres
-#/bin/cp -f /vagrant/src/menuselect.makeopts.ceres ./menuselect.makeopts
 /bin/cp -f /vagrant/src/menuselect.makedeps ./menuselect.makedeps
 /bin/cp -f /vagrant/src/menuselect-tree ./menuselect-tree
 
