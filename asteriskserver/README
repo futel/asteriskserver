@@ -4,7 +4,7 @@
 have futel-vpnbox
 copy src/backup.sh to /etc/cron.daily/backup-futel-prod on eurydice
 
-have a callcentric DID forwarding rule  pointing the incoming number to prod
+have a callcentric DID forwarding rule pointing the incoming number to prod
 have a callcentric DID forwarding rule pointing the VM number to prod
 
 ## Deploy stage to digital ocean manually
@@ -54,7 +54,3 @@ wait for DNS to propagate
 update DID forwarding rule sending incoming prod number to new prod's extension
 test futel-prod
 shut down, destroy droplet futel-prod-back
-
-
-
-

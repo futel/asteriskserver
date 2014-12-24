@@ -74,20 +74,12 @@ sudo -u asterisk make samples
 make config # as root
 # XXX make install-logrotate?
 
-# this adds ASTARGS="-U asterisk"
-sudo -u asterisk cp /vagrant/src/safe_asterisk /opt/asterisk/sbin
-#chown asterisk:asterisk /opt/asterisk/sbin/safe_asterisk
-
-# copy asterisk conf into the asterisk tree
-rm -rf /opt/asterisk/etc/asterisk
-sudo -u asterisk cp -r /vagrant/src/etc-asterisk /opt/asterisk/etc/asterisk
+# this seems to be unnecessary? /opt/asterisk/run/asterisk is owned by root
+# but that isn't causing problems?
+#find /opt/asterisk -exec chown asterisk:asterisk {} \;
 
 $BUILDDIR/make_install.sh $conf_version
 
-# XXX sigh, this can be made unnecessary
-find /opt/asterisk -exec chown asterisk:asterisk {} \;
-
 # XXX logwatch
 
-service asterisk stop
-service asterisk start
+service asterisk restart

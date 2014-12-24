@@ -4,6 +4,14 @@ set -x # print commands as executed
 
 conf_version=$1
 
+# this adds ASTARGS="-U asterisk"
+sudo -u asterisk cp /vagrant/src/safe_asterisk /opt/asterisk/sbin
+#chown asterisk:asterisk /opt/asterisk/sbin/safe_asterisk
+
+# copy asterisk conf into the asterisk tree
+rm -rf /opt/asterisk/etc/asterisk
+sudo -u asterisk cp -r /vagrant/src/etc-asterisk /opt/asterisk/etc/asterisk
+
 # copy asterisk scripts into the asterisk tree
 rm -rf /opt/asterisk/var/lib/asterisk/agi-bin
 sudo -u asterisk cp -r /vagrant/src/var-lib-asterisk-agi-bin /opt/asterisk/var/lib/asterisk/agi-bin
