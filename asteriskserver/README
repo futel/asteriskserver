@@ -4,6 +4,8 @@
 have futel-vpnbox
 copy src/backup.sh to /etc/cron.daily/backup-futel-prod on eurydice
 
+have a callcentric account with pay per call and a DID free phone number
+have a callcentric extension with caller ID of incoming number
 have a callcentric DID forwarding rule pointing the incoming number to prod
 have a callcentric DID forwarding rule pointing the VM number to prod
 
@@ -20,7 +22,8 @@ SSH into prod to find out what conf version is being used:
 ssh -o StrictHostKeyChecking=no -t -i conf/id_rsa futel@futel-prod.phu73l.net 'grep "foo\|bar" /opt/asterisk/etc/asterisk/sip_local.conf /opt/asterisk/etc/asterisk/sip_callcentric.conf'
 
 in conf, create or have:
-sip_callcentric.conf.<conf_version> sip_local.conf.<conf_version>
+sip_callcentric.conf.<conf_version> pointing to extension
+sip_local.conf.<conf_version> with ip/host/nat config
 sip_secret.conf extensions_local.conf extensions_secret.conf
 id_rsa id_rsa.pub
 
