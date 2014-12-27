@@ -74,10 +74,6 @@ sudo -u asterisk make samples
 make config # as root
 # XXX make install-logrotate?
 
-# this seems to be unnecessary? /opt/asterisk/run/asterisk is owned by root
-# but that isn't causing problems?
-#find /opt/asterisk -exec chown asterisk:asterisk {} \;
-
 $BUILDDIR/make_install.sh $conf_version
 
 # XXX logwatch
