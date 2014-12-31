@@ -58,7 +58,7 @@ vagrant box remove centos6_32_baseconfig
 vagrant box add centos6_32_baseconfig ../centos6_32_baseconfig.box
 vagrant destroy
 
-# make asteriskbox from centos6_32_baseinstall
+# make asteriskbox from centos6_32_baseconfig
 # in conf, have
 # sip_callcentric.conf.virtualbox, sip_local.conf.virtualbox,
 # id_rsa, id_rsa.pub
