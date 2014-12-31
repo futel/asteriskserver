@@ -39,6 +39,8 @@ create droplet from snapshot baseconfig_stage
 src/make_asteriskbox.sh <ip> <conf_version>
 save snapshot asteriskbox_stage, or don't
 
+test
+
 create or replace A record for new futel-stage
 wait for DNS to propagate
 
