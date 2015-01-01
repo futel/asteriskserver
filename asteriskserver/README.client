@@ -19,7 +19,7 @@ paste vpnbox/conf/ca.crt into public server cert
 paste vpnbox/conf/client.crt into public client cert
 paste vpnbox/conf/client.key into private client key
 
-set up a spa-1001
+set up a spa-1001 linksysPAP etc
 line1: proxy/outbound proxy futel-prod.phu73l.net
 line1: use outbound proxy no
 line1: display name, user ID <extension>
