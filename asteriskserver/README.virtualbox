@@ -60,7 +60,7 @@ vagrant destroy
 
 # make asteriskbox from centos6_32_baseconfig
 # in conf, have
-# sip_callcentric.conf.virtualbox, sip_local.conf.virtualbox,
+# sip_callcentric.conf.virtualbox
 # id_rsa, id_rsa.pub
 export vagrantbox=centos6_32_baseconfig
 vagrant up
