@@ -4,6 +4,8 @@ We will start with test_32,
 update centos to get centos6_32_baseinstall,
 install/config to get an asterisk box.
 
+# XXX remember to place secrets into empty conf/
+
 ## Deploy to virtualbox with vagrant:
 
 # Make boxes and init:

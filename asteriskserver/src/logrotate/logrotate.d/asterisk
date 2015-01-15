@@ -1,0 +1,11 @@
+/opt/asterisk/var/log/asterisk/messages /opt/asterisk/var/log/asterisk/*log {
+	missingok
+	notifempty
+	rotate 31
+	olddir /opt/asterisk/var/log/asterisk/old
+	daily
+	create 0640 asterisk asterisk
+	postrotate
+		/opt/asterisk/sbin/asterisk -rx 'logger reload' > /dev/null 2> /dev/null
+	endscript
+}

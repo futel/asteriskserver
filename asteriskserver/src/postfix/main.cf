@@ -1,0 +1,55 @@
+# postfix main.cf
+queue_directory = /var/spool/postfix
+
+command_directory = /usr/sbin
+
+daemon_directory = /usr/libexec/postfix
+
+data_directory = /var/lib/postfix
+
+mail_owner = postfix
+
+inet_interfaces = localhost
+
+inet_protocols = ipv4
+
+mydestination = $myhostname, localhost.$mydomain, localhost
+
+unknown_local_recipient_reject_code = 550
+
+# gmail relay setup
+# XXX this may break local delivery? does that matter? probably not
+# XXX test this
+relayhost = [smtp.gmail.com]:587
+smtp_sasl_auth_enable = yes
+smtp_sasl_password_maps = hash:/etc/postfix/sasl_passwd
+smtp_sasl_security_options = 
+smtp_sasl_mechanism_filter = plain
+smtp_tls_CAfile = /etc/ssl/certs/ca-bundle.trust.crt
+smtp_use_tls = yes
+
+alias_maps = hash:/etc/aliases
+
+alias_database = hash:/etc/aliases
+
+debug_peer_level = 2
+
+debugger_command =
+	 PATH=/bin:/usr/bin:/usr/local/bin:/usr/X11R6/bin
+	 ddd $daemon_directory/$process_name $process_id & sleep 5
+
+sendmail_path = /usr/sbin/sendmail.postfix
+
+newaliases_path = /usr/bin/newaliases.postfix
+
+mailq_path = /usr/bin/mailq.postfix
+
+setgid_group = postdrop
+
+html_directory = no
+
+manpage_directory = /usr/share/man
+
+sample_directory = /usr/share/doc/postfix-2.6.6/samples
+
+readme_directory = /usr/share/doc/postfix-2.6.6/README_FILES

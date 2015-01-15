@@ -39,8 +39,10 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   config.vm.provider :virtualbox do |vb|
     # Don't boot with headless mode
-    vb.gui = true
+    #vb.gui = true
     # bridged network, probably specific setup for each host
+	# XXX need to set different interface for my box... dumb
+	#config.vm.network :public_network, :bridge => 'wlp3s0'
     config.vm.network :public_network, :bridge => 'wlan0'
   end
 

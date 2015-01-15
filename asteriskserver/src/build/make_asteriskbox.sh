@@ -72,10 +72,12 @@ sudo -u asterisk make install
 sudo -u asterisk make samples
 
 make config # as root
-# XXX make install-logrotate?
 
 $BUILDDIR/make_install.sh $conf_version
 
-# XXX logwatch
+# logrotate: this depends on asterisk install
+mkdir /opt/asterisk/var/log/asterisk/old
+chown asterisk: /opt/asterisk/var/log/asterisk/old
+cp -f /vagrant/src/logrotate/logrotate.d/asterisk /etc/logrotate.d/asterisk
 
 service asterisk restart

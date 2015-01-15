@@ -38,3 +38,19 @@ chmod -R go-rwx /home/backup/.ssh
 # add backup task to eurydice
 # XXX would be better to make backup's shell rsync or something
 # XXX backup user can't see /var/log/messages, /etc, /home
+
+# configure logwatch and postfix relay
+# XXX if getting out of date info, make logrotate run before logwatch in cron
+# logwatch confs
+tar xf /vagrant/src/logwatch/asterisk_logwatch.tar -C /etc/logwatch/
+cp -f /vagrant/conf/logwatch.conf /usr/share/logwatch/default.conf/logwatch.conf
+
+# postfix relay
+# XXX secrets: README.virtualbox
+cp -f /vagrant/conf/sasl_passwd /etc/postfix/sasl_passwd
+postmap /etc/postfix/sasl_passwd
+cp -f /vagrant/src/postfix/main.cf /etc/postfix/main.cf
+service postfix restart
+
+# configure cron for noon logwatch reports
+cp -f /vagrant/src/crontab /etc/crontab
