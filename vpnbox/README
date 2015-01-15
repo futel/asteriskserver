@@ -1,22 +1,35 @@
-## Deploy vpnbox to digital ocean manually
+## Deploy a vpnbox to Digital Ocean
 
-create keys in conf from README.ssl
+## Ongoing:
+create keys in conf by following README.ssl
+
+## Deploy stage vpnbox to digital ocean manually
 
 all droplets:
-hostname vpnbox
+hostname vpnbox-stage
 size smallest
 region San Francisco 1
 ssh key (personal key)
 
-create droplet from snapshot centos6_32_baseinstall_prod
-add server and ca keys to conf from README.ssl
+create droplet from snapshot baseinstall_stage
+src/make_vpnbox.sh <ip>
+save snapshot vpnbox_stage
 
-DO_IP=<ip>
-scp -o StrictHostKeyChecking=no -r . root@$DO_IP:/vagrant
-ssh -o StrictHostKeyChecking=no root@$DO_IP /vagrant/src/vpnbox.sh
-ssh -p42422 -o StrictHostKeyChecking=no -t -i conf/id_rsa futel@$DO_IP "sudo rm -rf /tmp/vagrant"
-ssh -p42422 -o StrictHostKeyChecking=no -t -i conf/id_rsa futel@$DO_IP "sudo halt now"
-save snapshot vpnbox
+test
 
-create droplet from snapshot vpnbox
+create or replace A record for new vpnbox_stage
+wait for DNS to propagate
 
+connect client to vpnbox_stage as in asteriskbox README.client
+
+## promote stage to prod
+# XXX can't rename futel-vpnbox to vpnbox-prod until clients updated
+rename futel-vpnbox droplet to futel-vpnbox-back
+rename vpnbox-stage droplet to futel-vpnbox
+change A record for vpnbox to point to new futel-vpnbox
+change A record for vpnbox-stage to point to old futel-vpnbox
+wait for DNS to propagate
+# XXX DNS takes time, what about clients already connected to old prod?
+test futel-vpnbox
+make a snapshot of futel-vpnbox-back
+destroy droplet futel-vpnbox-back

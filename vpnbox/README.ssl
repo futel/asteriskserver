@@ -15,8 +15,8 @@ cp keys/ca.crt keys/ca.key keys/dh1024.pem keys/server.crt keys/server.csr keys/
 
 # set up client
 ./build-key client
-# set up client.conf
-# give client.crt client.csr client.key client.conf to client
+# set up client.conf.prod
+# give client.crt client.csr client.key client.conf.prod to client
 
 
 ## alternative, set up openssl keys with openssl commands
