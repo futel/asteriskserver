@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# local script to make baseconfig from test_32
+# local script to make baseconfig_stage from baseinstall_stage
 
 set -x
 
