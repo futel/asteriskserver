@@ -28,9 +28,10 @@ line1: dial plan S0<:999> (or desired extension in default-outgoing context)
 
 test client on laptop
 
-have conf directory containing client.conf ca.crt client.crt client.key from
-vpnbox
-sudo openvpn --config conf/client.conf # XXX want only for futel-prod.phu73l.net
+have conf directory containing conf from vpnbox:
+client.conf.prod ca.crt client.crt client.key
+# XXX want only for futel-prod.phu73l.net
+sudo openvpn --config conf/client.conf.prod
 # XXX this gets an inactivity timeout after the keepalive interval in
 #     server.conf (10 mins), maybe client or server is not pinging?
 #     Restart client, or wait another interval for reconnection
