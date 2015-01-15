@@ -16,9 +16,8 @@ iptables -A INPUT -i lo -j ACCEPT
 iptables -A INPUT -m state --state ESTABLISHED,RELATED -j ACCEPT
 
 # allow from the vpn
-# XXX use futel-vpnbox.phu73l.net
 # XXX this only needs the asterisk and ssh ports
-iptables -A INPUT -s 107.170.218.225 -j ACCEPT
+iptables -A INPUT -s futel-vpnbox.phu73l.net -j ACCEPT
 # let ssh in from anywhere
 # XXX would be better to have this on a different port
 #iptables -A INPUT -p tcp --dport 42422 -j ACCEPT
