@@ -48,6 +48,7 @@ if there are any uncheckedin recordings, copy from /opt/asterisk/var/lib/asteris
 src/promote_stage.sh futel-stage.phu73l.net # or ip address if not propagated
 rename futel-prod droplet to futel-prod-back
 rename futel-stage droplet to futel-prod
+rename futel-stage hostname to futel-prod
 change A record for futel-prod to point to new futel-prod
 change A record for futel-stage to point to old futel-prod
 point all callcentric DID forwarding rules to the extensions used by new futel-prod
