@@ -40,7 +40,6 @@ chmod -R go-rwx /home/backup/.ssh
 # XXX backup user can't see /var/log/messages, /etc, /home
 
 # configure logwatch and postfix relay
-# XXX if getting out of date info, make logrotate run before logwatch in cron
 # logwatch confs
 tar xf /vagrant/src/logwatch/asterisk_logwatch.tar -C /etc/logwatch/
 cp -f /vagrant/conf/logwatch.conf /usr/share/logwatch/default.conf/logwatch.conf
