@@ -52,3 +52,7 @@ service postfix restart
 
 # configure cron for noon logwatch reports
 cp -f /vagrant/src/crontab /etc/crontab
+
+# set correct timezone in /etc/localtime
+rm -f /etc/localtime
+ln -s /usr/share/zoneinfo/PST8PDT /etc/localtime
