@@ -14,4 +14,4 @@ HOME=/
 # |  |  |  |  |
 # *  *  *  *  * user-name command to be executed
 # run logwatch at noon
-0 12 * * * logawtch --service asterisk
+0 12 * * * logwatch --service asterisk
