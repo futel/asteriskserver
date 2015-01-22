@@ -39,12 +39,11 @@ chmod -R go-rwx /home/backup/.ssh
 # XXX would be better to make backup's shell rsync or something
 # XXX backup user can't see /var/log/messages, /etc, /home
 
-# configure logwatch and postfix relay
-# logwatch confs
-tar xf /vagrant/src/logwatch/asterisk_logwatch.tar -C /etc/logwatch/
+# configure logwatch
+cp -rf /vagrant/src/logwatch /etc/logwatch/
 cp -f /vagrant/conf/logwatch.conf /usr/share/logwatch/default.conf/logwatch.conf
 
-# postfix relay
+# configure postfix relay
 cp -f /vagrant/conf/sasl_passwd /etc/postfix/sasl_passwd
 postmap /etc/postfix/sasl_passwd
 cp -f /vagrant/src/postfix/main.cf /etc/postfix/main.cf
