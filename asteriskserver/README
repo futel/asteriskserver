@@ -20,7 +20,7 @@ ssh key (personal key)
 SSH into prod to find out what conf version is being used:
 ssh -o StrictHostKeyChecking=no -t -i conf/id_rsa futel@futel-prod.phu73l.net 'grep "foo\|bar" /opt/asterisk/etc/asterisk/sip_callcentric.conf'
 
-in conf, create or have:
+in conf, have:
 logwatch.conf sasl_passwd
 sip_callcentric.conf.<conf_version> pointing to extension
 sip_secret.conf extensions_secret.conf

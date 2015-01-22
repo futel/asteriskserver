@@ -4,7 +4,7 @@ We will start with test_32,
 update centos to get centos6_32_baseinstall,
 install/config to get an asterisk box.
 
-# remember to place secrets into empty conf/
+# have conf directory as in README
 
 ## Deploy to virtualbox with vagrant:
 
@@ -14,11 +14,8 @@ vagrant box add test_32 http://developer.nrel.gov/downloads/vagrant-boxes/CentOS
 # make centos6_32_baseinstall from test_32
 export vagrantbox=test_32
 vagrant up
-# XXX may have to kill 'vagrant up' when 'vagrant ssh' works
-# XXX may have to provision if vagrant never got to it
-# vagrant provision
 vagrant halt
-# vboxmanage list vms
+# vboxmanage list vms to find box name
 vagrant package --base asteriskserver_default_...
 mv package.box ../centos6_32_baseinstall.box
 vagrant box add centos6_32_baseinstall ../centos6_32_baseinstall.box

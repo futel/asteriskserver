@@ -22,7 +22,3 @@ yum -y install festival # if running festival locally
 yum -y install logwatch cyrus-sasl-plain # current monitoring for asterisk
 
 yum -y update
-
-# install epel
-# why do we need this again?
-# rpm -Uvh http://download.fedoraproject.org/pub/epel/6/i386/epel-release-6-8.noarch.rpm
