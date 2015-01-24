@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# install asterisk source and config
 
 set -x # print commands as executed
 

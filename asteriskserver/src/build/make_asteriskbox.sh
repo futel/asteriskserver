@@ -73,7 +73,7 @@ sudo -u asterisk make samples
 
 make config # as root
 
-$BUILDDIR/make_install.sh $conf_version
+$BUILDDIR/update_asteriskbox.sh $conf_version
 
 # logrotate: this depends on asterisk install
 mkdir /opt/asterisk/var/log/asterisk/old
