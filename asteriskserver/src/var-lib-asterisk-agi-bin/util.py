@@ -42,10 +42,11 @@ def format_log(name, val):
 
 def metric(agi_o, message=None):
     # if we're just logging, assume this is in there
-    #agi_o.verbose(str(datetime.datetime.now()))
+    #agi_o.verbose(str(datetime.datetime.now()), 1)
     items = [(var, agi_o.get_variable(var))
               for var in ('UNIQUEID', 'CHANNEL', 'CONTEXT', 'CALLERID(number)')]
     if message:
         items.append(('message', message))
     line = ', '.join(format_log(name, value) for (name, value) in items)
+    # we only get verbose!
     agi_o.verbose(line, 1)
