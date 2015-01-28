@@ -1,3 +1,4 @@
+#import datetime
 import sys, os, traceback
 
 # directories for gsm files, in order of preference
@@ -35,3 +36,16 @@ def say(agi_o, filename):
         return agi_o.stream_file(path)
     # this seems to be parsed into args, punctuation may break it
     return agi_o.appexec('festival', filename)
+
+def format_log(name, val):
+    return "%s=%s" % (name, val)
+
+def metric(agi_o, message=None):
+    # if we're just logging, assume this is in there
+    #agi_o.verbose(str(datetime.datetime.now()))
+    items = [(var, agi_o.get_variable(var))
+              for var in ('UNIQUEID', 'CHANNEL', 'CONTEXT', 'CALLERID(number)')]
+    if message:
+        items.append(('message', message))
+    line = ', '.join(format_log(name, value) for (name, value) in items)
+    agi_o.verbose(line, 1)
