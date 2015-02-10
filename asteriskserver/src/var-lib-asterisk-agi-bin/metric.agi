@@ -7,11 +7,8 @@ import util
 agi = agi.AGI()
 
 def main():
-    try:
-        arg = sys.argv[1]
-    except IndexError:
-        arg = None
-    util.metric(agi, arg)
+    name = sys.argv[1]
+    util.metric(agi, name)
 
 agi.answer()
 util.agi_tracebacker(agi, main)
