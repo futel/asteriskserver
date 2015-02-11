@@ -38,7 +38,7 @@ save snapshot baseconfig_stage
 
 create droplet from snapshot baseconfig_stage
 src/make_asteriskbox.sh <ip> <conf_version>
-save snapshot asteriskbox_stage, or don't
+save snapshot asteriskbox_stage
 
 test
 
