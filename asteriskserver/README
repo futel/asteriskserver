@@ -1,6 +1,7 @@
 ## Deploy a futel asterisk server to Digital Ocean
 
 ## Ongoing:
+
 have futel-vpnbox
 copy src/backup.sh to /etc/cron.daily/backup-futel-prod on eurydice
 
@@ -8,6 +9,12 @@ for each installation, have a callcentric account with pay per call and two DID 
 for each account, have two extensions, one with caller ID of incoming number
 for each account, have a DID forwarding rule pointing the incoming number to its prod extension
 when we have a direct VM number, have a callcentric DID forwarding rule pointing it to a prod account
+
+in conf, have:
+logwatch.conf sasl_passwd
+sip_callcentric.conf.<conf_version> pointing to extension
+sip_secret.conf extensions_secret.conf
+id_rsa id_rsa.pub
 
 ## Deploy stage to digital ocean manually
 
@@ -21,12 +28,6 @@ create or check out release branch
 
 SSH into prod to find out what conf version is being used:
 ssh -o StrictHostKeyChecking=no -t -i conf/id_rsa futel@futel-prod.phu73l.net 'grep "foo\|bar" /opt/asterisk/etc/asterisk/sip_callcentric.conf'
-
-in conf, have:
-logwatch.conf sasl_passwd
-sip_callcentric.conf.<conf_version> pointing to extension
-sip_secret.conf extensions_secret.conf
-id_rsa id_rsa.pub
 
 create droplet from image CentOS 6.5 x32
 src/make_baseinstall.sh <ip>
@@ -47,7 +48,6 @@ wait for DNS to propagate
 
 ## promote stage to prod
 
-if there are any uncheckedin recordings, copy from /opt/asterisk/var/lib/asterisk/sounds/futel on prod, and check in
 src/promote_stage.sh futel-stage.phu73l.net # or ip address if not propagated
 rename futel-prod droplet to futel-prod-back
 rename futel-stage droplet to futel-prod
