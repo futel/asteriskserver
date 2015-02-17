@@ -9,6 +9,7 @@ boxname=$1
 boxfilename=$2
 
 scriptdir=`dirname $0`
+export vagrantbox=$1
 
 vagrant up --no-provision # will error when configuring network interfaces
 cat $scriptdir/fix_package.sh | vagrant ssh -c 'cat>/tmp/fix_package.sh'

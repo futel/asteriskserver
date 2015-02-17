@@ -7,6 +7,7 @@ set -x
 boxname=$1
 boxfilename=$2
 
+export vagrantbox=$1
 vmname=`VBoxManage list vms | awk '{print $1}' | sed 's/"//g'`
 vagrant halt
 vagrant package --base $vmname

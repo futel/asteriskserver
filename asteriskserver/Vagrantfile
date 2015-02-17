@@ -1,37 +1,29 @@
-# Vagrantfile API/syntax version. Don't touch unless you know what you're doing!
 VAGRANTFILE_API_VERSION = "2"
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
-
-  # We only run one machine, but define names so we can deploy to different
-  # providers.  If not set, "default", can only use the current provider.
-  #config.vm.define "foo"
-  #config.vm.define "virtualbox"
 
   config.vm.synced_folder ".", "/vagrant",
     :mount_options => ["dmode=777,fmode=777"]
 
   if ENV['vagrantbox'] == 'test_32'
-    # boot from test_32 or digital_ocean to centobs6_32_baseinstall
+    # boot from test_32 to centobs6_32_baseinstall
     config.vm.box = "test_32"
     config.vm.provision :shell, :path => "src/centos6_32_baseinstall.sh" 
-  elsif ENV['vagrantbox'] == 'centos6_32_baseinstall_fix'
-    # boot from centos6_32_baseinstall and manually fix, see README
-    config.vm.box = "centos6_32_baseinstall"
   elsif ENV['vagrantbox'] == 'centos6_32_baseinstall'
     # boot from centos6_32_baseinstall to centos6_32_baseconfig
     config.vm.box = "centos6_32_baseinstall"
     config.vm.provision :shell, :path => "src/centos6_32_baseconfig.sh"
+    # now must go to next vagrantbox for vagrant halt to work
   elsif ENV['vagrantbox'] == 'centos6_32_baseconfig'
     # boot from centos6_32_baseconfig to asteriskbox
-    # # we put ssh on 42422, so override default 2222 guest port if virtualbox
-    # config.vm.network "forwarded_port", guest: 42422, host: 2222, id: "ssh"
+    # we put ssh on 42422, so override default 2222 guest port
+    config.vm.network "forwarded_port", guest: 42422, host: 2222, id: "ssh"
     # we will want another ssh key for non-virtualbox
     config.ssh.username = "futel"
     config.ssh.private_key_path = "conf/id_rsa"
     # if we put ssh on 42422 and are virtualbox, forward that port
-    # config.ssh.guest_port = 42422
-    # config.ssh.port = 2222
+    config.ssh.guest_port = 42422
+    config.ssh.port = 2222
     config.vm.box = "centos6_32_baseconfig"
     config.vm.provision :shell, :path => "src/build/make_asteriskbox.sh",
                         :args => "virtualbox"
