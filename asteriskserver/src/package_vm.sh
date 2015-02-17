@@ -7,7 +7,7 @@ set -x
 boxname=$1
 boxfilename=$2
 
-vmname=`VBoxManage list vms | awk '{print $1}' | sed 's/"//g'`
+vmname=`vboxmanage list vms | awk '{print $1}' | sed 's/"//g'`
 vagrant halt
 vagrant package --base $vmname
 mv -f package.box $boxfilename
