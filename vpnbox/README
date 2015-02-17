@@ -1,16 +1,7 @@
 ## Deploy a vpnbox to Digital Ocean
 
 ## Ongoing:
-
-in conf, have:
-(or create by following README.ssl)
-ca.crt ca.key
-client.conf.[prod|stage]
-client.crt client.csr client.key dh1024.pem
-id_rsa
-server.crt server.csr server.key
-
-give client.conf.[prod|stage] to client
+create keys in conf by following README.ssl
 
 ## Deploy stage vpnbox to digital ocean manually
 
@@ -19,8 +10,6 @@ hostname vpnbox-stage
 size smallest
 region San Francisco 1
 ssh key (personal key)
-
-create or check out release branch
 
 create droplet from snapshot baseinstall_stage
 src/make_vpnbox.sh <ip>
@@ -33,12 +22,11 @@ wait for DNS to propagate
 
 connect client to vpnbox_stage as in asteriskbox README.client
 
-## promote stage to prod (note names are inconsistent)
+## promote stage to prod
+# XXX can't rename futel-vpnbox to vpnbox-prod until clients updated
 rename futel-vpnbox droplet to futel-vpnbox-back
 rename vpnbox-stage droplet to futel-vpnbox
-rename futel-stage hostname to futel-prod
-  edit /etc/sysconfig/network, "hostname futel-vpnbox"
-change A record for futel-vpnbox to point to new futel-vpnbox
+change A record for vpnbox to point to new futel-vpnbox
 change A record for vpnbox-stage to point to old futel-vpnbox
 wait for DNS to propagate
 # XXX DNS takes time, what about clients already connected to old prod?
