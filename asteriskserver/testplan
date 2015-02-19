@@ -1,10 +1,13 @@
-tested
-ext 668 connects to ext 999 in default-outgoing (oskar curbside)
-ext 670 connects to ext 999 in default-outgoing (r2d2)
+test with sip clients in the vpn, future tests will need separate vpn clients
+
+ext 667,668 connects to ext 999 in default-outgoing (oskar)
+ext 670 connects to ext 1000 in default-outgoing (r2d2)
+
+calls:
 
 outgoing call works
-outgoing call sends id of incoming number
-r2d2 outgoing call to 911 gets callcentric error message
+outgoing call sends r2d2 id from 670
+outgoing call sends oskar id from 668,669
 incoming call rings phone
 incoming call with disconnected device does the right thing
 simultaneous incoming call does the right thing (probably not call waiting)
@@ -12,5 +15,9 @@ r2d2, oskar simultaneous outgoing calls in any order
 r2d2, oskar simultaneous incoming calls in any order
 r2d2, oskar simultanous outgoing and incoming calls in any order
 
-test separate routers per extension?
-test power cycling sip box, router
+default incoming menu:
+
+can call
+can create voicemail box, leave voicemail, check voicemail
+can call each directory number
+can call operator

@@ -38,6 +38,7 @@ src/make_baseconfig.sh <ip>
 save snapshot baseconfig_stage
 
 create droplet from snapshot baseconfig_stage
+use the conf_version not being used by prod
 src/make_asteriskbox.sh <ip> <conf_version>
 save snapshot asteriskbox_stage
 
