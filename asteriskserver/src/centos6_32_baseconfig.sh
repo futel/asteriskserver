@@ -7,19 +7,20 @@ set -x
 /bin/cp -f /vagrant/src/sshd_config /etc/ssh/sshd_config
 service sshd restart
 
-# XXX will need more ports for iax2 later - asterisk to asterisk
+# will need more ports for iax2 later - asterisk to asterisk
 /etc/init.d/iptables stop
 /vagrant/src/iptables.sh
 service iptables save
 service iptables restart
 
-# add a futel user to log in as, and for vagrant commands
+# add futel user for provisioning and interactive shell
 useradd -m futel
 mkdir /home/futel/.ssh
 /bin/cp -f /vagrant/src/id_rsa.pub /home/futel/.ssh/authorized_keys
 chown -R futel:futel /home/futel/.ssh
 chmod -R go-rwx /home/futel/.ssh
 usermod -a -G wheel futel
+usermod -a -G asterisk futel
 
 # allow nopasswd sudo for futel user
 /bin/cp -f /vagrant/src/futel /etc/sudoers.d/futel
@@ -36,8 +37,8 @@ cp /vagrant/src/backup_id_rsa.pub /home/backup/.ssh/authorized_keys
 chown -R backup:asterisk /home/backup/.ssh
 chmod -R go-rwx /home/backup/.ssh
 # add backup task to eurydice
-# XXX would be better to make backup's shell rsync or something
-# XXX backup user can't see /var/log/messages, /etc, /home
+# would be better to make backup's shell rsync or something
+# backup user can't see /var/log/messages, /etc, /home
 
 # configure logwatch
 cp -rf /vagrant/src/logwatch/* /etc/logwatch/
