@@ -53,7 +53,8 @@ src/promote_stage.sh futel-stage.phu73l.net # or ip address if not propagated
 rename futel-prod droplet to futel-prod-back
 rename futel-stage droplet to futel-prod
 rename futel-stage hostname to futel-prod
-  edit /etc/sysconfig/network, "hostname futel-prod"
+rename futel-prod hostname to futel-prod-back
+  "hostname futel-prod" and edit /etc/sysconfig/network
 change A record for futel-prod to point to new futel-prod
 change A record for futel-stage to point to old futel-prod
 point all callcentric DID forwarding rules to new futel-prod extensions:
