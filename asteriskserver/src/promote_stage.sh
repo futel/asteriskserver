@@ -12,11 +12,13 @@ ssh -o StrictHostKeyChecking=no -t -i conf/id_rsa futel@$stage_ip "sudo service 
 
 # XXX should probably stop prod before copying assets from it
 
+[ -d tmp/stage ] || mkdir tmp/stage
+
 # voicemail
-scp -o StrictHostKeyChecking=no -i conf/id_rsa futel@futel-prod.phu73l.net:/opt/asterisk/etc/asterisk/vm_futel_users.inc tmp
-scp -o StrictHostKeyChecking=no -i conf/id_rsa -r futel@futel-prod.phu73l.net:/opt/asterisk/var/spool/asterisk/voicemail/default tmp
+scp -o StrictHostKeyChecking=no -i conf/id_rsa futel@futel-prod.phu73l.net:/opt/asterisk/etc/asterisk/vm_futel_users.inc tmp/stage
+scp -o StrictHostKeyChecking=no -i conf/id_rsa -r futel@futel-prod.phu73l.net:/opt/asterisk/var/spool/asterisk/voicemail/default tmp/stage
 # logs
-scp -o StrictHostKeyChecking=no -i conf/id_rsa -r futel@futel-prod.phu73l.net:/opt/asterisk/var/log/asterisk tmp
+scp -o StrictHostKeyChecking=no -i conf/id_rsa -r futel@futel-prod.phu73l.net:/opt/asterisk/var/log/asterisk tmp/stage
 
 # voicemail
 ssh -o StrictHostKeyChecking=no -t -i conf/id_rsa futel@$stage_ip "sudo -u asterisk mv /opt/asterisk/etc/asterisk/vm_futel_users.inc /opt/asterisk/etc/asterisk/vm_futel_users.inc-"
@@ -24,17 +26,21 @@ ssh -o StrictHostKeyChecking=no -t -i conf/id_rsa futel@$stage_ip "sudo -u aster
 # logs
 ssh -o StrictHostKeyChecking=no -t -i conf/id_rsa futel@$stage_ip "sudo -u asterisk mv /opt/asterisk/var/log/asterisk /opt/asterisk/var/log/asterisk-"
 
-# voicemail
-scp -o StrictHostKeyChecking=no -i conf/id_rsa tmp/vm_futel_users.inc futel@$stage_ip:/tmp
-scp -o StrictHostKeyChecking=no -i conf/id_rsa -r tmp/default futel@$stage_ip:/tmp
-# logs
-scp -o StrictHostKeyChecking=no -i conf/id_rsa -r tmp/asterisk futel@$stage_ip:/tmp
+ssh -o StrictHostKeyChecking=no -t -i conf/id_rsa futel@$stage_ip "mkdir /tmp/stage"
 
 # voicemail
-ssh -o StrictHostKeyChecking=no -t -i conf/id_rsa futel@$stage_ip "sudo -u asterisk cp /tmp/vm_futel_users.inc /opt/asterisk/etc/asterisk/vm_futel_users.inc"
-ssh -o StrictHostKeyChecking=no -t -i conf/id_rsa futel@$stage_ip "sudo -u asterisk cp -r /tmp/default /opt/asterisk/var/spool/asterisk/voicemail"
+scp -o StrictHostKeyChecking=no -i conf/id_rsa tmp/stage/vm_futel_users.inc futel@$stage_ip:/tmp/stage
+scp -o StrictHostKeyChecking=no -i conf/id_rsa -r tmp/stage/default futel@$stage_ip:/tmp/stage
 # logs
-ssh -o StrictHostKeyChecking=no -t -i conf/id_rsa futel@$stage_ip "sudo -u asterisk cp -r /tmp/asterisk /opt/asterisk/var/log/asterisk"
+scp -o StrictHostKeyChecking=no -i conf/id_rsa -r tmp/stage/asterisk futel@$stage_ip:/tmp/stage
+
+ssh -o StrictHostKeyChecking=no -t -i conf/id_rsa futel@$stage_ip "sudo chown -R asterisk:asterisk /tmp/stage"
+
+# voicemail
+ssh -o StrictHostKeyChecking=no -t -i conf/id_rsa futel@$stage_ip "sudo -u asterisk cp /tmp/stage/vm_futel_users.inc /opt/asterisk/etc/asterisk/vm_futel_users.inc"
+ssh -o StrictHostKeyChecking=no -t -i conf/id_rsa futel@$stage_ip "sudo -u asterisk cp -r /tmp/stage/default /opt/asterisk/var/spool/asterisk/voicemail"
+# logs
+ssh -o StrictHostKeyChecking=no -t -i conf/id_rsa futel@$stage_ip "sudo -u asterisk cp -r /tmp/stage/asterisk /opt/asterisk/var/log/asterisk"
 
 #ssh -o StrictHostKeyChecking=no -t -i conf/id_rsa futel@$stage_ip "sudo service asterisk start"
 ssh -o StrictHostKeyChecking=no -t -i conf/id_rsa futel@$stage_ip "sudo reboot"
