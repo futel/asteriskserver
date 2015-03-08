@@ -23,7 +23,7 @@ ssh key (personal key)
 create or check out release branch
 
 create droplet from snapshot baseinstall_stage
-src/make_vpnbox.sh <ip>
+src/vpnbox.sh <ip>
 save snapshot vpnbox_stage
 
 test

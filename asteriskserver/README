@@ -1,4 +1,4 @@
-## Deploy a futel asterisk server to Digital Ocean
+## Deploy an asterisk server to Digital Ocean
 
 ## Ongoing:
 
@@ -16,7 +16,7 @@ sip_callcentric.conf.<conf_version> pointing to extension
 sip_secret.conf extensions_secret.conf
 id_rsa id_rsa.pub
 
-## Deploy stage to digital ocean manually
+## Deploy stage asteriskbox to digital ocean manually
 
 all droplets:
 hostname futel-stage
