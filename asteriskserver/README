@@ -30,16 +30,16 @@ SSH into prod to find out what conf version is being used:
 ssh -o StrictHostKeyChecking=no -t -i conf/id_rsa futel@futel-prod.phu73l.net 'grep "foo\|bar" /opt/asterisk/etc/asterisk/sip_callcentric.conf'
 
 create droplet from image CentOS 6.5 x32
-src/make_baseinstall.sh <ip>
+src/baseinstall.sh <ip>
 save snapshot baseinstall_stage
 
 create droplet from snapshot baseinstall_stage
-src/make_baseconfig.sh <ip>
+src/baseconfig.sh <ip>
 save snapshot baseconfig_stage
 
 create droplet from snapshot baseconfig_stage
 use the conf_version not being used by prod
-src/make_asteriskbox.sh <ip> <conf_version>
+src/asteriskbox.sh <ip> <conf_version>
 save snapshot asteriskbox_stage
 
 test
