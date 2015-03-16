@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# bootstrap openvpnbox from centos6_32_baseinstall
+# bootstrap openvpnbox from centos6_32_baseconfig
 # this does system configuration
 # with some install steps, ok
 

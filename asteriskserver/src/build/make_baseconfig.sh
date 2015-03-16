@@ -7,7 +7,6 @@ set -x
 /bin/cp -f /vagrant/src/sshd_config /etc/ssh/sshd_config
 service sshd restart
 
-# will need more ports for iax2 later - asterisk to asterisk
 /etc/init.d/iptables stop
 /vagrant/src/iptables.sh
 service iptables save
