@@ -5,26 +5,13 @@
 
 set -x
 
-# XXX do we want this the same?
-/bin/cp -f /vagrant/src/sshd_config /etc/ssh/sshd_config
-service sshd restart
-
 /etc/init.d/iptables stop
 /vagrant/src/iptables.sh
 service iptables save
 service iptables restart
 
-# add a futel user to log in as, and for vagrant commands
-useradd -m futel
-mkdir /home/futel/.ssh
-/bin/cp -f /vagrant/src/id_rsa.pub /home/futel/.ssh/authorized_keys
-chown -R futel:futel /home/futel/.ssh
-chmod -R go-rwx /home/futel/.ssh
-usermod -a -G wheel futel
-
-# allow nopasswd sudo for futel user
-/bin/cp -f /vagrant/src/futel /etc/sudoers.d/futel
-chmod go-rwx /etc/sudoers.d/futel
+# add crontab with logwatch job
+cp -f /vagrant/src/crontab /etc/crontab
 
 rpm -Uvh http://download.fedoraproject.org/pub/epel/6/i386/epel-release-6-8.noarch.rpm
 yum install -y openvpn

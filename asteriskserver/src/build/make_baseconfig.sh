@@ -19,7 +19,7 @@ mkdir /home/futel/.ssh
 chown -R futel:futel /home/futel/.ssh
 chmod -R go-rwx /home/futel/.ssh
 usermod -a -G wheel futel
-usermod -a -G asterisk futel
+#usermod -a -G asterisk futel
 
 # allow nopasswd sudo for futel user
 /bin/cp -f /vagrant/src/futel /etc/sudoers.d/futel
@@ -49,7 +49,7 @@ postmap /etc/postfix/sasl_passwd
 cp -f /vagrant/src/postfix/main.cf /etc/postfix/main.cf
 service postfix restart
 
-# configure cron for noon logwatch reports
+# add crontab with logwatch job
 cp -f /vagrant/src/crontab /etc/crontab
 
 # set correct timezone in /etc/localtime

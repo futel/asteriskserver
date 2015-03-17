@@ -22,7 +22,7 @@ ssh key (personal key)
 
 create or check out release branch
 
-create droplet from snapshot baseinstall_stage
+create droplet from snapshot baseconfig_stage
 src/vpnbox.sh <ip>
 save snapshot vpnbox_stage
 
@@ -33,15 +33,17 @@ wait for DNS to propagate
 
 connect client to vpnbox_stage as in asteriskbox README.client
 
-## promote stage to prod (note names are inconsistent)
-rename futel-vpnbox droplet to futel-vpnbox-back
-rename vpnbox-stage droplet to futel-vpnbox
-rename futel-stage hostname to futel-prod
+## promote stage to prod
+rename vpnbox-prod droplet to vpnbox-prod-back
+rename vpnbox-stage droplet to vpnbox-prod
+rename vpnbox-stage hostname to vpnbox-prod
+rename vpnbox-prod hostname to vpnbox-prod-back
   edit /etc/sysconfig/network, "hostname futel-vpnbox"
-change A record for futel-vpnbox to point to new futel-vpnbox
-change A record for vpnbox-stage to point to old futel-vpnbox
+change A record for vpnbox-prod to point to new vpnbox-prod
+change A record for futel-vpnbox to point to new vpnbox-prod (legacy)
+change A record for vpnbox-stage to point to old vpnbox-prod
 wait for DNS to propagate
 # XXX DNS takes time, what about clients already connected to old prod?
-test futel-vpnbox
-make a snapshot of futel-vpnbox-back
-destroy droplet futel-vpnbox-back
+test vpnbox-prod
+make a snapshot of vpnbox-prod-back
+destroy droplet vpnbox-prod-back
