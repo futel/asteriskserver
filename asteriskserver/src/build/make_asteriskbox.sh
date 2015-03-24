@@ -81,3 +81,6 @@ chown asterisk: /opt/asterisk/var/log/asterisk/old
 cp -f /vagrant/src/logrotate/logrotate.d/asterisk /etc/logrotate.d/asterisk
 
 service asterisk restart
+
+rm -rf /tmp/vagrant
+halt now

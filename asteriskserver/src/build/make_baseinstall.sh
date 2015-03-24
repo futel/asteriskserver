@@ -22,3 +22,6 @@ yum -y install festival # if running festival locally
 yum -y install logwatch cyrus-sasl-plain # current monitoring for asterisk
 
 yum -y update
+
+rm -rf /tmp/vagrant
+halt now

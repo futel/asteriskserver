@@ -9,7 +9,6 @@ boxfilename=$2
 
 export vagrantbox=$1
 vmname=`VBoxManage list vms | awk '{print $1}' | sed 's/"//g'`
-vagrant halt
 vagrant package --base $vmname
 mv -f package.box $boxfilename
 vagrant box add -f $boxname $boxfilename
