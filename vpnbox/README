@@ -38,12 +38,20 @@ rename vpnbox-prod droplet to vpnbox-prod-back
 rename vpnbox-stage droplet to vpnbox-prod
 rename vpnbox-stage hostname to vpnbox-prod
 rename vpnbox-prod hostname to vpnbox-prod-back
-  edit /etc/sysconfig/network, "hostname futel-vpnbox"
+  "hostname vpnbox-prod" and edit /etc/sysconfig/network
 change A record for vpnbox-prod to point to new vpnbox-prod
 change A record for futel-vpnbox to point to new vpnbox-prod (legacy)
 change A record for vpnbox-stage to point to old vpnbox-prod
 wait for DNS to propagate
-# XXX DNS takes time, what about clients already connected to old prod?
+stop openvpn on old vpnbox-prod
+  "service openvpn stop"
+refresh iptables on futel-prod
+is there a way to make iptables keep the hostname so this isn't required?
+  /etc/init.d/iptables stop
+  /vagrant/src/iptables.sh
+  service iptables save
+  service iptables restart
+XXX what needds to be restarted?
 test vpnbox-prod
 make a snapshot of vpnbox-prod-back
 destroy droplet vpnbox-prod-back
