@@ -18,6 +18,10 @@ LZO enable
 paste vpnbox/conf/ca.crt into public server cert
 paste vpnbox/conf/client.crt into public client cert
 paste vpnbox/conf/client.key into private client key
+administration/commands:
+paste vpnbox/conf/ddwrt_startup into startup command
+administration/management: add cron line:
+0,3,6,9,12,15,18,21,24,27,30,33,36,39,42,45,48,51,54,57 * * * * root /tmp/replace_openvpn
 
 set up a spa-1001 linksysPAP etc
 line1: proxy/outbound proxy futel-prod.phu73l.net
