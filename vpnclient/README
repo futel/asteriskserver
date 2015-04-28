@@ -1,7 +1,5 @@
 ## set up client
 
-these assume openvpn server allows duplicate-cn for re-used creds
-
 set up a dd-wrt router
 http://www.dd-wrt.com/wiki/index.php/VPN_(the_easy_way)_v24%2B
 flash _vpn_ firmware
@@ -19,7 +17,7 @@ paste vpnbox/conf/ca.crt into public server cert
 paste vpnbox/conf/client.crt into public client cert
 paste vpnbox/conf/client.key into private client key
 administration/commands:
-paste vpnbox/conf/ddwrt_startup into startup command
+paste src/ddwrt_startup into startup command
 administration/management: add cron line:
 0,3,6,9,12,15,18,21,24,27,30,33,36,39,42,45,48,51,54,57 * * * * root /tmp/replace_openvpn
 
@@ -30,7 +28,7 @@ line1: display name, user ID <extension>
 line1: password <secret>
 line1: dial plan S0<:999> (or desired extension in default-outgoing context)
 
-test client on laptop
+set up test client on laptop
 
 have conf directory containing conf from vpnbox:
 client.conf.prod ca.crt client.crt client.key

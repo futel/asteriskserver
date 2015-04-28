@@ -34,24 +34,25 @@ wait for DNS to propagate
 connect client to vpnbox_stage as in asteriskbox README.client
 
 ## promote stage to prod
-rename vpnbox-prod droplet to vpnbox-prod-back
-rename vpnbox-stage droplet to vpnbox-prod
-rename vpnbox-stage hostname to vpnbox-prod
-rename vpnbox-prod hostname to vpnbox-prod-back
-  "hostname vpnbox-prod" and edit /etc/sysconfig/network
-change A record for vpnbox-prod to point to new vpnbox-prod
-change A record for futel-vpnbox to point to new vpnbox-prod (legacy)
-change A record for vpnbox-stage to point to old vpnbox-prod
+rename vpnbox-prod-foo|bar droplet to vpnbox-prod-foo|bar-back
+rename vpnbox-stage droplet to vpnbox-prod-foo|bar
+rename vpnbox-stage hostname to vpnbox-prod-foo|bar
+rename vpnbox-prod-foo|bar hostname to vpnbox-prod-foo|bar-back
+  "hostname vpnbox-prod-foo" and edit /etc/sysconfig/network
+change A record for vpnbox-prod-foo|bar
+  to point to new vpnbox-prod-foo|bar
+change A record for futel-vpnbox to point to new vpnbox-prod-foo|bar
+  (legacy)
+change A record for vpnbox-stage to point to old vpnbox-prod-foo|bar
 wait for DNS to propagate
-stop openvpn on old vpnbox-prod
+stop openvpn on old vpnbox-prod-foo|bar
   "service openvpn stop"
-refresh iptables on futel-prod
-is there a way to make iptables keep the hostname so this isn't required?
+refresh iptables on futel-prod-foo|bar
   /etc/init.d/iptables stop
   /vagrant/src/iptables.sh
   service iptables save
   service iptables restart
 XXX what needds to be restarted?
-test vpnbox-prod
-make a snapshot of vpnbox-prod-back
-destroy droplet vpnbox-prod-back
+test vpnbox-prod-foo|bar
+make a snapshot of vpnbox-prod-foo|bar-back
+destroy droplet vpnbox-prod-foo|bar-back
