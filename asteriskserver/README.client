@@ -1,0 +1,8 @@
+pick an unused extension from sip.conf, for example one in your test range
+get the secret for the extension from sip_secret.conf
+
+set up linphone
+sip:700@futel-prod.phu73l.net (replace 700 with extension)
+<sip:futel-prod.phu73l.net>
+when prompted, enter secret
+dial 999
