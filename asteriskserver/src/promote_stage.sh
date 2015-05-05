@@ -15,10 +15,10 @@ ssh -p42422 -o StrictHostKeyChecking=no -t -i conf/id_rsa futel@$stage_ip "sudo 
 [ -d tmp/stage ] || mkdir tmp/stage
 
 # voicemail
-scp -o StrictHostKeyChecking=no -i conf/id_rsa futel@futel-prod.phu73l.net:/opt/asterisk/etc/asterisk/vm_futel_users.inc tmp/stage
-scp -o StrictHostKeyChecking=no -i conf/id_rsa -r futel@futel-prod.phu73l.net:/opt/asterisk/var/spool/asterisk/voicemail/default tmp/stage
+scp -P42422 -o StrictHostKeyChecking=no -i conf/id_rsa futel@futel-prod.phu73l.net:/opt/asterisk/etc/asterisk/vm_futel_users.inc tmp/stage
+scp -P42422 -o StrictHostKeyChecking=no -i conf/id_rsa -r futel@futel-prod.phu73l.net:/opt/asterisk/var/spool/asterisk/voicemail/default tmp/stage
 # logs
-scp -o StrictHostKeyChecking=no -i conf/id_rsa -r futel@futel-prod.phu73l.net:/opt/asterisk/var/log/asterisk tmp/stage
+scp -P42422 -o StrictHostKeyChecking=no -i conf/id_rsa -r futel@futel-prod.phu73l.net:/opt/asterisk/var/log/asterisk tmp/stage
 
 # voicemail
 ssh -p42422 -o StrictHostKeyChecking=no -t -i conf/id_rsa futel@$stage_ip "sudo -u asterisk mv /opt/asterisk/etc/asterisk/vm_futel_users.inc /opt/asterisk/etc/asterisk/vm_futel_users.inc-"
