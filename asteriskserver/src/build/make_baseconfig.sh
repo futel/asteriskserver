@@ -19,7 +19,7 @@ mkdir /home/futel/.ssh
 chown -R futel:futel /home/futel/.ssh
 chmod -R go-rwx /home/futel/.ssh
 usermod -a -G wheel futel
-#usermod -a -G asterisk futel
+usermod -a -G asterisk futel
 
 # allow nopasswd sudo for futel user
 /bin/cp -f /vagrant/src/futel /etc/sudoers.d/futel
