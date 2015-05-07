@@ -68,8 +68,8 @@ while (defined($ThisLine = <STDIN>)) {
       $HackAttempt{$ThisLine}++;
    } elsif ( ( $ThisLine =~ /VERBOSE/ ) or
 		( $ThisLine =~ /DEBUG/ ) or
+		( $ThisLine =~ /Asterisk 11.5.1 built by asterisk/ ) or
 		( $ThisLine =~ /Starting AEL load process/ ) or
-		( $ThisLine =~ /is now Reachable./ ) or
 		( $ThisLine =~ /AEL load process:/) or
 		( $ThisLine =~ /CDR simple logging enabled./ ) or
 		( $ThisLine =~ /modules will be loaded./ ) or
