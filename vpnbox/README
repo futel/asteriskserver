@@ -47,12 +47,11 @@ change A record for vpnbox-stage to point to old vpnbox-prod-foo|bar
 wait for DNS to propagate
 stop openvpn on old vpnbox-prod-foo|bar
   "service openvpn stop"
-refresh iptables on futel-prod-foo|bar
+refresh iptables on futel-prod
   /etc/init.d/iptables stop
   /vagrant/src/iptables.sh
   service iptables save
   service iptables restart
-XXX what needds to be restarted?
 test vpnbox-prod-foo|bar
 make a snapshot of vpnbox-prod-foo|bar-back
 destroy droplet vpnbox-prod-foo|bar-back
