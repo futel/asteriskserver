@@ -11,7 +11,7 @@ services/vpn:
 disable everything but openvpn client
 openvpn client:
 enable
-server name futel-vpnbox.phu73l.net
+server name vpnbox-prod-foo.phu73l.net
 LZO enable
 paste vpnbox/conf/ca.crt into public server cert
 paste vpnbox/conf/client.crt into public client cert
