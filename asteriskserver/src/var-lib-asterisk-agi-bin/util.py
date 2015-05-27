@@ -4,6 +4,9 @@ import logging
 
 # directories for gsm files, in order of preference
 statement_dirs = [
+    '/opt/asterisk/var/lib/asterisk/sounds/futel/recordings/karl_quuux/',
+    '/opt/asterisk/var/lib/asterisk/sounds/futel/recordings/karl_quux/',
+    '/opt/asterisk/var/lib/asterisk/sounds/futel/recordings/karl_qux/',
     '/opt/asterisk/var/lib/asterisk/sounds/futel/recordings/karl_baz/',
     '/opt/asterisk/var/lib/asterisk/sounds/futel/recordings/karl_foo/',
     '/opt/asterisk/var/lib/asterisk/sounds/futel/recordings/karl_bar/',
@@ -29,7 +32,9 @@ def sound_path(sound_name):
     # this is how stream_file and Background want it
     for statement_dir in statement_dirs:
         path = statement_dir + sound_name
+        #agi_o.verbose('xxx %s' % path)
         if os.path.isfile(path + '.gsm'):
+            #agi_o.verbose('xxx got %s' % path)
             return path
     return None
 
