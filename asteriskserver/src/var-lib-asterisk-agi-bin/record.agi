@@ -25,7 +25,7 @@ def mkdir(path):
         else: raise
 
 def statement_to_filename(statement):
-    return statement            # XXX assume appropriate
+    return statement            # assume appropriate
 
 def statement_path(statement, username):
     """
@@ -38,19 +38,30 @@ def statement_path(statement, username):
 
 def prompt_and_record(agi_o, statement, username):
     util.say(agi_o, 'please-repeat')
-    util.say(agi_o, 'then-press-pound')
     util.say(agi_o, statement)
     path = statement_path(statement, username)
     path_in = path  + ':gsm'
     agi_o.appexec('record', path_in)
-    #agi_o.appexec('playback', path) # testing
+    agi_o.stream_file(path)
+
+def digit_pound(agi_o):
+    util.say(agi, 'to-accept')
+    util.say(agi, 'press-pound')
+    digit = agi.wait_for_digit(timeout=-1)
+    return digit == '#'
 
 def record_statements(statements):
     username = get_username()
     util.say(agi, 'hello')
+    util.say(agi, 'after-each-statement')
+    util.say(agi, 'please-repeat')
+    util.say(agi, 'then-press-pound')
+
     for statement in statements:
         prompt_and_record(agi, statement, username)
-    util.say(agi_o, 'thank-you')
+        while not digit_pound(agi):
+            prompt_and_record(agi, statement, username)
+    util.say(agi, 'thank-you')
     util.say(agi, 'goodbye')
 
 
