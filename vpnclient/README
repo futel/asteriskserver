@@ -32,4 +32,4 @@ set up test client on laptop
 
 have conf directory containing conf from vpnbox:
 client.conf.prod ca.crt client.crt client.key
-sudo openvpn --config conf/client.conf.prod
+sudo openvpn --config conf/client.conf.ddwrt
