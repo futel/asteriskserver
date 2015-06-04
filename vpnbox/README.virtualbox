@@ -1,0 +1,5 @@
+# build vpnbox from centos6_32_baseconfig
+# TODO: still a work in progress.
+# pretty sure there is no need to repackage
+export vagrantbox=vpnbox
+vagrant up

@@ -31,6 +31,12 @@ cp conf/dh1024.pem openvpn
 mv /etc/openvpn /etc/openvpn-
 mv openvpn /etc
 /bin/cp -f /vagrant/src/sysctl.conf /etc
+
+# set up logrotate for openvpn
+# this PROBABLY relies on openvpn
+mkdir /var/log/openvpn_old
+cp -f src/logrotate/openvpn /etc/logrotate.d/openvpn
+
 # apply sysctl settings
 sysctl -p
 chkconfig openvpn on

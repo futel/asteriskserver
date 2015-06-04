@@ -26,6 +26,8 @@ src/package_vm.sh centos6_32_baseconfig ../centos6_32_baseconfig.box
 export vagrantbox=centos6_32_baseconfig
 src/repackage_vm.sh centos6_32_baseconfig ../centos6_32_baseconfig.box
 
+# if building vpnbox, change to vpnbox directory and follow virtualbox README
+
 # make asteriskbox from centos6_32_baseconfig
 # have conf directory as in README
 export vagrantbox=centos6_32_baseconfig

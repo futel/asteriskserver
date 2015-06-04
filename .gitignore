@@ -1,3 +1,5 @@
 asteriskserver/conf
+vpnbox/conf
 *.box
 asteriskserver/.vagrant
+vpnbox/.vagrant

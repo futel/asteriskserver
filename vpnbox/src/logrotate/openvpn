@@ -1,0 +1,7 @@
+/var/log/openvpn.log {
+	missingok
+	notifempty
+	rotate 31
+	olddir /var/log/openvpn_old
+	daily
+}
