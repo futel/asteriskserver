@@ -37,6 +37,10 @@ mv openvpn /etc
 mkdir /var/log/openvpn_old
 cp -f src/logrotate/openvpn /etc/logrotate.d/openvpn
 
+# set up logwatch
+cp -rf /vagrant/src/logwatch/* /etc/logwatch/
+cp -f /vagrant/conf/logwatch.conf /usr/share/logwatch/default.conf/logwatch.conf
+
 # apply sysctl settings
 sysctl -p
 chkconfig openvpn on
