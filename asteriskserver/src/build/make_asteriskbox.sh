@@ -82,5 +82,11 @@ cp -f /vagrant/src/logrotate/logrotate.d/asterisk /etc/logrotate.d/asterisk
 
 service asterisk restart
 
+# configure logwatch here to prevent spamming output with openvpn non logs
+# TODO make email addresses local aliases to remove some stuff from our
+# secret conf dir
+cp -rf /vagrant/src/logwatch/* /etc/logwatch/
+cp -f /vagrant/conf/logwatch.conf /usr/share/logwatch/default.conf/logwatch.conf
+
 rm -rf /tmp/vagrant
 halt now
