@@ -13,8 +13,6 @@ rm -rf tmp/*
 
 $SSH futel@$stage_ip "sudo service asterisk stop"
 
-# XXX should probably stop prod before copying assets from it
-
 [ -d tmp/stage ] || mkdir tmp/stage
 
 # voicemail
