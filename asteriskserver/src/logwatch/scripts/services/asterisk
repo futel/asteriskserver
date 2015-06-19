@@ -40,9 +40,9 @@ while (defined($ThisLine = <STDIN>)) {
    }
    if  ( ( $ThisLine =~ /WARNING/ ) or 
 		( $ThisLine =~ /Got SIP response 484 "Address Incomplete"/ ) or
-		( $ThisLine =~ /Got SIP response 486 "Busy Here"/ ) or
+		#( $ThisLine =~ /Got SIP response 486 "Busy Here"/ ) or
 		( $ThisLine =~ /Got SIP response 603 "Declined"/ ) or
-		( $ThisLine =~ /Everyone is busy\/congested at this time/ ) or
+		#( $ThisLine =~ /Everyone is busy\/congested at this time/ ) or
 		( $ThisLine =~ /rejected because extension not found./ ) or
 		( $ThisLine =~ /AEL declining load/ ) or 
 		( $ThisLine =~ /No such label/ ) or
@@ -81,6 +81,7 @@ while (defined($ThisLine = <STDIN>)) {
 		( $ThisLine =~ /Received SIP subscribe for peer without mailbox:/ ) or
 		( $ThisLine =~ /Skinny Session returned: Success/ ) or
 		( $ThisLine =~ /No SMDI interfaces are available to listen on, not starting SMDI listener./ ) or
+		( $ThisLine =~ /app_voicemail.c: Couldn't read username/ ) or
 		( $ThisLine =~ /Unknown RTP codec 126 received from/ ) ) { 	
       # We don't care about these
    } else {
