@@ -83,10 +83,21 @@ cp -f /vagrant/src/logrotate/logrotate.d/asterisk /etc/logrotate.d/asterisk
 service asterisk restart
 
 # configure logwatch here to prevent spamming output with openvpn non logs
-# TODO make email addresses local aliases to remove some stuff from our
-# secret conf dir
 cp -rf /vagrant/src/logwatch/* /etc/logwatch/
 cp -f /vagrant/conf/logwatch.conf /usr/share/logwatch/default.conf/logwatch.conf
+
+# install mpg123 for mp3 playback
+# docs claim this is not needed but I am yet to see it work without
+cd /tmp
+tar xvf /vagrant/src/mpg123-1.22.2.tar.bz2
+cd mpg123-1.22.2
+./configure
+make && make install
+
+# install our new music on hold tunes
+mkdir /opt/asterisk/var/lib/asterisk/moh/hold
+cp -f /vagrant/src/ipanema.mp3 /opt/asterisk/var/lib/asterisk/moh/hold/.
+chown -R asterisk: /opt/asterisk/var/lib/asterisk/moh/hold
 
 rm -rf /tmp/vagrant
 halt now
