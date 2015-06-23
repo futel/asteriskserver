@@ -41,8 +41,6 @@ rename vpnbox-prod-foo|bar hostname to vpnbox-prod-foo|bar-back
   "hostname vpnbox-prod-foo" and edit /etc/sysconfig/network
 change A record for vpnbox-prod-foo|bar
   to point to new vpnbox-prod-foo|bar
-change A record for futel-vpnbox to point to new vpnbox-prod-foo|bar
-  (legacy)
 change A record for vpnbox-stage to point to old vpnbox-prod-foo|bar
 wait for DNS to propagate
 stop openvpn on old vpnbox-prod-foo|bar

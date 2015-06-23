@@ -2,7 +2,7 @@
 
 ## Ongoing:
 
-have futel-vpnbox
+have vpnbox-prod-foo or vpnbox-prod-bar
 copy src/backup.sh to /etc/cron.daily/backup-futel-prod on eurydice
 
 for each installation, have a callcentric account with pay per call and two DID free phone numbers

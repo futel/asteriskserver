@@ -18,7 +18,6 @@ iptables -A INPUT -m state --state ESTABLISHED,RELATED -j ACCEPT
 iptables -A INPUT -p tcp --dport 42422 -j ACCEPT
 # let openvpn in from vpnbox
 # this should be changed to only be the asterisk and ssh ports
-iptables -A INPUT -s futel-vpnbox.phu73l.net -j ACCEPT # legacy
 iptables -A INPUT -s vpnbox-prod-foo.phu73l.net -j ACCEPT
 iptables -A INPUT -s vpnbox-prod-bar.phu73l.net -j ACCEPT
 
