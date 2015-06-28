@@ -34,10 +34,10 @@ wait for DNS to propagate
 connect client to vpnbox_stage as in asteriskbox README.client
 
 ## promote stage to prod
-rename vpnbox-prod-foo|bar droplet to vpnbox-prod-foo|bar-back
+if existing, rename vpnbox-prod-foo|bar droplet to vpnbox-prod-foo|bar-back
 rename vpnbox-stage droplet to vpnbox-prod-foo|bar
 rename vpnbox-stage hostname to vpnbox-prod-foo|bar
-rename vpnbox-prod-foo|bar hostname to vpnbox-prod-foo|bar-back
+if existing, rename vpnbox-prod-foo|bar hostname to vpnbox-prod-foo|bar-back
   "hostname vpnbox-prod-foo" and edit /etc/sysconfig/network
 change A record for vpnbox-prod-foo|bar
   to point to new vpnbox-prod-foo|bar
