@@ -10,7 +10,9 @@ import util
 agi = agi.AGI()
 
 def main():
-    sound_path = util.sound_path(sys.argv[1])
+    statement = sys.argv[1]
+    preferred_sub = sys.argv[2]
+    sound_path = util.sound_path(statement, preferred_sub)
     agi.set_variable('agi_out', sound_path)
 
 agi.answer()

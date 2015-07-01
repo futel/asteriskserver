@@ -25,16 +25,20 @@ def agi_tracebacker(agi_o, func, *args, **kwargs):
             agi_o.verbose(line)
         raise
 
-def sound_path(sound_name):
+def sound_path(sound_name, preferred_sub=None):
     """
     Return full path without extension for file for sound_name, or None.
+    If preferred_sub is given, prefer paths with it as a substring.
     """
-    # this is how stream_file and Background want it
-    for statement_dir in statement_dirs:
+    # stream_file and Background want it without the extension
+    if preferred_sub:
+        dirs = [d for d in statement_dirs if preferred_sub in d]
+    else:
+        dirs = []
+    dirs.extend([d for d in statement_dirs if d not in dirs])
+    for statement_dir in dirs:
         path = statement_dir + sound_name
-        #agi_o.verbose('xxx %s' % path)
         if os.path.isfile(path + '.gsm'):
-            #agi_o.verbose('xxx got %s' % path)
             return path
     return None
 
