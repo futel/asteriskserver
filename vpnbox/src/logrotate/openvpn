@@ -1,4 +1,5 @@
 /var/log/openvpn.log {
+	copytruncate
 	missingok
 	notifempty
 	rotate 31
