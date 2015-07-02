@@ -43,13 +43,14 @@ change A record for vpnbox-prod-foo|bar
   to point to new vpnbox-prod-foo|bar
 change A record for vpnbox-stage to point to old vpnbox-prod-foo|bar
 wait for DNS to propagate
+refresh iptables on futel-prod
+XXX must recopy /vagrant/src/iptable.sh to futel-prod first
+  /etc/init.d/iptables stop && /vagrant/src/iptables.sh && service iptables save && service iptables start
 stop openvpn on old vpnbox-prod-foo|bar
   "service openvpn stop"
-refresh iptables on futel-prod
-  /etc/init.d/iptables stop
-  /vagrant/src/iptables.sh
-  service iptables save
-  service iptables restart
-test vpnbox-prod-foo|bar
-make a snapshot of vpnbox-prod-foo|bar-back
-destroy droplet vpnbox-prod-foo|bar-back
+XXX sip peers are unreachable until they make outgoing connection?
+test that new vpnbox-prod-foo|bar is being used
+  sip show peers on futel-prod
+  service openvpn status on new vpnbox-prod-foo|bar
+make a snapshot of old vpnbox-prod-foo|bar
+destroy droplet old vpnbox-prod-foo|bar
