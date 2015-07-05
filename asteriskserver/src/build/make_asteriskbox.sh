@@ -99,5 +99,13 @@ mkdir /opt/asterisk/var/lib/asterisk/moh/hold
 cp -f /vagrant/src/ipanema.mp3 /opt/asterisk/var/lib/asterisk/moh/hold/.
 chown -R asterisk: /opt/asterisk/var/lib/asterisk/moh/hold
 
+# TODO this will be off by default for now. currently 240MB
+#	uncomment for testing or for DO build
+#cd /tmp
+#git clone https://github.com/lboom/futel-assets
+#cd futel-assets/
+#cp -rf phonetrips /opt/asterisk/var/lib/asterisk/.
+#chown -R asterisk: /opt/asterisk/var/lib/asterisk/phonetrips/
+
 rm -rf /tmp/vagrant
 halt now

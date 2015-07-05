@@ -5,6 +5,7 @@ import logging
 # directories for gsm files, in order of preference
 statement_dirs = [
     '/opt/asterisk/var/lib/asterisk/sounds/futel/recordings/karl_quuux/',
+    '/opt/asterisk/var/lib/asterisk/sounds/futel/recordings/tishbite/',
     '/opt/asterisk/var/lib/asterisk/sounds/futel/recordings/karl_quux/',
     '/opt/asterisk/var/lib/asterisk/sounds/futel/recordings/karl_qux/',
     '/opt/asterisk/var/lib/asterisk/sounds/futel/recordings/karl_baz/',
