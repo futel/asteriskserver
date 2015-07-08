@@ -107,5 +107,5 @@ chown -R asterisk: /opt/asterisk/var/lib/asterisk/moh/hold
 #cp -rf phonetrips /opt/asterisk/var/lib/asterisk/.
 #chown -R asterisk: /opt/asterisk/var/lib/asterisk/phonetrips/
 
-rm -rf /tmp/vagrant
+rm -rf /tmp/vagrant/conf
 halt now

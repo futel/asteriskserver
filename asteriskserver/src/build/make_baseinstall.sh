@@ -23,5 +23,5 @@ yum -y install logwatch cyrus-sasl-plain # current monitoring for asterisk
 
 yum -y update
 
-rm -rf /tmp/vagrant
+rm -rf /tmp/vagrant/conf
 halt now
