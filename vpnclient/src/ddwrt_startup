@@ -8,6 +8,7 @@ resolv-retry infinite
 nobind
 persist-key
 #persist-tun
+keepalive 10 120
 tun-mtu 1500
 tun-mtu-extra 32
 mssfix 1450
