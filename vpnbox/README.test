@@ -1,0 +1,74 @@
+test vpnbox and deployment
+
+issue:
+when vpnbox-bar was set up and vpnbox-foo shut down, r2d2 did not connect
+to -bar
+
+procedure:
+
+make release branch
+# ideally promote branch before testing on new stage
+#deploy futel-stage
+#promote to futel-prod
+
+deploy vpnbox-prod-baz
+deploy vpnbox-prod-qux
+deploy futel-stage
+edit /vagrant/src/iptables.sh on futel-stage to use -baz and -qux && service iptables restart
+edit router to use -baz and -qux and reboot
+set up sip device for futel-stage ext 671
+
+test failover:
+connected to baz?
+stop -baz
+connected to qux?
+start -baz, stop -qux
+connected to baz?
+start -qux, stop -baz
+connected to qux?
+
+test failover when original client does not connect:
+reboot router
+connected to qux?
+start -baz, stop -qux
+connected to baz
+
+test failover when ip address for name changes:
+start -baz, -qux
+reboot router
+connected to baz?
+stop -baz
+connected to qux?
+deploy vpnbox-prod-quux
+edit dns to point -baz to -quux, wait for propagation
+stop -qux
+perform iptables update on futel-stage as for vpnbox promotion
+connected to baz (quux)?
+start -qux, stop -baz
+connected to qux?
+
+stop -baz, -qux, -quux
+stop futel-stage
+
+edit router to use -foo and -bar and reboot
+edit sip device to use futel-prod ext 671
+test
+destroy -baz, -qux, -quux
+
+deploy vpnbox-prod-bar
+test
+stop vpnbox-prod-foo, test
+XXX r2d2 will lose service while vpnbox-prod-foo is down
+start vpnbox-prod-foo, test
+verify that prod clients are connected
+disconnect router, sip device
+
+destroy futel-stage
+
+# if not already done
+#deploy futel-stage
+#promote to futel-prod
+
+edit sip device to use futel-prod ext 670
+swap router and sip device at r2d2
+
