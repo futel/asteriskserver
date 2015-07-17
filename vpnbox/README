@@ -45,7 +45,7 @@ change A record for vpnbox-stage to point to old vpnbox-prod-foo|bar
 wait for DNS to propagate
 refresh iptables on futel-prod
 XXX must recopy /vagrant/src/iptable.sh to futel-prod first
-  /etc/init.d/iptables stop && /vagrant/src/iptables.sh && service iptables save && service iptables start
+  service iptables stop && /vagrant/src/iptables.sh && service iptables save && service iptables start
 stop openvpn on old vpnbox-prod-foo|bar
   "service openvpn stop"
 XXX sip peers are unreachable until they make outgoing connection?
