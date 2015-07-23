@@ -56,7 +56,7 @@ rename futel-prod hostname to futel-prod-back
 rename futel-stage hostname to futel-prod
   "hostname futel-prod" and edit /etc/sysconfig/network
 change A record for futel-prod to point to new futel-prod
-change A record for futel-stage to point to old futel-prod
+remove A record for futel-stage
 point all callcentric DID forwarding rules to new futel-prod extensions:
   kra user to oskar incoming
   futel-r2d2 user to r2d2 incoming

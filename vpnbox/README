@@ -39,14 +39,14 @@ rename vpnbox-stage droplet to vpnbox-prod-foo|bar
 rename vpnbox-stage hostname to vpnbox-prod-foo|bar
 if existing, rename vpnbox-prod-foo|bar hostname to vpnbox-prod-foo|bar-back
   "hostname vpnbox-prod-foo" and edit /etc/sysconfig/network
-change A record for vpnbox-prod-foo|bar
+change A record for old vpnbox-prod-foo|bar
   to point to new vpnbox-prod-foo|bar
-change A record for vpnbox-stage to point to old vpnbox-prod-foo|bar
+remove A record for vpnbox-stage
 wait for DNS to propagate
 refresh iptables on futel-prod
-XXX must recopy /vagrant/src/iptable.sh to futel-prod first
+XXX must recopy /vagrant/src/iptables.sh to futel-prod first
   service iptables stop && /vagrant/src/iptables.sh && service iptables save && service iptables start
-stop openvpn on old vpnbox-prod-foo|bar
+if existing, stop openvpn on old vpnbox-prod-foo|bar
   "service openvpn stop"
 XXX sip peers are unreachable until they make outgoing connection?
 test that new vpnbox-prod-foo|bar is being used
@@ -54,3 +54,12 @@ test that new vpnbox-prod-foo|bar is being used
   service openvpn status on new vpnbox-prod-foo|bar
 make a snapshot of old vpnbox-prod-foo|bar
 destroy droplet old vpnbox-prod-foo|bar
+stop openvpn on redundant vpnbox-prod-foo|bar
+  "service openvpn stop"
+XXX sip peers are unreachable until they make outgoing connection?
+test that new vpnbox-prod-foo|bar is being used
+  sip show peers on futel-prod
+  service openvpn status on new vpnbox-prod-foo|bar
+make a snapshot of redundant vpnbox-prod-foo|bar
+destroy droplet redundant vpnbox-prod-foo|bar
+
