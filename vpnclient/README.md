@@ -1,6 +1,6 @@
-## set up client
+# set up client
 
-#set up a dd-wrt router
+##set up a dd-wrt router
 http://www.dd-wrt.com/wiki/index.php/VPN_(the_easy_way)_v24%2B
 flash _vpn_ firmware
 
@@ -28,9 +28,9 @@ administration/management: add cron line:
 0,3,6,9,12,15,18,21,24,27,30,33,36,39,42,45,48,51,54,57 * * * * root /tmp/replace_openvpn
 
 
-##set up sip
+#set up sip
 
-#set up a spa-1001 linksysPAP etc
+##set up a spa-1001 linksysPAP etc
 line1: proxy/outbound proxy futel-prod.phu73l.net
 line1: use outbound proxy no
 line1: display name, user ID <extension>
