@@ -1,45 +1,46 @@
 # set up client
 
 ##set up a dd-wrt router
-http://www.dd-wrt.com/wiki/index.php/VPN_(the_easy_way)_v24%2B
-flash _vpn_ firmware
+* http://www.dd-wrt.com/wiki/index.php/VPN_(the_easy_way)_v24%2B
+* flash _vpn_ firmware
 
-setup/basic: local IP address 10.0.0.1 (or whatev doesn't match upstream)
-services/services: enable syslogd (if you want to read logs)
-services/services: disable telnet/ssh/etc
+* setup/basic: local IP address 10.0.0.1 (or whatev doesn't match upstream)
+* services/services: enable syslogd (if you want to read logs)
+* services/services: disable telnet/ssh/etc
 
-wireless/basic: wireless network mode disabled (if not using wifi)
+* wireless/basic: wireless network mode disabled (if not using wifi)
 
-services/vpn:
-disable everything but openvpn client
+* services/vpn:
+	* disable everything but openvpn client
 
-openvpn client:
-enable
-server name vpnbox-prod-foo.phu73l.net
-LZO enable
-paste vpnbox/conf/ca.crt into public server cert
-paste vpnbox/conf/client.crt into public client cert
-paste vpnbox/conf/client.key into private client key
+* openvpn client:
+	* enable
+	* server name vpnbox-prod-foo.phu73l.net
+	* LZO enable
+	* paste vpnbox/conf/ca.crt into public server cert
+	* paste vpnbox/conf/client.crt into public client cert
+	* paste vpnbox/conf/client.key into private client key
 
-administration/commands:
-paste src/ddwrt_startup into the text area and then press 'save startup'
+* administration/commands:
+	* paste src/ddwrt_startup into the text area and then press 'save startup'
 
-administration/management: add cron line:
-0,3,6,9,12,15,18,21,24,27,30,33,36,39,42,45,48,51,54,57 * * * * root /tmp/replace_openvpn
+* administration/management:
+  * add cron line:
+		0,3,6,9,12,15,18,21,24,27,30,33,36,39,42,45,48,51,54,57 * * * * root /tmp/replace_openvpn
 
 
 #set up sip
 
 ##set up a spa-1001 linksysPAP etc
-line1: proxy/outbound proxy futel-prod.phu73l.net
-line1: use outbound proxy no
-line1: display name, user ID <extension>
-line1: password <secret>
-line1: dial plan S0<:999> (or desired extension in default-outgoing context)
+* line1: proxy/outbound proxy futel-prod.phu73l.net
+* line1: use outbound proxy no
+* line1: display name, user ID <extension>
+* line1: password <secret>
+* line1: dial plan S0<:999> (or desired extension in default-outgoing context)
 
 
 ##set up test client on laptop
 
-have conf directory containing conf from vpnbox:
-client.conf.prod ca.crt client.crt client.key
-sudo openvpn --config conf/client.conf.ddwrt
+* have conf directory containing conf from vpnbox:
+* client.conf.prod ca.crt client.crt client.key
+* sudo openvpn --config conf/client.conf.ddwrt
