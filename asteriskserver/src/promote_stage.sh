@@ -13,7 +13,7 @@ rm -rf tmp/*
 
 $SSH futel@$stage_ip "sudo service asterisk stop"
 
-[ -d tmp/stage ] || mkdir tmp/stage
+[ -d tmp/stage ] || mkdir -p tmp/stage
 
 # voicemail
 $SCP futel@futel-prod.phu73l.net:/opt/asterisk/etc/asterisk/vm_futel_users.inc tmp/stage
