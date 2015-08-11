@@ -12,6 +12,9 @@ service sshd restart
 service iptables save
 service iptables restart
 
+# add non-root user for asterisk
+useradd -m asterisk -s /bin/false
+
 # add futel user for provisioning and interactive shell
 useradd -m futel
 mkdir /home/futel/.ssh
@@ -24,9 +27,6 @@ usermod -a -G asterisk futel
 # allow nopasswd sudo for futel user
 /bin/cp -f /vagrant/src/futel /etc/sudoers.d/futel
 chmod go-rwx /etc/sudoers.d/futel
-
-# add non-root user for asterisk
-useradd -m asterisk -s /bin/false
 
 # add backup user
 adduser backup
@@ -53,4 +53,6 @@ rm -f /etc/localtime
 ln -s /usr/share/zoneinfo/PST8PDT /etc/localtime
 
 rm -rf /tmp/vagrant/conf
+# further builds are run by futel user
+chown -R futel:futel /tmp/vagrant
 halt now
