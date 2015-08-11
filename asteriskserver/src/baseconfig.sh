@@ -6,6 +6,8 @@ set -x
 do_ip=$1
 
 scp -o StrictHostKeyChecking=no -r . root@$do_ip:/tmp/vagrant
-ssh -o StrictHostKeyChecking=no -t root@$do_ip "sudo ln -s /tmp/vagrant /vagrant"
+ssh -o StrictHostKeyChecking=no -t root@$do_ip "sudo ln -sf /tmp/vagrant /vagrant"
 
 ssh -o StrictHostKeyChecking=no root@$do_ip /vagrant/src/build/make_baseconfig.sh
+
+# XXX let futel user read /tmp/vagrant

@@ -1,0 +1,14 @@
+#!/bin/sh                                                                       
+# back up futel directories of interest with rsync                              
+
+HOST=$1 # futel-prod.phu73l.net
+KEYFILE=$2 # /opt/futel/ssh/id_rsa
+REMOTEDIR=$3 # /opt/asterisk
+LOCALDIR=$4 #/tmp/opt/futel/backups/prod
+
+SSH="ssh -p42422 -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -t -i $KEYFILE"
+USER=futel
+DATE=`date "+%Y-%m"`
+LOCALDIR=$LOCALDIR/$DATE
+
+rsync -avcR --delete -e "$SSH" $USER@$HOST:$REMOTEDIR $LOCALDIR

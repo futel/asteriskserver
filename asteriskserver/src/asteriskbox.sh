@@ -7,6 +7,6 @@ do_ip=$1
 conf_version=$2
 
 scp -P42422 -o StrictHostKeyChecking=no -i conf/id_rsa -r . futel@$do_ip:/tmp/vagrant
-ssh -p42422 -o StrictHostKeyChecking=no -t -i conf/id_rsa futel@$do_ip "sudo ln -s /tmp/vagrant /vagrant"
+ssh -p42422 -o StrictHostKeyChecking=no -t -i conf/id_rsa futel@$do_ip "sudo ln -sf /tmp/vagrant /vagrant"
 
 ssh -p42422 -o StrictHostKeyChecking=no -t -i conf/id_rsa futel@$do_ip "sudo /vagrant/src/build/make_asteriskbox.sh $conf_version"
