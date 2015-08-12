@@ -1,0 +1,5 @@
+# update devbox from local, similar to update_asteriskbox.sh
+scp -P42422 -o StrictHostKeyChecking=no -i conf/id_rsa -r . futel@futel-dev.phu73l.net:/tmp/vagrant
+ssh -p42422 -o StrictHostKeyChecking=no -t -i conf/id_rsa futel@futel-dev.phu73l.net "sudo ln -sf /tmp/vagrant /vagrant"
+ssh -p42422 -o StrictHostKeyChecking=no -t -i conf/id_rsa futel@futel-dev.phu73l.net "sudo /vagrant/src/build/update_asteriskbox.sh dev"
+ssh -p42422 -o StrictHostKeyChecking=no -t -i conf/id_rsa futel@futel-dev.phu73l.net "sudo service asterisk restart"
