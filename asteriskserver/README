@@ -60,9 +60,9 @@ remove A record for futel-stage
 point all callcentric DID forwarding rules to new futel-prod extensions:
   kra user to oskar incoming
   futel-r2d2 user to r2d2 incoming
+point all voip.ms DID forwarding rules to new futel-prod subaccounts:
+  oskar-in to oskar-in subaccount
 wait for DNS to propagate
-# XXX DNS takes time, incoming calls won't go to the right place, what about
-#     SIP devices already connected to hosts?
 test futel-prod
 make a snapshot of futel-prod-back
 destroy droplet futel-prod-back
