@@ -83,3 +83,12 @@ def metric_metriclog(**kwargs):
     logger.addHandler(ch)
     logger.info('')
 
+def calling_extension(agi_o):
+    """ Return the calling extension. """
+    # eg SIP/702-00000000
+    channel= agi_o.get_variable('CHANNEL')
+    try:
+        return channel.split('/').pop().split('-').pop(0)
+    except:
+        return None
+

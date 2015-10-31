@@ -29,12 +29,10 @@ cp -r /vagrant/src/var-lib-asterisk-sounds-futel /opt/asterisk/var/lib/asterisk/
 # move customized config files into build conf location
 cp /vagrant/conf/sip_callcentric.conf.$conf_version /vagrant/conf/sip_callcentric.conf
 
-#cat /vagrant/conf/sip_callcentric.conf | sudo -u asterisk tee /opt/asterisk/etc/asterisk/sip_callcentric.conf
 cp /vagrant/conf/sip_callcentric.conf /opt/asterisk/etc/asterisk/sip_callcentric.conf
-#cat /vagrant/conf/sip_secret.conf | sudo -u asterisk tee /opt/asterisk/etc/asterisk/sip_secret.conf
 cp /vagrant/conf/sip_secret.conf /opt/asterisk/etc/asterisk/sip_secret.conf
-#cat /vagrant/conf/extensions_secret.conf | sudo -u asterisk tee /opt/asterisk/etc/asterisk/extensions_secret.conf
 cp /vagrant/conf/extensions_secret.conf /opt/asterisk/etc/asterisk/extensions_secret.conf
+cp /vagrant/conf/blocklist.yaml /opt/asterisk/etc/asterisk/blocklist.yaml
 
 # fix up issues due to our janky install locallly as root deployment
 chown -R asterisk:asterisk /opt/asterisk

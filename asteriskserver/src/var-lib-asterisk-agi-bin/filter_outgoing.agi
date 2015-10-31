@@ -1,0 +1,39 @@
+#!/usr/bin/env python
+"""
+Perform actions to filter a number before an outgoing call is allowed,
+for example by hanging up or doing nothing.
+"""
+
+import sys
+import yaml
+from asterisk import *
+import util
+
+agi = agi.AGI()
+
+ASTERISK_DIR = '/opt/asterisk/etc/asterisk'
+BLOCKLIST = 'blocklist.yaml'
+
+def load_blocklist():
+    yfile = '/'.join((ASTERISK_DIR, BLOCKLIST))
+    return yaml.load(file(yfile, 'r'))
+
+def filter_outgoing(blocklist, number, extension):
+    """
+    Perform filtering actions, if any,
+    based on how number and extension match blocklist.
+    """
+    for block_map in blocklist:
+        if all([str(block_map.get('number')) == number,
+                str(block_map.get('extension')) == extension]):
+            util.metric(agi, 'filter-outgoing-blocked')
+            agi.hangup()
+
+def main():
+    number = sys.argv[1]
+    extension = util.calling_extension(agi)
+    blocklist = load_blocklist()
+    filter_outgoing(blocklist, number, extension)
+
+agi.answer()
+util.agi_tracebacker(agi, main)

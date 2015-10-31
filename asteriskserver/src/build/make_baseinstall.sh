@@ -20,6 +20,7 @@ yum -y install ncurses-devel libxml2-devel newt-devel kernel-devel sqlite-devel
 yum -y install libuuid-devel
 yum -y install festival # if running festival locally
 yum -y install logwatch cyrus-sasl-plain # current monitoring for asterisk
+yum -y install python-yaml
 
 yum -y update
 
