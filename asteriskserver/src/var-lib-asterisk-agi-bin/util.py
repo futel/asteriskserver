@@ -10,7 +10,6 @@ statement_dirs = [
     '/opt/asterisk/var/lib/asterisk/sounds/futel/recordings/karl_qux/',
     '/opt/asterisk/var/lib/asterisk/sounds/futel/recordings/karl_baz/',
     '/opt/asterisk/var/lib/asterisk/sounds/futel/recordings/karl_foo/',
-    '/opt/asterisk/var/lib/asterisk/sounds/futel/recordings/karl_bar/',
     '/opt/asterisk/var/lib/asterisk/sounds/en/'
     ]
 
