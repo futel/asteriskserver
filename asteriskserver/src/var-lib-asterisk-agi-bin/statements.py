@@ -66,4 +66,8 @@ statements = [
     'again',
     'you-will-now-experience-the-voicemail-menu',
     'for-two-one-one-community-resources',
-    'for-the-wilamette-valley-dream-survey']
+    'for-the-wilamette-valley-dream-survey',
+    'for-the-current-time',
+    'please-hold',
+    'for-the-next-available-operator'
+]
