@@ -1,15 +1,16 @@
 #!/usr/bin/env bash
 # package current vagrant vm
-# assume only one vagrant vm
+# assume only one vagrant vm with boxtype in name
 
 set -x
 
-boxname=$1
-boxfilename=$2
+boxtype=$1
+boxname=$2
+boxfilename=$3
 
-export vagrantbox=$1
-vmname=`VBoxManage list vms | awk '{print $1}' | sed 's/"//g'`
-vagrant package --base $vmname
+export vagrantbox=$boxname
+vmname=`VBoxManage list vms | awk '{print $1}' | sed 's/"//g' | grep $boxtype`
+vagrant package --base $vmname # --vagrantfile Vagrantfile
 mv -f package.box $boxfilename
 vagrant box add -f $boxname $boxfilename
 vagrant destroy -f
