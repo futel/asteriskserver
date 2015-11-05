@@ -52,7 +52,4 @@ cp -f /vagrant/src/crontab /etc/crontab
 rm -f /etc/localtime
 ln -s /usr/share/zoneinfo/PST8PDT /etc/localtime
 
-rm -rf /tmp/vagrant/conf
-# further builds are run by futel user
-chown -R futel:futel /tmp/vagrant
 halt now

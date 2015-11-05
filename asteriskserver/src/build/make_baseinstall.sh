@@ -24,5 +24,4 @@ yum -y install python-yaml
 
 yum -y update
 
-rm -rf /tmp/vagrant/conf
 halt now
