@@ -12,3 +12,4 @@ ssh -o StrictHostKeyChecking=no root@$do_ip /vagrant/src/build/make_baseconfig.s
 ssh -o StrictHostKeyChecking=no -t root@$do_ip "rm -rf /tmp/vagrant/conf"
 # further builds are run by futel user
 ssh -o StrictHostKeyChecking=no -t root@$do_ip "chown -R futel:futel /tmp/vagrant"
+ssh -o StrictHostKeyChecking=no -t root@$do_ip "halt now"

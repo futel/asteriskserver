@@ -23,5 +23,3 @@ yum -y install logwatch cyrus-sasl-plain # current monitoring for asterisk
 yum -y install python-yaml
 
 yum -y update
-
-halt now

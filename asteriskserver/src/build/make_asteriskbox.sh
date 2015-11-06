@@ -106,5 +106,3 @@ chown -R asterisk: /opt/asterisk/var/lib/asterisk/moh/hold
 #cd futel-assets/
 #cp -rf phonetrips /opt/asterisk/var/lib/asterisk/.
 #chown -R asterisk: /opt/asterisk/var/lib/asterisk/phonetrips/
-
-halt now
