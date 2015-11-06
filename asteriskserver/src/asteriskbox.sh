@@ -11,5 +11,6 @@ ssh -p42422 -o StrictHostKeyChecking=no -t -i conf/id_rsa futel@$do_ip "sudo ln 
 
 ssh -p42422 -o StrictHostKeyChecking=no -t -i conf/id_rsa futel@$do_ip "sudo /vagrant/src/build/make_asteriskbox.sh $conf_version"
 
-ssh -o StrictHostKeyChecking=no -t root@$do_ip "rm -rf /tmp/vagrant/conf"
-ssh -o StrictHostKeyChecking=no -t root@$do_ip "halt now"
+ssh -p42422 -o StrictHostKeyChecking=no -t -i conf/id_rsa futel@$do_ip "sudo rm -rf /tmp/vagrant/conf"
+ssh -p42422 -o StrictHostKeyChecking=no -t -i conf/id_rsa futel@$do_ip "sudo halt now"
+
