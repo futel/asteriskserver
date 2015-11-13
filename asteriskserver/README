@@ -61,9 +61,10 @@ point all callcentric DID forwarding rules to new futel-prod extensions:
   kra user to oskar incoming
   futel-r2d2 user to r2d2 incoming
 point all voip.ms DID forwarding rules to new futel-prod subaccounts:
-  oskar-in to oskar-in subaccount  
+  oskar-in to oskar-in subaccount
+  oskar-in-leet to oskar-in subaccount
 wait for DNS to propagate
-stop asteirsk on futel-prod-back? restart asterisk on futel-prod? wait?
+stop asterisk on futel-prod-back? restart asterisk on futel-prod? wait?
 test futel-prod
 make a snapshot of futel-prod-back
 destroy droplet futel-prod-back
