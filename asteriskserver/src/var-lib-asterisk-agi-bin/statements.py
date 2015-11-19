@@ -1,4 +1,10 @@
 statements = [
+    'for-utilities',
+    'for-more-information-about-fewtel',
+    'for-the-fewtel-voice-conference',
+    'for-passive-audio-input',
+    'for-admininstration',
+    'to-speak-to-an-operator',
     'be-careful',
     'for-the-collectors-net-inbound-portal',
     'for-the-directory',
