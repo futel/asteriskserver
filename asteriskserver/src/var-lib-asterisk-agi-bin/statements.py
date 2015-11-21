@@ -1,4 +1,5 @@
 statements = [
+    'to-ring-the-clinton-street-telephone',
     'for-utilities',
     'for-more-information-about-fewtel',
     'for-the-fewtel-voice-conference',
