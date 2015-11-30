@@ -41,6 +41,7 @@ create droplet from snapshot baseconfig_stage
 use the conf_version not being used by prod
 src/asteriskbox.sh <ip> <conf_version>
 save snapshot asteriskbox_stage
+src/promote_stage.sh futel-stage.phu73l.net
 
 test
 
@@ -49,12 +50,13 @@ wait for DNS to propagate
 
 ## promote stage to prod
 
-src/promote_stage.sh futel-stage.phu73l.net # or ip address if not propagated
+wait for DNS to propagate
 rename futel-prod droplet to futel-prod-back
 rename futel-stage droplet to futel-prod
 rename futel-prod hostname to futel-prod-back
 rename futel-stage hostname to futel-prod
   "hostname futel-prod" and edit /etc/sysconfig/network
+src/promote_stage.sh futel-stage.phu73l.net 
 change A record for futel-prod to point to new futel-prod
 remove A record for futel-stage
 point all callcentric DID forwarding rules to new futel-prod extensions:
