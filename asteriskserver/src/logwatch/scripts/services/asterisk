@@ -1,29 +1,5 @@
 # MCB 02/18/2012  found on:  http://logwatch.org/pipermail/logwatch-devel/2009-June/002085.html
 #                 download:  http://szary.org/projects/scripts/logwatch/asterisk-logwatch-1.09.tar.gz
-#
-#                 - Re-arranged IF block so that the "we don't care about these" list
-#                   comes AFTER all the explicit inclusions.  
-#                 - Added "VERBOSE" and "DEBUG" to the list of lines to exclude.
-#                 - Moved "timed out, trying again" to "Unreachables" section.
-#                 - Added "is now Reachable" to the "Unreachables" section so we know when it worked again.
-#                 - Added "SIP response 603" and "busy/congested" to WARNING section.
-#                 - Added sorts to keep output in chronological order.
-#
-# MCB 02/24/2012  Added SIP 484 "Address Incomplete" and 486 "Busy Here" to Warning messages.  Either one
-#                 may precede the "busy/congested at this time" message.  484 just means user misdialed,
-#                 but 486 means the provider couldn't handle the call. 
-
-##########################################################################
-# $Id: asterisk,v 1.09 2009/06/02 23:52:00 Greyer Exp $
-##########################################################################
-
-########################################################
-# This was written and is maintained by:
-#    Sebastian Szary <sebastian@szary.org>
-#
-# Please send all comments, suggestions, bug reports,
-#    etc, to sebastian@szary.org.
-########################################################
 
 $Debug = $ENV{'LOGWATCH_DEBUG'} || 0;
 #$Detail = $ENV{'LOGWATCH_DETAIL_LEVEL'} || 0;
