@@ -14,7 +14,25 @@ while (defined($ThisLine = <STDIN>)) {
       print STDERR "DEBUG($DebugCounter): $ThisLine";
       $DebugCounter++;
    }
-   if  ( ( $ThisLine =~ /WARNING/ ) or 
+   if ( ( $ThisLine =~ /VERBOSE/ ) or
+		( $ThisLine =~ /DEBUG/ ) or
+		( $ThisLine =~ /Asterisk 11.5.1 built by asterisk/ ) or
+		( $ThisLine =~ /Starting AEL load process/ ) or
+		( $ThisLine =~ /AEL load process:/) or
+		( $ThisLine =~ /CDR simple logging enabled./ ) or
+		( $ThisLine =~ /modules will be loaded./ ) or
+		( $ThisLine =~ /Removed default indication country/ ) or
+		( $ThisLine =~ /Comfort noise support incomplete in Asterisk/ ) or 
+		( $ThisLine =~ /Received SNMP/ ) or 
+		( $ThisLine =~ /Connection from UDP/ ) or
+		( $ThisLine =~ /Reloading say.conf/ ) or
+		( $ThisLine =~ /Received SIP subscribe for peer without mailbox:/ ) or
+		( $ThisLine =~ /Skinny Session returned: Success/ ) or
+		( $ThisLine =~ /No SMDI interfaces are available to listen on, not starting SMDI listener./ ) or
+		( $ThisLine =~ /app_voicemail.c: Couldn't read username/ ) or
+		( $ThisLine =~ /Unknown RTP codec 126 received
+                # nop, we don't care about these
+      } elsif  ( ( $ThisLine =~ /WARNING/ ) or 
 		( $ThisLine =~ /Got SIP response 484 "Address Incomplete"/ ) or
 		#( $ThisLine =~ /Got SIP response 486 "Busy Here"/ ) or
 		( $ThisLine =~ /Got SIP response 603 "Declined"/ ) or
@@ -42,24 +60,6 @@ while (defined($ThisLine = <STDIN>)) {
 		( $ThisLine =~ /Failed to authenticate user/ ) or
 		( $ThisLine =~ /tried to authenticate with nonexistent user/ ) ) {
       $HackAttempt{$ThisLine}++;
-   } elsif ( ( $ThisLine =~ /VERBOSE/ ) or
-		( $ThisLine =~ /DEBUG/ ) or
-		( $ThisLine =~ /Asterisk 11.5.1 built by asterisk/ ) or
-		( $ThisLine =~ /Starting AEL load process/ ) or
-		( $ThisLine =~ /AEL load process:/) or
-		( $ThisLine =~ /CDR simple logging enabled./ ) or
-		( $ThisLine =~ /modules will be loaded./ ) or
-		( $ThisLine =~ /Removed default indication country/ ) or
-		( $ThisLine =~ /Comfort noise support incomplete in Asterisk/ ) or 
-		( $ThisLine =~ /Received SNMP/ ) or 
-		( $ThisLine =~ /Connection from UDP/ ) or
-		( $ThisLine =~ /Reloading say.conf/ ) or
-		( $ThisLine =~ /Received SIP subscribe for peer without mailbox:/ ) or
-		( $ThisLine =~ /Skinny Session returned: Success/ ) or
-		( $ThisLine =~ /No SMDI interfaces are available to listen on, not starting SMDI listener./ ) or
-		( $ThisLine =~ /app_voicemail.c: Couldn't read username/ ) or
-		( $ThisLine =~ /Unknown RTP codec 126 received from/ ) ) { 	
-      # We don't care about these
    } else {
       # Report any unmatched entries...
       push @OtherList,$ThisLine;
