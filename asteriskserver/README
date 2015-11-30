@@ -5,11 +5,6 @@
 have vpnbox-prod-foo or vpnbox-prod-bar
 copy src/backup.sh to /etc/cron.daily/backup-futel-prod on eurydice
 
-for each installation, have a callcentric account with pay per call and two DID free phone numbers
-for each account, have two extensions, one with caller ID of incoming number
-for each account, have a DID forwarding rule pointing the incoming number to its prod extension
-when we have a direct VM number, have a callcentric DID forwarding rule pointing it to a prod account
-
 in conf, have:
 logwatch.conf sasl_passwd
 sip_callcentric.conf.<conf_version> pointing to extension
@@ -64,7 +59,6 @@ point all callcentric DID forwarding rules to new futel-prod extensions:
   futel-r2d2 user to r2d2 incoming
 point all voip.ms DID forwarding rules to new futel-prod subaccounts:
   oskar-in to oskar-in subaccount
-  oskar-in-leet to oskar-in subaccount
 wait for DNS to propagate
 stop asterisk on futel-prod-back? restart asterisk on futel-prod? wait?
 test futel-prod
