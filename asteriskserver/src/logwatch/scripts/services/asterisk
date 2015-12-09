@@ -15,50 +15,50 @@ while (defined($ThisLine = <STDIN>)) {
       $DebugCounter++;
    }
    if ( ( $ThisLine =~ /VERBOSE/ ) or
-		( $ThisLine =~ /DEBUG/ ) or
-		( $ThisLine =~ /Asterisk 11.5.1 built by asterisk/ ) or
-		( $ThisLine =~ /Starting AEL load process/ ) or
-		( $ThisLine =~ /AEL load process:/) or
-		( $ThisLine =~ /CDR simple logging enabled./ ) or
-		( $ThisLine =~ /modules will be loaded./ ) or
-		( $ThisLine =~ /Removed default indication country/ ) or
-		( $ThisLine =~ /Comfort noise support incomplete in Asterisk/ ) or 
-		( $ThisLine =~ /Received SNMP/ ) or 
-		( $ThisLine =~ /Connection from UDP/ ) or
-		( $ThisLine =~ /Reloading say.conf/ ) or
-		( $ThisLine =~ /Received SIP subscribe for peer without mailbox:/ ) or
-		( $ThisLine =~ /Skinny Session returned: Success/ ) or
-		( $ThisLine =~ /No SMDI interfaces are available to listen on, not starting SMDI listener./ ) or
-		( $ThisLine =~ /app_voicemail.c: Couldn't read username/ ) or
-		( $ThisLine =~ /Unknown RTP codec 126 received from/ ) ) { 	
+      ( $ThisLine =~ /DEBUG/ ) or
+      ( $ThisLine =~ /Asterisk 11.5.1 built by asterisk/ ) or
+      ( $ThisLine =~ /Starting AEL load process/ ) or
+      ( $ThisLine =~ /AEL load process:/) or
+      ( $ThisLine =~ /CDR simple logging enabled./ ) or
+      ( $ThisLine =~ /modules will be loaded./ ) or
+      ( $ThisLine =~ /Removed default indication country/ ) or
+      ( $ThisLine =~ /Comfort noise support incomplete in Asterisk/ ) or 
+      ( $ThisLine =~ /Received SNMP/ ) or 
+      ( $ThisLine =~ /Connection from UDP/ ) or
+      ( $ThisLine =~ /Reloading say.conf/ ) or
+      ( $ThisLine =~ /Received SIP subscribe for peer without mailbox:/ ) or
+      ( $ThisLine =~ /Skinny Session returned: Success/ ) or
+      ( $ThisLine =~ /No SMDI interfaces are available to listen on, not starting SMDI listener./ ) or
+      ( $ThisLine =~ /app_voicemail.c: Couldn't read username/ ) or
+      ( $ThisLine =~ /Unknown RTP codec 126 received from/ ) ) {    
                 # nop, we don't care about these
       } elsif  ( ( $ThisLine =~ /WARNING/ ) or 
-		( $ThisLine =~ /Got SIP response 484 "Address Incomplete"/ ) or
-		#( $ThisLine =~ /Got SIP response 486 "Busy Here"/ ) or
-		( $ThisLine =~ /Got SIP response 603 "Declined"/ ) or
-		#( $ThisLine =~ /Everyone is busy\/congested at this time/ ) or
-		( $ThisLine =~ /rejected because extension not found./ ) or
-		( $ThisLine =~ /AEL declining load/ ) or 
-		( $ThisLine =~ /No such label/ ) or
-		( $ThisLine =~ /Failed to authenticate on INVITE to/ ) or
-		( $ThisLine =~ /Unable to create\/find SIP channel for this INVITE/ ) or 
-		( $ThisLine =~ /Invalid keyword/ ) or
-		( $ThisLine =~ /No compatible codecs, not accepting this offer/ ) or
-		( $ThisLine =~ /Unable to open management configuration manager.conf./ ) ) {
+      ( $ThisLine =~ /Got SIP response 484 "Address Incomplete"/ ) or
+      #( $ThisLine =~ /Got SIP response 486 "Busy Here"/ ) or
+      ( $ThisLine =~ /Got SIP response 603 "Declined"/ ) or
+      #( $ThisLine =~ /Everyone is busy\/congested at this time/ ) or
+      ( $ThisLine =~ /rejected because extension not found./ ) or
+      ( $ThisLine =~ /AEL declining load/ ) or 
+      ( $ThisLine =~ /No such label/ ) or
+      ( $ThisLine =~ /Failed to authenticate on INVITE to/ ) or
+      ( $ThisLine =~ /Unable to create\/find SIP channel for this INVITE/ ) or 
+      ( $ThisLine =~ /Invalid keyword/ ) or
+      ( $ThisLine =~ /No compatible codecs, not accepting this offer/ ) or
+      ( $ThisLine =~ /Unable to open management configuration manager.conf./ ) ) {
       $Warnings{$ThisLine}++;
    } elsif ( $ThisLine =~ /ERROR/ ) {
       $Errors{$ThisLine}++;
    } elsif ( ( $ThisLine =~ /is now UNREACHABLE/ ) or
-		( $ThisLine =~ /is now Lagged/ ) or
-		( $ThisLine =~ /timed out, trying again/ ) or
-		( $ThisLine =~ /is now Reachable/ ) ) {
+      ( $ThisLine =~ /is now Lagged/ ) or
+      ( $ThisLine =~ /timed out, trying again/ ) or
+      ( $ThisLine =~ /is now Reachable/ ) ) {
       $Unreachables{$ThisLine}++;
    } elsif ( ( $ThisLine =~ /No matching peer found/ ) or
-		( $ThisLine =~ /Wrong password/ ) or
-		( $ThisLine =~ /failed to authenticate as/ ) or
-		( $ThisLine =~ /Specified User not found/ ) or 
-		( $ThisLine =~ /Failed to authenticate user/ ) or
-		( $ThisLine =~ /tried to authenticate with nonexistent user/ ) ) {
+      ( $ThisLine =~ /Wrong password/ ) or
+      ( $ThisLine =~ /failed to authenticate as/ ) or
+      ( $ThisLine =~ /Specified User not found/ ) or 
+      ( $ThisLine =~ /Failed to authenticate user/ ) or
+      ( $ThisLine =~ /tried to authenticate with nonexistent user/ ) ) {
       $HackAttempt{$ThisLine}++;
    } else {
       # Report any unmatched entries...
