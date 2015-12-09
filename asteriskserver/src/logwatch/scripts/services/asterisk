@@ -29,7 +29,9 @@ while (defined($ThisLine = <STDIN>)) {
       ( $ThisLine =~ /Received SIP subscribe for peer without mailbox:/ ) or
       ( $ThisLine =~ /Skinny Session returned: Success/ ) or
       ( $ThisLine =~ /No SMDI interfaces are available to listen on, not starting SMDI listener./ ) or
+      ( $ThisLine =~ /res_musiconhold.c: poll() failed: Interrupted system call/ ) or
       ( $ThisLine =~ /app_voicemail.c: Couldn't read username/ ) or
+      ( $ThisLine =~ /app_voicemail.c: Unable to read password/ ) or
       ( $ThisLine =~ /Unknown RTP codec 126 received from/ ) ) {    
                 # nop, we don't care about these
       } elsif  ( ( $ThisLine =~ /WARNING/ ) or 
