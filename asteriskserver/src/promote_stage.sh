@@ -9,11 +9,10 @@ stage_ip=$1
 SCP="scp -P42422 -o StrictHostKeyChecking=no -i conf/id_rsa"
 SSH="ssh -p42422 -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -t -i conf/id_rsa"
 
-rm -rf tmp/*
+rm -rf tmp/stage
+[ -d tmp/stage ] || mkdir -p tmp/stage
 
 $SSH futel@$stage_ip "sudo service asterisk stop"
-
-[ -d tmp/stage ] || mkdir -p tmp/stage
 
 # voicemail
 $SCP futel@futel-prod.phu73l.net:/opt/asterisk/etc/asterisk/vm_futel_users.inc tmp/stage
@@ -27,6 +26,7 @@ $SSH futel@$stage_ip "sudo -u asterisk mv /opt/asterisk/var/spool/asterisk/voice
 # logs
 $SSH futel@$stage_ip "sudo -u asterisk mv /opt/asterisk/var/log/asterisk /opt/asterisk/var/log/asterisk-"
 
+$SSH futel@$stage_ip "rm -rf /tmp/stage"
 $SSH futel@$stage_ip "mkdir /tmp/stage"
 
 # voicemail
