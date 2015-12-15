@@ -13,14 +13,15 @@ source ./vars
 cd keys
 cp keys/ca.crt keys/ca.key keys/dh1024.pem keys/server.crt keys/server.csr keys/server.key ~/Documents/futel-installation/vpnbox/conf/
 
-# set up client
+# set up client with creds named 'client'
 ./build-key client
-# set up client.conf.prod
-# give client.crt client.csr client.key client.conf.prod to client
+# set up client.conf.ddwrt
+# give client/client.crt client/client.csr client/client.key to client
+# set up client with appropriate client.conf as in vpnclient/README
 
 
 ## alternative, set up openssl keys with openssl commands
-# XXX I'm supposed to know how to do this, but we're missing something
+# I'm supposed to know how to do this, but this is missing something
 
 # create certificate authority
 openssl genrsa -des3 -passout pass:cheese -out ca.key 2048

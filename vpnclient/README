@@ -18,8 +18,8 @@ enable
 server name vpnbox-prod-foo.phu73l.net
 LZO enable
 paste vpnbox/conf/ca.crt into public server cert
-paste vpnbox/conf/client.crt into public client cert
-paste vpnbox/conf/client.key into private client key
+paste vpnbox/conf/client/client.crt into public client cert
+paste vpnbox/conf/client/client.key into private client key
 
 administration/commands:
 paste src/ddwrt_startup into the text area and then press 'save startup'
@@ -41,5 +41,5 @@ line1: dial plan S0<:999> (or desired extension in default-outgoing context)
 #set up test client on laptop
 
 have conf directory containing conf from vpnbox:
-client.conf.prod ca.crt client.crt client.key
+client.conf.prod ca.crt client/client.crt client/client.key
 sudo openvpn --config conf/client.conf.ddwrt
