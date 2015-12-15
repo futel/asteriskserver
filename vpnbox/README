@@ -23,15 +23,15 @@ ssh key (personal key)
 create or check out release branch
 
 create droplet from snapshot baseconfig_stage
-src/vpnbox.sh <ip>
+create or replace A record for new vpnbox_stage
+wait for DNS to propagate
+src/vpnbox.sh vpnbox-stage.phu73l.net
 save snapshot vpnbox_stage
 
 test
 
-create or replace A record for new vpnbox_stage
-wait for DNS to propagate
-
 connect client to vpnbox_stage as in asteriskbox README.client
+or vpnclient README
 
 ## promote stage to prod
 if existing, rename vpnbox-prod-foo|bar droplet to vpnbox-prod-foo|bar-back
