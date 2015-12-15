@@ -44,6 +44,3 @@ cp -f /vagrant/conf/logwatch.conf /usr/share/logwatch/default.conf/logwatch.conf
 # apply sysctl settings
 sysctl -p
 chkconfig openvpn on
-
-# openvpn does not seem to start until reboot
-halt now
