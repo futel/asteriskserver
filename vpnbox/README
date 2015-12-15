@@ -4,11 +4,11 @@
 
 in conf, have:
 (or create by following README.ssl)
-ca.crt ca.key
-client.conf.[prod|stage]
-client.crt client.csr client.key dh1024.pem
+ca.crt ca.key dh1024.pem
 id_rsa
 server.crt server.csr server.key
+client.conf.[prod|stage] (not used by server)
+client/client.crt client/client.csr client/client.key (not used by server)
 
 give client.conf.[prod|stage] to client
 
