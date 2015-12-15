@@ -1,8 +1,8 @@
 ## set up openvpn keys with openvpn's easy-rsa
 
-# this is where ubuntu puts it, other distros differ
-cp -r /usr/share/doc/openvpn/examples/easy-rsa/ .
-cd easy-rsa/2.0
+# this is where ubuntu easy-rsa 2.2.2 puts it, other distros differ
+cp -r /usr/share/easy-rsa/ .
+cd easy-rsa
 ln -s openssl-1.0.0.cnf openssl.cnf
 source ./vars
 
@@ -13,10 +13,13 @@ source ./vars
 cd keys
 cp keys/ca.crt keys/ca.key keys/dh1024.pem keys/server.crt keys/server.csr keys/server.key ~/Documents/futel-installation/vpnbox/conf/
 
-# set up client with creds named 'client'
-./build-key client
+# set up client with creds named 'client-foo'; do this for each client
+cp ../conf/ca.crt ../conf/ca.key keys # if not there from last step
+./build-key client-foo # hit return for all questions then confirm last
+cp keys/client-foo.crt keys/client-foo.csr keys/client-foo.key ../conf/client
 # set up client.conf.ddwrt
-# give client/client.crt client/client.csr client/client.key to client
+# give client/client-foo.crt client/client-foo.csr
+# client/client-foo.key to client, renaming as client.crt etc
 # set up client with appropriate client.conf as in vpnclient/README
 
 
