@@ -1,7 +1,0 @@
-SHELL=/bin/bash
-PATH=/sbin:/bin:/usr/sbin:/usr/bin
-MAILTO=root
-HOME=/
-
-# run logwatch at noon
-#0 12 * * * root logwatch --service openvpn

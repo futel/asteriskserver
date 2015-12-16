@@ -10,9 +10,6 @@ set -x
 service iptables save
 service iptables restart
 
-# add crontab with logwatch job
-cp -f /vagrant/src/crontab /etc/crontab
-
 rpm -Uvh http://download.fedoraproject.org/pub/epel/6/i386/epel-release-6-8.noarch.rpm
 yum install -y openvpn
 # can't copy files into /etc/openvpn like normal people? Copy a directory.
@@ -36,10 +33,6 @@ mv openvpn /etc
 # this PROBABLY relies on openvpn
 mkdir /var/log/openvpn_old
 cp -f src/logrotate/openvpn /etc/logrotate.d/openvpn
-
-# set up logwatch
-cp -rf /vagrant/src/logwatch/* /etc/logwatch/
-cp -f /vagrant/conf/logwatch.conf /usr/share/logwatch/default.conf/logwatch.conf
 
 # apply sysctl settings
 sysctl -p
