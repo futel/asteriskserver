@@ -60,7 +60,6 @@ point all voip.ms DID forwarding rules to new futel-prod subaccounts:
   oskar-in to oskar-in subaccount
   l337 to oskar-in subaccount  
 wait for DNS to propagate
-stop asterisk on futel-prod-back? restart asterisk on futel-prod? wait? nop?
 test futel-prod
 halt futel-prod-back
 make a snapshot of futel-prod-back
