@@ -75,16 +75,15 @@ make config # as root
 
 $BUILDDIR/update_asteriskbox.sh $conf_version
 
-# logrotate: this depends on asterisk install
 mkdir /opt/asterisk/var/log/asterisk/old
 chown asterisk: /opt/asterisk/var/log/asterisk/old
 cp -f /vagrant/src/logrotate/logrotate.d/asterisk /etc/logrotate.d/asterisk
 
 service asterisk restart
 
-# configure logwatch here to prevent spamming output with openvpn non logs
 cp -rf /vagrant/src/logwatch/* /etc/logwatch/
-cp -f /vagrant/conf/logwatch.conf /usr/share/logwatch/default.conf/logwatch.conf
+cp -f /vagrant/src/logwatch/conf/logwatch.conf /usr/share/logwatch/default.conf/logwatch.conf
+cp -f /vagrant/conf/logwatch.conf /etc/logwatch/conf
 
 # install mpg123 for mp3 playback
 # docs claim this is not needed but I am yet to see it work without
