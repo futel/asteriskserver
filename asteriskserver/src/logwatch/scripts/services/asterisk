@@ -35,6 +35,7 @@ while (defined($ThisLine = <STDIN>)) {
       ( $ThisLine =~ /chan_sip.c: Purely numeric hostname (.*), and not a peer--rejecting!/ ) or      
       ( $ThisLine =~ /app_voicemail.c: Couldn't read username/ ) or
       ( $ThisLine =~ /app_voicemail.c: Unable to read password/ ) or
+      ( $ThisLine =~ /app_voicemail.c: No entry in voicemail config file for/ ) or
       ( $ThisLine =~ /Unknown RTP codec 126 received from/ ) ) {    
                 # nop, we don't care about these
       } elsif  ( ( $ThisLine =~ /WARNING/ ) or 
