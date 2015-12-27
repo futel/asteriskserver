@@ -11,4 +11,4 @@ USER=backup
 DATE=`date "+%Y-%m"`
 LOCALDIR=/opt/futel/backups/$DIRNAME/$DATE
 
-rsync -avcR --delete -e "$SSHCMD" $USER@$HOST:$REMOTEDIR $LOCALDIR
+rsync -avcR --delete --usermap=asterisk:nobody -e "$SSHCMD" $USER@$HOST:$REMOTEDIR $LOCALDIR
