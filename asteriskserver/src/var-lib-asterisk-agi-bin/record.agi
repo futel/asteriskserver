@@ -45,22 +45,62 @@ def prompt_and_record(agi_o, statement, username):
     agi_o.stream_file(path)
 
 def digit_pound(agi_o):
-    util.say(agi, 'to-accept')
-    util.say(agi, 'press-pound')
-    digit = agi.wait_for_digit(timeout=-1)
+    util.say(agi_o, 'to-accept')
+    util.say(agi_o, 'press-pound')
+    digit = agi_o.wait_for_digit(timeout=-1)
     return digit == '#'
+
+def int_to_ordinal_string(i):
+    return {
+        0:'zero',
+        1:'one',
+        2:'two',
+        3:'three',
+        4:'four',
+        5:'five',
+        6:'six',
+        7:'seven',
+        8:'eight',
+        9:'nine'}.get(i)
+
+def prompt_menu(agi_o, keys):
+    """
+    Prompt user to choose a key, and return valid key when chosen.
+    """
+    statement_chooser = dict(
+        (str(i), statement) for (i, statement) in enumerate(keys, 1))
+    chosen_statement_key = None
+    while chosen_statement_key not in statement_chooser.keys():
+        for (expected_key, statement_key) in statement_chooser.items():
+            util.say(agi_o, 'for')
+            util.say(agi_o, statement_key)
+            util.say(agi_o, 'press')
+            util.say(agi_o, int_to_ordinal_string(int(expected_key)))
+        chosen_statement_key = agi_o.wait_for_digit(timeout=-1)
+    return statement_chooser[chosen_statement_key]
 
 def record_statements(statements):
     username = get_username()
     util.say(agi, 'hello')
+
+    # statement section keys from statements that we care about
+    statement_keys = ['general', 'oracle-dead']
+    util.say(agi, 'choose-one')
+    statement_key = prompt_menu(agi, statement_keys)
+
     util.say(agi, 'after-each-statement')
     util.say(agi, 'please-repeat')
     util.say(agi, 'then-press-pound')
 
-    for statement in statements:
+    util.say(agi, 'to-begin')
+    util.say(agi, 'press-any-key')
+    agi.wait_for_digit(timeout=-1)
+
+    for statement in statements[statement_key]:
         prompt_and_record(agi, statement, username)
         while not digit_pound(agi):
             prompt_and_record(agi, statement, username)
+
     util.say(agi, 'thank-you')
     util.say(agi, 'goodbye')
 
@@ -70,4 +110,3 @@ def main():
 
 agi.answer()
 util.agi_tracebacker(agi, main)
-#agi.hangup()
