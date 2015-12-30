@@ -1,0 +1,5 @@
+work in progress
+TODO:
+- set up raspberry pi or similer as asterisk vm server for ctrl h
+- IAX or SIP connection from prod to ctrl h?
+- change default voice for festival, or add a command option to do so
