@@ -27,6 +27,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     config.vm.box = "centos6_32_baseconfig"
     config.vm.provision :shell, :path => "src/build/make_asteriskbox.sh",
                         :args => "virtualbox"
+  else
+    abort('must have vagrantbox set')
   end
 
   config.vm.provider :virtualbox do |vb|
