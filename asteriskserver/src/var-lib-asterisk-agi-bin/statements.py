@@ -11,13 +11,13 @@
 
 statements = {
     'general': [
+        'for-communication-with-those-beyond',
         'to-begin',
         'choose-one',
         'repeat',
         'for',
         'general',
         'press',
-        'oracle-dead',
         'and',
         'or',
         'not',
@@ -126,7 +126,7 @@ statements = {
         'for-the-current-time',
         'please-hold',
         'for-the-next-available-operator'],
-    'oracle-dead': [
+    'for-communication-with-those-beyond': [
         'oracle-dead-intro-hello',
         'oracle-dead-intro-to-skip-instructions',
         'oracle-dead-intro-motivation',

@@ -4,6 +4,10 @@ import logging
 
 # directories for gsm files, in order of preference
 statement_dirs = [
+    # submenu collections first, these should have filenames that don't collide
+    # with general ones
+    '/opt/asterisk/var/lib/asterisk/sounds/futel/recordings/karl-oracle-dead/',
+    # more general collections last
     '/opt/asterisk/var/lib/asterisk/sounds/futel/recordings/karl_quuux/',
     '/opt/asterisk/var/lib/asterisk/sounds/futel/recordings/tishbite/',
     '/opt/asterisk/var/lib/asterisk/sounds/futel/recordings/karl_quux/',

@@ -84,7 +84,7 @@ def record_statements(statements):
     util.say(agi, 'hello')
 
     # statement section keys from statements that we care about
-    statement_keys = ['general', 'oracle-dead']
+    statement_keys = statements.keys()
     util.say(agi, 'choose-one')
     statement_key = prompt_menu(agi, statement_keys)
 
