@@ -54,14 +54,19 @@ rename futel-stage hostname to futel-prod
 src/promote_stage.sh futel-stage.phu73l.net 
 change A record for futel-prod to point to new futel-prod
 remove A record for futel-stage
-point all callcentric DID forwarding rules to new futel-prod extensions:
+point all callcentric DID forwarding rules to extensions corresponding to new
+futel-prod conf_version
   kra user to oskar incoming
   futel-r2d2 user to r2d2 incoming
-point all voip.ms DID forwarding rules to new futel-prod subaccounts:
+point all voip.ms DID forwarding rules to subaccounts corresponding to new
+futel-prod conf_version
   oskar-in to oskar-in subaccount
   l337 to oskar-in subaccount  
 wait for DNS to propagate
-test futel-prod
+test that futel-prod outgoing calls work
+test that futel-prod incoming calls work or get channel unavailable
+stop asterisk on futel-prod-back
 halt futel-prod-back
+test that futel-prod incoming calls work (may take time)
 make a snapshot of futel-prod-back
 destroy droplet futel-prod-back
