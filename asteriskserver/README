@@ -39,6 +39,7 @@ create droplet from snapshot baseconfig_stage
 use the conf_version not being used by prod
 src/asteriskbox.sh futel-stage.phu73l.net <conf_version>
 save snapshot asteriskbox_stage
+if vpnbox moved since baseconfig_stage, do iptables.sh as for baseconfig setup
 src/promote_stage.sh futel-stage.phu73l.net
 
 test

@@ -1,17 +1,23 @@
-outgoing:
+ext 998 starts admin menu
 ext 999 starts default menu
 ext 1000 starts dialtone
+ext 1001 starts incoming menu
 
 outgoing call works
-outgoing call sends r2d2 id from 670
 outgoing call sends oskar indoors id from 667
 outgoing call sends oskar id from 668
-incoming call rings phone
+outgoing call sends r2d2 id from 670
+outgoing call sends incoming line from 690
+outgoing call sends ctrlh id from 691
+
+incoming call to oskar calls oskar phone
+incoming call to oskar indoors calls oskar indoors phone
+incoming call to ctrlh calls ctrlh phone
+incomign call to incoming line gets incoming menu
 incoming call with disconnected device does the right thing
-simultaneous incoming call does the right thing (probably not call waiting)
-r2d2, oskar simultaneous outgoing calls succeed in any order
-r2d2, oskar simultanous outgoing and incoming calls succeed in any order
+simultaneous incoming calls do the right thing (probably not call waiting)
 
 can create voicemail box, leave voicemail, check voicemail
 can call each directory number
 can call operator
+other menus work when run through
