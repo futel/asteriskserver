@@ -15,6 +15,7 @@ def next_vm():
     # XXX do this smarter to not have the entire user file in memory
     vfile = open(vfile)
     lines = vfile.readlines()
+    # XXX probably should strip any empty lines
     lastline = lines[-1]
     fields = lastline.split()
     last_mailbox = int(fields[0]) + 1

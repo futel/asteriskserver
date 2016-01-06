@@ -16,7 +16,7 @@ iptables -A INPUT -i lo -j ACCEPT
 iptables -A INPUT -m state --state ESTABLISHED,RELATED -j ACCEPT
 # let ssh in from anywhere
 iptables -A INPUT -p tcp --dport 42422 -j ACCEPT
-# let openvpn in from vpnbox
+# let anything in from vpnbox
 # this should be changed to only be the asterisk and ssh ports
 iptables -A INPUT -s vpnbox-prod-foo.phu73l.net -j ACCEPT
 iptables -A INPUT -s vpnbox-prod-bar.phu73l.net -j ACCEPT
