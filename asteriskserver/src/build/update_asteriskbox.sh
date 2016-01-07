@@ -24,6 +24,11 @@ rm -rf /opt/asterisk/var/lib/asterisk/sounds/futel
 #sudo -u asterisk cp -r /vagrant/src/var-lib-asterisk-sounds-futel /opt/asterisk/var/lib/asterisk/sounds/futel
 cp -r /vagrant/src/var-lib-asterisk-sounds-futel /opt/asterisk/var/lib/asterisk/sounds/futel
 
+# confbridge can't use say macro to play sounds
+# copy conf menu sounds to global directory
+rm -rf /opt/asterisk/var/lib/asterisk/sounds/en/futelconf
+cp -r /vagrant/src/var-lib-asterisk-sounds-en-futelconf /opt/asterisk/var/lib/asterisk/sounds/en/futelconf
+
 # write the config files that are local or have secrets
 # maybe secrets should refer to an /opt/futel/etc conf file for easier setup
 # move customized config files into build conf location
