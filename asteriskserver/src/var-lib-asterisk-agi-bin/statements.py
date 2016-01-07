@@ -144,6 +144,28 @@ statements = {
         'oracle-dead-setup-to-relinquish',
         'oracle-dead-debrief-to-share',
         'oracle-dead-debrief-otherwise',
-        'oracle-dead-debrief-record',
-        ]
+        'oracle-dead-debrief-record'],
+    'futel-voice-conf-menu': [
+        'press-star-to-hear-options',
+        'to-increase-listening-volume',
+        'to-decrease-listening-volume',
+        'to-increase-talking-volume',
+        'to-decrease-talking-volume',
+        'to-toggle-mute',
+        'to-add-a-user-to-the-conference'],
+    'phone-trips-recordings': [
+        'for-classic-tandem-stacking',
+        'for-the-how-evan-doorbell-became-a-phone-freak-series',
+        'for-greenville-north-carolina-en-ex-one-series', 
+        'for-part-one', 
+        'for-part-two', 
+        'for-part-three', 
+        'for-part-four', 
+        'for-part-five', 
+        'for-part-six', 
+        'for-one-ex-ex-codes-part-one', 
+        'for-one-ex-ex-codes-part-two', 
+        'for-greeville-long-distance',
+        'select-a-phonetrips-recording-to-enjoy'
+    ]
 }
