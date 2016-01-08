@@ -83,7 +83,8 @@ service asterisk restart
 
 cp -rf /vagrant/src/logwatch/* /etc/logwatch/
 cp -f /vagrant/src/logwatch/conf/logwatch.conf /usr/share/logwatch/default.conf/logwatch.conf
-cp -f /vagrant/conf/logwatch.conf /etc/logwatch/conf
+# write the config files that are local or have secrets
+cp -f /vagrant/conf/logwatch.conf.$conf_version /etc/logwatch/conf/logwatch.conf
 
 # install mpg123 for mp3 playback
 # docs claim this is not needed but I am yet to see it work without

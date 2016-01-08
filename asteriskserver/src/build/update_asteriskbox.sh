@@ -30,8 +30,6 @@ rm -rf /opt/asterisk/var/lib/asterisk/sounds/en/futelconf
 cp -r /vagrant/src/var-lib-asterisk-sounds-en-futelconf /opt/asterisk/var/lib/asterisk/sounds/en/futelconf
 
 # write the config files that are local or have secrets
-# maybe secrets should refer to an /opt/futel/etc conf file for easier setup
-# move customized config files into build conf location
 cp /vagrant/conf/sip_callcentric.conf.$conf_version /vagrant/conf/sip_callcentric.conf
 
 cp /vagrant/conf/sip_callcentric.conf /opt/asterisk/etc/asterisk/sip_callcentric.conf
