@@ -17,7 +17,10 @@ incomign call to incoming line gets incoming menu
 incoming call with disconnected device does the right thing
 simultaneous incoming calls do the right thing (probably not call waiting)
 
+can call one extension from another using internal dialtone
 can create voicemail box, leave voicemail, check voicemail
 can call each directory number
 can call operator
+can visit futel voice conference, hear hold music
+can visit futel voice conference, operate menu, get menu options
 other menus work when run through
