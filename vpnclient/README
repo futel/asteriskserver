@@ -31,6 +31,8 @@ administration/management: add cron line:
 #set up sip
 
 ##set up a spa-1001 linksysPAP etc
+line1: NAT mapping enable no
+line1: NAT keep alive enable no
 line1: proxy/outbound proxy futel-prod.phu73l.net
 line1: use outbound proxy no
 line1: display name, user ID <extension>
