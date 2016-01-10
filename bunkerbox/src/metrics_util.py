@@ -136,25 +136,31 @@ def metrics_to_stats(metrics, delta, now=_sentinel):
         hist = histogram(pmetrics)
         frequents = frequent_events(hist)
         return {
+            'timestamp': now,
             'delta': delta,
             'latest_timestamp': pmetrics[-1]['timestamp'],
             'latest_name': pmetrics[-1]['name'],
             'histogram': frequents}
+
+def get_stats(metrics):
+    now = datetime.datetime.now()
+    delta_day = datetime.timedelta(days=1)
+    delta_week = datetime.timedelta(weeks=1)
+    delta_month =  datetime.timedelta(weeks=4)
+    return [
+        metrics_to_stats(metrics, delta)
+        for delta in (delta_day, delta_week, delta_month)]
 
 if __name__ == "__main__":
     filenames = sys.argv[1:]
     metrics = filenames_to_metrics(filenames)
     metrics = [metric for metric in metrics]
 
-    now = datetime.datetime.now()
-    delta_day = datetime.timedelta(days=1)
-    delta_week = datetime.timedelta(weeks=1)
-    delta_month =  datetime.timedelta(weeks=4)
-
-    for delta in (delta_day, delta_week, delta_month):
-        stats = metrics_to_stats(metrics, delta)
+    for stats in get_stats(metrics):
         if stats:
-            print('events last %s' % str(stats['delta']))
+            print(
+                'events last %s from %s' %
+                (str(stats['delta']), str(stats['timestamp'])))
             print(
                 'latest event %s %s' %
                 (stats['latest_timestamp'], stats['latest_name']))
