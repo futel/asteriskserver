@@ -2,43 +2,49 @@
 """
 metrics utils
 """
-import sys
 import collections
-from datetime import datetime
+import datetime
+import itertools
+import operator
 import re
+import sys
+
+_sentinel = object()
 
 events_ignore = [
     'outgoing-by-extension',
     'default-incoming']
-events_notice = [
-    'outgoing-ivr',
-    'outgoing-dialtone-wrapper',
-    'ring-oskar',
-    'incoming-ivr',
-    'futel-conf',
-    'community-ivr',
-    'operator',
-    'internal-dialtone-wrapper',
-    'ring-r2d2',
-    'utilities-ivr',
-    'ring-oskar-in',
-    'directory-ivr',
-    'futel-information',
-    'voicemail-ivr',
-    'current-time',
-    'voicemail-main',
-    'incoming-fake-admin-auth',
-    'lance-e-pants',
-    'next-vm',
-    'lib-account-line',
-    'voicemail',
-    'mayor-vm',
-    'info-211',
-    'apology-line',
-    'admin-auth',
-    'add-futel-conf']
+# events_notice = [
+#     'outgoing-ivr',
+#     'outgoing-dialtone-wrapper',
+#     'ring-oskar',
+#     'incoming-ivr',
+#     'futel-conf',
+#     #'community-ivr',
+#     'operator',
+#     #'internal-dialtone-wrapper',
+#     'ring-r2d2',
+#     #'utilities-ivr',
+#     'ring-oskar-in',
+#     #'directory-ivr',
+#     #'futel-information',
+#     #'voicemail-ivr',
+#     #'current-time',
+#     #'voicemail-main',
+#     #'incoming-fake-admin-auth',
+#     #'lance-e-pants',
+#     #'next-vm',
+#     #'lib-account-line',
+#     #'voicemail',
+#     #'mayor-vm',
+#     #'info-211',
+#     #'apology-line',
+#     #'admin-auth',
+#     #'add-futel-conf'
+# ]
 
 def line_to_metric(line):
+    """ Return dict from metric line. """
     # line of csv to list
     fields = line.split(',')
     fields = [field.strip() for field in fields]
@@ -47,7 +53,7 @@ def line_to_metric(line):
     fields = [field.split('=') for field in fields]
     metric.update(dict(fields))
     # deserialize values
-    metric['timestamp'] = datetime(
+    metric['timestamp'] = datetime.datetime(
         *map(int, re.split('[^\d]', metric['timestamp'])[:-1]))
     return metric
 
@@ -60,6 +66,14 @@ def filenames_to_metrics(filenames):
             for line in metricfile:
                 yield line_to_metric(line)
 
+# def filter_metrics_timestamp(metrics, now=_sentinel, **kwargs):
+#     """ Yield metrics with timestamps later than timedelta made with kwargs. """
+#     if now is _sentinel:
+#         now = datetime.datetime.now()
+#     earliest = now - datetime.timedelta(**kwargs)
+#     return itertools.ifilter(
+#         lambda metric: metric['timestamp'] >= earliest, metrics)
+
 # def filter_sequence(seq, **kwargs):
 #     for s in seq:
 #         for (k, v) in kwargs.items():
@@ -67,6 +81,10 @@ def filenames_to_metrics(filenames):
 #                 yield s
 
 def histogram(metrics, key='name'):
+    """
+    Given sequence of dicts, return histogram dict of occurances of values
+    for key.
+    """
     h_dict = collections.defaultdict(int)
     for m in metrics:
         h_dict[m[key]] += 1
@@ -78,7 +96,7 @@ def _frequent_items(items):
             sorted(
                 (freq, event) for (event, freq) in items)))
 
-def frequent_events(histogram, num_events=5, events_ignore=events_ignore):
+def frequent_events(histogram, num_events=7, events_ignore=events_ignore):
     """
     Return most frequent (event, frequency) tuples from histogram for events
     not in events_ignore.
@@ -90,34 +108,46 @@ def frequent_events(histogram, num_events=5, events_ignore=events_ignore):
     items = items[0:num_events]
     return [(event, freq) for (freq, event) in items]
 
-def frequency_of_events(histogram, events_notice=events_notice):
-    """
-    Return (event, frequency) tuples from histogram for events
-    in events_notice.
-    """
-    items = (
-        (event, freq) for (event, freq) in histogram.items()
-        if event in events_notice)
-    items = _frequent_items(items)
-    return [(event, freq) for (freq, event) in items]
+# def frequency_of_events(histogram, events_notice=events_notice):
+#     """
+#     Return (event, frequency) tuples from histogram for events
+#     in events_notice.
+#     """
+#     items = (
+#         (event, freq) for (event, freq) in histogram.items()
+#         if event in events_notice)
+#     items = _frequent_items(items)
+#     return [(event, freq) for (freq, event) in items]
+
+def apply_delta(metrics, delta):
+    return [
+        metric for metric in metrics
+        if metric['timestamp'] >= delta]
 
 if __name__ == "__main__":
     filenames = sys.argv[1:]
     metrics = filenames_to_metrics(filenames)
-    metrics = [m for m in metrics]
+    metrics = [metric for metric in metrics]
 
-    dates = sorted(m['timestamp'] for m in metrics)
-    print 'start date', dates[0]
-    print 'end date', dates[-1]
-    print
+    now = datetime.datetime.now()
+    delta_day = datetime.timedelta(days=1)
+    delta_week = datetime.timedelta(weeks=1)
+    delta_month =  datetime.timedelta(weeks=4)
 
-    hist = histogram(metrics)
-    items = [(v, k) for (k, v) in hist.items()]
-    #print [x for x in reversed(sorted(items))]
-    print frequent_events(hist)
-    print frequency_of_events(hist)
+    for delta in (delta_day, delta_week, delta_month):
 
-    #metrics = filter_sequence(metrics, name='outgoing-dialtone-wrapper')
-    #for m in metrics:
-    #    print m
+        print 'events last', delta
 
+        pmetrics = apply_delta(metrics, now - delta)
+        if not pmetrics:
+            continue
+        pmetrics = sorted(pmetrics, key=operator.itemgetter('timestamp'))
+        print 'latest event', pmetrics[-1]['timestamp'], pmetrics[-1]['name']
+
+        hist = histogram(pmetrics)
+        frequents = frequent_events(hist)
+        print 'most frequent events:'
+        for (event, freq) in frequents:
+            print '%s (%s)' % (event, freq)
+
+        print
