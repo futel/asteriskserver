@@ -5,6 +5,7 @@ metrics utils
 import collections
 import datetime
 import itertools
+import json
 import operator
 import re
 import sys
@@ -124,6 +125,22 @@ def apply_delta(metrics, delta):
         metric for metric in metrics
         if metric['timestamp'] >= delta]
 
+def metrics_to_stats(metrics, delta, now=_sentinel):
+    """ Return dict of stats about metrics """
+    if now is _sentinel:
+        now = datetime.datetime.now()
+        pmetrics = apply_delta(metrics, now - delta)
+        if not pmetrics:
+            return {}
+        pmetrics = sorted(pmetrics, key=operator.itemgetter('timestamp'))
+        hist = histogram(pmetrics)
+        frequents = frequent_events(hist)
+        return {
+            'delta': delta,
+            'latest_timestamp': pmetrics[-1]['timestamp'],
+            'latest_name': pmetrics[-1]['name'],
+            'histogram': frequents}
+
 if __name__ == "__main__":
     filenames = sys.argv[1:]
     metrics = filenames_to_metrics(filenames)
@@ -135,19 +152,13 @@ if __name__ == "__main__":
     delta_month =  datetime.timedelta(weeks=4)
 
     for delta in (delta_day, delta_week, delta_month):
-
-        print 'events last', delta
-
-        pmetrics = apply_delta(metrics, now - delta)
-        if not pmetrics:
-            continue
-        pmetrics = sorted(pmetrics, key=operator.itemgetter('timestamp'))
-        print 'latest event', pmetrics[-1]['timestamp'], pmetrics[-1]['name']
-
-        hist = histogram(pmetrics)
-        frequents = frequent_events(hist)
-        print 'most frequent events:'
-        for (event, freq) in frequents:
-            print '%s (%s)' % (event, freq)
-
-        print
+        stats = metrics_to_stats(metrics, delta)
+        if stats:
+            print('events last %s' % str(stats['delta']))
+            print(
+                'latest event %s %s' %
+                (stats['latest_timestamp'], stats['latest_name']))
+            print('most frequent events:')
+            for (event, freq) in stats['histogram']:
+                print('%s (%s)' % (event, freq))
+            print
