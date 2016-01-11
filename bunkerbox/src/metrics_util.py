@@ -151,6 +151,13 @@ def get_stats(metrics):
         metrics_to_stats(metrics, delta)
         for delta in (delta_day, delta_week, delta_month)]
 
+def write_stats(stats, filename):
+    # serialize
+    stats['timestamp'] = str(stats['timestamp'])
+    stats['latest_timestamp'] = str(stats['latest_timestamp'])
+    stats['delta'] = str(stats['delta'])
+    open(filename, 'w').writelines(json.dumps(stats))
+
 if __name__ == "__main__":
     filenames = sys.argv[1:]
     metrics = filenames_to_metrics(filenames)
