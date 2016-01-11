@@ -2,7 +2,7 @@ write bin to /opt/futel/bin
 
 backups:
 
-write /etc/cron.daily/backup-futel-prod:
+write /etc/cron.hourly/backup-futel-prod:
 #!/bin/sh
 /opt/futel/bin/backup.sh
 
