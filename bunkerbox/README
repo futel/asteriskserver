@@ -1,9 +1,11 @@
 write bin to /opt/futel/bin
 
 backups:
+
 write /etc/cron.daily/backup-futel-prod:
 #!/bin/sh
 /opt/futel/bin/backup.sh
+
 add local futel user and group: useradd -r futel
 add /opt/futel/backups
 add /opt/futel/stats
