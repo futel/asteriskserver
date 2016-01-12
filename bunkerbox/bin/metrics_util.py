@@ -151,20 +151,35 @@ def get_stats(metrics):
         metrics_to_stats(metrics, delta)
         for delta in (delta_day, delta_week, delta_month)]
 
+def serialize_stats(stats):
+    """ Serialize given stats dict to json. """
+    stats['timestamp'] = stats['timestamp'].strftime('%Y-%m-%d %H:%M:%S')
+    stats['latest_timestamp'] = stats['latest_timestamp'].strftime(
+        '%Y-%m-%d %H:%M:%S')
+    if stats['delta'].seconds:
+        stats['delta'] = str(stats['delta'])
+    else:
+        if stats['delta'].days == 1:
+            stats['delta'] = '%d day' % stats['delta'].days
+        else:
+            stats['delta'] = '%d days' % stats['delta'].days
+    return json.dumps(stats)
+
 def write_stats(stats, filename):
-    # serialize
-    stats['timestamp'] = str(stats['timestamp'])
-    stats['latest_timestamp'] = str(stats['latest_timestamp'])
-    stats['delta'] = str(stats['delta'])
-    open(filename, 'w').writelines(json.dumps(stats))
+    """ Serialize given stats dict to json and write to filename. """
+    open(filename, 'w').writelines(serialize_stats(stats))
 
 if __name__ == "__main__":
+    # demonstration/test of stats for metric filenames given in args
     filenames = sys.argv[1:]
     metrics = filenames_to_metrics(filenames)
+    # get_stats needs a non-generator iterable
     metrics = [metric for metric in metrics]
 
     for stats in get_stats(metrics):
         if stats:
+            stats = serialize_stats(stats)
+            stats = json.loads(stats)
             print(
                 'events last %s from %s' %
                 (str(stats['delta']), str(stats['timestamp'])))
