@@ -7,6 +7,7 @@ statement_dirs = [
     # submenu collections first, these should have filenames that don't collide
     # with general ones
     '/opt/asterisk/var/lib/asterisk/sounds/futel/recordings/karl-oracle-dead/',
+    '/opt/asterisk/var/lib/asterisk/sounds/futel/recordings/karl-voicemail-ivr/',
     # more general collections last
     '/opt/asterisk/var/lib/asterisk/sounds/futel/recordings/karl_quuux/',
     '/opt/asterisk/var/lib/asterisk/sounds/futel/recordings/tishbite/',

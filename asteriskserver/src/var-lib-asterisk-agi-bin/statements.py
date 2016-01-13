@@ -1,4 +1,3 @@
-
 # 'general' statements are intended to be useable in any menu, and the contents
 # of these statements should match the title strings exactly
 
@@ -6,11 +5,20 @@
 # they may have generally usable statements as well. Their contents don't
 # necessarily need to match their title strings, although they probably
 # should when possible, and when they don't they should have universally
-# unique names to prevent them from being used by more general menus. The
-# keys are themselves statements used to assist recording prompts.
+# unique names to prevent them from being used by more general menus.
+
+# The keys are themselves statements used to assist recording prompts.
 
 statements = {
     'general': [
+        'five-zero-three-four-six-eight-one-three-three-seven',
+        'for-more-information-about-the-fewtel-voicemail-system',
+        'voicemail-boxes-in-the-fewtel-voicemail-system',
+        'can-be-created',
+        'from-any-fewtel-phone',
+        'can-be-accessed',
+        'from-the-fewtel-incoming-line',
+        'in',
         'for-communication-with-those-beyond',
         'to-begin',
         'choose-one',
@@ -126,6 +134,40 @@ statements = {
         'for-the-current-time',
         'please-hold',
         'for-the-next-available-operator'],
+    'for-voicemail': [
+        'to-check-your-voicemail',
+        'to-create-a-new-voicemail-box',
+        'to-leave-a-voicemail',
+        'for-more-information-about-the-fewtel-voicemail-system',
+        'voicemail-boxes-in-the-fewtel-voicemail-system',
+        'can-be-created',
+        'from-any-fewtel-phone',
+        'can-be-accessed',
+        'from-the-fewtel-incoming-line',
+        'or',
+        'at',
+        'again',
+        'five-zero-three-four-six-eight-one-three-three-seven',
+        'press-one',
+        'press-two',
+        'press-three',
+        'press-four',
+        'press-five',
+        'press-six',
+        'press-seven',
+        'press-eight',
+        'press-nine',
+        'press-zero',
+        'one',
+        'two',
+        'three',
+        'four',
+        'five',
+        'six',
+        'seven',
+        'eight',
+        'nine',
+        'zero'],
     'for-communication-with-those-beyond': [
         'oracle-dead-intro-hello',
         'oracle-dead-intro-to-skip-instructions',
