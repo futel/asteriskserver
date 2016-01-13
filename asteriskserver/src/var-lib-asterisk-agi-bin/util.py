@@ -2,13 +2,8 @@
 import sys, os, traceback
 import logging
 
-# directories for gsm files, in order of preference
+# general directories for gsm files, in order of preference
 statement_dirs = [
-    # submenu collections first, these should have filenames that don't collide
-    # with general ones
-    '/opt/asterisk/var/lib/asterisk/sounds/futel/recordings/karl-oracle-dead/',
-    '/opt/asterisk/var/lib/asterisk/sounds/futel/recordings/karl-voicemail-ivr/',
-    # more general collections last
     '/opt/asterisk/var/lib/asterisk/sounds/futel/recordings/karl_quuux/',
     '/opt/asterisk/var/lib/asterisk/sounds/futel/recordings/tishbite/',
     '/opt/asterisk/var/lib/asterisk/sounds/futel/recordings/karl_quux/',
@@ -17,6 +12,12 @@ statement_dirs = [
     '/opt/asterisk/var/lib/asterisk/sounds/futel/recordings/karl_foo/',
     '/opt/asterisk/var/lib/asterisk/sounds/en/'
     ]
+
+# preferred submenu directories for gsm files, in order of preference
+preferred_statement_dirs = [
+    '/opt/asterisk/var/lib/asterisk/sounds/futel/recordings/karl-oracle-dead/',
+    '/opt/asterisk/var/lib/asterisk/sounds/futel/recordings/karl-voicemail-ivr/'
+]
 
 metric_filename = '/opt/asterisk/var/log/asterisk/metrics'
 
@@ -37,7 +38,7 @@ def sound_path(sound_name, preferred_sub=None):
     """
     # stream_file and Background want it without the extension
     if preferred_sub:
-        dirs = [d for d in statement_dirs if preferred_sub in d]
+        dirs = [d for d in preferred_statement_dirs if preferred_sub in d]
     else:
         dirs = []
     dirs.extend([d for d in statement_dirs if d not in dirs])
