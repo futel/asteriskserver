@@ -47,7 +47,7 @@ $SSH futel@$stage_ip "sudo chown -R asterisk:asterisk /tmp/stage"
 $SSH futel@$stage_ip "sudo -u asterisk cp /tmp/stage/vm_futel_users.inc /opt/asterisk/etc/asterisk/vm_futel_users.inc"
 $SSH futel@$stage_ip "sudo -u asterisk cp -r /tmp/stage/default /opt/asterisk/var/spool/asterisk/voicemail"
 # logs
-$SSH futel@$stage_ip "sudo -u asterisk cp -r /tmp/stage/asterisk /opt/asterisk/var/log/asterisk"
+$SSH futel@$stage_ip "sudo -u asterisk cp -r /tmp/stage/asterisk/* /opt/asterisk/var/log/asterisk"
 
 #$SSH futel@$stage_ip "sudo service asterisk start"
 $SSH futel@$stage_ip "sudo reboot"
