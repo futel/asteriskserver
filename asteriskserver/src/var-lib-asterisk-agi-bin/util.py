@@ -37,7 +37,7 @@ def sound_path(sound_name, preferred_subs=None):
     If preferred_sub is given, prefer paths with it as a substring.
     """
     dirs = []
-    if preferred_subs is None:
+    if not preferred_subs:
         preferred_subs = []
     for preferred_sub in preferred_subs:
         dirs.extend(
