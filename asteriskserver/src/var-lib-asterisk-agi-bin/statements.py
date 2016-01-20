@@ -133,7 +133,12 @@ statements = {
         'for-the-wilamette-valley-dream-survey',
         'for-the-current-time',
         'please-hold',
-        'for-the-next-available-operator'],
+        'for-the-next-available-operator',
+        'futel-voice-conf-menu',
+        'phone-trips-recordings',
+        'for-the-mojave-phone-booth-conference-line',
+        'to-make-a-lets-consider-recording',
+        'to-listen-to-the-multnomah-county-police-scanner'],
     'for-voicemail': [
         'to-check-your-voicemail',
         'to-create-a-new-voicemail-box',
