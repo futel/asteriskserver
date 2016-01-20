@@ -11,6 +11,7 @@
 
 statements = {
     'general': [
+        'to-continue',
         'five-zero-three-four-six-eight-one-three-three-seven',
         'for-more-information-about-the-fewtel-voicemail-system',
         'voicemail-boxes-in-the-fewtel-voicemail-system',
@@ -169,6 +170,7 @@ statements = {
         'nine',
         'zero'],
     'for-communication-with-those-beyond': [
+        'press-any-key-to-continue',
         'oracle-dead-intro-hello',
         'oracle-dead-intro-to-skip-instructions',
         'oracle-dead-intro-motivation',
