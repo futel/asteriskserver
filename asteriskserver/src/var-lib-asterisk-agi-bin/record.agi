@@ -38,7 +38,7 @@ def statement_path(statement, username):
 
 def prompt_and_record(agi_o, statement, username):
     util.say(agi_o, 'please-repeat')
-    util.say(agi_o, statement)
+    util.say(agi_o, statement, 'oracle-dead')
     path = statement_path(statement, username)
     path_in = path  + ':gsm'
     agi_o.appexec('record', path_in)

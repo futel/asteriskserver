@@ -183,6 +183,7 @@ statements = {
         'oracle-dead-intro-no-guarantee-recipient',
         'oracle-dead-intro-no-guarantee-content',
         'oracle-dead-insructions-enter-number',
+        'oracle-dead-insructions-enter-number-pound-or-star',
         'oracle-dead-insructions-enter-numbers',
         'oracle-dead-insructions-enter-numbers-details',
         'oracle-dead-insructions-enter-numbers-examples',

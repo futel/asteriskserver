@@ -50,8 +50,8 @@ def sound_path(sound_name, preferred_subs=None):
             return path
     return None
 
-def say(agi_o, filename):
-    path = sound_path(filename)
+def say(agi_o, filename, preferred_subs=None):
+    path = sound_path(filename, preferred_subs)
     if path:
         return agi_o.stream_file(path)
     # this seems to be parsed into args, punctuation may break it
