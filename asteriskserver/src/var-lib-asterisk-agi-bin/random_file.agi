@@ -1,0 +1,26 @@
+#!/usr/bin/env python
+"""
+Return full path for random file chosen fromm given directory
+"""
+
+import sys
+import os
+import random
+
+from asterisk import *
+import util
+
+agi = agi.AGI()
+
+def main():
+    # first argument is directory path
+    dirpath = sys.argv[1]
+    paths = filter(
+        os.path.isfile,
+        (os.path.join(dirpath, f) for f in os.listdir(dirpath)))
+    path = random.choice(paths)
+    agi.set_variable('agi_out', path)
+
+agi.answer()
+util.agi_tracebacker(agi, main)
+
