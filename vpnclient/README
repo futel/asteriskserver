@@ -18,8 +18,8 @@ enable
 server name vpnbox-prod-foo.phu73l.net
 LZO enable
 paste vpnbox/conf/ca.crt into public server cert
-paste vpnbox/conf/client/client.crt into public client cert
-paste vpnbox/conf/client/client.key into private client key
+paste vpnbox/conf/client/client-foo.crt into public client cert
+paste vpnbox/conf/client/client-foo.key into private client key
 
 administration/commands:
 paste src/ddwrt_startup into the text area and then press 'save startup'
