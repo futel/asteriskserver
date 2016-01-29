@@ -20,14 +20,15 @@ rm -rf /opt/asterisk/var/lib/asterisk/agi-bin
 cp -r /vagrant/src/var-lib-asterisk-agi-bin /opt/asterisk/var/lib/asterisk/agi-bin
 
 # copy asterisk sounds into the asterisk tree
+# statements
 rm -rf /opt/asterisk/var/lib/asterisk/sounds/futel
-#sudo -u asterisk cp -r /vagrant/src/var-lib-asterisk-sounds-futel /opt/asterisk/var/lib/asterisk/sounds/futel
 cp -r /vagrant/src/var-lib-asterisk-sounds-futel /opt/asterisk/var/lib/asterisk/sounds/futel
-
-# confbridge can't use say macro to play sounds
-# copy conf menu sounds to global directory
+# confbridge menu
 rm -rf /opt/asterisk/var/lib/asterisk/sounds/en/futelconf
 cp -r /vagrant/src/var-lib-asterisk-sounds-en-futelconf /opt/asterisk/var/lib/asterisk/sounds/en/futelconf
+# hold music
+rm -rf /opt/asterisk/var/lib/asterisk/moh/hold
+cp -r /vagrant/src/var-lib-asterisk-moh-hold /opt/asterisk/var/lib/asterisk/moh/hold
 
 # write the config files that are local or have secrets
 cp /vagrant/conf/sip_callcentric.conf.$conf_version /vagrant/conf/sip_callcentric.conf

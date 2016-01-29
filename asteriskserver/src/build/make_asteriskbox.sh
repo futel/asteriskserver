@@ -94,11 +94,6 @@ cd mpg123-1.22.2
 ./configure
 make && make install
 
-# install our new music on hold tunes
-mkdir /opt/asterisk/var/lib/asterisk/moh/hold
-cp -f /vagrant/src/var-lib-asterisk-moh-hold/ipanema.mp3 /opt/asterisk/var/lib/asterisk/moh/hold/.
-chown -R asterisk: /opt/asterisk/var/lib/asterisk/moh/hold
-
 # TODO this will be off by default for now. currently 240MB
 #	uncomment for testing or for DO build
 #cd /tmp
