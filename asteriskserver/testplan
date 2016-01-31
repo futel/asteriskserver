@@ -1,3 +1,5 @@
+ext 996 starts default menu
+ext 997 starts gallery/demo destination
 ext 998 starts admin menu
 ext 999 starts default menu
 ext 1000 starts dialtone
@@ -9,18 +11,25 @@ outgoing call sends oskar id from 668
 outgoing call sends r2d2 id from 670
 outgoing call sends incoming line from 690
 outgoing call sends ctrlh id from 691
+outgoing call sends demo id from 700
 
 incoming call to oskar calls oskar phone
 incoming call to oskar indoors calls oskar indoors phone
 incoming call to ctrlh calls ctrlh phone
-incomign call to incoming line gets incoming menu
+incoming call to incoming line gets incoming menu
 incoming call with disconnected device does the right thing
 simultaneous incoming calls do the right thing (probably not call waiting)
 
 can call one extension from another using internal dialtone
-can create voicemail box, leave voicemail, check voicemail
+
+can run through all menus
+
+can create voicemail box, leave voicemail, check voicemail, hear voicemail info
 can call each directory number
-can call operator
+can call each utility number
 can visit futel voice conference, hear hold music
 can visit futel voice conference, operate menu, get menu options
-other menus work when run through
+can hear futel info
+can call operator
+can record statements
+can call operator voicemail
