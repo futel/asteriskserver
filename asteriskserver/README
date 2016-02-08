@@ -63,6 +63,7 @@ futel-prod conf_version
   oskar-in to oskar-in subaccount
   l337 to oskar-in subaccount
   tish-in to tish-in subaccount
+  xnor to xnor subaccount
 wait for DNS to propagate
 test that futel-prod outgoing calls work
 test that futel-prod incoming calls work or get channel unavailable
