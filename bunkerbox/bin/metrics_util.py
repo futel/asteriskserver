@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 """
 metrics utils
 """
@@ -15,34 +15,6 @@ _sentinel = object()
 events_ignore = [
     'outgoing-by-extension',
     'default-incoming']
-# events_notice = [
-#     'outgoing-ivr',
-#     'outgoing-dialtone-wrapper',
-#     'ring-oskar',
-#     'incoming-ivr',
-#     'futel-conf',
-#     #'community-ivr',
-#     'operator',
-#     #'internal-dialtone-wrapper',
-#     'ring-r2d2',
-#     #'utilities-ivr',
-#     'ring-oskar-in',
-#     #'directory-ivr',
-#     #'futel-information',
-#     #'voicemail-ivr',
-#     #'current-time',
-#     #'voicemail-main',
-#     #'incoming-fake-admin-auth',
-#     #'lance-e-pants',
-#     #'next-vm',
-#     #'lib-account-line',
-#     #'voicemail',
-#     #'mayor-vm',
-#     #'info-211',
-#     #'apology-line',
-#     #'admin-auth',
-#     #'add-futel-conf'
-# ]
 
 def line_to_metric(line):
     """ Return dict from metric line. """
@@ -67,29 +39,21 @@ def filenames_to_metrics(filenames):
             for line in metricfile:
                 yield line_to_metric(line)
 
-# def filter_metrics_timestamp(metrics, now=_sentinel, **kwargs):
-#     """ Yield metrics with timestamps later than timedelta made with kwargs. """
-#     if now is _sentinel:
-#         now = datetime.datetime.now()
-#     earliest = now - datetime.timedelta(**kwargs)
-#     return itertools.ifilter(
-#         lambda metric: metric['timestamp'] >= earliest, metrics)
-
-# def filter_sequence(seq, **kwargs):
-#     for s in seq:
-#         for (k, v) in kwargs.items():
-#             if s[k] == v:
-#                 yield s
-
-def histogram(metrics, key='name'):
+def histogram(metrics):
     """
     Given sequence of dicts, return histogram dict of occurances of values
     for key.
     """
-    h_dict = collections.defaultdict(int)
-    for m in metrics:
-        h_dict[m[key]] += 1
-    return h_dict
+    hist = {
+        'latest_timestamp': datetime.datetime.min,
+        'latest_name': None,
+        'histogram': collections.defaultdict(int)}
+    for metric in metrics:
+        if metric['timestamp'] >= hist['latest_timestamp']:
+            hist['latest_timestamp'] = metric['timestamp']
+            hist['latest_name'] = metric['name']
+        hist['histogram'][metric['name']] += 1
+    return hist
 
 def _frequent_items(items):
     return list(
@@ -97,59 +61,39 @@ def _frequent_items(items):
             sorted(
                 (freq, event) for (event, freq) in items)))
 
-def frequent_events(histogram, num_events=7, events_ignore=events_ignore):
+def frequent_events(histogram, num_events=7):
     """
     Return most frequent (event, frequency) tuples from histogram for events
     not in events_ignore.
     """
-    items = (
-        (event, freq) for (event, freq) in histogram.items()
-        if event not in events_ignore)
-    items = _frequent_items(items)
+    items = _frequent_items(histogram.items())
     items = items[0:num_events]
     return [(event, freq) for (freq, event) in items]
 
-# def frequency_of_events(histogram, events_notice=events_notice):
-#     """
-#     Return (event, frequency) tuples from histogram for events
-#     in events_notice.
-#     """
-#     items = (
-#         (event, freq) for (event, freq) in histogram.items()
-#         if event in events_notice)
-#     items = _frequent_items(items)
-#     return [(event, freq) for (freq, event) in items]
+def min_timestamp_filter(metrics, date):
+    return (metric for metric in metrics if metric['timestamp'] >= date)
 
-def filtered_metrics(metrics, delta):
-    return [
-        metric for metric in metrics
-        if metric['timestamp'] >= delta]
-
-def sorted_metrics(metrics):
-    return sorted(metrics, key=operator.itemgetter('timestamp'))
+def name_ignore_filter(metrics, name_ignore):
+    return (metric for metric in metrics if metric['name'] not in name_ignore)
 
 def metrics_to_stats(metrics, delta, now):
     """ Return dict of stats about metrics """
-    if not metrics:
-        return {}
-    return {
+    stats = {
         'timestamp': now,
-        'delta': delta,
-        'latest_timestamp': metrics[-1]['timestamp'],
-        'latest_name': metrics[-1]['name'],
-        'histogram': frequent_events(histogram(metrics))}
+        'delta': delta}
+    stats.update(histogram(metrics))
+    stats['histogram'] = frequent_events(stats['histogram'])
+    return stats
 
-def get_stats(metrics):
+def get_stats(metrics, days):
     now = datetime.datetime.now()
-    delta_day = datetime.timedelta(days=1)
-    delta_week = datetime.timedelta(weeks=1)
-    delta_month =  datetime.timedelta(weeks=4)
-    return [
-        metrics_to_stats(
-            sorted_metrics(
-                filtered_metrics(metrics, now - delta)),
-            delta, now)
-        for delta in (delta_day, delta_week, delta_month)]
+    delta = datetime.timedelta(days=days)
+    metrics = min_timestamp_filter(metrics, now - delta)
+    metrics = name_ignore_filter(metrics, events_ignore)
+    return metrics_to_stats(
+        metrics,
+        delta,
+        now)
 
 def serialize_stats(stats):
     """ Serialize given stats dict to json. """
@@ -176,11 +120,11 @@ if __name__ == "__main__":
     # get_stats needs a non-generator iterable
     metrics = [metric for metric in metrics]
 
-    for stats in get_stats(metrics):
+    for days in (1, 7, 28):
+        stats = get_stats(metrics, days)
         if stats:
             stats = serialize_stats(stats)
             stats = json.loads(stats)
-            print stats
             print(
                 'events last %s from %s' %
                 (str(stats['delta']), str(stats['timestamp'])))
