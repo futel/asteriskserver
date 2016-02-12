@@ -120,27 +120,24 @@ def frequent_events(histogram, num_events=7, events_ignore=events_ignore):
 #     items = _frequent_items(items)
 #     return [(event, freq) for (freq, event) in items]
 
-def apply_delta(metrics, delta):
+def filtered_metrics(metrics, delta):
     return [
         metric for metric in metrics
         if metric['timestamp'] >= delta]
 
-def metrics_to_stats(metrics, delta, now=_sentinel):
+def sorted_metrics(metrics):
+    return sorted(metrics, key=operator.itemgetter('timestamp'))
+
+def metrics_to_stats(metrics, delta, now):
     """ Return dict of stats about metrics """
-    if now is _sentinel:
-        now = datetime.datetime.now()
-        pmetrics = apply_delta(metrics, now - delta)
-        if not pmetrics:
-            return {}
-        pmetrics = sorted(pmetrics, key=operator.itemgetter('timestamp'))
-        hist = histogram(pmetrics)
-        frequents = frequent_events(hist)
-        return {
-            'timestamp': now,
-            'delta': delta,
-            'latest_timestamp': pmetrics[-1]['timestamp'],
-            'latest_name': pmetrics[-1]['name'],
-            'histogram': frequents}
+    if not metrics:
+        return {}
+    return {
+        'timestamp': now,
+        'delta': delta,
+        'latest_timestamp': metrics[-1]['timestamp'],
+        'latest_name': metrics[-1]['name'],
+        'histogram': frequent_events(histogram(metrics))}
 
 def get_stats(metrics):
     now = datetime.datetime.now()
@@ -148,7 +145,10 @@ def get_stats(metrics):
     delta_week = datetime.timedelta(weeks=1)
     delta_month =  datetime.timedelta(weeks=4)
     return [
-        metrics_to_stats(metrics, delta)
+        metrics_to_stats(
+            sorted_metrics(
+                filtered_metrics(metrics, now - delta)),
+            delta, now)
         for delta in (delta_day, delta_week, delta_month)]
 
 def serialize_stats(stats):
@@ -180,6 +180,7 @@ if __name__ == "__main__":
         if stats:
             stats = serialize_stats(stats)
             stats = json.loads(stats)
+            print stats
             print(
                 'events last %s from %s' %
                 (str(stats['delta']), str(stats['timestamp'])))
