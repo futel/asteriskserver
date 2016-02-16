@@ -11,8 +11,8 @@ var dbFileName = '/opt/futel/stats/prod/metrics.db';
 
 var help = ['available commands:',
             'hi say hello',
-            'help command help',
-            'stats call stats'];
+            'help get command help',
+            'stats [days [extension]] get call stats'];
 
 // create bot
 var bot = new irc.Client(config.config.server, config.config.botName, {
@@ -61,6 +61,12 @@ bot.stats = function(from, to, text, message) {
         bot.help(from, to, text, message);
         return;
     }
+    var extension = words[2];
+    try {
+        extension = extension.toString();
+    } catch(e) {
+        extension = null;
+    }
 
     // var statsFileName = statsDirName + '/' + days;
     // try { 
@@ -74,7 +80,7 @@ bot.stats = function(from, to, text, message) {
     // bot.sayOrSay(from, to, 'latest event ' + stats['latest_timestamp'] + ' ' + stats['latest_name']);
 
     var db = new sqlite3.Database(dbFileName);
-    metrics_util.frequent_events(db, null, null, days, function(result) { bot.report_stats(from, to, days, result); });
+    metrics_util.frequent_events(db, null, null, days, extension, function(result) { bot.report_stats(from, to, days, result); });
     db.close();
 };
 
