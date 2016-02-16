@@ -1,5 +1,6 @@
 var irc = require('irc');
 var fs = require('fs');
+var config = require('./config');
 
 var statsDirName = '/opt/futel/stats/prod';
 
@@ -8,19 +9,11 @@ var help = ['available commands:',
             'help command help',
             'stats call stats'];
 
-var config = {
-    channels: ["#cor", "#pdxbots"],
-    server: "irc.freenode.net",
-    botName: "mechaoperator",
-    userName: "mechaoperator",
-    realName: "Futel Mechanical Operator",
-}
-
 // create bot
-var bot = new irc.Client(config.server, config.botName, {
-    channels: config.channels,
-    userName: config.userName,
-    realName: config.realName
+var bot = new irc.Client(config.config.server, config.config.botName, {
+    channels: config.config.channels,
+    userName: config.config.userName,
+    realName: config.config.realName
 });
 
 bot.sayOrSay = function(from, to, text) {
