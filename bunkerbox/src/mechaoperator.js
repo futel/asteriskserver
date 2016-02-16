@@ -7,8 +7,7 @@ var metrics_util = require('./metrics_util');
 var config = require('./config');
 
 // XXX CREATE TABLE metrics (timestamp, callerid, uniqueid, channel, name)
-//var dbFileName = '/opt/futel/stats/prod/metrics.db';
-var dbFileName = '/tmp/metrics.db';
+var dbFileName = '/opt/futel/stats/prod/metrics.db';
 
 var help = ['available commands:',
             'hi say hello',
