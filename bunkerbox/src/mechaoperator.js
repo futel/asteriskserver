@@ -7,7 +7,8 @@ var metrics_util = require('./metrics_util');
 var config = require('./config');
 
 // XXX CREATE TABLE metrics (timestamp, callerid, uniqueid, channel, name)
-var dbFileName = '/opt/futel/stats/prod/metrics.db';
+//var dbFileName = '/opt/futel/stats/prod/metrics.db';
+var dbFileName = '/tmp/metrics.db';
 
 var help = ['available commands:',
             'hi say hello',
@@ -58,8 +59,7 @@ bot.stats = function(from, to, text, message) {
     try {
         days = days.toString();
     } catch(e) {
-        bot.help(from, to, text, message);
-        return;
+        days = null;
     }
     var extension = words[2];
     try {
