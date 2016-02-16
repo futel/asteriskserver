@@ -1,8 +1,13 @@
 var irc = require('irc');
 var fs = require('fs');
+// npm install node-sqlite3 sqlite3
+var sqlite3 = require('sqlite3'); //.verbose();
+var metrics_util = require('./metrics_util');
+
 var config = require('./config');
 
-var statsDirName = '/opt/futel/stats/prod';
+// XXX CREATE TABLE metrics (timestamp, callerid, uniqueid, channel, name)
+var dbFileName = '/opt/futel/stats/prod/metrics.db';
 
 var help = ['available commands:',
             'hi say hello',
@@ -23,7 +28,7 @@ bot.sayOrSay = function(from, to, text) {
         bot.say(from, text);
     } else {
         // channel command
-        bot.say(to, text);        
+        bot.say(to, text);
     }
 }
 
@@ -35,33 +40,42 @@ bot.hi = function(from, to, text, message) {
 };
 
 bot.help = function(from, to, text, message) {
-    // XXX only PM
+    // should probably only PM back
     for (var line in help) {
         bot.sayOrSay(from, to, help[line]);
     }
 };
 
+bot.report_stats = function(from, to, days, rows) {
+    rows = rows.map(function (row) { return row.name + ":" + row.count; });
+    bot.sayOrSay(from, to, 'most frequent events last ' + days + ' days');
+    bot.sayOrSay(from, to, rows.join(' '));    
+};
+
 bot.stats = function(from, to, text, message) {
     words = bot.textToCommands(text);
     var days = words[1];
-    var statsFileName = statsDirName + '/' + days;
-    try { 
-        var stats = JSON.parse(fs.readFileSync(statsFileName, 'utf8'));
-    }
-    catch (e) {
-        bot.sayOrSay(from, to, 'No stats for ' + days);
+    try {
+        days = days.toString();
+    } catch(e) {
+        bot.help(from, to, text, message);
         return;
     }
-    bot.sayOrSay(from, to, 'events last ' + stats['delta'] + ' from ' + stats['timestamp']);
-    bot.sayOrSay(from, to, 'latest event ' + stats['latest_timestamp'] + ' ' + stats['latest_name']);
-    bot.sayOrSay(from, to, 'most frequent events:');
-    var histStrings = [];
-    for (i in stats['histogram']) {
-        var event = stats['histogram'][i][0];
-        var freq = stats['histogram'][i][1];
-        histStrings.push(event + ' (' + freq + ')');
-    }
-    bot.sayOrSay(from, to, histStrings.join(' '));
+
+    // var statsFileName = statsDirName + '/' + days;
+    // try { 
+    //     var stats = JSON.parse(fs.readFileSync(statsFileName, 'utf8'));
+    // }
+    // catch (e) {
+    //     bot.sayOrSay(from, to, 'No stats for ' + days);
+    //     return;
+    // }
+    // bot.sayOrSay(from, to, 'events last ' + stats['delta'] + ' from ' + stats['timestamp']);
+    // bot.sayOrSay(from, to, 'latest event ' + stats['latest_timestamp'] + ' ' + stats['latest_name']);
+
+    var db = new sqlite3.Database(dbFileName);
+    metrics_util.frequent_events(db, null, null, days, function(result) { bot.report_stats(from, to, days, result); });
+    db.close();
 };
 
 bot.errorMessage = function(from, to, text, message) {
