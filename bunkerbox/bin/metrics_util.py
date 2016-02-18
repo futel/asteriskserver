@@ -18,38 +18,52 @@ events_ignore = [
     'default-incoming']
 
 
+# schema:
+# CREATE TABLE metrics
+# (timestamp, callerid, uniqueid, channel, channel_extension, name)
 def line_to_metric(line):
-    """ Return dict from metric line. """
+    """Return normalized dict from metric line."""
     # convert line of csv to list
     # sigh, the first field is not quoted
     (date, time, fields) = line.split(' ', 2)
     metric = {'timestamp':" ".join((date, time))}
     fields = fields.split(',')
     fields = [field.strip() for field in fields]
-    # list of k=v to dict
+    # convert list of k=v to dict
     fields = [field.split('=') for field in fields]
     metric.update(dict(fields))
+    # normalize keys, deserialize values, add derived values
+    # would be more rigorous to have a seprate table for derived values
+    metric['callerid'] = metric.pop('CALLERID(number)')
+    metric['uniqueid'] = metric.pop('UNIQUEID')
+    metric['channel'] = metric.pop('CHANNEL')
     # deserialize values
     metric['timestamp'] = datetime.datetime(
         *map(int, re.split('[^\d]', metric['timestamp'])[:-1]))
+    # split ext from eg SIP/668-000002f1 SIP/callcentric-default-000002f3
+    (_proto, extension) = metric['channel'].split('/')
+    extension = '-'.join(extension.split('-')[:-1])
+    metric['channel_extension'] = extension
     return metric
 
 def read_write_metrics(metrics_paths, db_path):
     write_metrics(read_metrics(metrics_paths), db_path)
 
 def write_metrics(metrics, db_path):
+    """Replace all metrics at db_path database with given metrics."""
     conn = sqlite3.connect(db_path)
     c = conn.cursor()
     c.execute('DELETE FROM metrics')
     for metric in metrics:
         c.execute(
             'INSERT INTO metrics '
-            '(timestamp, callerid, uniqueid, channel, name) '
-            'VALUES (datetime(?),?,?,?,?)',
+            '(timestamp, callerid, uniqueid, channel, channel_extension, name) '
+            'VALUES (datetime(?),?,?,?,?,?)',
             (metric['timestamp'],
-             metric['CALLERID(number)'],
-             metric['UNIQUEID'],
-             metric['CHANNEL'],
+             metric['callerid'],
+             metric['uniqueid'],
+             metric['channel'],
+             metric['channel_extension'],
              metric['name']))
     conn.commit()
     conn.close()
