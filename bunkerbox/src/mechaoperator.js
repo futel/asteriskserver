@@ -6,7 +6,6 @@ var metrics_util = require('./metrics_util');
 
 var config = require('./config');
 
-// XXX CREATE TABLE metrics (timestamp, callerid, uniqueid, channel, name)
 var dbFileName = '/opt/futel/stats/prod/metrics.db';
 
 var help = ['available commands:',
@@ -66,17 +65,6 @@ bot.stats = function(from, to, text, message) {
     } catch(e) {
         extension = null;
     }
-
-    // var statsFileName = statsDirName + '/' + days;
-    // try { 
-    //     var stats = JSON.parse(fs.readFileSync(statsFileName, 'utf8'));
-    // }
-    // catch (e) {
-    //     bot.sayOrSay(from, to, 'No stats for ' + days);
-    //     return;
-    // }
-    // bot.sayOrSay(from, to, 'events last ' + stats['delta'] + ' from ' + stats['timestamp']);
-    // bot.sayOrSay(from, to, 'latest event ' + stats['latest_timestamp'] + ' ' + stats['latest_name']);
 
     var db = new sqlite3.Database(dbFileName);
     metrics_util.frequent_events(db, null, null, days, extension, function(result) { bot.report_stats(from, to, days, result); });
