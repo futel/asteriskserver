@@ -18,8 +18,7 @@ var frequent_events = function(db, events_ignore, max_events, days, extension, c
         days = default_days;
     }
     if (extension !== null) {
-        channel_clause = " AND channel LIKE ?";
-        extension = "%%SIP/" + extension + "-%%";        
+        channel_clause = " AND channel_extension = ?";
     } else {
         channel_clause = null;
     }
