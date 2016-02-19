@@ -17,10 +17,12 @@ var frequent_events = function(db, events_ignore, max_events, days, extension, c
     if (days === null) {
         days = default_days;
     }
-    if (extension === null) {
-        extension = "%%%%";         // magic, this ends up matching everything
+    if (extension !== null) {
+        channel_clause = " AND channel LIKE ?";
+        extension = "%%SIP/" + extension + "-%%";        
+    } else {
+        channel_clause = null;
     }
-    var extension_like = "%%SIP/" + extension + "-%%";
 
     // format arguments
     days = '-' + days.toString() + ' day';
@@ -30,12 +32,18 @@ var frequent_events = function(db, events_ignore, max_events, days, extension, c
     events_ignore_sub = events_ignore_sub.join();
     events_ignore_sub = '(' + events_ignore_sub + ')';
     // construct parameterized statement
-    var statement = "SELECT name, COUNT(name) AS count FROM metrics WHERE timestamp > date('now', ?) AND name NOT IN " + events_ignore_sub + " AND channel LIKE ? GROUP BY name ORDER BY COUNT(name) DESC LIMIT ?";
+    var statement = "SELECT name, COUNT(name) AS count FROM metrics WHERE timestamp > date('now', ?) AND name NOT IN " + events_ignore_sub;
+    if (extension !== null) {
+        statement = statement + channel_clause;
+    }
+    statement = statement + " GROUP BY name ORDER BY COUNT(name) DESC LIMIT ?";
 
     var params = [];
     params.push(days);
     params.push.apply(params, events_ignore);
-    params.push(extension_like);    
+    if (extension !== null) {
+        params.push(extension);
+    }
     params.push(max_events);
 
     db.all(statement, params, function(err, rows) {
