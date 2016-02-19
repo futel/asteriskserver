@@ -1,5 +1,4 @@
 var irc = require('irc');
-var fs = require('fs');
 // npm install node-sqlite3 sqlite3
 var sqlite3 = require('sqlite3'); //.verbose();
 var metrics_util = require('./metrics_util');

@@ -4,10 +4,8 @@ var default_events_ignore = [
 var default_max_events = 15;
 var default_days = 30;
 
-// for testing
-//var done = function(result) { console.log(result); };
-
-var frequent_events = function(db, events_ignore, max_events, days, extension, callback) {
+var frequent_events = function(
+    db, events_ignore, max_events, days, extension, callback) {
     if (events_ignore === null) {
         events_ignore = default_events_ignore;
     }
@@ -50,6 +48,52 @@ var frequent_events = function(db, events_ignore, max_events, days, extension, c
     });
 };
 
+Q = require('q');
+
+var nbind = function(obj, method) { return Q.nbind(method, obj) };
+var db_all = function(dbconn) { return nbind(dbconn, dbconn.all); };
+var get_promise = function(value) {
+    return Q.fcall(function() { return value; }) };
+
+var all_extensions = function(dbconn) {
+    return Q.fcall(
+        db_all(dbconn),
+        "SELECT DISTINCT(channel_extension) FROM metrics",
+        [])
+        .then(function(rows) {
+            return rows.map(function(row) { return row.channel_extension; })});
+}
+
+var latest_extension_event = function(dbconn, extension) {
+    return Q.fcall(
+        db_all(dbconn),
+        "SELECT channel_extension, name, timestamp FROM metrics WHERE channel_extension=? ORDER BY timestamp DESC LIMIT 1",
+        [extension])
+};
+
+var latest_events = function(db, extensions, callback) {
+    if (extensions !== null) {
+        var get_extensions = get_promise(extensions);
+    } else {
+        var get_extensions = all_extensions(db);
+    }
+
+    get_extensions
+    .then(function(extensions) {
+        return Q.all(
+            extensions.map(
+                function(extension) {
+                    return latest_extension_event(db, extension); }));
+    }).then(function(rows) {
+        callback(rows);
+    })
+    .fail(function(err) {
+        console.log('fail');
+        console.log(err);
+    })
+}
+
 module.exports = {
-    frequent_events: frequent_events
+    frequent_events: frequent_events,
+    latest_events: latest_events
 };
