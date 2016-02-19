@@ -1,3 +1,11 @@
+var Q = require('q');
+var sqlite3 = require('sqlite3'); //.verbose();
+
+var nbind = function(obj, method) { return Q.nbind(method, obj) };
+var db_all = function(dbconn) { return nbind(dbconn, dbconn.all); };
+var get_promise = function(value) {
+    return Q.fcall(function() { return value; }) };
+
 var default_events_ignore = [
     'outgoing-by-extension',
     'default-incoming'];
@@ -5,7 +13,7 @@ var default_max_events = 15;
 var default_days = 30;
 
 var frequent_events = function(
-    db, events_ignore, max_events, days, extension, callback) {
+    dbFileName, events_ignore, max_events, days, extension, callback) {
     if (events_ignore === null) {
         events_ignore = default_events_ignore;
     }
@@ -43,17 +51,14 @@ var frequent_events = function(
     }
     params.push(max_events);
 
-    db.all(statement, params, function(err, rows) {
-        callback(rows);
-    });
-};
-
-Q = require('q');
-
-var nbind = function(obj, method) { return Q.nbind(method, obj) };
-var db_all = function(dbconn) { return nbind(dbconn, dbconn.all); };
-var get_promise = function(value) {
-    return Q.fcall(function() { return value; }) };
+    var db = new sqlite3.Database(dbFileName);
+    Q.fcall(db_all(db), statement, params)
+        .then(function(rows) {
+            db.close();            
+            callback(rows);
+        })
+        .fail(function(err) { console.log(err) })
+}
 
 var all_extensions = function(dbconn) {
     return Q.fcall(
@@ -71,7 +76,8 @@ var latest_extension_event = function(dbconn, extension) {
         [extension])
 };
 
-var latest_events = function(db, extensions, callback) {
+var latest_events = function(dbFileName, extensions, callback) {
+    var db = new sqlite3.Database(dbFileName);
     if (extensions !== null) {
         var get_extensions = get_promise(extensions);
     } else {
@@ -85,10 +91,24 @@ var latest_events = function(db, extensions, callback) {
                 function(extension) {
                     return latest_extension_event(db, extension); }));
     }).then(function(rows) {
+        db.close();
+        return rows;
+    }).then(function(rows) {
+        rows = rows.map(function(r) { return r.pop(); });
+        var compare = function(a, b) {
+            if (a.timestamp < b.timestamp) {
+                return -1;
+            } else if (a.timestamp > b.timestamp) {
+                return 1;
+            } else {
+                return 0;
+            }
+        };
+        rows.sort(compare);
+        rows.reverse();
         callback(rows);
     })
     .fail(function(err) {
-        console.log('fail');
         console.log(err);
     })
 }

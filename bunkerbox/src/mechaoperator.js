@@ -1,6 +1,4 @@
 var irc = require('irc');
-// npm install node-sqlite3 sqlite3
-var sqlite3 = require('sqlite3'); //.verbose();
 var metrics_util = require('./metrics_util');
 
 var config = require('./config');
@@ -10,7 +8,9 @@ var dbFileName = '/opt/futel/stats/prod/metrics.db';
 var help = ['available commands:',
             'hi say hello',
             'help get command help',
-            'stats [days [extension]] get call stats'];
+            'stats [days [extension]] get call stats',
+            'latest [extension [extension...]] get latest events'
+           ];
 
 // create bot
 var bot = new irc.Client(config.config.server, config.config.botName, {
@@ -51,7 +51,7 @@ bot.report_stats = function(from, to, days, rows) {
 };
 
 bot.stats = function(from, to, text, message) {
-    words = bot.textToCommands(text);
+    var words = bot.textToCommands(text);
     var days = words[1];
     try {
         days = days.toString();
@@ -65,9 +65,26 @@ bot.stats = function(from, to, text, message) {
         extension = null;
     }
 
-    var db = new sqlite3.Database(dbFileName);
-    metrics_util.frequent_events(db, null, null, days, extension, function(result) { bot.report_stats(from, to, days, result); });
-    db.close();
+    metrics_util.frequent_events(dbFileName, null, null, days, extension, function(result) { bot.report_stats(from, to, days, result); });
+};
+
+bot.report_latest = function(from, to, results) {
+    results = results.map(function (result) {
+        return result.channel_extension + ":" + result.timestamp + " " + result.name; });
+    bot.sayOrSay(from, to, "latest channel events");
+    bot.sayOrSay(from, to, results.join('\n'));    
+};
+
+bot.latest = function(from, to, text, message) {
+    var words = bot.textToCommands(text);
+    var extensions = words.slice(1);
+    if (!extensions.length) {
+        extensions = null;
+    }
+    metrics_util.latest_events(
+        dbFileName,
+        extensions,
+        function(result) { bot.report_latest(from, to, result); });
 };
 
 bot.errorMessage = function(from, to, text, message) {
@@ -77,7 +94,8 @@ bot.errorMessage = function(from, to, text, message) {
 bot.commands = {
     'hi': bot.hi,
     'help': bot.help,
-    'stats': bot.stats}
+    'stats': bot.stats,
+    'latest': bot.latest}
 
 bot.textToCommands = function(text) {
     return text.trim().split(/\s+/);
@@ -85,7 +103,7 @@ bot.textToCommands = function(text) {
 
 // respond to commands in pm, or error message
 bot.addListener("pm", function(nick, text, message) {
-    words = bot.textToCommands(text);
+    var words = bot.textToCommands(text);
     if (words && (words[0] in bot.commands)) {    
         var command = bot.commands[words[0]];
     } else {
