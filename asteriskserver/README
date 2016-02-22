@@ -27,7 +27,7 @@ create or check out release branch
 SSH into prod to find out what conf version is being used:
 ssh -p42422 -o StrictHostKeyChecking=no -t -i conf/id_rsa futel@futel-prod.phu73l.net 'grep "foo\|bar" /opt/asterisk/etc/asterisk/sip_callcentric.conf'
 
-create droplet from image CentOS 6.5 x32
+create droplet from image CentOS 6.7 x32
 src/baseinstall.sh futel-stage.phu73l.net
 save snapshot baseinstall_stage
 
@@ -64,6 +64,7 @@ futel-prod conf_version
   l337 to oskar-in subaccount
   tish-in to tish-in subaccount
   xnor to xnor subaccount
+  demo to demo subaccount
 wait for DNS to propagate
 test that futel-prod outgoing calls work
 test that futel-prod incoming calls work or get channel unavailable
