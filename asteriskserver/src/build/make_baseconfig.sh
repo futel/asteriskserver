@@ -52,4 +52,3 @@ cp -f /vagrant/src/crontab /etc/crontab
 rm -f /etc/localtime
 ln -s /usr/share/zoneinfo/PST8PDT /etc/localtime
 
-halt now
