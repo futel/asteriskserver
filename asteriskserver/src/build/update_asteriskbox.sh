@@ -36,6 +36,7 @@ cp /vagrant/conf/sip_callcentric.conf.$conf_version /vagrant/conf/sip_callcentri
 cp /vagrant/conf/sip_callcentric.conf /opt/asterisk/etc/asterisk/sip_callcentric.conf
 cp /vagrant/conf/sip_secret.conf /opt/asterisk/etc/asterisk/sip_secret.conf
 cp /vagrant/conf/extensions_secret.conf /opt/asterisk/etc/asterisk/extensions_secret.conf
+cp /vagrant/conf/followme.conf /opt/asterisk/etc/asterisk/followme.conf
 cp /vagrant/conf/blocklist.yaml /opt/asterisk/etc/asterisk/blocklist.yaml
 
 # fix up issues due to our janky install locallly as root deployment
