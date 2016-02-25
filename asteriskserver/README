@@ -64,6 +64,8 @@ futel-prod conf_version
   l337 to oskar-in subaccount
   tish-in to tish-in subaccount
   xnor to xnor subaccount
+  ctrlh to ctrlh subaccount
+  ctrlh-in to ctrlh-in subaccount
   demo to demo subaccount
 wait for DNS to propagate
 test that futel-prod outgoing calls work
