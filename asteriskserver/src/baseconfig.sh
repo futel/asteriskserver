@@ -9,7 +9,7 @@ scp -o StrictHostKeyChecking=no -r . root@$do_ip:/tmp/vagrant
 ssh -o StrictHostKeyChecking=no -t root@$do_ip "sudo ln -sf /tmp/vagrant /vagrant"
 
 ssh -o StrictHostKeyChecking=no root@$do_ip /vagrant/src/build/make_baseconfig.sh
-ssh -o StrictHostKeyChecking=no -t root@$do_ip "rm -rf /tmp/vagrant/conf"
-# further builds are run by futel user
-ssh -o StrictHostKeyChecking=no -t root@$do_ip "chown -R futel:futel /tmp/vagrant"
-ssh -o StrictHostKeyChecking=no -t root@$do_ip "halt now"
+
+# further action is with futel user
+ssh -p42422 -o StrictHostKeyChecking=no -t -i conf/id_rsa futel@$do_ip "sudo rm -rf /tmp/vagrant/conf"
+ssh -p42422 -o StrictHostKeyChecking=no -t -i conf/id_rsa futel@$do_ip "sudo halt now"
