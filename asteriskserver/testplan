@@ -25,12 +25,25 @@ can call one extension from another using internal dialtone
 
 can run through all menus
 
+calling operator plays intro, then ipanema while operators are called
+calling operator dials all operators
+answering operator call plays operator menu
+accepting operator call connects caller with operator
+accepting operator call does the right thing for other operators being dialed
+accepting operator call does the right thing for other operators hearing menu
+denying operator call hangs up on operator
+denying operator call does not affect caller
+denying operator call does not affect other operators being dialed
+denying operator call does not affect other operators hearing menu
+caller gets operator voicemail if no operator accepts before timeout
+caller gets hangup after voicemail ends
+caller gets hangup after call with operator ends
+
 can create voicemail box, leave voicemail, check voicemail, hear voicemail info
 can call each directory number
 can call each utility number
 can visit futel voice conference, hear hold music
 can visit futel voice conference, operate menu, get menu options
 can hear futel info
-can call operator
 can record statements
 can call operator voicemail
