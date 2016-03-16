@@ -36,6 +36,7 @@ while (defined($ThisLine = <STDIN>)) {
       ( $ThisLine =~ /app_voicemail.c: Couldn't read username/ ) or
       ( $ThisLine =~ /app_voicemail.c: Unable to read password/ ) or
       ( $ThisLine =~ /app_voicemail.c: No entry in voicemail config file for/ ) or
+      ( $ThisLine =~ /app_dial.c: Unable to write frametype: 2/ ) or      
       ( $ThisLine =~ /Unknown RTP codec 126 received from/ ) ) {    
                 # nop, we don't care about these
       } elsif  ( ( $ThisLine =~ /WARNING/ ) or 
