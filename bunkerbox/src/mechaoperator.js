@@ -12,7 +12,6 @@ var help = ['available commands:',
             'latest [extension [extension...]] get latest events'
            ];
 
-// create bot
 var bot = new irc.Client(config.config.server, config.config.botName, {
     channels: config.config.channels,
     userName: config.config.userName,
@@ -44,7 +43,7 @@ bot.help = function(from, to, text, message) {
     }
 };
 
-bot.report_stats = function(from, to, days, rows) {
+bot.reportStats = function(from, to, days, rows) {
     rows = rows.map(function (row) { return row.name + ":" + row.count; });
     bot.sayOrSay(from, to, 'most frequent events last ' + days + ' days');
     bot.sayOrSay(from, to, rows.join(' '));    
@@ -65,10 +64,10 @@ bot.stats = function(from, to, text, message) {
         extension = null;
     }
 
-    metrics_util.frequent_events(dbFileName, null, null, days, extension, function(result) { bot.report_stats(from, to, days, result); });
+    metrics_util.frequent_events(dbFileName, null, null, days, extension, function(result) { bot.reportStats(from, to, days, result); });
 };
 
-bot.report_latest = function(from, to, results) {
+bot.reportLatest = function(from, to, results) {
     results = results.map(function (result) {
         return result.channel_extension + ":" + result.timestamp + " " + result.name; });
     bot.sayOrSay(from, to, "latest channel events");
@@ -84,7 +83,7 @@ bot.latest = function(from, to, text, message) {
     metrics_util.latest_events(
         dbFileName,
         extensions,
-        function(result) { bot.report_latest(from, to, result); });
+        function(result) { bot.reportLatest(from, to, result); });
 };
 
 bot.errorMessage = function(from, to, text, message) {
