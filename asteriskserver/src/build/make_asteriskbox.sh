@@ -39,7 +39,7 @@ cd asterisk-11.5.1
 #     # http://gentoo-what-did-you-say.blogspot.com/2011/07/finding-cpu-flags-using-gcc.html
 #     CFLAGS=-march=core2
 # fi
-sudo -u asterisk ./configure --prefix=/opt/asterisk --exec_prefix=/opt/asterisk #CFLAGS=$CFLAGS
+sudo -u asterisk ./configure --with-resample=/vagrant/src/libresample-0.1.3/ --prefix=/opt/asterisk --exec_prefix=/opt/asterisk  #CFLAGS=$CFLAGS
 
 # do some things that make menuselect does
 # XXX what a crock!  Some of these may be superstition.
