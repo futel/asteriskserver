@@ -1,3 +1,6 @@
+read this:
+http://blog.russellbryant.net/2008/01/13/jack-interfaces-for-asterisk/
+
 yum install libsamplerate-devel
 yum install alsa-lib-devel
 yum install libsndfile-devel
