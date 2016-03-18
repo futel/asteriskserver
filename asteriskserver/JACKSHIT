@@ -1,0 +1,16 @@
+yum install libsamplerate-devel
+yum install alsa-lib-devel
+yum install libsndfile-devel
+
+
+build jack from source
+./waf configure --alsa
+./waf build
+./waf install
+
+build libresample from src/libresample-0.1.3/
+
+rebuild asterisk:
+./configure --with-resample=/vagrant/src/libresample-0.1.3/
+
+make menuconfig  select application app_jack and make, make install
