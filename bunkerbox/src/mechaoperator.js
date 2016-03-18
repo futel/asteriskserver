@@ -3,7 +3,7 @@ var metrics_util = require('./metrics_util');
 
 var config = require('./config');
 
-var dbFileName = '/opt/futel/stats/prod/metrics.db';
+var defaultStatsDays = 60;
 
 var help = ['available commands:',
             'hi say hello',
@@ -55,7 +55,7 @@ bot.stats = function(from, to, text, message) {
     try {
         days = days.toString();
     } catch(e) {
-        days = null;
+        days = defaultStatsDays;
     }
     var extension = words[2];
     try {
@@ -64,7 +64,13 @@ bot.stats = function(from, to, text, message) {
         extension = null;
     }
 
-    metrics_util.frequent_events(dbFileName, null, null, days, extension, function(result) { bot.reportStats(from, to, days, result); });
+    metrics_util.frequent_events(
+        config.config.dbFileName,
+        null,
+        null,
+        days,
+        extension,
+        function(result) { bot.reportStats(from, to, days, result); });
 };
 
 bot.reportLatest = function(from, to, results) {
@@ -81,7 +87,7 @@ bot.latest = function(from, to, text, message) {
         extensions = null;
     }
     metrics_util.latest_events(
-        dbFileName,
+        config.config.dbFileName,
         extensions,
         function(result) { bot.reportLatest(from, to, result); });
 };
