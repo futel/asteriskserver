@@ -69,11 +69,16 @@ var all_extensions = function(dbconn) {
             return rows.map(function(row) { return row.channel_extension; })});
 }
 
-var latest_extension_event = function(dbconn, extension) {
-    return Q.fcall(
-        db_all(dbconn),
-        "SELECT channel_extension, name, timestamp FROM metrics WHERE channel_extension=? ORDER BY timestamp DESC LIMIT 1",
-        [extension])
+var get_latest_events = function(dbconn, extension, limit) {
+    query = "SELECT channel_extension, name, timestamp FROM metrics";
+    params = [];
+    if (extension !== null) {
+        query = query + " WHERE channel_extension=?";
+        params.push(extension);
+    }
+    query = query + " ORDER BY timestamp DESC LIMIT ?";
+    params.push(limit);
+    return Q.fcall(db_all(dbconn), query, params)
 };
 
 var latest_events = function(dbFileName, extensions, callback) {
@@ -89,7 +94,7 @@ var latest_events = function(dbFileName, extensions, callback) {
         return Q.all(
             extensions.map(
                 function(extension) {
-                    return latest_extension_event(db, extension); }));
+                    return get_latest_events(db, extension, 1); }));
     }).then(function(rows) {
         db.close();
         return rows;
