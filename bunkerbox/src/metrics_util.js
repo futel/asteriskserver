@@ -12,6 +12,25 @@ var default_events_ignore = [
 var default_max_events = 15;
 var default_days = 30;
 
+var nonBadEvents = [
+    "outgoing-by-extension",
+    "default-incoming",
+    "outgoing-ivr",
+    "outgoing-dialtone-wrapper",
+    "oracle-dead",
+    "voicemail-ivr",
+    "directory-ivr",
+    "community-ivr",
+    "ring-oskar",
+    "ring-demo ",
+    "futel-information",
+    "operator",
+    "ring-r2d2",
+    "internal-dialtone-wrapper",
+    "voicemail-main",
+    "incoming-ivr"
+];
+
 var frequent_events = function(
     dbFileName, events_ignore, max_events, days, extension, callback) {
     if (events_ignore === null) {
@@ -69,13 +88,22 @@ var all_extensions = function(dbconn) {
             return rows.map(function(row) { return row.channel_extension; })});
 }
 
-var get_latest_events = function(dbconn, extension, limit) {
+var get_latest_events = function(dbconn, extension, eventsIgnore, limit) {
     query = "SELECT channel_extension, name, timestamp FROM metrics";
     params = [];
     if (extension !== null) {
         query = query + " WHERE channel_extension=?";
         params.push(extension);
     }
+    if (eventsIgnore !== null) {
+        var eventsIgnoreSub = eventsIgnore.map(function (x) {return "?"});
+        eventsIgnoreSub = eventsIgnoreSub.join();
+        eventsIgnoreSub = '(' + eventsIgnoreSub + ')';
+        // XXX assums no extension clause, get a smarter join
+        query = query + " WHERE name NOT IN " + eventsIgnoreSub;
+        params.push.apply(params, eventsIgnore);        
+    }
+    
     query = query + " ORDER BY timestamp DESC LIMIT ?";
     params.push(limit);
     return Q.fcall(db_all(dbconn), query, params)
@@ -94,7 +122,7 @@ var latest_events = function(dbFileName, extensions, callback) {
         return Q.all(
             extensions.map(
                 function(extension) {
-                    return get_latest_events(db, extension, 1); }));
+                    return get_latest_events(db, extension, null, 1); }));
     }).then(function(rows) {
         db.close();
         return rows;
@@ -118,7 +146,33 @@ var latest_events = function(dbFileName, extensions, callback) {
     })
 }
 
+var recentEvents = function(
+        dbFileName, maxEvents, maxDays, eventsIgnore, callback) {
+    var db = new sqlite3.Database(dbFileName);
+    if (maxEvents === null) {
+        maxEvents = default_max_events;
+    }
+    if (maxDays === null) {
+        maxDays = default_days;
+    }
+    if (eventsIgnore === null) {
+        eventsIgnore = nonBadEvents;
+    }
+
+    get_latest_events(db, null, eventsIgnore, maxEvents)
+    .then(function(rows) {
+        db.close();
+        return rows;
+    }).then(function(rows) {
+        callback(rows);
+    })
+    .fail(function(err) {
+        console.log(err);
+    })
+}
+
 module.exports = {
     frequent_events: frequent_events,
-    latest_events: latest_events
+    latest_events: latest_events,
+    recentEvents: recentEvents
 };
