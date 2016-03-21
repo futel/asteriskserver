@@ -8,8 +8,9 @@ var defaultStatsDays = 60;
 var help = ['available commands:',
             'hi say hello',
             'help get command help',
-            'stats [days [extension]] get call stats',
-            'latest [extension [extension...]] get latest events'
+            'latest [extension [extension...]] get latest events',
+            'stats [days [extension]] get event stats',
+            'recentbad get recent events'
            ];
 
 var bot = new irc.Client(config.config.server, config.config.botName, {
@@ -73,9 +74,14 @@ bot.stats = function(from, to, text, message) {
         function(result) { bot.reportStats(from, to, days, result); });
 };
 
+bot.metricToString = function(metric) {
+    return metric.channel_extension + " " + metric.timestamp + " " + metric.name;
+}
+
 bot.reportLatest = function(from, to, results) {
     results = results.map(function (result) {
-        return result.channel_extension + ":" + result.timestamp + " " + result.name; });
+        return bot.metricToString(result);
+    });
     bot.sayOrSay(from, to, "latest channel events");
     bot.sayOrSay(from, to, results.join('\n'));    
 };
@@ -92,6 +98,24 @@ bot.latest = function(from, to, text, message) {
         function(result) { bot.reportLatest(from, to, result); });
 };
 
+bot.reportRecentBad = function(from, to, results) {
+    results = results.map(function (result) {
+        return bot.metricToString(result);
+    });
+    bot.sayOrSay(from, to, "recent bad events");
+    bot.sayOrSay(from, to, results.join('\n'));    
+};
+
+
+bot.recentBad = function(from, to, text, message) {
+    metrics_util.recentEvents(
+        config.config.dbFileName,
+        null,
+        null,
+        null,
+        function(result) { bot.reportRecentBad(from, to, result); });
+};
+
 bot.errorMessage = function(from, to, text, message) {
     bot.sayOrSay(from, to, 'Use "help" for help.');
 };
@@ -100,7 +124,8 @@ bot.commands = {
     'hi': bot.hi,
     'help': bot.help,
     'stats': bot.stats,
-    'latest': bot.latest}
+    'latest': bot.latest,
+    'recentbad': bot.recentBad}    
 
 bot.textToCommands = function(text) {
     return text.trim().split(/\s+/);
