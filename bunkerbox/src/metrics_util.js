@@ -35,7 +35,9 @@ var nonBadEvents = [
     "incoming-ivr",
     "dream-survey",
     "incoming-fake-admin-auth",
-    "admin-auth"
+    "admin-auth",
+    "incoming-dialstatus-BUSY",
+    "outgoing-dialstatus-BUSY"
 ];
 
 var frequent_events = function(
