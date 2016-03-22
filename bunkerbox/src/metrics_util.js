@@ -26,12 +26,16 @@ var nonBadEvents = [
     "ring-oskar",
     "ring-ctrlh",    
     "ring-demo ",
+    "ring-xnor",    
     "futel-information",
     "operator",
     "ring-r2d2",
     "internal-dialtone-wrapper",
     "voicemail-main",
-    "incoming-ivr"
+    "incoming-ivr",
+    "dream-survey",
+    "incoming-fake-admin-auth",
+    "admin-auth"
 ];
 
 var frequent_events = function(
