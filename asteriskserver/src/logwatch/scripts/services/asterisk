@@ -50,6 +50,10 @@ while (defined($ThisLine = <STDIN>)) {
       ( $ThisLine =~ /Failed to authenticate on INVITE to/ ) or
       ( $ThisLine =~ /Unable to create\/find SIP channel for this INVITE/ ) or 
       ( $ThisLine =~ /Invalid keyword/ ) or
+      ( $ThisLine =~ /res_musiconhold.c: poll() failed: Interrupted system call/ ) or
+      ( $ThisLine =~ /file.c: Failed to write frame/ ) or
+      ( $ThisLine =~ /chan_sip.c: Got OK on REFER Notify message/ ) or
+      ( $ThisLine =~ /app_dial.c: Unable to write frametype: 2/ ) or
       ( $ThisLine =~ /No compatible codecs, not accepting this offer/ ) or
       ( $ThisLine =~ /Unable to open management configuration manager.conf./ ) ) {
       $Warnings{$ThisLine}++;
