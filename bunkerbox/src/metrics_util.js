@@ -14,7 +14,7 @@ var default_days = 30;
 
 var badEvents = [
     "incoming-dialstatus-CHANUNAVAIL",
-    "incoming-dialstatus-CONGESTION"]
+    "outgoing-dialstatus-CONGESTION"]
 
 var frequent_events = function(
     dbFileName, events_ignore, max_events, days, extension, callback) {
