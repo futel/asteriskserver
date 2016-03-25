@@ -37,6 +37,7 @@ var nonBadEvents = [
     "incoming-fake-admin-auth",
     "admin-auth",
     "incoming-dialstatus-BUSY",
+    "incoming-dialstatus-CONGESTION",
     "outgoing-dialstatus-BUSY",
     "next-vm"
 ];
