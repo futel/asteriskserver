@@ -7,11 +7,15 @@ ext 1001 starts incoming menu
 
 outgoing call works
 outgoing call sends oskar indoors id from 667
+outgoing call indicates 911 when calling 15035550911 from 667
 outgoing call sends oskar id from 668
+outgoing call indicates 911 when XXX from 668
 outgoing call sends r2d2 id from 670
 outgoing call sends xnor id from 680
+outgoing call indicates 911 when calling 15035550911 from 680
 outgoing call sends incoming id from 690
 outgoing call sends ctrlh id from 691
+outgoing call indicates 911 when calling 15035550911 from 691
 outgoing call sends demo id from 700
 
 incoming call to oskar calls oskar phone
