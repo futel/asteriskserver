@@ -131,6 +131,18 @@ bot.textToCommands = function(text) {
     return text.trim().split(/\s+/);
 }
 
+bot.noYoureTalk = function(from, to, text, message) {
+    var findString = bot.nick + " is ";
+    var startString = text.indexOf(findString);
+    if (startString > -1) {
+        text = text.trim();                           // strip whitespace
+        text = text.replace(RegExp('[\.\!\?]+$'), '') // strip punct
+        var outString = text.replace(RegExp('.*' + findString), '');
+        outString = "No, " + from + ", you're " + outString + '!';
+        bot.sayOrSay(from, to, outString);
+    }
+}
+
 // respond to commands in pm, or error message
 bot.addListener("pm", function(nick, text, message) {
     var words = bot.textToCommands(text);
@@ -142,14 +154,18 @@ bot.addListener("pm", function(nick, text, message) {
     command(nick, null, text, message);
 });
 
-// respond to commands in channel starting with !, or ignore
+// respond to talking in channels
 bot.addListener("message#", function(from, to, text, message) {
     if (text.indexOf('!') == 0) {
+        // respond to commands in channel starting with !        
         text = text.replace('!', '');
         words = bot.textToCommands(text);
         if (words && (words[0] in bot.commands)) {
             var command = bot.commands[words[0]];
             command(from, to, text, message);
         }
+    } else if (config.config.noisyChannels.indexOf(message.args[0]) > -1) {
+        // respond to talking in noisychannels
+        bot.noYoureTalk(from, to, text, message);        
     }
 });
