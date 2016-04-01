@@ -1,14 +1,13 @@
 backups and metrics:
 
+add local futel user and group: useradd -r futel
+
 write bin to /opt/futel/bin
 write src to /opt/futel/src
-mkdir /opt/futel/stats/prod
-mkdir /opt/futel/backups
+have keys in /opt/futel/ssh/id_rsa, owned by futel:futel
+mkdir /opt/futel/stats/prod, owed by futel:futel
+mkdir /opt/futel/backups/prod, owned by futel:futel
 
-write /etc/cron.hourly/backup-futel-prod:
-#!/bin/sh
-/opt/futel/bin/backup.sh
-
-add local futel user and group: useradd -r futel
-add /opt/futel/ssh/id_rsa
+write futel user's crontab
+0,5,10,15,20,25,30,35,40,45,50,55 * * * * /opt/futel/bin/backup.sh
 
