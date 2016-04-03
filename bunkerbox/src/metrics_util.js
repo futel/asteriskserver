@@ -10,7 +10,8 @@ var default_events_ignore = [
     'outgoing-by-extension',
     'default-incoming'];
 var default_max_events = 15;
-var default_days = 30;
+var defaultFrequentDays = 30;
+var defaultRecentDays = 14;
 
 var badEvents = [
     "incoming-dialstatus-CHANUNAVAIL",
@@ -25,7 +26,7 @@ var frequent_events = function(
         max_events = default_max_events;
     }
     if (days === null) {
-        days = default_days;
+        days = defaultFrequentDays;
     }
     if (extension !== null) {
         channel_clause = " AND channel_extension = ?";
@@ -138,7 +139,7 @@ var recentEvents = function(
         maxEvents = default_max_events;
     }
     if (maxDays === null) {
-        maxDays = default_days;
+        maxDays = defaultRecentDays;
     }
     if (events === null) {
         events = badEvents;
