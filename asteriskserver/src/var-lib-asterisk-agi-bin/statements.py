@@ -11,6 +11,7 @@
 
 statements = {
     'general': [
+        'for-the-wildcard-line',
         'to-continue',
         'five-zero-three-four-six-eight-one-three-three-seven',
         'for-more-information-about-the-fewtel-voicemail-system',
@@ -200,6 +201,11 @@ statements = {
         'oracle-dead-debrief-to-share',
         'oracle-dead-debrief-otherwise',
         'oracle-dead-debrief-record'],
+    'for-the-wildcard-line': [
+        'wildcard-line-welcome',
+        'wildcard-line-leave-message',
+        'wildcard-line-thank-you',
+        'wildcard-line-come-back'],
     'futel-voice-conf-menu': [
         'press-star-to-hear-options',
         'to-increase-listening-volume',
