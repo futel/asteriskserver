@@ -11,6 +11,7 @@
 
 statements = {
     'general': [
+        'for-a-random-swede',
         'for-the-wildcard-line',
         'to-continue',
         'five-zero-three-four-six-eight-one-three-three-seven',
