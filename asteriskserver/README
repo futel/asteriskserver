@@ -54,13 +54,11 @@ futel-prod conf_version
   futel-r2d2 user to r2d2 incoming
 point all voip.ms DID forwarding rules to subaccounts corresponding to new
 futel-prod conf_version
-  oskar-in to oskar-in subaccount
-  l337 to oskar-in subaccount
+  oskar-in, 1337, demo to prod-foo|bar subaccount
   tish-in to tish-in subaccount
   xnor to xnor subaccount
   ctrlh to ctrlh subaccount
   ctrlh-in to ctrlh-in subaccount
-  demo to demo subaccount
 wait for DNS to propagate
 test that futel-prod outgoing calls work
 test that futel-prod incoming calls work or get channel unavailable
