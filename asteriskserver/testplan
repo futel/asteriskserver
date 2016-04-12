@@ -46,6 +46,8 @@ denying operator call does not affect other operators hearing menu
 caller gets operator voicemail if no operator accepts before timeout
 caller gets hangup after voicemail ends
 caller gets hangup after call with operator ends
+operator can transfer caller to outgoing-menu using #999
+operator can transfer caller to another phone number using #+10 digit number
 
 can create voicemail box, leave voicemail, check voicemail, hear voicemail info
 can call each directory number
