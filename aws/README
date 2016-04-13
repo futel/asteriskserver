@@ -1,0 +1,12 @@
+## Deploy AWS services
+
+create SNS topic for asterisk manager events
+create AWS user
+create AWS policy which allows writing to SNS topic
+attach AWS policy to AWS user
+
+add credentials to eventlistenerconf.py in asteriskserver conf:
+SNS topic ARN aws_arn
+SNS topic region aws_region_name
+AWS user aws_access_key_id
+AWS user aws_secret_access_key

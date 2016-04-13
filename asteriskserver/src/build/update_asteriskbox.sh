@@ -38,6 +38,7 @@ cp /vagrant/conf/sip_secret.conf /opt/asterisk/etc/asterisk/sip_secret.conf
 cp /vagrant/conf/extensions_secret.conf /opt/asterisk/etc/asterisk/extensions_secret.conf
 cp /vagrant/conf/followme_secret.conf /opt/asterisk/etc/asterisk/followme_secret.conf
 cp /vagrant/conf/blocklist.yaml /opt/asterisk/etc/asterisk/blocklist.yaml
+cp /vagrant/conf/manager.conf /opt/asterisk/etc/asterisk/manager.conf
 
 # fix up issues due to our janky install locallly as root deployment
 chown -R asterisk:asterisk /opt/asterisk

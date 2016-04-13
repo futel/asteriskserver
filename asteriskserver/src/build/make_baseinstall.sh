@@ -5,6 +5,8 @@
 
 set -x
 
+rpm -Uvh http://dl.fedoraproject.org/pub/epel/6/i386/epel-release-6-8.noarch.rpm
+
 yum -y groupremove "FCoE Storage Client"
 yum -y groupremove "iSCSI Storage Client"
 yum -y groupremove "Network file system client"
@@ -20,6 +22,9 @@ yum -y install ncurses-devel libxml2-devel newt-devel kernel-devel sqlite-devel
 yum -y install libuuid-devel
 yum -y install festival # if running festival locally
 yum -y install logwatch cyrus-sasl-plain # current monitoring for asterisk
-yum -y install python-yaml
+yum -y install python-yaml python-pip
 
 yum -y update
+
+pip install --upgrade pip
+pip install boto3

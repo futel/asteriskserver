@@ -2,8 +2,6 @@
 # bootstrap from centos6_32_baseinstall
 
 set -x # print commands as executed
-# sigh
-#BUILDDIR=`dirname "$0"`
 BUILDDIR=/vagrant/src/build
 
 conf_version=$1
@@ -21,12 +19,10 @@ cd pyst-0.6.50
 python setup.py install --prefix=/usr/local
 ln -s /usr/local/lib/python2.6/site-packages/asterisk/ /usr/lib/python2.6/site-packages/
 
-# setup festival server
-# XXX need a real daemon, this goes down
+# run festival in rc.local
+# XXX need a real daemon or supervisord, this goes down
 # XXX this is not exactly safe
 echo "su -s /bin/bash nobody -c '/usr/bin/festival --server &'" >> /etc/rc.d/rc.local
-# and run it now
-/etc/rc.d/rc.local
 
 # build, install asterisk from source
 mkdir /opt/asterisk
@@ -93,6 +89,20 @@ tar xvf /vagrant/src/mpg123-1.22.2.tar.bz2
 cd mpg123-1.22.2
 ./configure
 make && make install
+
+# install asterisk event listener
+mkdir -p /opt/futel/src
+cp /vagrant/src/eventlistener.py /opt/futel/src
+# write the config files that are local or have secrets
+cp /vagrant/conf/eventlistenerconf.$conf_version.py /opt/futel/src/eventlistenerconf.py
+chown -R asterisk:asterisk /opt/futel
+
+# run eventlistnener in rc.local
+# XXX need a real daemon or supervisord, this goes down
+echo "su -s /bin/bash nobody -c /opt/futel/src/eventlistener.py" >> /etc/rc.d/rc.local
+
+# run rc.local now
+/etc/rc.d/rc.local
 
 # TODO this will be off by default for now. currently 240MB
 #	uncomment for testing or for DO build
