@@ -1,0 +1,16 @@
+# set up sip client
+
+## set up a spa-1001 linksysPAP etc
+
+line1: NAT mapping enable no
+line1: NAT keep alive enable no
+line1: proxy/outbound proxy futel-prod.phu73l.net
+line1: use outbound proxy no
+line1: register yes
+       make call without reg no
+       ans call without reg no
+line1: display name, user ID <extension>
+line1: password <secret>
+line1: use auth ID no
+
+line1: dial plan S0<:999> (or desired extension in default-outgoing context)
