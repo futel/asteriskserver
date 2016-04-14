@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # how to set up /etc/sysconfig/iptables on asteriskbox
-# do this and then service iptables save
+# do this and then service iptables save && service iptables restart
 
 # clear all
 iptables -F
@@ -33,3 +33,6 @@ iptables -A INPUT -p udp -m udp -s 66.193.176.58 --dport 10000:20000 -j ACCEPT
 # ipkall
 iptables -A INPUT -p udp -m udp -s 66.54.140.46,66.54.140.47 --dport 5060:5080 -j ACCEPT
 iptables -A INPUT -p udp -m udp -s 66.54.140.46,66.54.140.47 --dport 10000:20000 -j ACCEPT
+# voip.ms
+iptables -A INPUT -p udp -m udp -s sanjose.voip.ms --dport 5060:5080 -j ACCEPT
+iptables -A INPUT -p udp -m udp -s sanjose.voip.ms --dport 10000:20000 -j ACCEPT
