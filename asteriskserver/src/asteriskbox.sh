@@ -6,11 +6,11 @@ set -x
 do_ip=$1
 conf_version=$2
 
-scp -P42422 -o StrictHostKeyChecking=no -i conf/id_rsa -r . futel@$do_ip:/tmp/vagrant
-ssh -p42422 -o StrictHostKeyChecking=no -t -i conf/id_rsa futel@$do_ip "sudo ln -sf /tmp/vagrant /vagrant"
+scp -F src/ssh_config -r . $do_ip:/tmp/vagrant
+ssh -F src/ssh_config -t $do_ip "sudo ln -sf /tmp/vagrant /vagrant"
 
-ssh -p42422 -o StrictHostKeyChecking=no -t -i conf/id_rsa futel@$do_ip "sudo /vagrant/src/build/make_asteriskbox.sh $conf_version"
+ssh -F src/ssh_config -t $do_ip "sudo /vagrant/src/build/make_asteriskbox.sh $conf_version"
 
-ssh -p42422 -o StrictHostKeyChecking=no -t -i conf/id_rsa futel@$do_ip "sudo rm -rf /tmp/vagrant/conf"
-ssh -p42422 -o StrictHostKeyChecking=no -t -i conf/id_rsa futel@$do_ip "sudo halt now"
+ssh -F src/ssh_config -t $do_ip "sudo rm -rf /tmp/vagrant/conf"
+ssh -F src/ssh_config -t $do_ip "sudo halt now"
 

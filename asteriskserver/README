@@ -1,10 +1,5 @@
 ## Deploy an asterisk server to Digital Ocean
 
-## Ongoing:
-
-have vpnbox-prod-foo or vpnbox-prod-bar
-copy src/backup.sh to /etc/cron.daily/backup-futel-prod on eurydice
-
 in conf, have:
 logwatch.conf sasl_passwd
 sip_callcentric.conf.<conf_version> pointing to extension
@@ -25,7 +20,7 @@ wait for DNS to propagate
 create or check out release branch
 
 SSH into prod to find out what conf version is being used:
-ssh -p42422 -o StrictHostKeyChecking=no -t -i conf/id_rsa futel@futel-prod.phu73l.net 'grep "foo\|bar" /opt/asterisk/etc/asterisk/sip_callcentric.conf'
+ssh -F src/ssh_config futel-prod.phu73l.net 'grep "foo\|bar" /opt/asterisk/etc/asterisk/sip_callcentric.conf'
 
 create droplet from image CentOS 6.7 x32
 src/baseinstall.sh futel-stage.phu73l.net
