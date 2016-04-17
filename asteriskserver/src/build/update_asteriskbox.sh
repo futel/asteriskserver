@@ -26,6 +26,9 @@ cp -r /vagrant/src/var-lib-asterisk-sounds-en-futelconf /opt/asterisk/var/lib/as
 # hold music
 rm -rf /opt/asterisk/var/lib/asterisk/moh/hold
 cp -r /vagrant/src/var-lib-asterisk-moh-hold /opt/asterisk/var/lib/asterisk/moh/hold
+# sweet operator hold music
+rm -rf /opt/asterisk/var/lib/asterisk/moh/operator
+cp -r /vagrant/src/var-lib-asterisk-moh-operator /opt/asterisk/var/lib/asterisk/moh/operator
 
 # write the config files that are local or have secrets
 cp /vagrant/conf/sip_callcentric.conf.$conf_version /vagrant/conf/sip_callcentric.conf
