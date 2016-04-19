@@ -39,7 +39,8 @@ rename futel-prod droplet to futel-prod-back
 rename futel-stage droplet to futel-prod
 rename futel-prod hostname to futel-prod-back
 rename futel-stage hostname to futel-prod
-  "hostname futel-prod" and edit /etc/sysconfig/network
+  ssh -F src/ssh_config futel-prod.phu73l.net "hostname futel-prod-back && sed -i '$s/futel-prod/futel-prod-back/' /etc/sysconfig/network"
+  ssh -F src/ssh_config futel-stage.phu73l.net "hostname futel-prod && sed -i '$s/futel-stage/futel-prod/' /etc/sysconfig/network"
 src/promote_stage.sh futel-stage.phu73l.net 
 change A record for futel-prod to point to new futel-prod
 remove A record for futel-stage
@@ -49,9 +50,7 @@ futel-prod conf_version
   futel-r2d2 user to r2d2 incoming
 point all voip.ms DID forwarding rules to subaccounts corresponding to new
 futel-prod conf_version
-  oskar-in, 1337, demo to prod-foo|bar subaccount
-  tish-in to tish-in subaccount
-  xnor to xnor subaccount
+  oskar-in, 1337, xnor, tish-in, incoming, demo to prod-foo|bar subaccount
   ctrlh to ctrlh subaccount
   ctrlh-in to ctrlh-in subaccount
 wait for DNS to propagate
