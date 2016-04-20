@@ -14,20 +14,57 @@ agi = agi.AGI()
 ASTERISK_DIR = '/opt/asterisk/etc/asterisk'
 BLOCKLIST = 'blocklist.yaml'
 
+premium_nampa_prefixes = [
+    '1900',
+    '1976',
+    '1242',
+    '1246',
+    '1264',
+    '1268',
+    '1284',
+    '1345',
+    '1441',
+    '1473',
+    '1649',
+    '1664',
+    '1721',
+    '1758',
+    '1767',
+    '1784',
+    '1809',
+    '1829',
+    '1849',
+    '1868',
+    '1869',
+    '1876']
+
 def load_blocklist():
     yfile = '/'.join((ASTERISK_DIR, BLOCKLIST))
     return yaml.load(file(yfile, 'r'))
 
-def filter_outgoing(blocklist, number, extension):
-    """
-    Perform filtering actions, if any,
-    based on how number and extension match blocklist.
-    """
+def filter_blocklist(blocklist, number, extension):
+    """Return True if number and extension are in blocklist."""
     for block_map in blocklist:
         if all([str(block_map.get('number')) == number,
                 str(block_map.get('extension')) == extension]):
-            util.metric(agi, 'filter-outgoing-blocked')
-            agi.hangup()
+            return True
+
+def filter_premium(prefixes, number):
+    """Return True if prefix of number is in prefixes."""
+    return any(number.startswith(prefix) for prefix in prefixes)
+
+def filter_outgoing(blocklist, number, extension):
+    """
+    Perform filtering actions, if any, based on number and extension.
+    """
+    if number == '911':
+        return                  # survive
+    if filter_premium(premium_nampa_prefixes, number):
+        util.metric(agi, 'filter-outgoing-premium')
+        agi.hangup()
+    if filter_blocklist(blocklist, number, extension):
+        util.metric(agi, 'filter-outgoing-blocked')
+        agi.hangup()
 
 def main():
     number = sys.argv[1]
