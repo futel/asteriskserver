@@ -44,10 +44,10 @@ def load_blocklist():
 
 def filter_blocklist(blocklist, number, extension):
     """Return True if number and extension are in blocklist."""
-    for block_map in blocklist:
-        if all([str(block_map.get('number')) == number,
-                str(block_map.get('extension')) == extension]):
-            return True
+    return any(
+        all([str(block_map.get('number')) == number,
+             str(block_map.get('extension')) == extension])
+        for block_map in blocklist)
 
 def filter_premium(prefixes, number):
     """Return True if prefix of number is in prefixes."""
