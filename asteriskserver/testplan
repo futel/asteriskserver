@@ -50,12 +50,16 @@ operator can transfer caller to outgoing-menu using #999
 operator can transfer caller using outgoing-dialtone #998+number
 
 can create voicemail box, leave voicemail, check voicemail, hear voicemail info
+can attempt to check, leave voicemail for invalid mailbox
 can call each directory number
 can call each utility number
 can visit futel voice conference, hear hold music
 can visit futel voice conference, operate menu, get menu options
+can visit wildcard line, leave message
 can hear futel info
+
 can record statements
+
 can call operator voicemail
 
 logs are generated
