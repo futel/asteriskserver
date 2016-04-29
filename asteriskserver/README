@@ -18,11 +18,11 @@ ssh -F src/ssh_config futel-prod.phu73l.net 'grep "foo\|bar" /opt/asterisk/etc/a
 
 create droplet from image CentOS 6.7 x32
 src/baseinstall.sh futel-stage.phu73l.net
-optionally save snapshot baseinstall_stage
+optionally save snapshot
 src/baseconfig.sh futel-stage.phu73l.net
-optionally save snapshot baseconfig_stage
+optionally save snapshot
 src/asteriskbox.sh futel-stage.phu73l.net <conf version not used by prod>
-save snapshot asteriskbox_stage
+save snapshot
 src/promote_stage.sh futel-stage.phu73l.net
 
 test
