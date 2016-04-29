@@ -1,7 +1,7 @@
+#!/usr/bin/python
 """
 Send asterisk manager events to aws sns queue.
 """
-#!/usr/bin/python
 
 import eventlistenerconf
 
