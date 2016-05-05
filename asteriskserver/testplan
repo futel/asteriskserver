@@ -10,9 +10,9 @@ outgoing call works
 outgoing call sends r2d2 id from 670
 outgoing call indicates 911 when XXX from 670
 
-outgoing call indicates 911 when calling 15035550911 from
+outgoing call indicates 911 when calling 15555550911 from
 667, 668, 670, 680, 691
-outgoing call indicates no 911 when calling 15035550911 from 690, 700, 701
+outgoing call indicates no 911 when calling 15555550911 from 690, 700, 701
 outgoing call sends oskar indoors id from 667
 outgoing call sends oskar id from 668
 outgoing call sends xnor id from 680
@@ -33,7 +33,7 @@ can call one extension from another using internal dialtone
 
 can run through all menus
 
-calling operator plays intro, then ipanema while operators are called
+calling operator plays intro, then music while operators are called
 calling operator dials all operators
 answering operator call plays operator menu
 accepting operator call connects caller with operator
@@ -64,3 +64,4 @@ can call operator voicemail
 
 logs are generated
 metrics are generated
+events are generated
