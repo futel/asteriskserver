@@ -6,18 +6,18 @@ cd easy-rsa
 ln -s openssl-1.0.0.cnf openssl.cnf
 source ./vars
 
-# set up ca and server
+# set up ca and server, do this once for vpnbox
 # some of these are interactive, can we set up args beforehand?
 ./build-ca
 ./build-key-server server
 cd keys
 cp keys/ca.crt keys/ca.key keys/dh1024.pem keys/server.crt keys/server.csr keys/server.key ~/Documents/futel-installation/vpnbox/conf/
 
-# set up client with creds named 'client-foo'; do this for each client
+# set up client with creds named 'client-foo', do this for each client
 cp ../conf/ca.crt ../conf/ca.key keys # if not there from last step
 ./build-key client-foo # hit return for all questions then confirm last
 cp keys/client-foo.crt keys/client-foo.csr keys/client-foo.key ../conf/client
-# set up client.conf.ddwrt
+# set up ../conf/client.conf.ddwrt
 # give client/client-foo.crt client/client-foo.csr
 # client/client-foo.key to client, renaming as client.crt etc
 # set up client with appropriate client.conf as in vpnclient/README
