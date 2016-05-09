@@ -14,3 +14,28 @@ line1: password <secret>
 line1: use auth ID no
 
 line1: dial plan S0<:999> (or desired extension in default-outgoing context)
+
+## set up an unlocked grandstream HT701
+
+advanced settings
+admin password:
+firmware server path: blank
+config server path: blank
+automatic upgrade: no
+always skip the firmware check: selected
+
+fxs port
+account active: yes
+primary sip server: futel-prod.phu73l.net
+nat traversal: no
+sip user id:
+authenticate id:
+authenticate password:
+sip registration: yes
+unregister on reboot: no
+outgoing call without registration: yes
+Disable Call-Waiting: yes
+Disable Call-Waiting Caller ID: yes
+Disable Call-Waiting Tone: yes
+Offhook Auto-Dial: 999
+Offhook Auto-Dial Delay: 0
