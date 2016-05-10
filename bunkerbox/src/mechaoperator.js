@@ -1,7 +1,9 @@
 var irc = require('irc');
 var info_mod = require('./info');
+var snspoller = require('./snspoller');
 
 var config = require('./config');
+var secrets = require('./secrets');
 
 var defaultStatsDays = 60;
 
@@ -29,6 +31,18 @@ bot.sayOrSay = function(from, to, text) {
     } else {
         // channel command
         bot.say(to, text);
+    }
+}
+
+bot.noisySay = function(text) {
+    console.log(text);    
+    try {
+        config.config.noisyChannels.forEach(function(channel) {
+            bot.say(channel, text);
+        });
+    }
+    catch (e) {
+        // XXX not connected yet? Need a connected callback or something.
     }
 }
 
@@ -152,3 +166,25 @@ bot.addListener("message#", function(from, to, text, message) {
         bot.noYoureTalk(from, to, text, message);        
     }
 });
+
+bot.defaultEventAction = function(body) {
+};
+bot.confbridgeJoinAction = function(body) {
+    bot.noisySay('Voice conference joined');
+};
+bot.confbridgeLeaveAction = function(body) {
+    bot.noisySay('Voice conference left');
+};
+
+var pollerEventMap = {
+    'ConfbridgeJoin': bot.confbridgeJoinAction,
+    'ConfbridgeLeave': bot.confbridgeLeaveAction,
+    'defaultEventAction': bot.defaultEventAction,
+};
+
+snspoller.poll(
+    secrets.config.sqsUrl,
+    secrets.config.awsAkey,
+    secrets.config.awsSecret,
+    config.config.eventHostname,
+    pollerEventMap);
