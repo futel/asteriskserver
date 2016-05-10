@@ -8,6 +8,7 @@ import eventlistenerconf
 import functools
 import time
 import socket
+import json
 
 import boto3
 from asterisk import manager
@@ -20,7 +21,7 @@ asterisk_user = "futel"
 aws_region_name = 'us-west-2'
 
 def event_to_message(event):
-    return str(
+    return json.dumps(
         {'hostname': socket.gethostname(),
          'event': event.headers})
 
