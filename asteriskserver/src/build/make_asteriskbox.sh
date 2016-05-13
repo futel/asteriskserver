@@ -102,7 +102,7 @@ chown -R asterisk:asterisk /opt/futel
 echo "su -s /bin/bash nobody -c /opt/futel/src/eventlistener.py" >> /etc/rc.d/rc.local
 
 # run rc.local now
-/etc/rc.d/rc.local
+nohup /etc/rc.d/rc.local &
 
 # TODO this will be off by default for now. currently 240MB
 #	uncomment for testing or for DO build
