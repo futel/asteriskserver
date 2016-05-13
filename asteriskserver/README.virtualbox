@@ -7,6 +7,7 @@ install/config to get an asterisk box.
 ## Set up vagrant:
 
 vagrant plugin install vagrant-vbguest
+export vagrantbox=test_32
 
 ## Deploy to virtualbox with vagrant:
 
@@ -17,29 +18,14 @@ vagrant box add test_32 http://developer.nrel.gov/downloads/vagrant-boxes/CentOS
 # make centos6_32_baseinstall from test_32
 export vagrantbox=test_32
 vagrant up
-src/package_vm.sh asteriskserver centos6_32_baseinstall ../centos6_32_baseinstall.box
-
-# fix and replace centos6_32_baseinstall without synced files
-src/repackage_vm.sh asteriskserver centos6_32_baseinstall ../centos6_32_baseinstall.box
 
 # make centos6_32_baseconfig from centos6_32_baseinstall
 export vagrantbox=centos6_32_baseinstall
-vagrant up
-src/package_vm.sh asteriskserver centos6_32_baseconfig ../centos6_32_baseconfig.box
-
-# fix and replace centos6_32_baseconfig without synced files, sigh
-export vagrantbox=centos6_32_baseconfig
-src/repackage_vm.sh asteriskserver centos6_32_baseconfig ../centos6_32_baseconfig.box
+vagrant provision
 
 # if building vpnbox, change to vpnbox directory and follow virtualbox README
 
 # make asteriskbox from centos6_32_baseconfig
-# have conf directory as in README
 export vagrantbox=centos6_32_baseconfig
 vagrant up
 # probably want to service iptables stop
-
-# to install optional openvpn client from VM, for testing w/o vpnbox
-rpm -Uvh http://download.fedoraproject.org/pub/epel/6/i386/epel-release-6-8.noarch.rpm
-yum install openvpn
-test as in README.client
