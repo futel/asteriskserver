@@ -145,6 +145,7 @@ statements = {
         'to-listen-to-the-multnomah-county-police-scanner',
         'for-multnomah-county-mental-health-crisis-intervention'],
     'for-voicemail': [
+        'voicemail',
         'to-check-your-voicemail',
         'to-create-a-new-voicemail-box',
         'to-leave-a-voicemail',
