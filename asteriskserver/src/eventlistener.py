@@ -26,9 +26,13 @@ def event_to_message(event):
          'event': event.headers})
 
 def handle_interesting_event(event, manager, snsclient):
+    message = event_to_message(event)
     response = snsclient.publish(
-        TopicArn=eventlistenerconf.aws_arn,
-        Message=event_to_message(event))
+        TopicArn=eventlistenerconf.aws_arn, Message=message)
+
+def handle_misc_event(event, manager, snsclient):
+    if event.headers.get('AppData') == 'OperatorAttempt':
+        return handle_interesting_event(event, manager, snsclient)
 
 def get_manager():
     snsclient = boto3.client(
@@ -40,11 +44,15 @@ def get_manager():
     amanager = manager.Manager()
     amanager.connect(asterisk_ip)
     amanager.login(asterisk_user, eventlistenerconf.asterisk_passwd)
-    handler = functools.partial(handle_interesting_event, snsclient=snsclient)
-    amanager.register_event('PeerStatus', handler)
-    amanager.register_event('Registry', handler)
-    amanager.register_event('ConfBridgeJoin', handler)
-    amanager.register_event('ConfBridgeLeave', handler)
+    event_handler = functools.partial(
+        handle_interesting_event, snsclient=snsclient)
+    misc_event_handler = functools.partial(
+        handle_misc_event, snsclient=snsclient)
+    amanager.register_event('PeerStatus', event_handler)
+    amanager.register_event('Registry', event_handler)
+    amanager.register_event('ConfbridgeJoin', event_handler)
+    amanager.register_event('ConfbridgeLeave', event_handler)
+    amanager.register_event('*', misc_event_handler)
     return amanager
 
 amanager = get_manager()
