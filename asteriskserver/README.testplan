@@ -1,0 +1,7 @@
+Acceptance testing
+
+If testplan in repo has been updated since testplan in google docs, update testplan in google docs, keeping dates.
+Run important tests in testplan and update latest success dates.
+Run other tests in testplan with old success dates.
+On test failure, file an issue and remove latest success date.
+
