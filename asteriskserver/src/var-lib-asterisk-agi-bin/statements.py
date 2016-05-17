@@ -11,6 +11,9 @@
 
 statements = {
     'general': [
+        'for-a-random-number',
+        'to-hear-number-again',
+        'your-random-number-is',
         'dialing-nine-one-one',
         'for-a-random-swede',
         'for-the-wildcard-line',
