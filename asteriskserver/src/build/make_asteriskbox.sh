@@ -55,6 +55,8 @@ cd asterisk-11.5.1
 #     # http://gentoo-what-did-you-say.blogspot.com/2011/07/finding-cpu-flags-using-gcc.html
 #     CFLAGS=-march=core2
 # fi
+
+#we need resample for the app_jack module which lets us interface with the jack audio connection toolkit
 sudo -u asterisk ./configure --with-resample=/tmp/libresample-0.1.3/ --prefix=/opt/asterisk --exec_prefix=/opt/asterisk  #CFLAGS=$CFLAGS
 
 # do some things that make menuselect does
