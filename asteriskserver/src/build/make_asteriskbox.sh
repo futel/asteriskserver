@@ -12,6 +12,22 @@ conf_version=$1
 # virtualbox=false
 # dmidecode | grep -q 'Product Name:.*VirtualBox' && virtualbox=true
 
+#install libresample and jack
+pushd /tmp/
+tar xzvf /vagrant/src/libresample_0.1.3.orig.tar.gz
+pushd libresample-0.1.3
+./configure
+make && make install
+popd
+
+pushd /tmp/
+tar xjvf /vagrant/src/jack-1.9.10.tar.bz2
+pushd jack-1.9.10
+./waf configure --alsa
+./waf build
+./waf install
+popd
+
 # install pyst
 cd /tmp
 tar xvf /vagrant/src/pyst-0.6.50.tar.gz
@@ -39,7 +55,9 @@ cd asterisk-11.5.1
 #     # http://gentoo-what-did-you-say.blogspot.com/2011/07/finding-cpu-flags-using-gcc.html
 #     CFLAGS=-march=core2
 # fi
-sudo -u asterisk ./configure --prefix=/opt/asterisk --exec_prefix=/opt/asterisk #CFLAGS=$CFLAGS
+
+#we need resample for the app_jack module which lets us interface with the jack audio connection toolkit
+sudo -u asterisk ./configure --with-resample=/tmp/libresample-0.1.3/ --prefix=/opt/asterisk --exec_prefix=/opt/asterisk  #CFLAGS=$CFLAGS
 
 # do some things that make menuselect does
 # XXX what a crock!  Some of these may be superstition.
@@ -89,6 +107,10 @@ tar xvf /vagrant/src/mpg123-1.22.2.tar.bz2
 cd mpg123-1.22.2
 ./configure
 make && make install
+
+#make ldconf see locally installed libs
+echo "/usr/local/lib" > /etc/ld.so.conf.d/usr_local.conf
+/sbin/ldconfig
 
 # install asterisk event listener
 mkdir -p /opt/futel/src

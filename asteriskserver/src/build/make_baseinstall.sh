@@ -24,6 +24,13 @@ yum -y install festival # if running festival locally
 yum -y install logwatch cyrus-sasl-plain # current monitoring for asterisk
 yum -y install python-yaml python-pip
 
+#jack dependencies
+yum -y install libsamplerate-devel
+yum -y install alsa-lib-devel
+yum -y install libsndfile-devel
+
+yum -y install screen
+
 yum -y update
 
 pip install --upgrade pip
