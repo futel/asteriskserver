@@ -104,6 +104,9 @@ echo "su -s /bin/bash nobody -c /opt/futel/src/eventlistener.py" >> /etc/rc.d/rc
 # run rc.local now
 nohup /etc/rc.d/rc.local &
 
+# let's make pd for toorcamp/houseguest
+sh /vagrant/src/buid/make_pd.sh
+
 # TODO this will be off by default for now. currently 240MB
 #	uncomment for testing or for DO build
 #cd /tmp
