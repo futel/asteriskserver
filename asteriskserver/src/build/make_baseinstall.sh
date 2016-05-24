@@ -29,7 +29,7 @@ yum -y install libsamplerate-devel
 yum -y install alsa-lib-devel
 yum -y install libsndfile-devel
 
-yum -j install screen
+yum -y install screen
 
 yum -y update
 

@@ -3,7 +3,7 @@ http://blog.russellbryant.net/2008/01/13/jack-interfaces-for-asterisk/
 
 the jack apps are in /usr/local/bin/
 
-export /usr/local/bin/:$PATH
+export PATH=/usr/local/bin/:$PATH
 screen
-sudo -u asterisk jackd -d dummy
-sudo -u asterisk jack_metro --bpm 120
+sudo -u asterisk /usr/local/bin/jackd -d dummy
+sudo -u asterisk /usr/local/bin/jack_metro --bpm 120
