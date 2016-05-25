@@ -1,0 +1,78 @@
+---
+# distro package setup and installation
+- name: copy epel rpm
+  copy:
+    src: src/epel-release-6-8.noarch.rpm
+    dest: /tmp/epel-release-6-8.noarch.rpm
+- name: install epel rpm
+  yum:
+    name: /tmp/epel-release-6-8.noarch.rpm
+    state: present
+- name: remove yum packages
+  yum:
+    name: "{{ item }}"
+    state: absent
+  with_items:
+    - "@FCoE Storage Client"
+    - "@iSCSI Storage Client"
+    - "2Network file system client"
+    - "@Storage Availability Tools"
+    - audit
+    - rpcbind
+    - selinux-policy
+    - selinux-policy-targeted
+- name: install yum packages
+  yum:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - man
+    - vim-enhanced
+    - gcc
+    - gcc-c++
+    - make
+    - automake
+    - libtool
+    - autoconf
+    - mlocate
+    - lynx
+    - cvs
+    - git
+    - subversion
+    - strace
+    - ltrace
+    - wget
+    - lsof
+    - tcpdump
+    - openssh
+    - openssh-server
+    - openssh-clients
+    - openssl-devel
+    - ncurses-devel
+    - libxml2-devel
+    - newt-devel
+    - kernel-devel
+    - sqlite-devel
+    - libuuid-devel
+    - festival
+    - logwatch
+    # logwatch
+    - cyrus-sasl-plain
+    - python-yaml
+    - python-pip
+    # jack
+    - libsamplerate-devel
+    - alsa-lib-devel
+    - libsndfile-devel
+- name: update yum
+  yum:
+    name: "*"
+    state: latest
+- name: update pip
+  pip:
+    name: pip
+    state: latest
+- name: update pip packages
+  pip:
+    name: boto3
+    state: present

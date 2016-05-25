@@ -6,6 +6,7 @@ install/config to get an asterisk box.
 
 ## Set up vagrant:
 
+have vagrant, virtualbox, ansible
 vagrant plugin install vagrant-vbguest
 export vagrantbox=test_32
 

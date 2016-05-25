@@ -2,16 +2,26 @@ VAGRANTFILE_API_VERSION = "2"
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
+  config.vm.define "default"
+  config.vm.box = "test_32"
   config.vm.synced_folder ".", "/vagrant",
     :mount_options => ["dmode=777,fmode=777"]
 
   if ENV['vagrantbox'] == 'test_32'
     # boot from test_32 to centobs6_32_baseinstall
-    config.vm.box = "test_32"
-    config.vm.provision :shell, :path => "src/build/make_baseinstall.sh" 
+    config.vm.provision "ansible" do |ansible|
+      ansible.playbook = "baseinstall_playbook.yml"
+      # default vm gets baseinstall ansible inventory group
+      ansible.groups = {
+        "baseinstall" => ["default"]
+      }
+      ansible.extra_vars = {
+        conf_version: "virtualbox"
+      }
+      ansible.raw_arguments = ["-v"]
+    end
   elsif ENV['vagrantbox'] == 'centos6_32_baseinstall'
     # boot from centos6_32_baseinstall to centos6_32_baseconfig
-    config.vm.box = "centos6_32_baseinstall"
     config.vm.provision :shell, :path => "src/build/make_baseconfig.sh"
     # now must go to next vagrantbox for vagrant halt to work
   elsif ENV['vagrantbox'] == 'centos6_32_baseconfig'
@@ -33,7 +43,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   config.vm.provider :virtualbox do |vb|
     # uncomment to disable headless mode
-    #vb.gui = true
+    # vb.gui = true
     # bridged network, may have specific setup for each host
     # interface differs with OS, debian/thinkpad may be 'wlp3s0'
     # Must be a working interface with an IP address, for example
