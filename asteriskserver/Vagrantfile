@@ -15,9 +15,6 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       ansible.groups = {
         "baseinstall" => ["default"]
       }
-      ansible.extra_vars = {
-        conf_version: "virtualbox"
-      }
       ansible.raw_arguments = ["-v"]
     end
   elsif ENV['vagrantbox'] == 'centos6_32_baseinstall'

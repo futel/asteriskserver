@@ -3,3 +3,5 @@
   become: true
   tasks:
     - include: packages.yml
+    - include: users.yml
+    - include: config.yml

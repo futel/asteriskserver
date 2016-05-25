@@ -1,0 +1,26 @@
+---
+# misc config of distro packages
+- name: write relay creds
+  copy:
+    src: conf/sasl_passwd
+    dest: /etc/postfix/sasl_passwd
+- name: update postfix to use relay creds
+  shell: postmap /etc/postfix/sasl_passwd
+- name: write postfix config
+  copy:
+    src: src/postfix/main.cf
+    dest: /etc/postfix/main.cf
+- name: restart postfix
+  service:
+    name: postfix
+    state: restarted
+- name: replace crontab
+  copy:
+    src: src/crontab
+    dest: /etc/crontab
+- name: set timezone
+  file:
+    src: /etc/localtime
+    dest: /usr/share/zoneinfo/PST8PDT
+    state: link
+    force: yes
