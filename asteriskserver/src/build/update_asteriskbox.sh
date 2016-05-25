@@ -14,21 +14,21 @@ cp -r /vagrant/src/etc-asterisk /opt/asterisk/etc/asterisk
 
 # copy asterisk scripts into the asterisk tree
 rm -rf /opt/asterisk/var/lib/asterisk/agi-bin
-cp -r /vagrant/src/var-lib-asterisk-agi-bin /opt/asterisk/var/lib/asterisk/agi-bin
+cp -r /vagrant/src/var/lib/asterisk/agi-bin /opt/asterisk/var/lib/asterisk/agi-bin
 
 # copy asterisk sounds into the asterisk tree
 # statements
 rm -rf /opt/asterisk/var/lib/asterisk/sounds/futel
-cp -r /vagrant/src/var-lib-asterisk-sounds-futel /opt/asterisk/var/lib/asterisk/sounds/futel
+cp -r /vagrant/src/var/lib/asterisk/sounds/futel /opt/asterisk/var/lib/asterisk/sounds/futel
 # confbridge menu
 rm -rf /opt/asterisk/var/lib/asterisk/sounds/en/futelconf
-cp -r /vagrant/src/var-lib-asterisk-sounds-en-futelconf /opt/asterisk/var/lib/asterisk/sounds/en/futelconf
+cp -r /vagrant/src/var/lib/asterisk/sounds/en/futelconf /opt/asterisk/var/lib/asterisk/sounds/en/futelconf
 # hold music
 rm -rf /opt/asterisk/var/lib/asterisk/moh/hold
-cp -r /vagrant/src/var-lib-asterisk-moh-hold /opt/asterisk/var/lib/asterisk/moh/hold
+cp -r /vagrant/src/var/lib/asterisk/moh/hold /opt/asterisk/var/lib/asterisk/moh/hold
 # sweet operator hold music
 rm -rf /opt/asterisk/var/lib/asterisk/moh/operator
-cp -r /vagrant/src/var-lib-asterisk-moh-operator /opt/asterisk/var/lib/asterisk/moh/operator
+cp -r /vagrant/src/var/lib/asterisk/moh/operator /opt/asterisk/var/lib/asterisk/moh/operator
 
 # write the config files that are local or have secrets
 cp /vagrant/conf/sip_callcentric.conf.$conf_version /vagrant/conf/sip_callcentric.conf
