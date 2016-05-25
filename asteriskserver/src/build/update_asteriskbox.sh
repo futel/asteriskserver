@@ -10,7 +10,7 @@ cp /vagrant/src/safe_asterisk /opt/asterisk/sbin
 
 # copy asterisk conf into the asterisk tree
 rm -rf /opt/asterisk/etc/asterisk
-cp -r /vagrant/src/etc-asterisk /opt/asterisk/etc/asterisk
+cp -r /vagrant/src/etc/asterisk /opt/asterisk/etc/asterisk
 
 # copy asterisk scripts into the asterisk tree
 rm -rf /opt/asterisk/var/lib/asterisk/agi-bin
