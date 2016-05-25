@@ -11,7 +11,8 @@ export vagrantbox=test_32
 
 ## Deploy to virtualbox with vagrant:
 
-# Make boxes and init:
+# Make boxes and init
+# this only needs to be done once unless replaing the base box
 vagrant box add test_32 http://developer.nrel.gov/downloads/vagrant-boxes/CentOS-6.5-i386-v20140110.box
 # http://sourceforge.net/projects/nrel-vagrant-boxes/files/CentOS-6.6-i386-v20150426.box/download
 
