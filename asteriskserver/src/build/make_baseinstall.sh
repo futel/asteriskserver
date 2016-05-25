@@ -29,8 +29,6 @@ yum -y install libsamplerate-devel
 yum -y install alsa-lib-devel
 yum -y install libsndfile-devel
 
-yum -y install screen
-
 yum -y update
 
 pip install --upgrade pip
