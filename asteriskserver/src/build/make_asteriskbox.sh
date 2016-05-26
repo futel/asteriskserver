@@ -28,18 +28,6 @@ pushd jack-1.9.10
 ./waf install
 popd
 
-# install pyst
-cd /tmp
-tar xvf /vagrant/src/pyst-0.6.50.tar.gz
-cd pyst-0.6.50
-python setup.py install --prefix=/usr/local
-ln -s /usr/local/lib/python2.6/site-packages/asterisk/ /usr/lib/python2.6/site-packages/
-
-# run festival in rc.local
-# XXX need a real daemon or supervisord, this goes down
-# XXX this is not exactly safe
-echo "su -s /bin/bash nobody -c '/usr/bin/festival --server &'" >> /etc/rc.d/rc.local
-
 # build, install asterisk from source
 mkdir /opt/asterisk
 chown asterisk:asterisk /opt/asterisk
