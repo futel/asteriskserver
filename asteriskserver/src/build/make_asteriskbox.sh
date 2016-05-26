@@ -17,7 +17,7 @@ pushd /tmp/
 tar xzvf /vagrant/src/libresample_0.1.3.orig.tar.gz
 pushd libresample-0.1.3
 ./configure
-make && make install
+make
 popd
 
 pushd /tmp/
