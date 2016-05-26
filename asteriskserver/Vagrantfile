@@ -15,13 +15,23 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       ansible.groups = {
         "baseinstall" => ["default"]
       }
-      ansible.raw_arguments = ["-v"]
     end
-  elsif ENV['vagrantbox'] == 'centos6_32_baseinstall'
-    # boot from centos6_32_baseinstall to centos6_32_baseconfig
-    config.vm.provision :shell, :path => "src/build/make_baseconfig.sh"
     # now must go to next vagrantbox for vagrant halt to work
   elsif ENV['vagrantbox'] == 'centos6_32_baseconfig'
+    if ENV['vagrantprovisioner'] == 'update_asterisk'
+      config.vm.provision "ansible" do |ansible|
+        ansible.playbook = "update_asterisk_playbook.yml"
+        # default vm gets baseinstall ansible inventory group
+        ansible.groups = {
+          "baseinstall" => ["default"]
+        }
+      end
+    else
+      # boot from centos6_32_baseinstall to asteriskbox
+      config.vm.provision :shell, :path => "src/build/make_asteriskbox.sh",
+                          :args => "virtualbox"
+    end
+  elsif ENV['vagrantbox'] == 'centos6_32_baseconfig_secure'
     # boot from centos6_32_baseconfig to asteriskbox
     # we put ssh on 42422, so override default 2222 guest port
     config.vm.network "forwarded_port", guest: 42422, host: 2222, id: "ssh"

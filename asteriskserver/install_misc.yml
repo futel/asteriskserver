@@ -12,9 +12,83 @@
     src: /usr/local/lib/python2.6/site-packages/asterisk/
     dest: /usr/lib/python2.6/site-packages/asterisk
     state: link
+# docs claim this is not needed but yet to see it work without
+- name: unpack mpg123
+  unarchive:
+    src: src/mpg123-1.22.2.tar.bz2
+    dest: /tmp
+- name: configure mpg123
+  command: ./configure
+  args:
+    chdir: /tmp/mpg123-1.22.2
+- name: make mpg123
+  command: make
+  args:
+    chdir: /tmp/mpg123-1.22.2
+- name: install mpg123
+  command: make install
+  args:
+    chdir: /tmp/mpg123-1.22.2
+# this does not seem to be installed
+# - name: unpack libresample
+#   unarchive:
+#     src: src/libresample_0.1.3.orig.tar.gz
+#     dest: /tmp
+# - name: configure libresample
+#   command: ./configure
+#   args:
+#     chdir: /tmp/libresample-0.1.3
+# - name: make libresample
+#   command: make
+#   args:
+#     chdir: /tmp/libresample-0.1.3
+- name: unpack jack
+  unarchive:
+    src: src/jack-1.9.10.tar.bz2
+    dest: /tmp
+- name: configure jack
+  command: ./waf configure --alsa
+  args:
+    chdir: /tmp/jack-1.9.10
+- name: make jack
+  command: ./waf build
+  args:
+    chdir: /tmp/jack-1.9.10
+- name: install jack
+  command: ./waf install
+  args:
+    chdir: /tmp/jack-1.9.10
+- name: unpack pd
+  unarchive:
+    src: src/pd-0.47-0.src.tar.gz
+    dest: /tmp
+- name: configure pd
+  command: sh autogen.sh
+  args:
+    chdir: /tmp/pd-0.47-0
+- name: configure pd
+  command: ./configure --enable-jack
+  args:
+    chdir: /tmp/pd-0.47-0
+- name: make pd
+  command: make
+  args:
+    chdir: /tmp/pd-0.47-0
+- name: install pd
+  command: make install
+  args:
+    chdir: /tmp/pd-0.47-0
 # XXX need a real daemon or supervisord, this doesn't restart
 # XXX festival server is not exactly safe
 - name: add festival to rc.local
   lineinfile:
     dest: /etc/rc.d/rc.local
     line: "su -s /bin/bash nobody -c '/usr/bin/festival --server &'"
+- name: make ld.so.conf see locally installed libs
+  lineinfile:
+    dest: /etc/ld.so.conf.d/usr_local.conf
+    line: "/usr/local/lib"
+    create: yes
+- name: run ldconfig on updated ld.so.conf
+  command: /sbin/ldconfig
+  

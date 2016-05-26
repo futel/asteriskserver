@@ -1,0 +1,90 @@
+---
+- name: delete asterisk conf
+  file:
+    path: /opt/asterisk/etc/asterisk
+    state: absent
+- name: copy asterisk conf
+  copy:
+    src: src/etc/asterisk
+    dest: /opt/asterisk/etc
+    owner: asterisk
+- name: copy voip provider conf with secrets
+  copy:
+    src: conf/sip_callcentric.conf.{{ version }}
+    dest: /opt/asterisk/etc/asterisk/sip_callcentric.conf
+    owner: asterisk
+- name: copy sip conf with secrets
+  copy:
+    src: conf/sip_secret.conf
+    dest: /opt/asterisk/etc/asterisk/sip_secret.conf
+    owner: asterisk
+- name: copy dialplan conf with secrets
+  copy:
+    src: conf/extensions_secret.conf
+    dest: /opt/asterisk/etc/asterisk/extensions_secret.conf
+    owner: asterisk
+- name: copy followme conf with secrets
+  copy:
+    src: conf/followme_secret.conf
+    dest: /opt/asterisk/etc/asterisk/followme_secret.conf
+    owner: asterisk
+- name: copy blocklist conf with secrets
+  copy:
+    src: conf/blocklist.yaml
+    dest: /opt/asterisk/etc/asterisk/blocklist.yaml
+    owner: asterisk
+- name: copy manager conf with secrets
+  copy:
+    src: conf/manager.conf
+    dest: /opt/asterisk/etc/asterisk/manager.conf
+    owner: asterisk
+- name: delete asterisk scripts
+  file:
+    path: /opt/asterisk/var/lib/asterisk/agi-bin
+    state: absent
+- name: copy asterisk scripts
+  copy:
+    src: src/var/lib/asterisk/agi-bin
+    dest: /opt/asterisk/var/lib/asterisk
+    owner: asterisk
+- name: make asterisk scripts executable
+  file:
+    path: /opt/asterisk/var/lib/asterisk
+    mode: "o+x"
+    recurse: yes
+- name: delete asterisk statement sounds
+  file:
+    path: /opt/asterisk/var/lib/asterisk/sounds/futel
+    state: absent
+- name: copy asterisk statement sounds
+  copy:
+    src: src/var/lib/asterisk/sounds/futel
+    dest: /opt/asterisk/var/lib/asterisk/sounds
+    owner: asterisk
+- name: delete asterisk confbridge menu sounds
+  file:
+    path: /opt/asterisk/var/lib/asterisk/sounds/en/futelconf
+    state: absent
+- name: copy asterisk confbridge menu sounds
+  copy:
+    src: src/var/lib/asterisk/sounds/en/futelconf
+    dest: /opt/asterisk/var/lib/asterisk/sounds/en
+    owner: asterisk
+- name: delete asterisk hold music
+  file:
+    path: /opt/asterisk/var/lib/asterisk/moh/hold
+    state: absent
+- name: copy asterisk hold music
+  copy:
+    src: src/var/lib/asterisk/moh/hold
+    dest: /opt/asterisk/var/lib/asterisk/moh
+    owner: asterisk
+- name: delete operator hold music
+  file:
+    path: /opt/asterisk/var/lib/asterisk/moh/operator
+    state: absent
+- name: copy operator hold music
+  copy:
+    src: src/var/lib/asterisk/moh/operator
+    dest: /opt/asterisk/var/lib/asterisk/moh
+    owner: asterisk
