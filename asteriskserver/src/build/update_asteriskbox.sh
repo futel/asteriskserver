@@ -5,9 +5,6 @@ set -x # print commands as executed
 
 conf_version=$1
 
-# this adds ASTARGS="-U asterisk"
-cp /vagrant/src/safe_asterisk /opt/asterisk/sbin
-
 # copy asterisk conf into the asterisk tree
 rm -rf /opt/asterisk/etc/asterisk
 cp -r /vagrant/src/etc/asterisk /opt/asterisk/etc/asterisk

@@ -12,14 +12,6 @@ conf_version=$1
 # virtualbox=false
 # dmidecode | grep -q 'Product Name:.*VirtualBox' && virtualbox=true
 
-# build, install asterisk from source
-mkdir /opt/asterisk
-chown asterisk:asterisk /opt/asterisk
-cd /tmp
-cp /vagrant/src/asterisk-11-current.tar.gz . # to get around perm issues
-sudo -u asterisk tar xvf asterisk-11-current.tar.gz
-cd asterisk-11.5.1
-
 # # XXX if 64bit, --libdir=/usr/lib64, but must be root to install?
 # #     maybe we can put libdir within the prefix?
 # if [ $virtualbox = true ]; then
@@ -27,39 +19,6 @@ cd asterisk-11.5.1
 #     # http://gentoo-what-did-you-say.blogspot.com/2011/07/finding-cpu-flags-using-gcc.html
 #     CFLAGS=-march=core2
 # fi
-
-#we need resample for the app_jack module which lets us interface with the jack audio connection toolkit
-# XXX resample is failing the build
-#sudo -u asterisk ./configure --with-resample=/tmp/libresample-0.1.3/ --prefix=/opt/asterisk --exec_prefix=/opt/asterisk  #CFLAGS=$CFLAGS
-sudo -u asterisk ./configure --prefix=/opt/asterisk --exec_prefix=/opt/asterisk  #CFLAGS=$CFLAGS
-
-# do some things that make menuselect does
-# XXX what a crock!  Some of these may be superstition.
-sudo -u asterisk make menuselect.makeopts menuselect-tree
-sudo -u asterisk make menuselect/cmenuselect menuselect/nmenuselect menuselect/gmenuselect
-sudo -u asterisk rm -f channels/h323/Makefile.ast main/asterisk
-
-# create files normally done with make menuselect
-# XXX need to pare these files down
-#     alternative, create a smaller menuselect file starting with:
-#     sudo -u asterisk menuselect/menuselect --enable-all menuselect.makeopts
-# the virtualbox version is used for virtualbox and digital ocean
-/bin/cp -f /vagrant/src/menuselect.makeopts.virtualbox ./menuselect.makeopts
-# virtualbox, digital ocean, and probably all virtual providers disbable native
-# optimizations
-sudo -u asterisk menuselect/menuselect --disable BUILD_NATIVE menuselect.makeopts
-/bin/cp -f /vagrant/src/menuselect.makedeps ./menuselect.makedeps
-/bin/cp -f /vagrant/src/menuselect-tree ./menuselect-tree
-
-sudo -u asterisk make
-
-# XXX if we were 64 bit, we must be root to do this because of libdir?
-#     do we need to chown back to asterisk in that case?
-sudo -u asterisk make install
-# XXX want to pare this down
-sudo -u asterisk make samples
-
-make config # as root
 
 $BUILDDIR/update_asteriskbox.sh $conf_version
 
