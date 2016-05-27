@@ -29,19 +29,6 @@
   command: make install
   args:
     chdir: /tmp/mpg123-1.22.2
-# this does not seem to be installed
-# - name: unpack libresample
-#   unarchive:
-#     src: src/libresample_0.1.3.orig.tar.gz
-#     dest: /tmp
-# - name: configure libresample
-#   command: ./configure
-#   args:
-#     chdir: /tmp/libresample-0.1.3
-# - name: make libresample
-#   command: make
-#   args:
-#     chdir: /tmp/libresample-0.1.3
 - name: unpack jack
   unarchive:
     src: src/jack-1.9.10.tar.bz2
