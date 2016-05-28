@@ -1,0 +1,5 @@
+---
+- hosts: baseinstall
+  become: true
+  tasks:
+    - include: update_asterisk.yml version={{ conf_version }}

@@ -69,6 +69,8 @@
     dest: /tmp/asterisk-11.5.1/menuselect-tree
     owner: asterisk
     force: yes
+# XXX this creates is already there?
+# We're changed=false here and just doing this on the install?
 - name: make asterisk
   command: sudo -u asterisk make
   args:

@@ -20,8 +20,6 @@ conf_version=$1
 #     CFLAGS=-march=core2
 # fi
 
-$BUILDDIR/update_asteriskbox.sh $conf_version
-
 mkdir /opt/asterisk/var/log/asterisk/old
 chown asterisk: /opt/asterisk/var/log/asterisk/old
 cp -f /vagrant/src/logrotate/logrotate.d/asterisk /etc/logrotate.d/asterisk

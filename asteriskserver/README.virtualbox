@@ -8,7 +8,6 @@ install/config to get an asterisk box.
 
 have vagrant, virtualbox, ansible
 vagrant plugin install vagrant-vbguest
-export vagrantbox=test_32
 
 ## Deploy to virtualbox with vagrant:
 
@@ -17,16 +16,13 @@ export vagrantbox=test_32
 vagrant box add test_32 http://developer.nrel.gov/downloads/vagrant-boxes/CentOS-6.5-i386-v20140110.box
 # http://sourceforge.net/projects/nrel-vagrant-boxes/files/CentOS-6.6-i386-v20150426.box/download
 
-# make centos6_32_baseconfig from test_32
-export vagrantbox=test_32
+# bulld from test_32
 vagrant up
 vagrant ssh
+sudo /vagrant/src/build/make_asteriskbox.sh virtualbox
 sudo service iptables stop
 exit
-# make centos6_32_asteriskbox from centos6_32_baseconfig
-export vagrantbox=centos6_32_baseconfig
-vagrant provision
-# we could probably just restart asterisk here
+# this is probably not necessary anymore
 vagrant halt
 vagrant up
 vagrant ssh
@@ -35,6 +31,5 @@ exit
 
 # shortcut: update asterisk conf and scripts for already built box
 # this assumes everything you want to do is in update_asterisk.yml
-export vagrantbox=centos6_32_baseconfig
 export vagrantprovisioner=update_asterisk
 vagrant provision

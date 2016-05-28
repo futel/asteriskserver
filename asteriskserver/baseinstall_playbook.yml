@@ -7,3 +7,4 @@
     - include: config.yml
     - include: install_misc.yml
     - include: install_asterisk.yml      
+    - include: update_asterisk.yml version={{ conf_version }}

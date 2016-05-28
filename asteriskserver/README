@@ -1,4 +1,4 @@
-## Deploy an asterisk server to Digital Ocean
+t## Deploy an asterisk server to Digital Ocean
 
 ## Deploy stage asteriskbox to digital ocean manually
 
@@ -17,11 +17,10 @@ SSH into prod to find out what conf version is being used:
 ssh -F src/ssh_config futel-prod.phu73l.net 'grep "foo\|bar" /opt/asterisk/etc/asterisk/sip_callcentric.conf'
 
 create droplet from image CentOS 6.7 x32
-ansible-playbook -i hosts baseinstall_playbook.yml
-src/baseconfig.sh futel-stage.phu73l.net
-optionally save snapshot
+ansible-playbook -i hosts baseinstall_playbook.yml --extra-vars conf_version=<conf version not used by prod>
+ansible-playbook -i hosts secure_playbook.yml
 src/asteriskbox.sh futel-stage.phu73l.net <conf version not used by prod>
-save snapshot
+create snapshot
 src/promote_stage.sh futel-stage.phu73l.net
 
 test
