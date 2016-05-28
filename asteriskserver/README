@@ -19,9 +19,8 @@ ssh -F src/ssh_config futel-prod.phu73l.net 'grep "foo\|bar" /opt/asterisk/etc/a
 create droplet from image CentOS 6.7 x32
 ansible-playbook -i hosts baseinstall_playbook.yml --extra-vars conf_version=<conf version not used by prod>
 ansible-playbook -i hosts secure_playbook.yml
-src/asteriskbox.sh futel-stage.phu73l.net <conf version not used by prod>
-create snapshot
 src/promote_stage.sh futel-stage.phu73l.net
+create snapshot
 
 test
 

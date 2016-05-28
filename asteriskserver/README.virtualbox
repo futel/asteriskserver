@@ -19,13 +19,7 @@ vagrant box add test_32 http://developer.nrel.gov/downloads/vagrant-boxes/CentOS
 # bulld from test_32
 vagrant up
 vagrant ssh
-sudo /vagrant/src/build/make_asteriskbox.sh virtualbox
-sudo service iptables stop
-exit
-# this is probably not necessary anymore
-vagrant halt
-vagrant up
-vagrant ssh
+# note: do this after every reboot
 sudo service iptables stop
 exit
 

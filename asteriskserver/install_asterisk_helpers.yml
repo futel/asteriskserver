@@ -1,0 +1,54 @@
+---
+- name: add logrotate job
+  copy:
+    src: src/logrotate/logrotate.d/asterisk
+    dest: /etc/logrotate.d/asterisk
+- name: delete logwatch conf
+  file:
+    path: /etc/logwatch/conf
+    state: absent
+- name: copy logwatch conf
+  copy:
+    src: src/logwatch/conf
+    dest: /etc/logwatch/conf
+- name: delete logwatch scripts
+  file:
+    path: /etc/logwatch/scripts
+    state: absent
+- name: copy logwatch scripts
+  copy:
+    src: src/logwatch/scripts
+    dest: /etc/logwatch/scripts
+- name: copy logwatch conf which is local or has secrets
+  copy:
+    src: conf/logwatch.conf.{{ version }}
+    dest: /etc/logwatch/conf/logwatch.conf
+- name: make futel directory
+  file:
+    path: /opt/futel
+    state: directory
+    owner: asterisk
+    group: asterisk
+- name: make source directory
+  file:
+    path: /opt/futel/src
+    state: directory
+    owner: asterisk
+    group: asterisk
+- name: install event listener
+  copy:
+    src: src/eventlistener.py
+    dest: /opt/futel/src
+    owner: asterisk
+- name: install event conf which is local or has secrets
+  copy:
+    src: conf/eventlistener.conf.{{ version }}
+    dest: /opt/futel/src/eventlistener.conf
+    owner: asterisk
+# XXX need a real daemon or supervisord, this doesn't restart
+- name: add eventlistener to rc.local
+  lineinfile:
+    dest: /etc/rc.d/rc.local
+    line: "su -s /bin/bash nobody -c /opt/futel/src/eventlistener.py"
+- name: run rc.local
+  command: "nonup /etc/rc.d/rc.local &"
