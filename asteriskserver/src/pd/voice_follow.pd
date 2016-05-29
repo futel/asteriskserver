@@ -1,0 +1,55 @@
+#N canvas 0 30 1351 717 10;
+#X obj 355 77 adc~;
+#X floatatom 528 531 5 0 0 0 - - -, f 5;
+#X obj 355 319 line;
+#X obj 597 512 hsl 128 15 1 100 0 0 empty empty empty -2 -8 0 10 -262144
+-1 -1 0 1;
+#X obj 318 471 mtof;
+#X obj 322 501 osc~;
+#X text 536 126 The voiced speech of a typical adult male will have
+a fundamental frequency from 85 to 180 Hz \, and that of a typical
+adult female from 165 to 255 Hz;
+#X msg 355 290 \$1 100;
+#X obj 355 171 bp~ 200 10, f 11;
+#X obj 355 217 env~ 2048;
+#X obj 567 533 > 70;
+#X obj 567 562 tgl 40 0 empty empty empty 17 7 0 7 -262144 -4034 -4034
+0 1;
+#X obj 539 453 spigot;
+#X obj 572 420 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
+1;
+#X obj 663 214 loadbang;
+#X msg 663 273 \; pd dsp 1;
+#X obj 663 249 delay 100;
+#X obj 323 544 *~ 0.5;
+#X obj 292 610 dac~;
+#X obj 389 578 print;
+#X obj 388 539 f;
+#X obj 416 456 metro 200;
+#X obj 455 370 loadbang;
+#X msg 417 409 1;
+#X obj 318 445 + 10;
+#X obj 366 115 delwrite~ \$0-delay 44100;
+#X connect 0 0 8 0;
+#X connect 0 0 25 0;
+#X connect 2 0 12 0;
+#X connect 2 0 20 1;
+#X connect 2 0 24 0;
+#X connect 4 0 5 0;
+#X connect 5 0 17 0;
+#X connect 7 0 2 0;
+#X connect 8 0 9 0;
+#X connect 9 0 7 0;
+#X connect 10 0 11 0;
+#X connect 12 0 1 0;
+#X connect 12 0 3 0;
+#X connect 12 0 10 0;
+#X connect 13 0 12 1;
+#X connect 14 0 16 0;
+#X connect 16 0 15 0;
+#X connect 17 0 18 0;
+#X connect 20 0 19 0;
+#X connect 21 0 20 0;
+#X connect 22 0 23 0;
+#X connect 23 0 21 0;
+#X connect 24 0 4 0;
