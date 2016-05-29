@@ -1,4 +1,5 @@
 asteriskserver/conf
+asteriskserver/ansible.log
 vpnbox/conf
 *.box
 asteriskserver/.vagrant
