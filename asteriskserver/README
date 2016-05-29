@@ -20,6 +20,7 @@ create droplet from image CentOS 6.7 x32
 ansible-playbook -i hosts baseinstall_playbook.yml --extra-vars conf_version=<conf version not used by prod>
 ansible-playbook -i hosts secure_playbook.yml
 src/promote_stage.sh futel-stage.phu73l.net
+ssh -F src/ssh_config futel-stage.phu73l.net 'sudo halt'
 create snapshot
 
 test
