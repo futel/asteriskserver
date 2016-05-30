@@ -95,7 +95,7 @@
 - name: copy our safe_asterisk
   copy:
     src: src/safe_asterisk
-    dest: /opt/asterisk/bin
+    dest: /opt/asterisk/sbin
 - name: make asterisk log archive directory
   file:
     path: /opt/asterisk/var/log/asterisk/old
