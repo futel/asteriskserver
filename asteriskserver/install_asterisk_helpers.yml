@@ -40,12 +40,14 @@
     src: src/eventlistener.py
     dest: /opt/futel/src
     owner: asterisk
-    mode: "o+x"    
+    group: asterisk
+    mode: "u+x"    
 - name: install event conf which is local or has secrets
   copy:
     src: conf/eventlistenerconf.{{ version }}.py
     dest: /opt/futel/src/eventlistenerconf.py
     owner: asterisk
+    group: asterisk
 # XXX need a real daemon or supervisord, this doesn't restart
 - name: add eventlistener to rc.local
   lineinfile:

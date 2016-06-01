@@ -48,6 +48,7 @@
     src: src/menuselect.makeopts.virtualbox
     dest: /tmp/asterisk-11.5.1/menuselect.makeopts
     owner: asterisk
+    group: asterisk
     force: yes
 # virtualbox, digital ocean, and probably all virtual providers disbable native
 # optimizations
@@ -61,6 +62,7 @@
     src: src/menuselect.makedeps 
     dest: /tmp/asterisk-11.5.1/menuselect.makedeps
     owner: asterisk
+    group: asterisk
     force: yes
 # is this necessary?
 - name: copy more files normally done with make menuselect
@@ -68,6 +70,7 @@
     src: src/menuselect-tree
     dest: /tmp/asterisk-11.5.1/menuselect-tree
     owner: asterisk
+    group: asterisk
     force: yes
 # XXX this creates is already there?
 # We're changed=false here and just doing this on the install?

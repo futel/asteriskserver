@@ -8,36 +8,43 @@
     src: src/etc/asterisk
     dest: /opt/asterisk/etc
     owner: asterisk
+    group: asterisk
 - name: copy voip provider conf with secrets
   copy:
     src: conf/sip_callcentric.conf.{{ version }}
     dest: /opt/asterisk/etc/asterisk/sip_callcentric.conf
     owner: asterisk
+    group: asterisk
 - name: copy sip conf with secrets
   copy:
     src: conf/sip_secret.conf
     dest: /opt/asterisk/etc/asterisk/sip_secret.conf
     owner: asterisk
+    group: asterisk
 - name: copy dialplan conf with secrets
   copy:
     src: conf/extensions_secret.conf
     dest: /opt/asterisk/etc/asterisk/extensions_secret.conf
     owner: asterisk
+    group: asterisk
 - name: copy followme conf with secrets
   copy:
     src: conf/followme_secret.conf
     dest: /opt/asterisk/etc/asterisk/followme_secret.conf
     owner: asterisk
+    group: asterisk
 - name: copy blocklist conf with secrets
   copy:
     src: conf/blocklist.yaml
     dest: /opt/asterisk/etc/asterisk/blocklist.yaml
     owner: asterisk
+    group: asterisk
 - name: copy manager conf with secrets
   copy:
     src: conf/manager.conf
     dest: /opt/asterisk/etc/asterisk/manager.conf
     owner: asterisk
+    group: asterisk
 - name: delete asterisk scripts
   file:
     path: /opt/asterisk/var/lib/asterisk/agi-bin
@@ -47,10 +54,11 @@
     src: src/var/lib/asterisk/agi-bin
     dest: /opt/asterisk/var/lib/asterisk
     owner: asterisk
+    group: asterisk
 - name: make asterisk scripts executable
   file:
     path: /opt/asterisk/var/lib/asterisk
-    mode: "o+x"
+    mode: "u+x"
     recurse: yes
 - name: delete asterisk statement sounds
   file:
@@ -61,6 +69,7 @@
     src: src/var/lib/asterisk/sounds/futel
     dest: /opt/asterisk/var/lib/asterisk/sounds
     owner: asterisk
+    group: asterisk
 - name: delete asterisk confbridge menu sounds
   file:
     path: /opt/asterisk/var/lib/asterisk/sounds/en/futelconf
@@ -70,6 +79,7 @@
     src: src/var/lib/asterisk/sounds/en/futelconf
     dest: /opt/asterisk/var/lib/asterisk/sounds/en
     owner: asterisk
+    group: asterisk
 - name: delete asterisk hold music
   file:
     path: /opt/asterisk/var/lib/asterisk/moh/hold
@@ -79,6 +89,7 @@
     src: src/var/lib/asterisk/moh/hold
     dest: /opt/asterisk/var/lib/asterisk/moh
     owner: asterisk
+    group: asterisk
 - name: delete operator hold music
   file:
     path: /opt/asterisk/var/lib/asterisk/moh/operator
@@ -88,3 +99,4 @@
     src: src/var/lib/asterisk/moh/operator
     dest: /opt/asterisk/var/lib/asterisk/moh
     owner: asterisk
+    group: asterisk
