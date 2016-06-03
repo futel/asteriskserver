@@ -1,0 +1,23 @@
+#N canvas 0 30 1364 736 10;
+#X obj 327 42 inlet;
+#X obj 327 95 spigot 1;
+#X obj 346 178 del \$1;
+#X obj 327 124 t b b b;
+#X obj 374 244 s \$0-spigot;
+#X msg 346 201 1;
+#X msg 395 179 0;
+#X obj 372 43 r \$0-spigot;
+#X obj 462 42 inlet;
+#X obj 327 287 outlet;
+#X text 538 33 allows output through and then not any more until \$1
+or the second inlet milliseconds something comes out;
+#X connect 0 0 1 0;
+#X connect 1 0 3 0;
+#X connect 2 0 5 0;
+#X connect 3 0 9 0;
+#X connect 3 1 2 0;
+#X connect 3 2 6 0;
+#X connect 5 0 4 0;
+#X connect 6 0 4 0;
+#X connect 7 0 1 1;
+#X connect 8 0 2 1;
