@@ -10,7 +10,7 @@
 - name: copy logwatch conf
   copy:
     src: src/logwatch/conf
-    dest: /etc/logwatch/conf
+    dest: /etc/logwatch
 - name: delete logwatch scripts
   file:
     path: /etc/logwatch/scripts
@@ -18,7 +18,7 @@
 - name: copy logwatch scripts
   copy:
     src: src/logwatch/scripts
-    dest: /etc/logwatch/scripts
+    dest: /etc/logwatch
 - name: copy logwatch conf which is local or has secrets
   copy:
     src: conf/logwatch.conf.{{ version }}
