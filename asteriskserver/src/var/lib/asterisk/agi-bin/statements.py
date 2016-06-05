@@ -11,6 +11,8 @@
 
 statements = {
     'general': [
+        'for-community-services',
+        'for-the-call-to-safety-crisis-line',
         'to-ring-the-ctrlh-telephone',
         'for-a-random-number',
         'to-hear-number-again',
