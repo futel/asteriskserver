@@ -8,10 +8,10 @@ ext 1001 starts incoming menu
 outgoing call works
 
 outgoing call sends r2d2 id from 670
-outgoing call indicates 911 when XXX from 670
+outgoing call indicates 911 when calling 933 from 670
 
 outgoing call indicates 911 when calling 15555550911 from
-650, 667, 668, 670, 680, 691
+650, 667, 668, 680, 691
 outgoing call indicates no 911 when calling 15555550911 from 669, 690, 700, 701
 outgoing call sends iprc id from 650
 outgoing call sends oskar indoors id from 667
@@ -32,7 +32,8 @@ simultaneous incoming calls do the right thing (probably not call waiting)
 
 can call one extension from another using internal dialtone
 
-can run through all menus
+can run through all outgoing menus and submenus
+can run through incoming menu and submenus
 
 calling operator plays intro, then music while operators are called
 calling operator dials all operators
