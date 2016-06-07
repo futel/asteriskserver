@@ -1,0 +1,70 @@
+#!/bin/bash
+# pd         Init script for pd
+#
+# Author:       futel
+#
+# description:  starts pd
+# processname:  pd
+
+PATH=/usr/bin:/sbin:/bin:/usr/sbin
+export PATH
+
+USER=asterisk
+
+PD_OPTS="-nogui -rt -jack -channels 1 /vagrant/src/pd/startup.pd"
+PD=/usr/local/bin/pd
+RETVAL=0
+
+# Source function library.
+. /etc/rc.d/init.d/functions
+
+start() {
+    EPID=`pgrep -u ${USER} pd`
+    if [ "" != "${EPID}" ] ; then
+        echo Pd is already running
+        exit 1
+    fi
+    echo -n $"Starting pd..."
+    daemon --user ${USER} --pidfile /var/run/pd.pid "sh -c '${PD} ${PD_OPTS} > /dev/null &2>1'"
+    RETVAL=$?
+    echo
+    return ${RETVAL}
+}
+
+stop() {
+    echo -n $"Stopping pd..."
+    killproc ${PD}
+    RETVAL=$?
+    echo pd stopped
+    return ${RETVAL}
+}
+
+restart() {
+    stop
+    start
+}
+
+case "$1" in
+    start)
+        start
+    ;;
+    stop)
+        stop
+    ;;
+    restart)
+        restart
+    ;;
+    status)
+        PID=`pgrep -U ${USER} pd`
+        if [ "" == "${PID}" ] ; then
+            echo pd is not running
+        else
+            echo "pd is running, pid = ${PID}"
+        fi
+    ;;
+    *)
+        echo "Usage: $0 {start|stop|status|restart|}"
+        exit 1
+esac
+
+exit $RETVAL

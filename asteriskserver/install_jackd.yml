@@ -1,0 +1,31 @@
+---
+- name: unpack jack
+  unarchive:
+    src: src/jack-1.9.10.tar.bz2
+    dest: /tmp
+- name: configure jack
+  command: ./waf configure --alsa
+  args:
+    chdir: /tmp/jack-1.9.10
+- name: make jack
+  command: ./waf build
+  args:
+    chdir: /tmp/jack-1.9.10
+- name: install jack
+  command: ./waf install
+  args:
+    chdir: /tmp/jack-1.9.10
+- name: install init script
+  copy:
+    src: src/jackd-init-script
+    dest: /etc/init.d/jackd
+    owner: root
+    group: root
+    mode: 0755
+- name: symlink init script for startup
+  file:
+    src: /etc/init.d/jackd
+    dest: /etc/rc3.d/S91jackd
+    owner: root
+    group: root
+    state: link
