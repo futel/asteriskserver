@@ -1,0 +1,22 @@
+---
+# firewall, port, ssh configuration
+- name: write sshd config
+  copy:
+    src: src/sshd_config
+    dest: /etc/ssh/sshd_config
+- name: restart sshd
+  service:
+    name: sshd
+    state: restarted
+# - name: stop iptables
+#   service:
+#     name: iptables
+#     state: stopped
+# - name: update iptables rules
+#   script: src/iptables.sh
+# - name: save iptables rules
+#   command: service iptables save
+# - name: start iptables
+#   service:
+#     name: iptables
+#     state: started

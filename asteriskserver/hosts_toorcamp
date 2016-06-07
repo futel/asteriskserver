@@ -1,0 +1,5 @@
+[baseinstall_toorcamp]
+192.168.11.105
+
+[baseconfig_toorcamp]
+192.168.11.105 ansible_ssh_port=42422 ansible_ssh_user=futel ansible_ssh_private_key_file=conf/id_rsa

@@ -1,0 +1,24 @@
+install and provision asteriskserver on laptop
+
+put ip address in hosts_toorcamp for baseinstall_toorcamp
+put ip address in hosts_toorcamp for baseconfig_toorcamp with ssh config
+put ip address in ssh_config_toorcamp
+
+install centos on laptop
+edit /etc/sysconfig/network-scripts/ifcfg-eth0
+  ONBOOT=yes
+reboot
+give public key to root:~/.ssh/authorized_keys to allow passwordless login
+if necessary, update laptop to centos 6.8
+  yum update
+clean up?
+  yum remove -y selinux-policy selinux-policy-targeted
+  yum install -y libselinux-python
+provision
+  ansible-playbook -i hosts_toorcamp baseinstall_playbook_toorcamp.yml --extra-vars conf_version=virtualbox
+  ansible-playbook -i hosts_toorcamp secure_playbook_toorcamp.yml --extra-vars conf_version=virtualbox
+stop iptables, note this must be done each reboot
+  service iptables stop
+
+ssh -F src/ssh_config_toorcamp <ip> whoami
+ansible-playbook -i hosts_toorcamp foo_playbook.yml

@@ -1,0 +1,9 @@
+Host 192.168.11.105
+Port 42422
+IdentityFile conf/id_rsa
+User futel
+StrictHostKeyChecking no
+UserKnownHostsFile /dev/null
+#RequestTty no
+#RequestTty auto
+#RequestTty force

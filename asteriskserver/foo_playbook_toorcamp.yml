@@ -1,0 +1,6 @@
+---
+- hosts: baseconfig_toorcamp
+  become: true
+  tasks:
+    - name: foo
+      debug: foo
