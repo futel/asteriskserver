@@ -25,5 +25,4 @@ exit
 
 # shortcut: update asterisk conf and scripts for already built box
 # this assumes everything you want to do is in update_asterisk.yml
-export vagrantprovisioner=update_asterisk
-vagrant provision
+vagrant provision --provision-with update_asterisk

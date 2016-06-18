@@ -7,12 +7,9 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.synced_folder ".", "/vagrant",
     :mount_options => ["dmode=777,fmode=777"]
 
-  config.vm.provision "ansible" do |ansible|
-    if ENV['vagrantprovisioner'] == 'update_asterisk'
-      ansible.playbook = "update_asterisk_playbook.yml"
-    else
-      ansible.playbook = "baseinstall_playbook.yml"
-    end
+  config.vm.provision "baseinstall", type: "ansible" do |ansible|
+    ansible.playbook = "baseinstall_playbook.yml"    
+    
     # default vm gets baseinstall ansible inventory group
     ansible.groups = {
       "baseinstall" => ["default"]
@@ -20,9 +17,25 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     ansible.extra_vars = {
       conf_version: "virtualbox"
     }
+    # uncomment for verbose output
     # ansible.raw_arguments = ["-v"]
   end    
- 
+
+  config.vm.provision "update_asterisk", type: "ansible" do |ansible|
+    ansible.playbook = "update_asterisk_playbook.yml"    
+    
+    # default vm gets baseinstall ansible inventory group
+    ansible.groups = {
+      "baseinstall" => ["default"]
+    }
+    ansible.extra_vars = {
+      conf_version: "virtualbox"
+    }
+    # uncomment for verbose output
+    # ansible.raw_arguments = ["-v"]
+  end    
+  
+  # use this environment variable to build with production ssh port/user
   if ENV['vagrantbox'] == 'centos6_32_baseconfig'
     # we put ssh on 42422, so override default 2222 guest port
     config.vm.network "forwarded_port", guest: 42422, host: 2222, id: "ssh"
