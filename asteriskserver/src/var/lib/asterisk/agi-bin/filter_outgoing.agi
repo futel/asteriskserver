@@ -59,6 +59,8 @@ def filter_outgoing(blocklist, number, extension):
     """
     if number == '911':
         return                  # survive
+    if number == '933':         # callcentric 911 test number
+        return                  # survive
     if filter_premium(premium_nampa_prefixes, number):
         util.metric(agi, 'filter-outgoing-premium')
         agi.hangup()
