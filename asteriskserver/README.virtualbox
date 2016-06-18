@@ -21,6 +21,7 @@ vagrant up
 vagrant ssh
 # note: do this after every reboot
 sudo service iptables stop
+sudo service asterisk restart
 exit
 
 # shortcut: update asterisk conf and scripts for already built box
