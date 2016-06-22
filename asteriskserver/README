@@ -31,8 +31,10 @@ rename futel-prod droplet to futel-prod-back
 rename futel-stage droplet to futel-prod
 rename futel-prod hostname to futel-prod-back
 rename futel-stage hostname to futel-prod
-  ssh -t -F src/ssh_config futel-prod.phu73l.net "sudo hostname futel-prod-back && sudo sed -i '$s/futel-prod/futel-prod-back/' /etc/sysconfig/network"
-  ssh -t -F src/ssh_config futel-stage.phu73l.net "sudo hostname futel-prod && sudo sed -i '$s/futel-stage/futel-prod/' /etc/sysconfig/network"
+  ssh -t -F src/ssh_config futel-prod.phu73l.net
+  sudo hostname futel-prod-back && sudo sed -i '$s/futel-prod/futel-prod-back/' /etc/sysconfig/network
+  ssh -t -F src/ssh_config futel-stage.phu73l.net
+  sudo hostname futel-prod && sudo sed -i '$s/futel-stage/futel-prod/' /etc/sysconfig/network
 src/promote_stage.sh futel-stage.phu73l.net 
 change A record for futel-prod to point to new futel-prod
 remove A record for futel-stage
