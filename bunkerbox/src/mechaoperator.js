@@ -1,5 +1,5 @@
 var irc = require('irc');
-var metrics_util = require('./metrics_util');
+var info_mod = require('./info');
 
 var config = require('./config');
 
@@ -18,6 +18,8 @@ var bot = new irc.Client(config.config.server, config.config.botName, {
     userName: config.config.userName,
     realName: config.config.realName
 });
+
+var info = new info_mod.Info();
 
 bot.sayOrSay = function(from, to, text) {
     console.log(text);
@@ -44,12 +46,6 @@ bot.help = function(from, to, text, message) {
     }
 };
 
-bot.reportStats = function(from, to, days, rows) {
-    rows = rows.map(function (row) { return row.name + ":" + row.count; });
-    bot.sayOrSay(from, to, 'most frequent events last ' + days + ' days');
-    bot.sayOrSay(from, to, rows.join(' '));    
-};
-
 bot.stats = function(from, to, text, message) {
     var words = bot.textToCommands(text);
     var days = words[1];
@@ -65,25 +61,13 @@ bot.stats = function(from, to, text, message) {
         extension = null;
     }
 
-    metrics_util.frequent_events(
+    info.stats(
         config.config.dbFileName,
-        null,
-        null,
         days,
         extension,
-        function(result) { bot.reportStats(from, to, days, result); });
-};
-
-bot.metricToString = function(metric) {
-    return metric.channel_extension + " " + metric.timestamp + " " + metric.name;
-}
-
-bot.reportLatest = function(from, to, results) {
-    results = results.map(function (result) {
-        return bot.metricToString(result);
-    });
-    bot.sayOrSay(from, to, "latest channel events");
-    bot.sayOrSay(from, to, results.join('\n'));    
+        function(result) {
+            result.map(function (line) { bot.sayOrSay(from, to, line); });
+        });
 };
 
 bot.latest = function(from, to, text, message) {
@@ -92,28 +76,20 @@ bot.latest = function(from, to, text, message) {
     if (!extensions.length) {
         extensions = null;
     }
-    metrics_util.latest_events(
+    info.latest(
         config.config.dbFileName,
         extensions,
-        function(result) { bot.reportLatest(from, to, result); });
+        function(result) {
+            result.map(function (line) { bot.sayOrSay(from, to, line); });
+        });
 };
-
-bot.reportRecentBad = function(from, to, results) {
-    results = results.map(function (result) {
-        return bot.metricToString(result);
-    });
-    bot.sayOrSay(from, to, "recent bad events");
-    bot.sayOrSay(from, to, results.join('\n'));    
-};
-
 
 bot.recentBad = function(from, to, text, message) {
-    metrics_util.recentEvents(
+    info.recentBad(
         config.config.dbFileName,
-        null,
-        null,
-        null,
-        function(result) { bot.reportRecentBad(from, to, result); });
+        function(result) {
+            result.map(function (line) { bot.sayOrSay(from, to, line); });
+        });
 };
 
 bot.errorMessage = function(from, to, text, message) {
