@@ -108,6 +108,7 @@ bot.textToCommands = function(text) {
 }
 
 bot.noYoureTalk = function(from, to, text, message) {
+    // does message call me anything?
     var findString = bot.nick + " is ";
     var startString = text.indexOf(findString);
     if (startString > -1) {
@@ -116,6 +117,12 @@ bot.noYoureTalk = function(from, to, text, message) {
         var outString = text.replace(RegExp('.*' + findString), '');
         outString = "No, " + from + ", you're " + outString + '!';
         bot.sayOrSay(from, to, outString);
+    } else {
+        // does message mention me?
+        var startString = text.indexOf(bot.nick);
+        if (startString > -1) {
+            bot.sayOrSay(from, to, "yo");
+        }
     }
 }
 
