@@ -60,6 +60,8 @@ var frequent_events = function(
     Q.fcall(db_all(db), statement, params)
         .then(function(rows) {
             db.close();            
+            return rows;
+        }).then(function(rows) {
             callback(rows);
         })
         .fail(function(err) { console.log(err) })
