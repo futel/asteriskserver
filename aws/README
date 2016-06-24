@@ -1,8 +1,14 @@
 ## Deploy AWS services
 
 create SNS topic for asterisk manager events
+create SQS queue for asterisk manager events
+add permisison to queue: allow everybody sendMessage condition arnEquals key aws:sourceArn value SNS topic arn
+subscribe SQS queue to SNS topic
+
 create AWS user
-create AWS policy which allows writing to SNS topic
+create AWS policy which allows writing to SNS topic (or use AmazonSNSFullAccess)
+attach AWS policy to AWS user
+create AWS policy which allows reading from SQS queues (or use AmazonSQSFullAccess)
 attach AWS policy to AWS user
 
 add credentials to eventlistenerconf.py in asteriskserver conf:
