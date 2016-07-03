@@ -18,13 +18,12 @@ outgoing call sends oskar indoors id from 667
 outgoing call sends oskar id from 668
 outgoing call sends xnor id from 680
 outgoing call sends incoming id from 690
-outgoing call sends ctrlh id from 691
 outgoing call sends demo id from 700
 outgoing call sends incoming id from 701
 
 incoming call to oskar calls oskar phone
 incoming call to oskar indoors calls oskar indoors phone
-incoming call to ctrlh calls ctrlh phone
+incoming call to ctrlh gets incoming menu
 incoming call to r2d2 calls r2d2 phone
 incoming call to incoming line gets incoming menu
 incoming call with disconnected device does the right thing
