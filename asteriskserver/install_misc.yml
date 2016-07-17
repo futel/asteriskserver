@@ -29,42 +29,6 @@
   command: make install
   args:
     chdir: /tmp/mpg123-1.22.2
-- name: unpack jack
-  unarchive:
-    src: src/jack-1.9.10.tar.bz2
-    dest: /tmp
-- name: configure jack
-  command: ./waf configure --alsa
-  args:
-    chdir: /tmp/jack-1.9.10
-- name: make jack
-  command: ./waf build
-  args:
-    chdir: /tmp/jack-1.9.10
-- name: install jack
-  command: ./waf install
-  args:
-    chdir: /tmp/jack-1.9.10
-- name: unpack pd
-  unarchive:
-    src: src/pd-0.47-0.src.tar.gz
-    dest: /tmp
-- name: configure pd
-  command: sh autogen.sh
-  args:
-    chdir: /tmp/pd-0.47-0
-- name: configure pd
-  command: ./configure --enable-jack
-  args:
-    chdir: /tmp/pd-0.47-0
-- name: make pd
-  command: make
-  args:
-    chdir: /tmp/pd-0.47-0
-- name: install pd
-  command: make install
-  args:
-    chdir: /tmp/pd-0.47-0
 # XXX need a real daemon or supervisord, this doesn't restart
 # XXX festival server is not exactly safe
 - name: add festival to rc.local
@@ -78,4 +42,3 @@
     create: yes
 - name: run ldconfig on updated ld.so.conf
   command: /sbin/ldconfig
-  

@@ -6,6 +6,8 @@
     - include: users.yml
     - include: config.yml
     - include: install_misc.yml
+    - include: install_jackd.yml
+    - include: install_pd.yml
     - include: install_asterisk.yml
     - include: install_asterisk_helpers.yml version={{ conf_version }}
     - include: update_asterisk.yml version={{ conf_version }}
