@@ -20,7 +20,7 @@
     dest: /etc/crontab
 - name: set timezone
   file:
-    src: /etc/localtime
-    dest: /usr/share/zoneinfo/PST8PDT
+    src: /usr/share/zoneinfo/US/Pacific
+    dest: /etc/localtime
     state: link
     force: yes
