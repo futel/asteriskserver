@@ -28,7 +28,11 @@ Info.prototype.stats = function(dbFileName, days, extension, callback) {
 }
 
 Info.prototype.metricToString = function(metric) {
-    return metric.channel_extension + " " + metric.timestamp + " " + metric.name;
+    formatTimestamp = function(dateString) {
+        d = new Date(dateString);
+        return d.toLocaleString().slice(4,10) + " " + d.toLocaleString().slice(16,24);
+    }
+    return metric.channel_extension + " " + formatTimestamp(metric.timestamp) + " " + metric.name;
 }
 
 Info.prototype.reportLatest = function(results) {
