@@ -1,12 +1,54 @@
 ---
 - name: delete asterisk conf
   file:
-    path: /opt/asterisk/etc/asterisk
+    path: "{{ item }}"
     state: absent
+  with_items:
+    - /opt/asterisk/etc/asterisk/adsi.conf
+    - /opt/asterisk/etc/asterisk/app_skel.conf
+    - /opt/asterisk/etc/asterisk/asterisk.adsi
+    - /opt/asterisk/etc/asterisk/calendar.conf
+    - /opt/asterisk/etc/asterisk/ccss.conf
+    - /opt/asterisk/etc/asterisk/cdr_odbc.conf
+    - /opt/asterisk/etc/asterisk/cdr_pgsql.conf
+    - /opt/asterisk/etc/asterisk/cdr_sqlite3_custom.conf
+    - /opt/asterisk/etc/asterisk/cdr_tds.conf
+    - /opt/asterisk/etc/asterisk/cel_odbc.conf
+    - /opt/asterisk/etc/asterisk/cel_pgsql.conf
+    - /opt/asterisk/etc/asterisk/cel_sqlite3_custom.conf
+    - /opt/asterisk/etc/asterisk/cel_tds.conf
+    - /opt/asterisk/etc/asterisk/config_test.conf
+    - /opt/asterisk/etc/asterisk/dnsmgr.conf
+    - /opt/asterisk/etc/asterisk/dsp.conf
+    - /opt/asterisk/etc/asterisk/extconfig.conf
+    - /opt/asterisk/etc/asterisk/extensions.ael
+    - /opt/asterisk/etc/asterisk/extensions.lua
+    - /opt/asterisk/etc/asterisk/extensions_minivm.conf
+    - /opt/asterisk/etc/asterisk/func_odbc.conf
+    - /opt/asterisk/etc/asterisk/http.conf
+    - /opt/asterisk/etc/asterisk/jabber.conf
+    - /opt/asterisk/etc/asterisk/jingle.conf
+    - /opt/asterisk/etc/asterisk/minivm.conf
+    - /opt/asterisk/etc/asterisk/ooh323.conf
+    - /opt/asterisk/etc/asterisk/osp.conf
+    - /opt/asterisk/etc/asterisk/queuerules.conf
+    - /opt/asterisk/etc/asterisk/res_config_mysql.conf
+    - /opt/asterisk/etc/asterisk/res_config_sqlite3.conf
+    - /opt/asterisk/etc/asterisk/res_config_sqlite.conf
+    - /opt/asterisk/etc/asterisk/res_corosync.conf
+    - /opt/asterisk/etc/asterisk/res_pgsql.conf
+    - /opt/asterisk/etc/asterisk/res_pktccops.conf
+    - /opt/asterisk/etc/asterisk/res_snmp.conf
+    - /opt/asterisk/etc/asterisk/sla.conf
+    - /opt/asterisk/etc/asterisk/smdi.conf
+    - /opt/asterisk/etc/asterisk/telcordia-1.adsi
+    - /opt/asterisk/etc/asterisk/users.conf
+    - /opt/asterisk/etc/asterisk/vpb.conf
+    - /opt/asterisk/etc/asterisk/xmpp.conf
 - name: copy asterisk conf
   copy:
-    src: src/etc/asterisk
-    dest: /opt/asterisk/etc
+    src: src/etc/asterisk/
+    dest: /opt/asterisk/etc/asterisk
     owner: asterisk
     group: asterisk
 - name: copy voip provider conf with secrets
