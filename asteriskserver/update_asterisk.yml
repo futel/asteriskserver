@@ -87,14 +87,10 @@
     dest: /opt/asterisk/etc/asterisk/manager.conf
     owner: asterisk
     group: asterisk
-- name: delete asterisk scripts
-  file:
-    path: /opt/asterisk/var/lib/asterisk/agi-bin
-    state: absent
 - name: copy asterisk scripts
   copy:
-    src: src/var/lib/asterisk/agi-bin
-    dest: /opt/asterisk/var/lib/asterisk
+    src: src/var/lib/asterisk/agi-bin/
+    dest: /opt/asterisk/var/lib/asterisk/agi-bin
     owner: asterisk
     group: asterisk
 - name: make asterisk scripts executable
@@ -102,43 +98,27 @@
     path: /opt/asterisk/var/lib/asterisk
     mode: "u+x"
     recurse: yes
-- name: delete asterisk statement sounds
-  file:
-    path: /opt/asterisk/var/lib/asterisk/sounds/futel
-    state: absent
 - name: copy asterisk statement sounds
   copy:
-    src: src/var/lib/asterisk/sounds/futel
-    dest: /opt/asterisk/var/lib/asterisk/sounds
+    src: src/var/lib/asterisk/sounds/futel/
+    dest: /opt/asterisk/var/lib/asterisk/sounds/futel
     owner: asterisk
     group: asterisk
-- name: delete asterisk confbridge menu sounds
-  file:
-    path: /opt/asterisk/var/lib/asterisk/sounds/en/futelconf
-    state: absent
 - name: copy asterisk confbridge menu sounds
   copy:
-    src: src/var/lib/asterisk/sounds/en/futelconf
-    dest: /opt/asterisk/var/lib/asterisk/sounds/en
+    src: src/var/lib/asterisk/sounds/en/futelconf/
+    dest: /opt/asterisk/var/lib/asterisk/sounds/en/futelconf
     owner: asterisk
     group: asterisk
-- name: delete asterisk hold music
-  file:
-    path: /opt/asterisk/var/lib/asterisk/moh/hold
-    state: absent
 - name: copy asterisk hold music
   copy:
-    src: src/var/lib/asterisk/moh/hold
-    dest: /opt/asterisk/var/lib/asterisk/moh
+    src: src/var/lib/asterisk/moh/hold/
+    dest: /opt/asterisk/var/lib/asterisk/moh/hold
     owner: asterisk
     group: asterisk
-- name: delete operator hold music
-  file:
-    path: /opt/asterisk/var/lib/asterisk/moh/operator
-    state: absent
 - name: copy operator hold music
   copy:
-    src: src/var/lib/asterisk/moh/operator
-    dest: /opt/asterisk/var/lib/asterisk/moh
+    src: src/var/lib/asterisk/moh/operator/
+    dest: /opt/asterisk/var/lib/asterisk/moh/operator
     owner: asterisk
     group: asterisk
