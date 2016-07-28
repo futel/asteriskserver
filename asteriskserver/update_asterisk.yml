@@ -98,27 +98,3 @@
     path: /opt/asterisk/var/lib/asterisk
     mode: "u+x"
     recurse: yes
-- name: copy asterisk statement sounds
-  copy:
-    src: src/var/lib/asterisk/sounds/futel/
-    dest: /opt/asterisk/var/lib/asterisk/sounds/futel
-    owner: asterisk
-    group: asterisk
-- name: copy asterisk confbridge menu sounds
-  copy:
-    src: src/var/lib/asterisk/sounds/en/futelconf/
-    dest: /opt/asterisk/var/lib/asterisk/sounds/en/futelconf
-    owner: asterisk
-    group: asterisk
-- name: copy asterisk hold music
-  copy:
-    src: src/var/lib/asterisk/moh/hold/
-    dest: /opt/asterisk/var/lib/asterisk/moh/hold
-    owner: asterisk
-    group: asterisk
-- name: copy operator hold music
-  copy:
-    src: src/var/lib/asterisk/moh/operator/
-    dest: /opt/asterisk/var/lib/asterisk/moh/operator
-    owner: asterisk
-    group: asterisk
