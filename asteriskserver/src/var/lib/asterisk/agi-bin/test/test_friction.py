@@ -37,5 +37,5 @@ def test_action():
     assert friction.action(
         {'noop': friction.noop}, {'action': 'xyzzy'}) == friction.noop
     assert friction.action(
-        {'friction_5': friction.friction_5},
-        {'action': 'friction_5'}) == friction.friction_5
+        {'delay_5': friction.delay_5},
+        {'action': 'delay_5'}) == friction.delay_5
