@@ -14,13 +14,24 @@ def delay_5(agi):
 def delay_10(agi):
     util.metric(agi, 'delay-10')
     agi.appexec('wait', 5)
-    agi.appexec('MusicOnHold', None, 5)
+    agi.appexec('MusicOnHold', ',5')
+
+def delay_20(agi):
+    util.metric(agi, 'delay-20')
+    agi.appexec('wait', 5)
+    util.say(agi, 'please-hold')
+    agi.appexec('wait', 1)
+    util.say(agi, 'for-the-next-available-outgoing-line')
+    agi.appexec('wait', 3)
+    agi.appexec('MusicOnHold', ',6')
+    agi.appexec('wait', 1)
 
 action_map = {
     'noop': noop,
     'busy': busy,
     'delay_5': delay_5,
-    'delay_10': delay_10
+    'delay_10': delay_10,
+    'delay_20': delay_20
 }
 
 def timestr_to_timetup(timestr):
