@@ -7,20 +7,20 @@ def busy(agi):
     util.metric(agi, 'friction-busy')
     agi.appexec('busy')
 
-def friction_5(agi):
-    util.metric(agi, 'friction-5')
+def delay_5(agi):
+    util.metric(agi, 'delay-5')
     agi.appexec('wait', 5)
 
-def friction_10(agi):
-    util.metric(agi, 'friction-10')
+def delay_10(agi):
+    util.metric(agi, 'delay-10')
     agi.appexec('wait', 5)
     agi.appexec('MusicOnHold', None, 5)
 
 action_map = {
     'noop': noop,
     'busy': busy,
-    'friction_5': friction_5,
-    'friction_10': friction_10
+    'delay_5': delay_5,
+    'delay_10': delay_10
 }
 
 def timestr_to_timetup(timestr):
