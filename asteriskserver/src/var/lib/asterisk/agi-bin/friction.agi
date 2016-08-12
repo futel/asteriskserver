@@ -15,7 +15,7 @@ import friction
 agi = agi.AGI()
 
 ASTERISK_DIR = '/opt/asterisk/etc/asterisk'
-CONFIGFILE = 'friction.yaml'
+CONFIGFILE = 'friction.yml'
 
 def load_config():
     yfile = '/'.join((ASTERISK_DIR, CONFIGFILE))
