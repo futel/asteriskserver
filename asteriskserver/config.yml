@@ -18,9 +18,20 @@
   copy:
     src: src/crontab
     dest: /etc/crontab
-- name: set timezone
+- name: set timezone with zoneinfo
   file:
     src: /usr/share/zoneinfo/US/Pacific
     dest: /etc/localtime
     state: link
     force: yes
+- name: set timezone with clock config
+  copy:
+    src: src/clock
+    dest: /etc/sysconfig/clock
+    force: yes
+- name: update current time with ntpd
+  shell: ntpd -g -q
+- name: enable ntpd service
+  service:
+    name: ntpd
+    enabled: yes
