@@ -23,7 +23,8 @@ src/promote_stage.sh futel-stage.phu73l.net
 ssh -F src/ssh_config futel-stage.phu73l.net 'sudo halt'
 create snapshot
 
-test
+if testplan has changed since last release branch, update google sheet testplan
+test stage against google sheet testplan
 
 ## promote stage to prod
 

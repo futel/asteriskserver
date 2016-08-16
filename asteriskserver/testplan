@@ -27,8 +27,9 @@ outoging call does not perform friction action when calling 933 when configured 
 outoging call does not perform friction action when calling canned number when configured for extension and time
 outgoing call does not perform friction action after dialtone number input when not configured for extension and time
 
-outgoing call performs, metrics friction_5 when configured
-outgoing call performs, metrics friction_10 when configured
+outgoing call performs, metrics delay_5 when configured
+outgoing call performs, metrics delay_10 when configured
+outgoing call performs, metrics delay_20 when configured
 
 incoming call to oskar calls oskar phone
 incoming call to oskar indoors calls oskar indoors phone
