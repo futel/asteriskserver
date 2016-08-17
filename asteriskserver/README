@@ -55,3 +55,4 @@ test that futel-prod incoming calls to extensions work (may take time)
 halt futel-prod-back
 make a snapshot of futel-prod-back
 destroy droplet futel-prod-back
+remove old snapshots of futel-prod-back
