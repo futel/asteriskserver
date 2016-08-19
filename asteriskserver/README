@@ -41,7 +41,6 @@ change A record for futel-prod to point to new futel-prod
 remove A record for futel-stage
 point all callcentric DID forwarding rules to extensions corresponding to new
 futel-prod conf_version
-  kra user to foo|bar
   futel-r2d2 user to foo|bar
 point all voip.ms DID forwarding rules to subaccounts corresponding to new
 futel-prod conf_version
@@ -50,9 +49,8 @@ wait for DNS to propagate
 test that futel-prod outgoing calls work
 test that futel-prod incoming call to incoming line works
 test that futel-prod incoming calls to extensions work or get channel unavailable
-stop asterisk on futel-prod-back
-test that futel-prod incoming calls to extensions work (may take time)
-halt futel-prod-back
 make a snapshot of futel-prod-back
+halt futel-prod-back
+test that futel-prod incoming calls to extensions work (may take time)
 destroy droplet futel-prod-back
 remove old snapshots of futel-prod-back
