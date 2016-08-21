@@ -39,3 +39,25 @@ def test_action():
     assert friction.action(
         {'delay_5': friction.delay_5},
         {'action': 'delay_5'}) == friction.delay_5
+
+def test_relevant_config():
+    assert friction.relevant_config([], 'xyzzy', 'xyzzy') is None
+    assert friction.relevant_config(
+        [{'extension':'666'}], '666', 'xyzzy') is None
+    assert friction.relevant_config(
+        [{'extension':'666',
+          'start_time': '01:00',
+          'end_time': '02:00'}],
+        '666',
+        datetime.datetime(2016, 01, 01, 00, 30)) is None
+    assert friction.relevant_config(
+        [{'extension':'666',
+          'start_time': '01:00',
+          'end_time': '02:00',
+          'action': 'bar'}],
+        '666',
+        datetime.datetime(2016, 01, 01, 01, 30)) == {
+            'extension':'666',
+            'start_time': '01:00',
+            'end_time': '02:00',
+            'action': 'bar'}

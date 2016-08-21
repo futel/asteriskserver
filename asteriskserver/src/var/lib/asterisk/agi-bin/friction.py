@@ -61,11 +61,18 @@ def action(action_map, config_map):
     """Return action_map indicated by config_map, or default."""
     return action_map.get(config_map.get('action', 'noop'), noop)
 
+def relevant_config(config, extension, now):
+    """Return map from config corresponding to extension and now, or None."""
+    for config_map in config:
+        if str(config_map['extension']) == extension:
+            (start_time, end_time) = (
+                config_map.get('start_time'), config_map.get('end_time'))
+            if within_timestrs(start_time, end_time, now):
+                return config_map
+
 def friction(agi, config, extension, now):
     if config:
-        for config_map in config:
-            if str(config_map['extension']) == extension:
-                (start_time, end_time) = (
-                    config_map.get('start_time'), config_map.get('end_time'))
-                if within_timestrs(start_time, end_time, now):
-                    action(action_map, config_map)(agi)
+        config_map = relevant_config(config, extension, now)
+        if config_map:
+            action(action_map, config_map)(agi)
+
