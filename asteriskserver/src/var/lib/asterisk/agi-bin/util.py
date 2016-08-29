@@ -100,3 +100,34 @@ def calling_extension(agi_o):
     except:
         return None
 
+def timestr_to_timetup(timestr):
+    return [int(s) for s in timestr.split(':')]
+
+def cmp_time(hour, minute, now):
+    if now.hour < hour:
+        return -1
+    if now.hour > hour:
+        return 1
+    if now.minute < minute:
+        return -1
+    if now.minute > minute:
+        return 1
+    return 0
+
+def within_timestrs(start_time, end_time, now):
+    if start_time and end_time:
+        (hour, minute) = timestr_to_timetup(start_time)
+        if cmp_time(hour, minute, now) >= 0:
+            (hour, minute) = timestr_to_timetup(end_time)
+            if cmp_time(hour, minute, now) < 0:
+                return True
+    return False
+
+def relevant_config(config, extension, now):
+    """Return map from config corresponding to extension and now, or None."""
+    for config_map in config:
+        if str(config_map['extension']) == extension:
+            (start_time, end_time) = (
+                config_map.get('start_time'), config_map.get('end_time'))
+            if within_timestrs(start_time, end_time, now):
+                return config_map
