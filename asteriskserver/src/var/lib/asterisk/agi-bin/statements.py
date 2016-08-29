@@ -147,7 +147,6 @@ statements = {
         'futel-voice-conf-menu',
         'phone-trips-recordings',
         'for-the-mojave-phone-booth-conference-line',
-        'to-make-a-lets-consider-recording',
         'to-listen-to-the-multnomah-county-police-scanner',
         'for-multnomah-county-mental-health-crisis-intervention'],
     'for-voicemail': [
