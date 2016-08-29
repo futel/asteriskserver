@@ -1,5 +1,3 @@
-import datetime
-
 import friction
 
 def test_action():
