@@ -1,0 +1,32 @@
+#!/usr/bin/env python
+"""
+Return string usable for timeout in dialplan Dial command.
+"""
+
+import sys
+import datetime
+import yaml
+
+from asterisk import *
+
+import util
+import call_timeout
+
+agi = agi.AGI()
+
+ASTERISK_DIR = '/opt/asterisk/etc/asterisk'
+CONFIGFILE = 'call_timeout.yml'
+
+def load_config():
+    yfile = '/'.join((ASTERISK_DIR, CONFIGFILE))
+    return yaml.load(file(yfile, 'r'))
+
+def main():
+    extension = util.calling_extension(agi)
+    config = load_config()
+    now = datetime.datetime.now()
+    timeout_str = call_timeout.call_timeout(config, extension, now)
+    agi.set_variable('agi_out', timeout_str)
+
+agi.answer()
+util.agi_tracebacker(agi, main)
