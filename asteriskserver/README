@@ -22,8 +22,10 @@ ansible-playbook -i hosts secure_playbook.yml
 src/promote_stage.sh futel-stage.phu73l.net
 ssh -F src/ssh_config futel-stage.phu73l.net 'sudo halt'
 create snapshot
+start droplet
 
-if testplan has changed since last release branch, update google sheet testplan
+if testplan has changed since last release branch, update google sheet testplan,
+keeping dates of completed tests
 test stage against google sheet testplan
 
 ## promote stage to prod
@@ -53,4 +55,5 @@ make a snapshot of futel-prod-back
 halt futel-prod-back
 test that futel-prod incoming calls to extensions work (may take time)
 destroy droplet futel-prod-back
-remove old snapshots of futel-prod-back
+remove snapshots of futel-prod-back except for most recent
+remove snapshots of futel-stage except for most recent
