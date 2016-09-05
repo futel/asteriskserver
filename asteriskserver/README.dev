@@ -1,5 +1,0 @@
-# update devbox from local, similar to update_asteriskbox.sh
-scp -F src/ssh_config -r . futel-dev.phu73l.net:/tmp/vagrant
-ssh -F src/ssh_config futel-dev.phu73l.net "sudo ln -sf /tmp/vagrant /vagrant"
-ssh -F src/ssh_config "sudo /vagrant/src/build/update_asteriskbox.sh dev"
-ssh -F src/ssh_config "sudo service asterisk restart"
