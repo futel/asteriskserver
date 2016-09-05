@@ -3,7 +3,14 @@
 [general](+)
 register =>
 
-[callcentric](+)
+; prod
+[callcentric-r2d2](+)
+defaultuser=
+fromuser=
+secret=
+
+; prod, virtualbox, dev, demo
+[voipms](+)
 defaultuser=
 fromuser=
 secret=
