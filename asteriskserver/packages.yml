@@ -1,13 +1,9 @@
 ---
 # distro package setup and installation
-- name: copy epel rpm
-  copy:
-    src: src/epel-release-6-8.noarch.rpm
-    dest: /tmp/epel-release-6-8.noarch.rpm
-- name: install epel rpm
+- name: install selinux bindings, required since we start with selinux
   yum:
-    name: /tmp/epel-release-6-8.noarch.rpm
-    state: present
+    name: libselinux-python
+    state: present 
 - name: remove yum packages
   yum:
     name: "{{ item }}"
@@ -21,6 +17,14 @@
     - rpcbind
     - selinux-policy
     - selinux-policy-targeted
+- name: copy epel rpm
+  copy:
+    src: src/epel-release-6-8.noarch.rpm
+    dest: /tmp/epel-release-6-8.noarch.rpm
+- name: install epel rpm
+  yum:
+    name: /tmp/epel-release-6-8.noarch.rpm
+    state: present
 - name: install yum packages
   yum:
     name: "{{ item }}"
