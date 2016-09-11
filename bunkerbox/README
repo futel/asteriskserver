@@ -17,6 +17,8 @@ irc bot:
 npm install irc
 npm install async-polling
 npm install aws-sdk
+npm install q
+npm install sqlite3
 
 # in screen session
 cd /opt/futel/src
