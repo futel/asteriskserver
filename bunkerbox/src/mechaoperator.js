@@ -17,28 +17,28 @@ var help = ['available commands:',
 
 var info = new info_mod.Info();
 
-var bot = new irc.Client(config.config.server, config.config.botName, {
+var client = new irc.Client(config.config.server, config.config.botName, {
     channels: config.config.channels,
     userName: config.config.userName,
     realName: config.config.realName
 });
 
-bot.sayOrSay = function(from, to, text) {
+client.sayOrSay = function(from, to, text) {
     console.log(text);
     if (to === null) {
         // pm
-        bot.say(from, text);
+        client.say(from, text);
     } else {
         // channel command
-        bot.say(to, text);
+        client.say(to, text);
     }
 }
 
-bot.noisySay = function(text) {
+client.noisySay = function(text) {
     console.log(text);    
     try {
         config.config.noisyChannels.forEach(function(channel) {
-            bot.say(channel, text);
+            client.say(channel, text);
         });
     }
     catch (e) {
@@ -46,22 +46,22 @@ bot.noisySay = function(text) {
     }
 }
 
-bot.hi = function(from, to, text, message) {
+client.hi = function(from, to, text, message) {
     console.log('hi');
     console.log(from);
     console.log(to);
-    bot.sayOrSay(from, to, 'Hi ' + from + '!');    
+    client.sayOrSay(from, to, 'Hi ' + from + '!');    
 };
 
-bot.help = function(from, to, text, message) {
+client.help = function(from, to, text, message) {
     // should probably only PM back
     for (var line in help) {
-        bot.sayOrSay(from, to, help[line]);
+        client.sayOrSay(from, to, help[line]);
     }
 };
 
-bot.stats = function(from, to, text, message) {
-    var words = bot.textToCommands(text);
+client.stats = function(from, to, text, message) {
+    var words = client.textToCommands(text);
     var days = words[1];
     try {
         days = days.toString();
@@ -80,12 +80,12 @@ bot.stats = function(from, to, text, message) {
         days,
         extension,
         function(result) {
-            result.map(function (line) { bot.sayOrSay(from, to, line); });
+            result.map(function (line) { client.sayOrSay(from, to, line); });
         });
 };
 
-bot.latest = function(from, to, text, message) {
-    var words = bot.textToCommands(text);
+client.latest = function(from, to, text, message) {
+    var words = client.textToCommands(text);
     var extensions = words.slice(1);
     if (!extensions.length) {
         extensions = null;
@@ -94,53 +94,53 @@ bot.latest = function(from, to, text, message) {
         config.config.dbFileName,
         extensions,
         function(result) {
-            result.map(function (line) { bot.sayOrSay(from, to, line); });
+            result.map(function (line) { client.sayOrSay(from, to, line); });
         });
 };
 
-bot.recentBad = function(from, to, text, message) {
+client.recentBad = function(from, to, text, message) {
     info.recentBad(
         config.config.dbFileName,
         function(result) {
-            result.map(function (line) { bot.sayOrSay(from, to, line); });
+            result.map(function (line) { client.sayOrSay(from, to, line); });
         });
 };
 
-bot.errorMessage = function(from, to, text, message) {
-    bot.sayOrSay(from, to, 'Use "help" for help.');
+client.errorMessage = function(from, to, text, message) {
+    client.sayOrSay(from, to, 'Use "help" for help.');
 };
 
-bot.commands = {
-    'hi': bot.hi,
-    'help': bot.help,
-    'stats': bot.stats,
-    'latest': bot.latest,
-    'recentbad': bot.recentBad}    
+client.commands = {
+    'hi': client.hi,
+    'help': client.help,
+    'stats': client.stats,
+    'latest': client.latest,
+    'recentbad': client.recentBad}    
 
-bot.textToCommands = function(text) {
+client.textToCommands = function(text) {
     return text.trim().split(/\s+/);
 }
 
-bot.noYoureTalk = function(from, to, text, message) {
+client.noYoureTalk = function(from, to, text, message) {
     // does message call me anything?
-    var findString = bot.nick + " is ";
+    var findString = client.nick + " is ";
     var startString = text.indexOf(findString);
     if (startString > -1) {
         text = text.trim();                           // strip whitespace
         text = text.replace(RegExp('[\.\!\?]+$'), '') // strip punct
         var outString = text.replace(RegExp('.*' + findString), '');
         outString = "No, " + from + ", you're " + outString + '!';
-        bot.sayOrSay(from, to, outString);
+        client.sayOrSay(from, to, outString);
     } else {
         // does message mention me?
-        var startString = text.indexOf(bot.nick);
+        var startString = text.indexOf(client.nick);
         if (startString > -1) {
-            bot.sayOrSay(from, to, "yo");
+            client.sayOrSay(from, to, "yo");
         }
     }
 }
 
-bot.pm = function(nick, text, message) {
+client.pm = function(nick, text, message) {
     var words = this.textToCommands(text);
     if (words && (words[0] in this.commands)) {    
         var command = this.commands[words[0]];
@@ -150,7 +150,7 @@ bot.pm = function(nick, text, message) {
     command(nick, null, text, message);
 };
 
-bot.channel_message = function(from, to, text, message) {
+client.channel_message = function(from, to, text, message) {
     if (text.indexOf('!') == 0) {
         // respond to commands in channel starting with !        
         text = text.replace('!', '');
@@ -166,24 +166,24 @@ bot.channel_message = function(from, to, text, message) {
 };
 
 // respond to commands in pm, or error message
-bot.addListener("pm", bot.pm);
+client.addListener("pm", client.pm);
 
 // respond to talking in channels
-bot.addListener("message#", bot.channel_message);
+client.addListener("message#", client.channel_message);
 
-bot.defaultEventAction = function(body) {
+client.defaultEventAction = function(body) {
 };
-bot.confbridgeJoinAction = function(body) {
-    bot.noisySay('Voice conference joined');
+client.confbridgeJoinAction = function(body) {
+    client.noisySay('Voice conference joined');
 };
-bot.confbridgeLeaveAction = function(body) {
-    bot.noisySay('Voice conference left');
+client.confbridgeLeaveAction = function(body) {
+    client.noisySay('Voice conference left');
 };
 
 var pollerEventMap = {
-    'ConfbridgeJoin': bot.confbridgeJoinAction,
-    'ConfbridgeLeave': bot.confbridgeLeaveAction,
-    'defaultEventAction': bot.defaultEventAction,
+    'ConfbridgeJoin': client.confbridgeJoinAction,
+    'ConfbridgeLeave': client.confbridgeLeaveAction,
+    'defaultEventAction': client.defaultEventAction,
 };
 
 snspoller.poll(
