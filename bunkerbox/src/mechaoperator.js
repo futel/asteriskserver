@@ -15,13 +15,13 @@ var help = ['available commands:',
             'recentbad get recent events'
            ];
 
+var info = new info_mod.Info();
+
 var bot = new irc.Client(config.config.server, config.config.botName, {
     channels: config.config.channels,
     userName: config.config.userName,
     realName: config.config.realName
 });
-
-var info = new info_mod.Info();
 
 bot.sayOrSay = function(from, to, text) {
     console.log(text);
@@ -140,32 +140,36 @@ bot.noYoureTalk = function(from, to, text, message) {
     }
 }
 
-// respond to commands in pm, or error message
-bot.addListener("pm", function(nick, text, message) {
-    var words = bot.textToCommands(text);
-    if (words && (words[0] in bot.commands)) {    
-        var command = bot.commands[words[0]];
+bot.pm = function(nick, text, message) {
+    var words = this.textToCommands(text);
+    if (words && (words[0] in this.commands)) {    
+        var command = this.commands[words[0]];
     } else {
-        var command = bot.errorMessage;
+        var command = this.errorMessage;
     }
     command(nick, null, text, message);
-});
+};
 
-// respond to talking in channels
-bot.addListener("message#", function(from, to, text, message) {
+bot.channel_message = function(from, to, text, message) {
     if (text.indexOf('!') == 0) {
         // respond to commands in channel starting with !        
         text = text.replace('!', '');
-        words = bot.textToCommands(text);
-        if (words && (words[0] in bot.commands)) {
-            var command = bot.commands[words[0]];
+        words = this.textToCommands(text);
+        if (words && (words[0] in this.commands)) {
+            var command = this.commands[words[0]];
             command(from, to, text, message);
         }
     } else if (config.config.noisyChannels.indexOf(message.args[0]) > -1) {
         // respond to talking in noisychannels
-        bot.noYoureTalk(from, to, text, message);        
+        this.noYoureTalk(from, to, text, message);        
     }
-});
+};
+
+// respond to commands in pm, or error message
+bot.addListener("pm", bot.pm);
+
+// respond to talking in channels
+bot.addListener("message#", bot.channel_message);
 
 bot.defaultEventAction = function(body) {
 };
