@@ -1,6 +1,7 @@
 var irc = require('irc');
 var info_mod = require('./info');
 var snspoller = require('./snspoller');
+var util = require('util');
 
 var config = require('./config');
 var secrets = require('./secrets');
@@ -17,51 +18,51 @@ var help = ['available commands:',
 
 var info = new info_mod.Info();
 
-var client = new irc.Client(config.config.server, config.config.botName, {
-    channels: config.config.channels,
-    userName: config.config.userName,
-    realName: config.config.realName
-});
+function Bot(server, nick, opt) {
+    irc.Client.call(this, server, nick, opt);
+}
+util.inherits(Bot, irc.Client);
 
-client.sayOrSay = function(from, to, text) {
+Bot.prototype.sayOrSay = function(from, to, text) {
     console.log(text);
     if (to === null) {
         // pm
-        client.say(from, text);
+        this.say(from, text);
     } else {
         // channel command
-        client.say(to, text);
+        this.say(to, text);
     }
-}
+};
 
-client.noisySay = function(text) {
+Bot.prototype.noisySay = function(text) {
     console.log(text);    
     try {
         config.config.noisyChannels.forEach(function(channel) {
-            client.say(channel, text);
+            this.say(channel, text);
         });
     }
     catch (e) {
         // XXX not connected yet? Need a connected callback or something.
     }
-}
-
-client.hi = function(from, to, text, message) {
-    console.log('hi');
-    console.log(from);
-    console.log(to);
-    client.sayOrSay(from, to, 'Hi ' + from + '!');    
 };
 
-client.help = function(from, to, text, message) {
+Bot.prototype.hi = function(self, from, to, text, message) {
+    self.sayOrSay(from, to, 'Hi ' + from + '!');    
+};
+
+Bot.prototype.help = function(self, from, to, text, message) {
     // should probably only PM back
     for (var line in help) {
-        client.sayOrSay(from, to, help[line]);
+        self.sayOrSay(from, to, help[line]);
     }
 };
 
-client.stats = function(from, to, text, message) {
-    var words = client.textToCommands(text);
+Bot.prototype.textToCommands = function(text) {
+    return text.trim().split(/\s+/);
+};
+
+Bot.prototype.stats = function(self, from, to, text, message) {
+    var words = self.textToCommands(text);
     var days = words[1];
     try {
         days = days.toString();
@@ -74,18 +75,18 @@ client.stats = function(from, to, text, message) {
     } catch(e) {
         extension = null;
     }
-
+    
     info.stats(
         config.config.dbFileName,
         days,
         extension,
         function(result) {
-            result.map(function (line) { client.sayOrSay(from, to, line); });
+            result.map(function (line) { self.sayOrSay(from, to, line); });
         });
 };
-
-client.latest = function(from, to, text, message) {
-    var words = client.textToCommands(text);
+    
+Bot.prototype.latest = function(self, from, to, text, message) {
+    var words = self.textToCommands(text);
     var extensions = words.slice(1);
     if (!extensions.length) {
         extensions = null;
@@ -94,70 +95,71 @@ client.latest = function(from, to, text, message) {
         config.config.dbFileName,
         extensions,
         function(result) {
-            result.map(function (line) { client.sayOrSay(from, to, line); });
+            result.map(function (line) { self.sayOrSay(from, to, line); });
         });
 };
 
-client.recentBad = function(from, to, text, message) {
+Bot.prototype.recentBad = function(self, from, to, text, message) {
     info.recentBad(
         config.config.dbFileName,
         function(result) {
-            result.map(function (line) { client.sayOrSay(from, to, line); });
+            result.map(function (line) { self.sayOrSay(from, to, line); });
         });
 };
-
-client.errorMessage = function(from, to, text, message) {
-    client.sayOrSay(from, to, 'Use "help" for help.');
+   
+Bot.prototype.errorMessage = function(self, from, to, text, message) {
+    self.sayOrSay(from, to, 'Use "help" for help.');
 };
 
-client.commands = {
-    'hi': client.hi,
-    'help': client.help,
-    'stats': client.stats,
-    'latest': client.latest,
-    'recentbad': client.recentBad}    
-
-client.textToCommands = function(text) {
-    return text.trim().split(/\s+/);
-}
-
-client.noYoureTalk = function(from, to, text, message) {
+Bot.prototype.noYoureTalk = function(from, to, text, message) {
     // does message call me anything?
-    var findString = client.nick + " is ";
+    var findString = this.nick + " is ";
     var startString = text.indexOf(findString);
     if (startString > -1) {
         text = text.trim();                           // strip whitespace
         text = text.replace(RegExp('[\.\!\?]+$'), '') // strip punct
         var outString = text.replace(RegExp('.*' + findString), '');
         outString = "No, " + from + ", you're " + outString + '!';
-        client.sayOrSay(from, to, outString);
+        this.sayOrSay(from, to, outString);
     } else {
         // does message mention me?
-        var startString = text.indexOf(client.nick);
+        var startString = text.indexOf(this.nick);
         if (startString > -1) {
-            client.sayOrSay(from, to, "yo");
+            this.sayOrSay(from, to, "yo");
         }
     }
-}
-
-client.pm = function(nick, text, message) {
-    var words = this.textToCommands(text);
-    if (words && (words[0] in this.commands)) {    
-        var command = this.commands[words[0]];
-    } else {
-        var command = this.errorMessage;
-    }
-    command(nick, null, text, message);
 };
 
-client.channel_message = function(from, to, text, message) {
+Bot.prototype.wordToCommand = function(word) {
+    var commands = {
+        'hi': this.hi,
+        'help': this.help,
+        'stats': this.stats,
+        'latest': this.latest,
+        'recentbad': this.recentBad
+    };
+    if (word in commands) {
+        return commands[word];
+    }
+    return this.errorMessage;
+};
+
+Bot.prototype.pm = function(nick, text, message) {
+    var words = this.textToCommands(text);
+    if (words) {
+        var command = this.wordToCommand(words[0]);
+        command(this, nick, null, text, message);
+    }
+};
+
+Bot.prototype.channel_message = function(from, to, text, message) {
     if (text.indexOf('!') == 0) {
         // respond to commands in channel starting with !        
         text = text.replace('!', '');
-        words = this.textToCommands(text);
-        if (words && (words[0] in this.commands)) {
-            var command = this.commands[words[0]];
-            command(from, to, text, message);
+        var words = this.textToCommands(text);
+        if (words) {
+            var command = this.wordToCommand(words[0]);
+            command(this, from, to, text, message);
         }
     } else if (config.config.noisyChannels.indexOf(message.args[0]) > -1) {
         // respond to talking in noisychannels
@@ -165,9 +167,14 @@ client.channel_message = function(from, to, text, message) {
     }
 };
 
-// respond to commands in pm, or error message
-client.addListener("pm", client.pm);
+var client = new Bot(config.config.server, config.config.botName, {
+    channels: config.config.channels,
+    userName: config.config.userName,
+    realName: config.config.realName
+});
 
+// // respond to commands in pm, or error message
+client.addListener("pm", client.pm);
 // respond to talking in channels
 client.addListener("message#", client.channel_message);
 
