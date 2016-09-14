@@ -1,6 +1,4 @@
-// npm install async-polling
 var AsyncPolling = require('async-polling');
-// npm install aws-sdk
 var AWS = require('aws-sdk');
 
 var pollMilliSeconds = 10000;
@@ -59,4 +57,27 @@ var poll = function(sqsUrl, akey, secret, hostname, eventMap) {
     }, pollMilliSeconds).run();
 };
 
-module.exports = { poll: poll };
+function Poller(sqsUrl, awsAkey, awsSecret, eventHostname, client) {
+    var pollerEventMap = {
+        'ConfbridgeJoin': this.confbridgeJoinAction,
+        'ConfbridgeLeave': this.confbridgeLeaveAction,
+        'defaultEventAction': this.defaultEventAction,
+    };
+    poll(
+        sqsUrl,
+        awsAkey,
+        awsSecret,
+        eventHostname,
+        pollerEventMap);
+}
+
+Poller.prototype.defaultEventAction = function(body) {
+};
+Poller.prototype.confbridgeJoinAction = function(body) {
+    this.client.noisySay('Voice conference joined');
+};
+Poller.prototype.confbridgeLeaveAction = function(body) {
+    this.client.noisySay('Voice conference left');
+};
+
+module.exports = { Poller: Poller };
