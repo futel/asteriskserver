@@ -20,7 +20,6 @@ function Client(server, nick, opt, noisyChannels, dbFileName) {
 util.inherits(Client, irc.Client);
 
 Client.prototype.sayOrSay = function(from, to, text) {
-    console.log(text);
     if (to === null) {
         // pm
         this.say(from, text);
@@ -31,7 +30,6 @@ Client.prototype.sayOrSay = function(from, to, text) {
 };
 
 Client.prototype.noisySay = function(text) {
-    console.log(text);    
     try {
         this.noisyChannels.forEach(function(channel) {
             this.say(channel, text);
