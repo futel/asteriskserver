@@ -1,7 +1,7 @@
-var info_mod = require('./info');
-var info = new info_mod.Info();
-
+var info_mod = require('../info');
 var config = require('./config-test');
+
+var info = new info_mod.Info();
 
 info.recentBad(
     config.config.dbFileName,
