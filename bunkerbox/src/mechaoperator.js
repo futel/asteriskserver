@@ -10,8 +10,10 @@ var defaultStatsDays = 60;
 
 var info = new info_mod.Info();
 
-function Client(server, nick, opt) {
-    irc.Client.call(this, server, nick, opt);
+function Client(server, nick, opt, noisyChannels, dbFileName) {
+    irc.Client.call(this, server, nick, opt);    
+    this.noisyChannels = noisyChannels;
+    this.dbFileName = dbFileName;
     // respond to commands in pm
     this.addListener("pm", this.pm);
     // respond to talking in channels
@@ -34,7 +36,7 @@ Client.prototype.sayOrSay = function(from, to, text) {
 Client.prototype.noisySay = function(text) {
     console.log(text);    
     try {
-        config.config.noisyChannels.forEach(function(channel) {
+        this.noisyChannels.forEach(function(channel) {
             this.say(channel, text);
         });
     }
@@ -81,7 +83,7 @@ Client.prototype.stats = function(self, from, to, text, message) {
     }
     
     info.stats(
-        config.config.dbFileName,
+        self.dbFileName,
         days,
         extension,
         function(result) {
@@ -96,7 +98,7 @@ Client.prototype.latest = function(self, from, to, text, message) {
         extensions = null;
     }
     info.latest(
-        config.config.dbFileName,
+        self.dbFileName,
         extensions,
         function(result) {
             result.map(function (line) { self.sayOrSay(from, to, line); });
@@ -105,7 +107,7 @@ Client.prototype.latest = function(self, from, to, text, message) {
 
 Client.prototype.recentBad = function(self, from, to, text, message) {
     info.recentBad(
-        config.config.dbFileName,
+        self.dbFileName,
         function(result) {
             result.map(function (line) { self.sayOrSay(from, to, line); });
         });
@@ -165,17 +167,21 @@ Client.prototype.channel_message = function(from, to, text, message) {
             var command = this.wordToCommand(words[0]);
             command(this, from, to, text, message);
         }
-    } else if (config.config.noisyChannels.indexOf(message.args[0]) > -1) {
+    } else if (this.noisyChannels.indexOf(message.args[0]) > -1) {
         // respond to talking in noisychannels
         this.noYoureTalk(from, to, text, message);        
     }
 };
 
-var client = new Client(config.config.server, config.config.botName, {
-    channels: config.config.channels,
-    userName: config.config.userName,
-    realName: config.config.realName
-});
+var client = new Client(
+    config.config.server,
+    config.config.botName,
+    {channels: config.config.channels,
+     userName: config.config.userName,
+     realName: config.config.realName
+    },
+    config.config.noisyChannels,
+    config.config.dbFileName);
 
 // tack sns polling onto client
 
