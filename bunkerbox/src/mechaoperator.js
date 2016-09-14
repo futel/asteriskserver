@@ -8,17 +8,9 @@ var secrets = require('./secrets');
 
 var defaultStatsDays = 60;
 
-var help = ['available commands:',
-            'hi say hello',
-            'help get command help',
-            'latest [extension [extension...]] get latest events',
-            'stats [days [extension]] get event stats',
-            'recentbad get recent events'
-           ];
-
 var info = new info_mod.Info();
 
-function Bot(server, nick, opt) {
+function Client(server, nick, opt) {
     irc.Client.call(this, server, nick, opt);
     // respond to commands in pm
     this.addListener("pm", this.pm);
@@ -26,9 +18,9 @@ function Bot(server, nick, opt) {
     this.addListener("message#", this.channel_message);
 }
 
-util.inherits(Bot, irc.Client);
+util.inherits(Client, irc.Client);
 
-Bot.prototype.sayOrSay = function(from, to, text) {
+Client.prototype.sayOrSay = function(from, to, text) {
     console.log(text);
     if (to === null) {
         // pm
@@ -39,7 +31,7 @@ Bot.prototype.sayOrSay = function(from, to, text) {
     }
 };
 
-Bot.prototype.noisySay = function(text) {
+Client.prototype.noisySay = function(text) {
     console.log(text);    
     try {
         config.config.noisyChannels.forEach(function(channel) {
@@ -51,22 +43,29 @@ Bot.prototype.noisySay = function(text) {
     }
 };
 
-Bot.prototype.hi = function(self, from, to, text, message) {
+Client.prototype.hi = function(self, from, to, text, message) {
     self.sayOrSay(from, to, 'Hi ' + from + '!');    
 };
 
-Bot.prototype.help = function(self, from, to, text, message) {
+Client.prototype.help = function(self, from, to, text, message) {
+    var help = ['available commands:',
+                'hi say hello',
+                'help get command help',
+                'latest [extension [extension...]] get latest events',
+                'stats [days [extension]] get event stats',
+                'recentbad get recent events'
+               ];
     // should probably only PM back
     for (var line in help) {
         self.sayOrSay(from, to, help[line]);
     }
 };
 
-Bot.prototype.textToCommands = function(text) {
+Client.prototype.textToCommands = function(text) {
     return text.trim().split(/\s+/);
 };
 
-Bot.prototype.stats = function(self, from, to, text, message) {
+Client.prototype.stats = function(self, from, to, text, message) {
     var words = self.textToCommands(text);
     var days = words[1];
     try {
@@ -90,7 +89,7 @@ Bot.prototype.stats = function(self, from, to, text, message) {
         });
 };
     
-Bot.prototype.latest = function(self, from, to, text, message) {
+Client.prototype.latest = function(self, from, to, text, message) {
     var words = self.textToCommands(text);
     var extensions = words.slice(1);
     if (!extensions.length) {
@@ -104,7 +103,7 @@ Bot.prototype.latest = function(self, from, to, text, message) {
         });
 };
 
-Bot.prototype.recentBad = function(self, from, to, text, message) {
+Client.prototype.recentBad = function(self, from, to, text, message) {
     info.recentBad(
         config.config.dbFileName,
         function(result) {
@@ -112,11 +111,11 @@ Bot.prototype.recentBad = function(self, from, to, text, message) {
         });
 };
    
-Bot.prototype.errorMessage = function(self, from, to, text, message) {
+Client.prototype.errorMessage = function(self, from, to, text, message) {
     self.sayOrSay(from, to, 'Use "help" for help.');
 };
 
-Bot.prototype.noYoureTalk = function(from, to, text, message) {
+Client.prototype.noYoureTalk = function(from, to, text, message) {
     // does message call me anything?
     var findString = this.nick + " is ";
     var startString = text.indexOf(findString);
@@ -135,7 +134,7 @@ Bot.prototype.noYoureTalk = function(from, to, text, message) {
     }
 };
 
-Bot.prototype.wordToCommand = function(word) {
+Client.prototype.wordToCommand = function(word) {
     var commands = {
         'hi': this.hi,
         'help': this.help,
@@ -149,7 +148,7 @@ Bot.prototype.wordToCommand = function(word) {
     return this.errorMessage;
 };
 
-Bot.prototype.pm = function(nick, text, message) {
+Client.prototype.pm = function(nick, text, message) {
     var words = this.textToCommands(text);
     if (words) {
         var command = this.wordToCommand(words[0]);
@@ -157,7 +156,7 @@ Bot.prototype.pm = function(nick, text, message) {
     }
 };
 
-Bot.prototype.channel_message = function(from, to, text, message) {
+Client.prototype.channel_message = function(from, to, text, message) {
     if (text.indexOf('!') == 0) {
         // respond to commands in channel starting with !        
         text = text.replace('!', '');
@@ -172,11 +171,13 @@ Bot.prototype.channel_message = function(from, to, text, message) {
     }
 };
 
-var client = new Bot(config.config.server, config.config.botName, {
+var client = new Client(config.config.server, config.config.botName, {
     channels: config.config.channels,
     userName: config.config.userName,
     realName: config.config.realName
 });
+
+// tack sns polling onto client
 
 client.defaultEventAction = function(body) {
 };
