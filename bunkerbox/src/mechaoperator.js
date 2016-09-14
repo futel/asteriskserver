@@ -20,7 +20,12 @@ var info = new info_mod.Info();
 
 function Bot(server, nick, opt) {
     irc.Client.call(this, server, nick, opt);
+    // respond to commands in pm
+    this.addListener("pm", this.pm);
+    // respond to talking in channels
+    this.addListener("message#", this.channel_message);
 }
+
 util.inherits(Bot, irc.Client);
 
 Bot.prototype.sayOrSay = function(from, to, text) {
@@ -172,11 +177,6 @@ var client = new Bot(config.config.server, config.config.botName, {
     userName: config.config.userName,
     realName: config.config.realName
 });
-
-// // respond to commands in pm, or error message
-client.addListener("pm", client.pm);
-// respond to talking in channels
-client.addListener("message#", client.channel_message);
 
 client.defaultEventAction = function(body) {
 };
