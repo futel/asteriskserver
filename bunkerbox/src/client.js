@@ -14,7 +14,7 @@ function Client(server, nick, opt, noisyChannels, dbFileName) {
     // respond to commands in pm
     this.addListener("pm", this.pm);
     // respond to talking in channels
-    this.addListener("message#", this.channel_message);
+    this.addListener("message#", this.channelMessage);
 }
 
 util.inherits(Client, irc.Client);
@@ -153,7 +153,7 @@ Client.prototype.pm = function(nick, text, message) {
     }
 };
 
-Client.prototype.channel_message = function(from, to, text, message) {
+Client.prototype.channelMessage = function(from, to, text, message) {
     if (text.indexOf('!') == 0) {
         // respond to commands in channel starting with !        
         text = text.replace('!', '');
