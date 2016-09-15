@@ -7,6 +7,8 @@ var info = new info_mod.Info();
 
 var defaultStatsDays = 60;
 
+var sample = function(arr) { return arr[Math.floor(Math.random() * arr.length)]; }
+
 function Client(server, nick, opt, noisyChannels, dbFileName) {
     irc.Client.call(this, server, nick, opt);    
     this.noisyChannels = noisyChannels;
@@ -126,7 +128,8 @@ Client.prototype.noYoureTalk = function(from, to, text, message) {
         // does message mention me?
         var startString = text.indexOf(this.nick);
         if (startString > -1) {
-            this.sayOrSay(from, to, "yo");
+            var sayings = ['yo', 'hi', 'hello'];
+            this.sayOrSay(from, to, sample(sayings));
         }
     }
 };

@@ -23,4 +23,6 @@ client.say = function(channel, text) {console.log(channel, text)};
 client.pm('from', 'hi', 'message');
 client.channelMessage('from', 'to', '!hi', 'message');
 client.channelMessage('from', 'to', 'nick is foo', {args: ['noisyChannel']});
+client.channelMessage('from', 'to', 'foo nick is bar', {args: ['noisyChannel']});
+client.channelMessage('from', 'to', 'nick foo', {args: ['noisyChannel']});
 client.channelMessage('from', 'to', 'nick foo', {args: ['noisyChannel']});
