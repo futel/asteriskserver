@@ -9,6 +9,8 @@ var defaultStatsDays = 60;
 
 var sample = function(arr) { return arr[Math.floor(Math.random() * arr.length)]; }
 
+var stringIn = function(str1, str2) { return str2.indexOf(str1) > -1; }
+
 function Client(server, nick, opt, noisyChannels, dbFileName) {
     irc.Client.call(this, server, nick, opt);    
     this.noisyChannels = noisyChannels;
@@ -115,21 +117,25 @@ Client.prototype.errorMessage = function(self, from, to, text, message) {
 };
 
 Client.prototype.noYoureTalk = function(from, to, text, message) {
-    // does message call me anything?
-    var findString = this.nick + " is ";
-    var startString = text.indexOf(findString);
-    if (startString > -1) {
+    var self = this;
+    var responses = {};
+    // does message call me anything?    
+    responses[self.nick + ' is'] = function(text) {
         text = text.trim();                           // strip whitespace
         text = text.replace(RegExp('[\.\!\?]+$'), '') // strip punct
-        var outString = text.replace(RegExp('.*' + findString), '');
+        var outString = text.replace(RegExp('.*' + self.nick + ' is '), '');
         outString = "No, " + from + ", you're " + outString + '!';
-        this.sayOrSay(from, to, outString);
-    } else {
-        // does message mention me?
-        var startString = text.indexOf(this.nick);
-        if (startString > -1) {
-            var sayings = ['yo', 'hi', 'hello'];
-            this.sayOrSay(from, to, sample(sayings));
+        self.sayOrSay(from, to, outString);
+    };
+    // does message mention me?
+    responses[self.nick] = function(text) {    
+        var sayings = ['yo', 'hi', 'hello'];
+        self.sayOrSay(from, to, sample(sayings));
+    };
+    for (var key in responses) {
+        if (stringIn(key, text)) {
+            responses[key](text);
+            return;
         }
     }
 };
