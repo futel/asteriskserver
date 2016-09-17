@@ -116,8 +116,26 @@ Client.prototype.errorMessage = function(self, from, to, text, message) {
     self.sayOrSay(from, to, 'Use "help" for help.');
 };
 
+Client.prototype.simpleStrings = function(from, to, text, message) {
+    // simple string to string response
+    var self = this;
+    var responses = {};
+    responses['yes'] = "No.";
+    responses['no'] = "Yes.";
+    responses['maybe'] = "MAYBE?";
+    responses['false'] = "True.";
+    responses['true'] = "False.";    
+    for (var key in responses) {
+        if (key == text) {
+            self.sayOrSay(from, to, responses[key]);
+            return true;
+        }
+    }
+    return null;
+};
+
 Client.prototype.simpleSubstrings = function(from, to, text, message) {
-    // simple substring to string response for less boilerplate
+    // simple substring to string response
     var self = this;
     var responses = {};
     // can we say repo man quotes?
@@ -172,6 +190,8 @@ Client.prototype.noYoureTalk = function(from, to, text, message) {
     if (this.simpleSubstrings(from, to, text, message) === true) {
         return;
     } else if (this.substrings(from, to, text, message) === true) {
+        return;
+    } else if (this.simpleStrings(from, to, text, message) === true) {
         return;
     }
 };

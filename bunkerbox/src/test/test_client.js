@@ -65,6 +65,8 @@ client.channelMessage('from', 'to', 'nick is foo', {args: ['noisyChannel']});
 client.channelMessage('from', 'to', 'foo nick is bar', {args: ['noisyChannel']});
 // to Suddenly someone'll say, like, plate, or shrimp, or plate o' shrimp out of the blue, no explanation.
 client.channelMessage('from', 'to', 'foo plate bar', {args: ['noisyChannel']});
+// to Yes.
+client.channelMessage('from', 'to', 'no', {args: ['noisyChannel']});
 // three says of greeting sayings
 client.channelMessage('from', 'to', 'foo nick bar', {args: ['noisyChannel']});
 client.channelMessage('from', 'to', 'foo nick bar', {args: ['noisyChannel']});
