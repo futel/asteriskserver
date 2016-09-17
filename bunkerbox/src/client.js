@@ -129,8 +129,36 @@ Client.prototype.noYoureTalk = function(from, to, text, message) {
     };
     // does message mention me?
     responses[self.nick] = function(text) {    
-        var sayings = ['yo', 'hi', 'hello'];
+        var sayings = ['yo', 'hi', 'hello', '?', 'yes', 'no', ''];
         self.sayOrSay(from, to, sample(sayings));
+    };
+    // can we say repo man quotes?
+    responses['plate'] = function(text) {
+        self.sayOrSay(from, to, "Suddenly someone'll say, like, plate, or shrimp, or plate o' shrimp out of the blue, no explanation.");
+    };
+    responses['shrimp'] = function(text) {
+        self.sayOrSay(from, to, "Suddenly someone'll say, like, plate, or shrimp, or plate o' shrimp out of the blue, no explanation.");
+    };
+    responses['society'] = function(text) {
+        self.sayOrSay(from, to, "Society made me what I am.");
+    };
+    responses['intense'] = function(text) {
+        self.sayOrSay(from, to, "The life of a repo man is always intense.");
+    };
+    responses['tense'] = function(text) {
+        self.sayOrSay(from, to, "A repo man spends his life getting into tense situations.");
+    };
+    responses['society'] = function(text) {
+        self.sayOrSay(from, to, "What about our relationship?");
+    };
+    responses['radiation'] = function(text) {
+        self.sayOrSay(from, to, "You hear the most outrageous lies about it.");
+    };
+    responses['code'] = function(text) {
+        self.sayOrSay(from, to, "Not many people got a code to live by anymore.");
+    };
+    responses['innocent'] = function(text) {
+        self.sayOrSay(from, to, "No one is innocent.");
     };
     for (var key in responses) {
         if (stringIn(key, text)) {
