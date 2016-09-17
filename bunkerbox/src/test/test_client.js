@@ -20,10 +20,31 @@ client.nick = 'nick';
 // patch for testing
 client.say = function(channel, text) {console.log(channel, text)};
 
+
+// test pm commands
+// from Use "help" for help.
+client.pm('from', 'xyzzy', 'message');
 // from Hi from!
 client.pm('from', 'hi', 'message');
+// from available commands:
+// from hi say hello
+// from help get command help
+// from latest [extension [extension...]] get latest events
+// from stats [days [extension]] get event stats
+// from recentbad get recent events
+client.pm('from', 'help', 'message');
+
+// test channel commands
 // to Hi from!
 client.channelMessage('from', 'to', '!hi', 'message');
+// 
+client.channelMessage('from', 'to', '!help', 'message');
+
+// test channel talk responses
+//
+client.channelMessage('from', 'to', 'nick is foo', {args: []});
+//
+client.channelMessage('from', 'to', 'xyzzy', {args: ['noisyChannel']});
 // to No, from, you're foo!
 client.channelMessage('from', 'to', 'nick is foo', {args: ['noisyChannel']});
 // to No, from, you're bar!
@@ -32,4 +53,3 @@ client.channelMessage('from', 'to', 'foo nick is bar', {args: ['noisyChannel']})
 client.channelMessage('from', 'to', 'nick foo', {args: ['noisyChannel']});
 client.channelMessage('from', 'to', 'nick foo', {args: ['noisyChannel']});
 client.channelMessage('from', 'to', 'nick foo', {args: ['noisyChannel']});
-

@@ -143,7 +143,6 @@ Client.prototype.noYoureTalk = function(from, to, text, message) {
 Client.prototype.wordToCommand = function(word) {
     var commands = {
         'hi': this.hi,
-        'help': this.help,
         'stats': this.stats,
         'latest': this.latest,
         'recentbad': this.recentBad
@@ -151,14 +150,30 @@ Client.prototype.wordToCommand = function(word) {
     if (word in commands) {
         return commands[word];
     }
-    return this.errorMessage;
+    return null;
+};
+
+Client.prototype.wordToCommandPm = function(word) {
+    var command = this.wordToCommand(word);
+    if (command === null) {
+        var commands = {    
+            'help': this.help,
+        };
+        if (word in commands) {
+            return commands[word];
+        }
+        return this.errorMessage;        
+    }
+    return command;
 };
 
 Client.prototype.pm = function(nick, text, message) {
     var words = this.textToCommands(text);
     if (words) {
-        var command = this.wordToCommand(words[0]);
-        command(this, nick, null, text, message);
+        var command = this.wordToCommandPm(words[0]);
+            if (command !== null) {
+                command(this, nick, null, text, message);
+            };
     }
 };
 
@@ -169,7 +184,9 @@ Client.prototype.channelMessage = function(from, to, text, message) {
         var words = this.textToCommands(text);
         if (words) {
             var command = this.wordToCommand(words[0]);
-            command(this, from, to, text, message);
+            if (command !== null) {
+                command(this, from, to, text, message);
+            };
         }
     } else if (this.noisyChannels.indexOf(message.args[0]) > -1) {
         // respond to talking in noisychannels
