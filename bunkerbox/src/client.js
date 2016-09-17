@@ -116,7 +116,33 @@ Client.prototype.errorMessage = function(self, from, to, text, message) {
     self.sayOrSay(from, to, 'Use "help" for help.');
 };
 
-Client.prototype.noYoureTalk = function(from, to, text, message) {
+Client.prototype.simpleSubstrings = function(from, to, text, message) {
+    // simple substring to string response for less boilerplate
+    var self = this;
+    var responses = {};
+    // can we say repo man quotes?
+    responses['plate'] = "Suddenly someone'll say, like, plate, or shrimp, or plate o' shrimp out of the blue, no explanation.";
+    responses['shrimp'] = "Suddenly someone'll say, like, plate, or shrimp, or plate o' shrimp out of the blue, no explanation.";
+    responses['society'] = "Society made me what I am.";
+    responses['intense'] = "The life of a repo man is always intense.";
+    responses['tense'] = "A repo man spends his life getting into tense situations.";
+    responses['society'] = "What about our relationship?";
+    responses['radiation'] = "You hear the most outrageous lies about it.";
+    responses['code'] = "Not many people got a code to live by anymore.";
+    responses['innocent'] = "No one is innocent."
+    for (var key in responses) {
+        if (stringIn(key, text)) {
+            self.sayOrSay(from, to, responses[key]);
+            return true;
+        }
+    }
+    return null;
+};
+
+Client.prototype.substrings = function(from, to, text, message) {
+    // substring to response
+    var self = this;
+    var responses = {};
     var self = this;
     var responses = {};
     // does message call me anything?    
@@ -132,39 +158,21 @@ Client.prototype.noYoureTalk = function(from, to, text, message) {
         var sayings = ['yo', 'hi', 'hello', '?', 'yes', 'no', ''];
         self.sayOrSay(from, to, sample(sayings));
     };
-    // can we say repo man quotes?
-    responses['plate'] = function(text) {
-        self.sayOrSay(from, to, "Suddenly someone'll say, like, plate, or shrimp, or plate o' shrimp out of the blue, no explanation.");
-    };
-    responses['shrimp'] = function(text) {
-        self.sayOrSay(from, to, "Suddenly someone'll say, like, plate, or shrimp, or plate o' shrimp out of the blue, no explanation.");
-    };
-    responses['society'] = function(text) {
-        self.sayOrSay(from, to, "Society made me what I am.");
-    };
-    responses['intense'] = function(text) {
-        self.sayOrSay(from, to, "The life of a repo man is always intense.");
-    };
-    responses['tense'] = function(text) {
-        self.sayOrSay(from, to, "A repo man spends his life getting into tense situations.");
-    };
-    responses['society'] = function(text) {
-        self.sayOrSay(from, to, "What about our relationship?");
-    };
-    responses['radiation'] = function(text) {
-        self.sayOrSay(from, to, "You hear the most outrageous lies about it.");
-    };
-    responses['code'] = function(text) {
-        self.sayOrSay(from, to, "Not many people got a code to live by anymore.");
-    };
-    responses['innocent'] = function(text) {
-        self.sayOrSay(from, to, "No one is innocent.");
-    };
     for (var key in responses) {
         if (stringIn(key, text)) {
             responses[key](text);
-            return;
+            return true;
         }
+    }
+    return null;
+};
+
+Client.prototype.noYoureTalk = function(from, to, text, message) {
+    // respond to channel talking
+    if (this.simpleSubstrings(from, to, text, message) === true) {
+        return;
+    } else if (this.substrings(from, to, text, message) === true) {
+        return;
     }
 };
 
