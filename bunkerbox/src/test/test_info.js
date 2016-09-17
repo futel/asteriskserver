@@ -15,3 +15,11 @@ info.latest(
     function(result) {
         result.map(function (line) { console.log(line); });
     });
+
+info.stats(
+    config.config.dbFileName,
+    null,
+    null,
+    function(result) {
+        result.map(function (line) { console.log(line); });
+    });
