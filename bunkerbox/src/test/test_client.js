@@ -34,17 +34,31 @@ client.pm('from', 'hi', 'message');
 // from recentbad get recent events
 client.pm('from', 'help', 'message');
 
-// test channel commands
+// test channel bang commands
+//
+client.channelMessage('from', 'to', '!xyzzy', 'message');
 // to Hi from!
 client.channelMessage('from', 'to', '!hi', 'message');
 // 
 client.channelMessage('from', 'to', '!help', 'message');
+
+// test channel talk commands addressed to nick
+//
+client.channelMessage('from', 'to', 'nick: xyzzy', {args: []});
+// to Hi from!
+client.channelMessage('from', 'to', 'nick: hi', {args: []});
+// 
+client.channelMessage('from', 'to', 'nick: help', {args: []});
 
 // test channel talk responses
 //
 client.channelMessage('from', 'to', 'nick is foo', {args: []});
 //
 client.channelMessage('from', 'to', 'xyzzy', {args: ['noisyChannel']});
+//
+client.channelMessage('from', 'to', 'hi', {args: ['noisyChannel']});
+//
+client.channelMessage('from', 'to', 'help', {args: ['noisyChannel']});
 // to No, from, you're foo!
 client.channelMessage('from', 'to', 'nick is foo', {args: ['noisyChannel']});
 // to No, from, you're bar!

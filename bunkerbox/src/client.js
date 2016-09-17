@@ -188,6 +188,16 @@ Client.prototype.channelMessage = function(from, to, text, message) {
                 command(this, from, to, text, message);
             };
         }
+    } else if (text.indexOf(this.nick + ':') == 0) {
+        // respond to commands in channel starting with channel hails
+        text = text.replace(this.nick + ':', '');
+        var words = this.textToCommands(text);
+        if (words) {
+            var command = this.wordToCommand(words[0]);
+            if (command !== null) {
+                command(this, from, to, text, message);
+            };
+        }
     } else if (this.noisyChannels.indexOf(message.args[0]) > -1) {
         // respond to talking in noisychannels
         this.noYoureTalk(from, to, text, message);        
