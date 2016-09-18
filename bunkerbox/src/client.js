@@ -19,6 +19,7 @@ function Client(server, nick, opt, noisyChannels, dbFileName) {
     this.addListener("pm", this.pm);
     // respond to talking in channels
     this.addListener("message#", this.channelMessage);
+    this.resetThrottle();
 }
 
 util.inherits(Client, irc.Client);
@@ -185,8 +186,23 @@ Client.prototype.substrings = function(from, to, text, message) {
     return null;
 };
 
+Client.prototype.sinceThrottle = function() {
+    var tenMinutes = 1000 * 10;
+    if ((new Date() - this.throttleDate) < tenMinutes) {
+        return false;
+    }
+    this.resetThrottle();
+    return true;
+};
+Client.prototype.resetThrottle = function() {
+    this.throttleDate = new Date();
+};
+
 Client.prototype.noYoureTalk = function(from, to, text, message) {
     // respond to channel talking
+    if (!this.sinceThrottle()) {
+        return;
+    }
     if (this.simpleSubstrings(from, to, text, message) === true) {
         return;
     } else if (this.substrings(from, to, text, message) === true) {
