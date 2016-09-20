@@ -29,8 +29,10 @@
     src: src/clock
     dest: /etc/sysconfig/clock
     force: yes
-- name: update current time with ntpd
-  shell: ntpd -g -q
+- name: start ntpd
+  service:
+    name: ntpd
+    state: started
 - name: enable ntpd service
   service:
     name: ntpd
