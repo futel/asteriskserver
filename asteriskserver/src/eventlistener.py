@@ -9,6 +9,8 @@ import functools
 import time
 import socket
 import json
+import logging
+import sys
 
 import boto3
 from asterisk import manager
@@ -20,6 +22,8 @@ asterisk_user = "futel"
 # aws config
 aws_region_name = 'us-west-2'
 
+logging.basicConfig(stream=sys.stdout, level=logging.INFO)
+
 def event_to_message(event):
     return json.dumps(
         {'hostname': socket.gethostname(),
@@ -27,6 +31,7 @@ def event_to_message(event):
 
 def handle_interesting_event(event, manager, snsclient):
     message = event_to_message(event)
+    logging.info('publishing %s' % message)
     response = snsclient.publish(
         TopicArn=eventlistenerconf.aws_arn, Message=message)
 
@@ -55,26 +60,32 @@ def get_manager():
     amanager.register_event('*', misc_event_handler)
     return amanager
 
-amanager = get_manager()
-while True:
-    try:
-        if not amanager.connected():
-            raise Exception
-        _response = amanager.mailbox_count(1337)
-        print '.',
-    except Exception as exc:
-        print 'xxx', exc
+def main():
+    logging.info('starting')
+    amanager = get_manager()
+    while True:
         try:
-            amanager.logoff()
+            if not amanager.connected():
+                logging.info('not connected')
+                raise Exception
+            _response = amanager.mailbox_count(1337)
+            logging.debug('.')
         except Exception as exc:
-            print 'xxx', exc
-        try:
-            amanager.close()
-        except Exception as exc:
-            print 'xxx', exc
-        try:
-            amanager = get_manager()
-        except Exception as exc:
-            print 'xxx', exc
-    finally:
-        time.sleep(60)
+            try:
+                logging.info(str(exc))
+                amanager.logoff()
+            except Exception as exc:
+                logging.info(str(exc))
+            try:
+                amanager.close()
+            except Exception as exc:
+                logging.info(str(exc))
+            try:
+                amanager = get_manager()
+            except Exception as exc:
+                logging.info(str(exc))
+        finally:
+            time.sleep(60)
+
+if __name__ == "__main__":
+    main()
