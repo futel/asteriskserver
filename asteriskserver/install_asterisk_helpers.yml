@@ -42,17 +42,20 @@
     owner: asterisk
     group: asterisk
     mode: "a+x"    
-- name: install event conf which is local or has secrets
+- name: install event listener conf which is local or has secrets
   copy:
     src: conf/eventlistenerconf.{{ version }}.py
     dest: /opt/futel/src/eventlistenerconf.py
     owner: asterisk
     group: asterisk
-# XXX need a real daemon or supervisord, this doesn't restart
-- name: add eventlistener to rc.local
-  lineinfile:
-    dest: /etc/rc.d/rc.local
-    line: "su -s /bin/bash nobody -c '/opt/futel/src/eventlistener.py &'"
-# XXX this isn't happy, for now we will just reboot
-#- name: run rc.local
-#  command: "nohup /etc/rc.d/rc.local &"
+- name: set up supervisord conf
+  copy:
+    src: src/supervisord.conf
+    dest: /etc/supervisord.conf
+    owner: root
+    group: root
+# enable but do not yet start supervisord
+- name: enable supervisord service
+  service:
+    name: supervisord
+    enabled: yes
