@@ -19,6 +19,8 @@ npm install async-polling
 npm install aws-sdk
 npm install q
 npm install sqlite3
+npm install mocha
+npm install sinon
 
 # in screen session
 cd /opt/futel/src
