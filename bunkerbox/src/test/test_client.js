@@ -102,33 +102,66 @@ describe('main', function() {
             });
         });
     });
+
+    describe('talk in channel', function() {
+        describe('unknown', function() {
+            it('should not respond in non-noisy channel', function() {
+                client.channelMessage(
+                    'from', 'to', 'nick is foo', {args: []});
+                assert.equal(false, client.say.called);
+            });
+        });
+        describe('unknown', function() {
+            it('should not respond to unknown talk', function() {
+                client.channelMessage(
+                    'from', 'to', 'xyzzy', {args: ['noisyChannel']});
+                assert.equal(false, client.say.called);
+            });
+        });
+        describe('unknown', function() {
+            it('should not respond to command without hail or bang',
+               function() {
+                   client.channelMessage(
+                       'from', 'to', 'hi', {args: ['noisyChannel']});
+                   assert.equal(false, client.say.called);
+               });
+        });
+        describe('nick is', function() {
+            it('should respond to nick is', function() {
+                client.channelMessage(
+                    'from', 'to', 'nick is foo', {args: ['noisyChannel']});
+                testOneSay(client, 'to', "No, from, you're foo!");
+            });
+        });
+        describe('nick is', function() {
+            it('should respond to nick is', function() {
+                client.channelMessage(
+                    'from', 'to', 'foo nick is bar', {args: ['noisyChannel']});
+                testOneSay(client, 'to', "No, from, you're bar!");
+            });
+        });
+        describe('plate', function() {
+            it('should respond to plate', function() {
+                client.channelMessage(
+                    'from', 'to', 'foo plate bar', {args: ['noisyChannel']});
+                testOneSay(client, 'to', "Suddenly someone'll say, like, plate, or shrimp, or plate o' shrimp out of the blue, no explanation.");
+            });
+        });
+        describe('timeout', function() {
+            it('should not respond again before timeout', function() {
+                client.channelMessage(
+                    'from', 'to', 'nick is foo', {args: ['noisyChannel']});
+                testOneSay(client, 'to', "No, from, you're foo!");
+                client.channelMessage(
+                    'from', 'to', 'nick is bar', {args: ['noisyChannel']});
+                // still only one say
+                testOneSay(client, 'to', "No, from, you're foo!");
+            });
+        });
+        
+
+    });
    
     
 });
 
-// // test channel talk responses
-// //
-// getClient().channelMessage('from', 'to', 'nick is foo', {args: []});
-// //
-// getClient().channelMessage('from', 'to', 'xyzzy', {args: ['noisyChannel']});
-// //
-// getClient().channelMessage('from', 'to', 'hi', {args: ['noisyChannel']});
-// //
-// getClient().channelMessage('from', 'to', 'help', {args: ['noisyChannel']});
-// // to No, from, you're foo!
-// getClient().channelMessage('from', 'to', 'nick is foo', {args: ['noisyChannel']});
-// // to No, from, you're bar!
-// getClient().channelMessage('from', 'to', 'foo nick is bar', {args: ['noisyChannel']});
-// // to Suddenly someone'll say, like, plate, or shrimp, or plate o' shrimp out of the blue, no explanation.
-// getClient().channelMessage('from', 'to', 'foo plate bar', {args: ['noisyChannel']});
-// // to Yes.
-// getClient().channelMessage('from', 'to', 'no', {args: ['noisyChannel']});
-// // three says of greeting sayings
-// getClient().channelMessage('from', 'to', 'foo nick bar', {args: ['noisyChannel']});
-// getClient().channelMessage('from', 'to', 'foo nick bar', {args: ['noisyChannel']});
-// getClient().channelMessage('from', 'to', 'foo nick bar', {args: ['noisyChannel']});
-// var client = getClient();
-// // to No, from, you're bar!
-// client.channelMessage('from', 'to', 'foo nick is bar', {args: ['noisyChannel']});
-// //
-// client.channelMessage('from', 'to', 'foo nick is bar', {args: ['noisyChannel']});
