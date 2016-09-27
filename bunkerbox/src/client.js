@@ -9,7 +9,10 @@ var defaultStatsDays = 60;
 
 var sample = function(arr) { return arr[Math.floor(Math.random() * arr.length)]; }
 
-var stringIn = function(str1, str2) { return str2.indexOf(str1) > -1; }
+var stringIn = function(str1, str2) {
+    // return True if str1 is in str2
+    return str2.indexOf(str1) > -1;
+}
 
 function Client(server, nick, opt, noisyChannels, dbFileName) {
     irc.Client.call(this, server, nick, opt);    
@@ -23,6 +26,10 @@ function Client(server, nick, opt, noisyChannels, dbFileName) {
 }
 
 util.inherits(Client, irc.Client);
+
+Client.prototype.date = function() {
+    return new Date();
+};
 
 Client.prototype.sayOrSay = function(from, to, text) {
     if (to === null) {
@@ -125,7 +132,9 @@ Client.prototype.simpleStrings = function(from, to, text, message) {
     responses['no'] = "Yes.";
     responses['maybe'] = "MAYBE?";
     responses['false'] = "True.";
-    responses['true'] = "False.";    
+    responses['true'] = "False.";
+    text = text.toLowerCase();
+    text = text.replace(/[^\w]/g,'');
     for (var key in responses) {
         if (key == text) {
             self.sayOrSay(from, to, responses[key]);
@@ -164,6 +173,12 @@ Client.prototype.substrings = function(from, to, text, message) {
     var responses = {};
     var self = this;
     var responses = {};
+    // is message greeting the morning?
+    responses['morning'] = function(text) {
+        if (self.date().getHours() < 12) {
+            self.sayOrSay(from, to, "Morning.");
+        }
+    };
     // does message call me anything?    
     responses[self.nick + ' is'] = function(text) {
         text = text.trim();                           // strip whitespace
@@ -203,6 +218,7 @@ Client.prototype.noYoureTalk = function(from, to, text, message) {
     if (!this.sinceThrottle()) {
         return;
     }
+    text = text.toLowerCase();
     if (this.simpleSubstrings(from, to, text, message) === true) {
         return;
     } else if (this.substrings(from, to, text, message) === true) {

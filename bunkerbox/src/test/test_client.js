@@ -9,7 +9,7 @@ var getClient = function() {
     // disable first throttle
     client.throttleDate = new Date() - 10 * 1000;
     // patch for testing
-    sinon.spy(client, "say");
+    client.say = sinon.spy();
     return client;
 }
 
@@ -134,9 +134,23 @@ describe('main', function() {
             });
         });
         describe('nick is', function() {
-            it('should respond to nick is', function() {
+            it('should respond to nick is with surrounding text', function() {
                 client.channelMessage(
-                    'from', 'to', 'foo nick is bar', {args: ['noisyChannel']});
+                    'from', 'to', 'foo nick is bar...', {args: ['noisyChannel']});
+                testOneSay(client, 'to', "No, from, you're bar!");
+            });
+        });
+        describe('nick is', function() {
+            it('should respond to nick is with capitalization', function() {
+                client.channelMessage(
+                    'from', 'to', 'Nick is bar', {args: ['noisyChannel']});
+                testOneSay(client, 'to', "No, from, you're bar!");
+            });
+        });
+        describe('nick is', function() {
+            it('should respond to nick is with capitalization', function() {
+                client.channelMessage(
+                    'from', 'to', 'NICK IS BAR', {args: ['noisyChannel']});
                 testOneSay(client, 'to', "No, from, you're bar!");
             });
         });
@@ -145,6 +159,57 @@ describe('main', function() {
                 client.channelMessage(
                     'from', 'to', 'foo plate bar', {args: ['noisyChannel']});
                 testOneSay(client, 'to', "Suddenly someone'll say, like, plate, or shrimp, or plate o' shrimp out of the blue, no explanation.");
+            });
+        });
+        describe('plate', function() {
+            it('should respond to plate with capitalization', function() {
+                client.channelMessage(
+                    'from', 'to', 'Foo Plate Bar', {args: ['noisyChannel']});
+                testOneSay(client, 'to', "Suddenly someone'll say, like, plate, or shrimp, or plate o' shrimp out of the blue, no explanation.");
+            });
+        });
+        describe('plate', function() {
+            it('should respond to plate with capitalization', function() {
+                client.channelMessage(
+                    'from', 'to', 'Foo PLATE Bar', {args: ['noisyChannel']});
+                testOneSay(client, 'to', "Suddenly someone'll say, like, plate, or shrimp, or plate o' shrimp out of the blue, no explanation.");
+            });
+        });
+        describe('yes', function() {
+            it('should respond to yes', function() {
+                client.channelMessage(
+                    'from', 'to', 'yes', {args: ['noisyChannel']});
+                testOneSay(client, 'to', "No.");
+            });
+        });
+        describe('yes', function() {
+            it('should respond to yes with punctuation', function() {
+                client.channelMessage(
+                    'from', 'to', ' yes??', {args: ['noisyChannel']});
+                testOneSay(client, 'to', "No.");
+            });
+        });
+        describe('yes', function() {
+            it('should respond to yes with capitalization', function() {
+                client.channelMessage(
+                    'from', 'to', 'YES', {args: ['noisyChannel']});
+                testOneSay(client, 'to', "No.");
+            });
+        });
+        describe('morning', function() {
+            it('should respond to a morning greeting if it is morning', function() {
+                client.date = sinon.stub().returns(new Date(2016, 1, 1, 1));
+                client.channelMessage(
+                    'from', 'to', 'foo morning bar', {args: ['noisyChannel']});
+                testOneSay(client, 'to', "Morning.");
+            });
+        });
+        describe('morning', function() {
+            it('should not respond to a morning greeting if it is not morning', function() {
+                client.date = sinon.stub().returns(new Date(2016, 1, 1, 23));
+                client.channelMessage(
+                    'from', 'to', 'foo morning bar', {args: ['noisyChannel']});
+                assert.equal(false, client.say.called);
             });
         });
         describe('timeout', function() {
