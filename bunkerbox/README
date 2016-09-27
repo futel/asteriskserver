@@ -1,3 +1,7 @@
+Install on eurydice:
+
+General:
+
 add local futel user and group: useradd -r futel
 
 copy bin contents to /opt/futel/bin
@@ -7,12 +11,12 @@ have keys in /opt/futel/ssh/id_rsa, owned by futel:futel
 mkdir /opt/futel/stats/prod, owed by futel:futel
 mkdir /opt/futel/backups/prod, owned by futel:futel
 
-backups, metrics:
+Setup backups, metrics:
 
 write futel user's crontab
 0,5,10,15,20,25,30,35,40,45,50,55 * * * * /opt/futel/bin/backup.sh
 
-irc bot:
+Install irc bot:
 
 npm install irc
 npm install async-polling
@@ -22,7 +26,12 @@ npm install sqlite3
 npm install mocha
 npm install sinon
 
+Run irc bot:
+
 # in screen session
 cd /opt/futel/src
 node mechaoperator.js
 
+Test irc bot from src directory:
+
+mocha test/test_client.js
