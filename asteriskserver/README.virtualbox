@@ -18,6 +18,8 @@ vagrant box add test_32 http://developer.nrel.gov/downloads/vagrant-boxes/CentOS
 
 # bulld from test_32
 vagrant up
+vagrant halt
+vagrant up
 vagrant ssh
 # note: do this after every reboot
 sudo service iptables stop
