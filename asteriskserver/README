@@ -1,5 +1,10 @@
 ## Deploy an asterisk server to Digital Ocean
 
+sudo apt-get install python-pip
+sudo apt-get install ansible-playbook
+sudo pip install dopy
+export DO_API_TOKEN=<token>
+
 ## Deploy stage asteriskbox to digital ocean manually
 
 all droplets:
