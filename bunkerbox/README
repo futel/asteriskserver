@@ -23,8 +23,6 @@ npm install async-polling
 npm install aws-sdk
 npm install q
 npm install sqlite3
-npm install mocha
-npm install sinon
 
 Run irc bot:
 
@@ -34,4 +32,6 @@ node mechaoperator.js
 
 Test irc bot from src directory:
 
+npm install mocha
+npm install sinon
 mocha test/test_client.js
