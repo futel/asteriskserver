@@ -12,7 +12,8 @@ var client = new client_mod.Client(
      realName: config.config.realName
     },
     config.config.noisyChannels,
-    config.config.dbFileName);
+    config.config.dbFileName,
+    config.config.botPassword);
 
 var pollerEventMap = {
     'ConfbridgeJoin': client.confbridgeJoinAction,

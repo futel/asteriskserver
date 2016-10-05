@@ -3,7 +3,7 @@ var sinon = require('sinon');
 var client_mod = require('../client');
 
 var getClient = function() {
-    var client = new client_mod.Client('server', 'nick', {}, ['noisyChannel'], 'dbFileName');
+    var client = new client_mod.Client('server', 'nick', {}, ['noisyChannel'], 'dbFileName', 'password');
     // we don't mock the server, which supplies the nick
     client.nick = 'nick';
     // disable first throttle
@@ -45,6 +45,19 @@ describe('main', function() {
             it('should pm hi response', function() {
                 client.pm('from', 'hi', 'message');
                 testOneSay(client, 'from', 'Hi from!');
+            });
+        });
+        describe('die', function() {
+            it('should die with correct password', function() {
+                assert.throws(
+                    function() {
+                        client.pm('from', 'die password', 'message'); },
+                    Error);
+            });
+        });
+        describe('die', function() {
+            it('should not die with incorrect password', function() {
+                client.pm('from', 'die xyzzy', 'message');
             });
         });
         describe('help', function() {

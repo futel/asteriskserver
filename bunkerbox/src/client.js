@@ -14,10 +14,11 @@ var stringIn = function(str1, str2) {
     return str2.indexOf(str1) > -1;
 }
 
-function Client(server, nick, opt, noisyChannels, dbFileName) {
+function Client(server, nick, opt, noisyChannels, dbFileName, botPassword) {
     irc.Client.call(this, server, nick, opt);    
     this.noisyChannels = noisyChannels;
     this.dbFileName = dbFileName;
+    this.botPassword = botPassword;
     // respond to commands in pm
     this.addListener("pm", this.pm);
     // respond to talking in channels
@@ -82,6 +83,22 @@ Client.prototype.help = function(self, from, to, text, message) {
 
 Client.prototype.textToCommands = function(text) {
     return text.trim().split(/\s+/);
+};
+
+Client.prototype.passwordMatch = function(text) {
+    var words = this.textToCommands(text);
+    if (words[1] == this.botPassword) {
+        return true;
+    }
+    this.log('passwordMatch failed');
+    return false;
+};
+
+Client.prototype.die = function(self, from, to, text, message) {
+    if (self.passwordMatch(text)) {
+        self.log('dying');
+        throw new Error('dying');
+    }
 };
 
 Client.prototype.stats = function(self, from, to, text, message) {
@@ -255,7 +272,9 @@ Client.prototype.wordToCommand = function(word) {
 Client.prototype.wordToCommandPm = function(word) {
     var command = this.wordToCommand(word);
     if (command === null) {
-        var commands = {    
+        // add additional commands only available in pm
+        var commands = {
+            'die': this.die,
             'help': this.help,
         };
         if (word in commands) {
