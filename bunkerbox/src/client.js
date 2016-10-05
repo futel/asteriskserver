@@ -203,7 +203,12 @@ Client.prototype.substrings = function(from, to, text, message) {
     // is message greeting the morning?
     responses['morning'] = function(text) {
         if (self.date().getHours() < 12) {
-            self.sayOrSay(from, to, "Morning.");
+            var sayings = [
+                'Morning.', 'Morning!', 'MORNING',
+                'Good morning.', 'Good morning!', 'GOOD MORNING',
+                'Guten morgen.', 'GUTEN MORGEN',
+                'QAPLA'];
+            self.sayOrSay(from, to, sample(sayings));
         }
     };
     // does message call me anything?    
