@@ -221,6 +221,10 @@ describe('main', function() {
                     'from', 'to', 'nick is bar', {args: ['noisyChannel']});
                 // still only one say
                 testOneSay(client, 'to', "No, from, you're foo!");
+                client.channelMessage(
+                    'from', 'to', 'morning', {args: ['noisyChannel']});
+                // still only one say
+                testOneSay(client, 'to', "No, from, you're foo!");
             });
         });
         

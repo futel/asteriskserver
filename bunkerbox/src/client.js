@@ -27,24 +27,34 @@ function Client(server, nick, opt, noisyChannels, dbFileName) {
 
 util.inherits(Client, irc.Client);
 
+Client.prototype.log = function() {
+    var args = [new Date()].concat(Array.from(arguments));
+    console.log(args);
+};
+
 Client.prototype.date = function() {
     return new Date();
 };
 
+Client.prototype.doSay = function(to, text) {
+    this.log('say', to, text);
+    this.say(to, text);
+}
+
 Client.prototype.sayOrSay = function(from, to, text) {
     if (to === null) {
         // pm
-        this.say(from, text);
+        this.doSay(from, text);
     } else {
         // channel command
-        this.say(to, text);
+        this.doSay(to, text);
     }
 };
 
 Client.prototype.noisySay = function(text) {
     try {
         this.noisyChannels.forEach(function(channel) {
-            this.say(channel, text);
+            this.doSay(channel, text);
         });
     }
     catch (e) {
@@ -216,6 +226,7 @@ Client.prototype.resetThrottle = function() {
 Client.prototype.noYoureTalk = function(from, to, text, message) {
     // respond to channel talking
     if (!this.sinceThrottle()) {
+        this.log('throttling');        
         return;
     }
     text = text.toLowerCase();
