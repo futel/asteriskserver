@@ -181,9 +181,10 @@ Client.prototype.simpleSubstrings = function(from, to, text, message) {
     responses['society'] = "Society made me what I am.";
     responses['intense'] = "The life of a repo man is always intense.";
     responses['tense'] = "A repo man spends his life getting into tense situations.";
-    responses['society'] = "What about our relationship?";
+    responses['relationship'] = "What about our relationship?";
     responses['radiation'] = "You hear the most outrageous lies about it.";
     responses['code'] = "Not many people got a code to live by anymore.";
+    responses['innocence'] = "No one is innocent."
     responses['innocent'] = "No one is innocent."
     for (var key in responses) {
         if (stringIn(key, text)) {
@@ -207,6 +208,7 @@ Client.prototype.substrings = function(from, to, text, message) {
                 'Morning.', 'Morning!', 'MORNING',
                 'Good morning.', 'Good morning!', 'GOOD MORNING',
                 'Guten morgen.', 'GUTEN MORGEN',
+                'Young Dawn has spread her fingertips of rose.',
                 'QAPLA'];
             self.sayOrSay(from, to, sample(sayings));
         }
@@ -221,7 +223,9 @@ Client.prototype.substrings = function(from, to, text, message) {
     };
     // does message mention me?
     responses[self.nick] = function(text) {    
-        var sayings = ['yo', 'hi', 'hello', '?', 'yes', 'no', ''];
+        var sayings = [
+            'Yo.', 'Hi.', 'Hello.', 'Hej.', 'Qapla!',
+            '?', '!', 'Yes.', 'No.', ''];
         self.sayOrSay(from, to, sample(sayings));
     };
     for (var key in responses) {
