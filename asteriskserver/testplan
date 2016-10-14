@@ -80,4 +80,5 @@ can call operator voicemail
 
 logs are generated
 metrics are generated
-events are generated
+eventlistener logs are generated
+events are received by irc bot

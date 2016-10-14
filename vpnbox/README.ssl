@@ -10,7 +10,6 @@ source ./vars
 # some of these are interactive, can we set up args beforehand?
 ./build-ca
 ./build-key-server server
-cd keys
 cp keys/ca.crt keys/ca.key keys/dh1024.pem keys/server.crt keys/server.csr keys/server.key ~/Documents/futel-installation/vpnbox/conf/
 
 # set up client with creds named 'client-foo', do this for each client
