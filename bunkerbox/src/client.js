@@ -205,10 +205,10 @@ Client.prototype.substrings = function(from, to, text, message) {
     responses['morning'] = function(text) {
         if (self.date().getHours() < 12) {
             var sayings = [
-                'Morning.', 'Morning!', 'MORNING',
+                'MORNING', 'MORNING', 'MORNING', 'MORNING', 'MORNING',
+                'Morning.', 'Morning!',
                 'Good morning.', 'Good morning!', 'GOOD MORNING',
                 'Guten morgen.', 'GUTEN MORGEN',
-                'Young Dawn has spread her fingertips of rose.',
                 'QAPLA'];
             self.sayOrSay(from, to, sample(sayings));
         }
