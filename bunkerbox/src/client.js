@@ -238,8 +238,8 @@ Client.prototype.substrings = function(from, to, text, message) {
 };
 
 Client.prototype.sinceThrottle = function() {
-    var tenMinutes = 1000 * 10;
-    if ((new Date() - this.throttleDate) < tenMinutes) {
+    var fiveMinutes = 1000 * 60 * 5;
+    if ((new Date() - this.throttleDate) < fiveMinutes) {
         return false;
     }
     this.resetThrottle();

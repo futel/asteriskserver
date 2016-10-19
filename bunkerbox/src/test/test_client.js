@@ -7,7 +7,7 @@ var getClient = function() {
     // we don't mock the server, which supplies the nick
     client.nick = 'nick';
     // disable first throttle
-    client.throttleDate = new Date() - 10 * 1000;
+    client.throttleDate = new Date() - 1000 * 60 * 10;
     // patch for testing
     client.say = sinon.spy();
     return client;
@@ -36,7 +36,11 @@ describe('main', function() {
     var client = null;
 
     beforeEach(function() {
+        this.clock = sinon.useFakeTimers();
         client = getClient();
+    });
+    afterEach(function() {
+        this.clock.restore();
     });
 
     describe('pm', function() {
@@ -63,6 +67,11 @@ describe('main', function() {
         describe('die', function() {
             it('should not die with incorrect password', function() {
                 client.pm('from', 'die xyzzy', 'message');
+            });
+        });
+        describe('die', function() {
+            it('should not die without password', function() {
+                client.pm('from', 'die', 'message');
             });
         });
         describe('help', function() {
@@ -233,17 +242,43 @@ describe('main', function() {
         });
         describe('timeout', function() {
             it('should not respond again before timeout', function() {
+                // talk to channel
                 client.channelMessage(
                     'from', 'to', 'nick is foo', {args: ['noisyChannel']});
                 testOneSay(client, 'to', "No, from, you're foo!");
+
+                // advance one second
+                this.clock.tick(1000);
+                // talk to channel                
                 client.channelMessage(
                     'from', 'to', 'nick is bar', {args: ['noisyChannel']});
                 // still only one say
                 testOneSay(client, 'to', "No, from, you're foo!");
+
+                // advance one second
+                this.clock.tick(1000);
+                // talk to channel                
                 client.channelMessage(
-                    'from', 'to', 'morning', {args: ['noisyChannel']});
+                    'from', 'to', 'nick is baz', {args: ['noisyChannel']});
                 // still only one say
                 testOneSay(client, 'to', "No, from, you're foo!");
+
+                // advance 6 minutes
+                this.clock.tick(1000 * 60 * 6);
+                // talk to channel
+                client.channelMessage(
+                    'from', 'to', 'nick is qux', {args: ['noisyChannel']});
+                // two says                
+                testSays(client, 'to', ["No, from, you're foo!", "No, from, you're qux!"]);
+
+                // advance one second
+                this.clock.tick(1000);
+                // talk to channel
+                client.channelMessage(
+                    'from', 'to', 'nick is quux', {args: ['noisyChannel']});
+                // still two says                
+                testSays(client, 'to', ["No, from, you're foo!", "No, from, you're qux!"]);
+                
             });
         });
         
