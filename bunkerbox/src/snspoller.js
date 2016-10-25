@@ -72,6 +72,8 @@ function Poller(sqsUrl, awsAkey, awsSecret, eventHostname, client) {
 }
 
 Poller.prototype.defaultEventAction = function(body) {
+    console.log('xxx');
+    console.log(body);
 };
 Poller.prototype.confbridgeJoinAction = function(body) {
     this.client.noisySay('Voice conference joined');
