@@ -3,10 +3,13 @@
 ## Deploy stage asteriskbox to digital ocean manually
 
 all droplets:
+image CentOS 6.8 x32
 hostname futel-stage
 size smallest
 region San Francisco 1
 ssh key (personal key)
+
+create droplet
 
 create or replace A record for new futel-stage
 wait for DNS to propagate
@@ -16,7 +19,6 @@ create or check out release branch
 SSH into prod to find out what conf version is being used:
 ssh -F src/ssh_config futel-prod.phu73l.net 'grep "foo\|bar" /opt/asterisk/etc/asterisk/sip_callcentric.conf'
 
-create droplet from image CentOS 6.8 x32
 ansible-playbook -i hosts baseinstall_playbook.yml --extra-vars conf_version=<conf version not used by prod>
 ansible-playbook -i hosts secure_playbook.yml
 src/promote_stage.sh futel-stage.phu73l.net
