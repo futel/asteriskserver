@@ -23,7 +23,6 @@ ansible-playbook -i hosts baseinstall_playbook.yml --extra-vars conf_version=<co
 ansible-playbook -i hosts secure_playbook.yml
 src/promote_stage.sh futel-stage.phu73l.net
 ssh -F src/ssh_config futel-stage.phu73l.net 'sudo halt'
-create snapshot
 start droplet
 
 if testplan has changed since last release branch, update google sheet testplan,
@@ -60,4 +59,3 @@ test that futel-prod incoming calls to extensions work or get channel unavailabl
 remove snapshots of futel-prod-back except for most recent
 test that futel-prod incoming calls to extensions work (may take time)
 destroy droplet futel-prod-back
-remove snapshots of futel-stage
