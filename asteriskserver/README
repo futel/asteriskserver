@@ -27,7 +27,7 @@ create snapshot
 start droplet
 
 if testplan has changed since last release branch, update google sheet testplan,
-keeping dates of completed tests
+keeping dates of nonupdated completed tests
 test stage against google sheet testplan
 
 ## promote stage to prod
@@ -52,11 +52,11 @@ futel-prod conf_version
 wait for DNS to propagate
 stop asterisk on futel-prod-back
   sudo service asterisk stop
+halt futel-prod-back
+make a snapshot of futel-prod-back
 test that futel-prod outgoing calls work
 test that futel-prod incoming call to incoming line works
 test that futel-prod incoming calls to extensions work or get channel unavailable
-make a snapshot of futel-prod-back
-halt futel-prod-back
 remove snapshots of futel-prod-back except for most recent
 test that futel-prod incoming calls to extensions work (may take time)
 destroy droplet futel-prod-back

@@ -40,7 +40,7 @@ outgoing call does not time out when calling canned number when configured
 
 incoming call to oskar calls oskar phone
 incoming call to oskar indoors calls oskar indoors phone
-incoming call to ctrlh gets incoming menu
+incoming call to garth gets garth phone
 incoming call to r2d2 calls r2d2 phone
 incoming call to incoming line gets incoming menu
 incoming call with disconnected device does the right thing
