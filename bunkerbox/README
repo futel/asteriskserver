@@ -18,6 +18,7 @@ write futel user's crontab
 
 Install irc bot:
 
+cd /opt/futel/src
 npm install irc
 npm install async-polling
 npm install aws-sdk
