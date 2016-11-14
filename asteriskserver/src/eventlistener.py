@@ -22,7 +22,10 @@ asterisk_user = "futel"
 # aws config
 aws_region_name = 'us-west-2'
 
-logging.basicConfig(stream=sys.stdout, level=logging.INFO)
+logging.basicConfig(
+    stream=sys.stdout,
+    level=logging.INFO,
+    format='%(asctime)s %(message)s')
 
 def event_to_message(event):
     return json.dumps(
