@@ -48,9 +48,7 @@ simultaneous incoming calls do the right thing (probably not call waiting)
 
 can call one extension from another using internal dialtone
 
-can run through all outgoing menus and submenus
-can run through incoming menu and submenus
-
+outgoing operator:
 calling operator plays intro, then music while operators are called
 calling operator dials all operators
 answering operator call plays operator menu
@@ -67,18 +65,34 @@ caller gets hangup after call with operator ends
 operator can transfer caller to outgoing-menu using #999
 operator can transfer caller using outgoing-dialtone #998+number
 
+outgoing voicemail:
 can create voicemail box, leave voicemail, check voicemail, hear voicemail info
 can attempt to check, leave voicemail for invalid mailbox
+
+incoming voicemail:
+can leave voicemail, check voicemail, hear voicemail info
+
+outgoing directory:
 can call each directory number
+
+outgoing utilities:
 can call each utility number
+
+outgoing and incoming conference:
 can visit futel voice conference, hear hold music
 can visit futel voice conference, operate menu, get menu options
-can visit wildcard line, leave message
-can hear futel info
+
+outgoing wildcard line:
+can hear all episodes of wildcard line
+can leave wildcard line message
+
+incoming operator:
+can call operator voicemail
+
+incoming wildcard line:
+can hear all episodes of wildcard line
 
 can record statements
-
-can call operator voicemail
 
 logs are generated
 metrics are generated
