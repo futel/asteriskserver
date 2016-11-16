@@ -278,6 +278,17 @@ describe('main', function() {
                     'from', 'to', 'nick is quux', {args: ['noisyChannel']});
                 // still two says                
                 testSays(client, 'to', ["No, from, you're foo!", "No, from, you're qux!"]);
+                // talk to channel for other responses
+                client.channelMessage(
+                    'from', 'to', 'foo plate bar', {args: ['noisyChannel']});
+                client.channelMessage(
+                    'from', 'to', 'yes', {args: ['noisyChannel']});
+                client.date = sinon.stub().returns(new Date(2016, 1, 1, 1));
+                client.channelMessage(
+                    'from', 'to', 'foo morning bar', {args: ['noisyChannel']});
+                // still two says                
+                testSays(client, 'to', ["No, from, you're foo!", "No, from, you're qux!"]);
+                
                 
             });
         });
