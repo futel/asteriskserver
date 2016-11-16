@@ -50,8 +50,8 @@ futel-prod conf_version
 wait for DNS to propagate
 stop asterisk on futel-prod-back
   sudo service asterisk stop
-halt futel-prod-back
 make a snapshot of futel-prod-back
+halt futel-prod-back
 test that futel-prod outgoing calls work
 test that futel-prod incoming call to incoming line works
 test that futel-prod incoming calls to extensions work or get channel unavailable
