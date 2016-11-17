@@ -1,23 +1,23 @@
 var info_mod = require('../info');
-var config = require('./config-test');
+var dbFileName = 'test/metrics.db'
 
 var info = new info_mod.Info();
 
 info.recentBad(
-    config.config.dbFileName,
+    dbFileName,
     function(result) {
         result.map(function (line) { console.log(line); });
     });
 
 info.latest(
-    config.config.dbFileName,
+    dbFileName,
     null,
     function(result) {
         result.map(function (line) { console.log(line); });
     });
 
 info.stats(
-    config.config.dbFileName,
+    dbFileName,
     null,
     null,
     function(result) {
