@@ -24,6 +24,7 @@ npm install async-polling
 npm install aws-sdk
 npm install q
 npm install sqlite3
+npm install moment
 
 Run irc bot:
 

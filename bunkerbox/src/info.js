@@ -1,6 +1,7 @@
 /* object to emit useful lines of text */
 
 var metrics_util = require('./metrics_util');
+var moment = require('moment');
 
 function Info() {
     var self = this;
@@ -29,8 +30,7 @@ Info.prototype.stats = function(dbFileName, days, extension, callback) {
 
 Info.prototype.metricToString = function(metric) {
     formatTimestamp = function(dateString) {
-        d = new Date(dateString);
-        return d.toLocaleString().slice(4,10) + " " + d.toLocaleString().slice(16,24);
+        return moment(dateString).format('LLL');
     }
     return metric.channel_extension + " " + formatTimestamp(metric.timestamp) + " " + metric.name;
 }
