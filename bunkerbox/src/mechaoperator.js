@@ -15,16 +15,9 @@ var client = new client_mod.Client(
     config.config.dbFileName,
     config.config.botPassword);
 
-var pollerEventMap = {
-    'ConfbridgeJoin': client.confbridgeJoinAction,
-    'ConfbridgeLeave': client.confbridgeLeaveAction,
-    'defaultEventAction': client.defaultEventAction,
-};
-
 var poller = snspoller.Poller(
     secrets.config.sqsUrl,
     secrets.config.awsAkey,
     secrets.config.awsSecret,
     config.config.eventHostname,
-    pollerEventMap,
     client);

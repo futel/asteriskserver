@@ -21,14 +21,12 @@ var receiveMessage = function(sqs, sqsUrl, hostname, eventMap) {
         VisibilityTimeout: 60 // seconds, how long to lock messages
     }, function(err, data) {
         if (err !== null) {
-            console.log('xxx');
             console.log(err);
         } else {
             if (data.Messages !== undefined) {
                 data.Messages.forEach(function(message) {
                     var body = JSON.parse(message.Body);
                     var body = JSON.parse(body.Message);
-                    //console.log(body);                
                     if (body.hostname == hostname) {
                         var fn = eventMap[body.event.Event];
                         if (fn) {
@@ -58,10 +56,20 @@ var poll = function(sqsUrl, akey, secret, hostname, eventMap) {
 };
 
 function Poller(sqsUrl, awsAkey, awsSecret, eventHostname, client) {
+    var defaultEventAction = function(body) {
+        console.log(body);
+    };
+    var confbridgeJoinAction = function(body) {
+        client.noisySay('Voice conference joined');
+    };
+    var confbridgeLeaveAction = function(body) {
+        client.noisySay('Voice conference left');
+    };
+    
     var pollerEventMap = {
-        'ConfbridgeJoin': this.confbridgeJoinAction,
-        'ConfbridgeLeave': this.confbridgeLeaveAction,
-        'defaultEventAction': this.defaultEventAction,
+        'ConfbridgeJoin': confbridgeJoinAction,
+        'ConfbridgeLeave': confbridgeLeaveAction,
+        'defaultEventAction': defaultEventAction,
     };
     poll(
         sqsUrl,
@@ -70,16 +78,5 @@ function Poller(sqsUrl, awsAkey, awsSecret, eventHostname, client) {
         eventHostname,
         pollerEventMap);
 }
-
-Poller.prototype.defaultEventAction = function(body) {
-    console.log('xxx');
-    console.log(body);
-};
-Poller.prototype.confbridgeJoinAction = function(body) {
-    this.client.noisySay('Voice conference joined');
-};
-Poller.prototype.confbridgeLeaveAction = function(body) {
-    this.client.noisySay('Voice conference left');
-};
 
 module.exports = { Poller: Poller };

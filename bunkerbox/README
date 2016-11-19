@@ -37,3 +37,6 @@ Test irc bot from src directory:
 npm install mocha
 npm install sinon
 mocha test/test_client.js
+node test/manual_test_info.js
+cp ../conf/secrets.js secrets.js
+node test/manual_test_snspoller.js
