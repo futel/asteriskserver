@@ -83,7 +83,8 @@ describe('main', function() {
                     'help get command help',
                     'latest [extension [extension...]] get latest events',
                     'stats [days [extension]] get event stats',
-                    'recentbad get recent events'])
+                    'recentbad get recent events',
+                    'peerstatus get recent peer status'])
             });
         });
     });
@@ -105,6 +106,25 @@ describe('main', function() {
             it('should not respond to help command', function() {
                 client.channelMessage('from', 'to', '!help', 'message');
                 assert.equal(false, client.say.called);
+            });
+        });
+        describe('peerStatus', function() {
+            it('should provide an empty peer status', function() {
+                client.channelMessage('from', 'to', '!peerstatus', 'message');
+                testSays(client, 'to', ['Peer statuses:']);
+            });
+        });
+        describe('peerStatus', function() {
+            it('should provide a populated peer status', function() {
+                client.peerStatusAction('SIP/668', 'Registered');
+                client.peerStatusAction('SIP/703', 'Registered');
+                client.peerStatusAction('SIP/703', 'Unreachable');
+                client.channelMessage('from', 'to', '!peerstatus', 'message');
+                testSays(client,
+                         'to',
+                         ['Peer statuses:',
+                          'SIP/668 Registered Wed Dec 31 1969 16:00:00 GMT-0800 (PST)',
+                          'SIP/703 Unreachable Wed Dec 31 1969 16:00:00 GMT-0800 (PST)']);
             });
         });
     });
@@ -292,8 +312,6 @@ describe('main', function() {
                 
             });
         });
-        
-
     });
 });
 

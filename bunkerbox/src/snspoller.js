@@ -57,7 +57,7 @@ var poll = function(sqsUrl, akey, secret, hostname, eventMap) {
 
 function Poller(sqsUrl, awsAkey, awsSecret, eventHostname, client) {
     var defaultEventAction = function(body) {
-        console.log(body);
+        console.log('.');
     };
     var confbridgeJoinAction = function(body) {
         client.noisySay('Voice conference joined');
@@ -65,10 +65,14 @@ function Poller(sqsUrl, awsAkey, awsSecret, eventHostname, client) {
     var confbridgeLeaveAction = function(body) {
         client.noisySay('Voice conference left');
     };
+    var peerStatusAction = function(body) {
+        client.peerStatusAction(body.event.Peer, body.event.PeerStatus);
+    };
     
     var pollerEventMap = {
         'ConfbridgeJoin': confbridgeJoinAction,
         'ConfbridgeLeave': confbridgeLeaveAction,
+        'PeerStatus': peerStatusAction,
         'defaultEventAction': defaultEventAction,
     };
     poll(

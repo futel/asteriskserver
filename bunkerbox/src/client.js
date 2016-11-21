@@ -15,15 +15,17 @@ var stringIn = function(str1, str2) {
 }
 
 function Client(server, nick, opt, noisyChannels, dbFileName, botPassword) {
-    irc.Client.call(this, server, nick, opt);    
     this.noisyChannels = noisyChannels;
     this.dbFileName = dbFileName;
     this.botPassword = botPassword;
+    this.peerStatuses = new Object();
+    this.resetThrottle();
+    
+    irc.Client.call(this, server, nick, opt);        
     // respond to commands in pm
     this.addListener("pm", this.pm);
     // respond to talking in channels
     this.addListener("message#", this.channelMessage);
-    this.resetThrottle();
 }
 
 util.inherits(Client, irc.Client);
@@ -59,9 +61,25 @@ Client.prototype.noisySay = function(text) {
         });
     }
     catch (e) {
-        // XXX not connected yet? Need a connected callback or something.
+        // XXX this is just bad setup order? Other callers of doSay don't catch errors.
+        //     maybe replace with a better global catch to prevent death
     }
 };
+
+Client.prototype.peerStatusAction = function(peer, status) {
+    this.peerStatuses[peer] = {'status': status, 'timestamp': new Date()};
+};
+
+Client.prototype.peerStatus = function(self, from, to, text, message) {
+    self.sayOrSay(from, to, 'Peer statuses:');
+    Object.keys(self.peerStatuses).forEach(function(key) {
+        // key
+        // value.status
+        // value.timestamp
+        self.sayOrSay(from, to, key + ' ' + self.peerStatuses[key].status + ' ' + self.peerStatuses[key].timestamp);
+    });
+};
+
 
 Client.prototype.hi = function(self, from, to, text, message) {
     self.sayOrSay(from, to, 'Hi ' + from + '!');    
@@ -73,7 +91,8 @@ Client.prototype.help = function(self, from, to, text, message) {
                 'help get command help',
                 'latest [extension [extension...]] get latest events',
                 'stats [days [extension]] get event stats',
-                'recentbad get recent events'
+                'recentbad get recent events',
+                'peerstatus get recent peer status'                
                ];
     // should probably only PM back
     for (var line in help) {
@@ -270,7 +289,8 @@ Client.prototype.wordToCommand = function(word) {
         'hi': this.hi,
         'stats': this.stats,
         'latest': this.latest,
-        'recentbad': this.recentBad
+        'recentbad': this.recentBad,
+        'peerstatus': this.peerStatus
     };
     if (word in commands) {
         return commands[word];
