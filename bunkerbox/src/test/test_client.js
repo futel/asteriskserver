@@ -25,11 +25,11 @@ var testOneSay = function(client, to, message) {
 }
 
 var testSays = function(client, to, messages) {
-    assert.equal(client.say.args.length, messages.length);
     client.say.args.forEach(function(arg) {
         assert.equal(arg[0], to);
         assert.equal(arg[1], messages.shift());
     });
+    assert.equal(0, messages.length);
 }
 
 describe('main', function() {
@@ -84,7 +84,8 @@ describe('main', function() {
                     'latest [extension [extension...]] get latest events',
                     'stats [days [extension]] get event stats',
                     'recentbad get recent events',
-                    'peerstatus get recent peer status'])
+                    'peerstatus get recent peer status',
+                    'peerstatusbad get recent bad peer status'])
             });
         });
     });
@@ -109,26 +110,48 @@ describe('main', function() {
             });
         });
         describe('peerStatus', function() {
-            it('should provide an empty peer status', function() {
-                client.channelMessage('from', 'to', '!peerstatus', 'message');
-                testSays(client, 'to', ['Peer statuses:']);
+            describe('empty', function() {            
+                it('should provide an empty peer status', function() {
+                    client.channelMessage('from', 'to', '!peerstatus', 'message');
+                    testSays(client, 'to', ['Peer statuses:']);
+                });
             });
-        });
-        describe('peerStatus', function() {
-            it('should provide a populated peer status', function() {
-                client.peerStatusAction('SIP/668', 'Registered');
-                client.peerStatusAction('SIP/703', 'Registered');
-                client.peerStatusAction('SIP/703', 'Unreachable');
-                client.channelMessage('from', 'to', '!peerstatus', 'message');
+            describe('populated', function() {
+                it('should provide a populated peer status', function() {
+                    client.peerStatusAction('SIP/668', 'Registered');
+                    client.peerStatusAction('SIP/703', 'Registered');
+                    client.peerStatusAction('SIP/703', 'Unreachable');
+                    client.channelMessage('from', 'to', '!peerstatus', 'message');
                 testSays(client,
                          'to',
                          ['Peer statuses:',
                           'SIP/668 Registered Wed Dec 31 1969 16:00:00 GMT-0800 (PST)',
                           'SIP/703 Unreachable Wed Dec 31 1969 16:00:00 GMT-0800 (PST)']);
+                });
             });
-        });
+        });            
+        describe('peerStatusBad', function() {
+            describe('empty', function() {            
+                it('should provide an empty peer status', function() {
+                    client.channelMessage('from', 'to', '!peerstatusbad', 'message');
+                    testSays(client, 'to', ['Peer statuses:']);
+                });
+            });
+            describe('populated', function() {
+                it('should provide a populated peer status', function() {
+                    client.peerStatusAction('SIP/668', 'Unreachable');
+                    client.peerStatusAction('SIP/668', 'Registered');
+                    client.peerStatusAction('SIP/703', 'Registered');
+                    client.peerStatusAction('SIP/703', 'Unreachable');
+                    client.channelMessage('from', 'to', '!peerstatusbad', 'message');
+                testSays(client,
+                         'to',
+                         ['Peer statuses:',
+                          'SIP/703 Unreachable Wed Dec 31 1969 16:00:00 GMT-0800 (PST)']);
+                });
+            });
+        });            
     });
-
     describe('nick hails in channel', function() {
         describe('unknown', function() {
             it('should not respond to unknown hail', function() {

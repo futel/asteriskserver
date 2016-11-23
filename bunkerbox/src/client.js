@@ -72,14 +72,24 @@ Client.prototype.peerStatusAction = function(peer, status) {
 
 Client.prototype.peerStatus = function(self, from, to, text, message) {
     self.sayOrSay(from, to, 'Peer statuses:');
-    Object.keys(self.peerStatuses).forEach(function(key) {
-        // key
-        // value.status
-        // value.timestamp
-        self.sayOrSay(from, to, key + ' ' + self.peerStatuses[key].status + ' ' + self.peerStatuses[key].timestamp);
-    });
+    self.peerStatusStrings(self.peerStatuses).forEach(function(line) {self.sayOrSay(from, to, line);});    
 };
 
+Client.prototype.peerStatusStrings = function(peerStatuses, filterStatuses) {
+    if (filterStatuses === undefined) { filterStatuses = [] }
+        
+    return Object.keys(peerStatuses).filter(
+        function(key) { return !(filterStatuses.indexOf(peerStatuses[key].status) >= 0); }
+    ).map(
+        function(key) {
+            return key + ' ' + peerStatuses[key].status + ' ' + peerStatuses[key].timestamp;
+        });
+};
+
+Client.prototype.peerStatusBad = function(self, from, to, text, message) {
+    self.sayOrSay(from, to, 'Peer statuses:');
+    self.peerStatusStrings(self.peerStatuses, ['Registered']).forEach(function(line) {self.sayOrSay(from, to, line);});
+};
 
 Client.prototype.hi = function(self, from, to, text, message) {
     self.sayOrSay(from, to, 'Hi ' + from + '!');    
@@ -92,7 +102,8 @@ Client.prototype.help = function(self, from, to, text, message) {
                 'latest [extension [extension...]] get latest events',
                 'stats [days [extension]] get event stats',
                 'recentbad get recent events',
-                'peerstatus get recent peer status'                
+                'peerstatus get recent peer status',
+                'peerstatusbad get recent bad peer status'
                ];
     // should probably only PM back
     for (var line in help) {
@@ -290,7 +301,8 @@ Client.prototype.wordToCommand = function(word) {
         'stats': this.stats,
         'latest': this.latest,
         'recentbad': this.recentBad,
-        'peerstatus': this.peerStatus
+        'peerstatus': this.peerStatus,
+        'peerstatusbad': this.peerStatusBad        
     };
     if (word in commands) {
         return commands[word];
