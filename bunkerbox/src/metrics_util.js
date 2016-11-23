@@ -10,7 +10,7 @@ var default_events_ignore = [
     'outgoing-by-extension',
     'default-incoming',
     'outgoing-dialstatus-ANSWER'];
-var default_max_events = 15;
+var default_max_events = 50;
 var defaultFrequentDays = 30;
 var defaultRecentDays = 14;
 
