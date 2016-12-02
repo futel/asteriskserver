@@ -9,7 +9,8 @@ var get_promise = function(value) {
 var default_events_ignore = [
     'outgoing-by-extension',
     'default-incoming',
-    'outgoing-dialstatus-ANSWER'];
+    'outgoing-dialstatus-ANSWER',
+    'outgoing-dialstatus-BUSY'];
 var default_max_events = 50;
 var defaultFrequentDays = 30;
 var defaultRecentDays = 14;
