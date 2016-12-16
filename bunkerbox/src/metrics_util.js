@@ -13,7 +13,7 @@ var default_events_ignore = [
     'outgoing-dialstatus-BUSY'];
 var default_max_events = 50;
 var defaultFrequentDays = 30;
-var defaultRecentDays = 14;
+var defaultRecentDays = 7;
 
 var badEvents = [
     "incoming-dialstatus-CHANUNAVAIL",
