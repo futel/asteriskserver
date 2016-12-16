@@ -1,5 +1,6 @@
 var irc = require('irc');
 var util = require('util');
+var moment = require('moment');
 
 var info_mod = require('./info');
 
@@ -82,7 +83,10 @@ Client.prototype.peerStatusStrings = function(peerStatuses, filterStatuses) {
         function(key) { return !(filterStatuses.indexOf(peerStatuses[key].status) >= 0); }
     ).map(
         function(key) {
-            return key + ' ' + peerStatuses[key].status + ' ' + peerStatuses[key].timestamp;
+            formatTimestamp = function(dateString) {
+                return moment(dateString).format('LLL');
+            }
+            return key + ' ' + peerStatuses[key].status + ' ' + formatTimestamp(peerStatuses[key].timestamp);
         });
 };
 

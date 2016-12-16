@@ -125,8 +125,8 @@ describe('main', function() {
                 testSays(client,
                          'to',
                          ['Peer statuses:',
-                          'SIP/668 Registered Wed Dec 31 1969 16:00:00 GMT-0800 (PST)',
-                          'SIP/703 Unreachable Wed Dec 31 1969 16:00:00 GMT-0800 (PST)']);
+                          'SIP/668 Registered December 31, 1969 4:00 PM',
+                          'SIP/703 Unreachable December 31, 1969 4:00 PM']);
                 });
             });
         });            
@@ -147,7 +147,7 @@ describe('main', function() {
                 testSays(client,
                          'to',
                          ['Peer statuses:',
-                          'SIP/703 Unreachable Wed Dec 31 1969 16:00:00 GMT-0800 (PST)']);
+                          'SIP/703 Unreachable December 31, 1969 4:00 PM']);
                 });
             });
         });            
