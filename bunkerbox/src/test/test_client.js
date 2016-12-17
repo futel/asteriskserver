@@ -119,14 +119,20 @@ describe('main', function() {
             describe('populated', function() {
                 it('should provide a populated peer status', function() {
                     client.peerStatusAction('SIP/668', 'Registered');
+                    this.clock.tick(1000 * 60 * 2);                    
                     client.peerStatusAction('SIP/703', 'Registered');
+                    this.clock.tick(1000 * 60 * 2);                    
                     client.peerStatusAction('SIP/703', 'Unreachable');
+                    this.clock.tick(1000 * 60 * 2);                    
+                    client.peerStatusAction('SIP/704', 'Registered');
+                    
                     client.channelMessage('from', 'to', '!peerstatus', 'message');
                 testSays(client,
                          'to',
                          ['Peer statuses:',
                           'SIP/668 Registered December 31, 1969 4:00 PM',
-                          'SIP/703 Unreachable December 31, 1969 4:00 PM']);
+                          'SIP/703 Unreachable December 31, 1969 4:04 PM',
+                          'SIP/704 Registered December 31, 1969 4:06 PM']);
                 });
             });
         });            
@@ -140,14 +146,20 @@ describe('main', function() {
             describe('populated', function() {
                 it('should provide a populated peer status', function() {
                     client.peerStatusAction('SIP/668', 'Unreachable');
+                    this.clock.tick(1000 * 60 * 2);
                     client.peerStatusAction('SIP/668', 'Registered');
+                    this.clock.tick(1000 * 60 * 2);
                     client.peerStatusAction('SIP/703', 'Registered');
+                    this.clock.tick(1000 * 60 * 2);
                     client.peerStatusAction('SIP/703', 'Unreachable');
+                    this.clock.tick(1000 * 60 * 2);
+                    client.peerStatusAction('SIP/704', 'Unreachable');
                     client.channelMessage('from', 'to', '!peerstatusbad', 'message');
                 testSays(client,
                          'to',
                          ['Peer statuses:',
-                          'SIP/703 Unreachable December 31, 1969 4:00 PM']);
+                          'SIP/703 Unreachable December 31, 1969 4:06 PM',
+                          'SIP/704 Unreachable December 31, 1969 4:08 PM']);
                 });
             });
         });            
