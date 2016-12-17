@@ -41,6 +41,7 @@ def handle_interesting_event(event, manager, snsclient):
 def handle_misc_event(event, manager, snsclient):
     if event.headers.get('AppData') == 'OperatorAttempt':
         return handle_interesting_event(event, manager, snsclient)
+    logging.info('not publishing %s' % event.headers)
 
 def get_manager():
     snsclient = boto3.client(
