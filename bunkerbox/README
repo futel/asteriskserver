@@ -30,7 +30,7 @@ Run irc bot:
 
 # in screen session
 cd /opt/futel/src
-node mechaoperator.js
+node mechaoperator.js | tee mechaoperator.out
 
 Test irc bot from src directory:
 
