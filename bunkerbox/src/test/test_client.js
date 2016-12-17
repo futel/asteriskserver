@@ -130,9 +130,10 @@ describe('main', function() {
                 testSays(client,
                          'to',
                          ['Peer statuses:',
-                          'SIP/668 Registered December 31, 1969 4:00 PM',
+                          'SIP/704 Registered December 31, 1969 4:06 PM',                        
                           'SIP/703 Unreachable December 31, 1969 4:04 PM',
-                          'SIP/704 Registered December 31, 1969 4:06 PM']);
+                          'SIP/668 Registered December 31, 1969 4:00 PM'
+                         ]);
                 });
             });
         });            
@@ -158,8 +159,8 @@ describe('main', function() {
                 testSays(client,
                          'to',
                          ['Peer statuses:',
-                          'SIP/703 Unreachable December 31, 1969 4:06 PM',
-                          'SIP/704 Unreachable December 31, 1969 4:08 PM']);
+                          'SIP/704 Unreachable December 31, 1969 4:08 PM',
+                          'SIP/703 Unreachable December 31, 1969 4:06 PM']);
                 });
             });
         });            

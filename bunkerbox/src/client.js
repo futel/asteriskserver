@@ -81,6 +81,8 @@ Client.prototype.peerStatusStrings = function(peerStatuses, filterStatuses) {
         
     return Object.keys(peerStatuses).filter(
         function(key) { return !(filterStatuses.indexOf(peerStatuses[key].status) >= 0); }
+    ).sort(
+        function(x, y) { return peerStatuses[y].timestamp - peerStatuses[x].timestamp; }
     ).map(
         function(key) {
             formatTimestamp = function(dateString) {
