@@ -57,7 +57,7 @@ var poll = function(sqsUrl, akey, secret, hostname, eventMap) {
 
 function Poller(sqsUrl, awsAkey, awsSecret, eventHostname, client) {
     var defaultEventAction = function(body) {
-        console.log('.');
+        console.log(body.event);
     };
     var confbridgeJoinAction = function(body) {
         client.noisySay('Voice conference joined');
