@@ -1,4 +1,7 @@
 ---
+- name: load secrets
+  include_vars: "install_asterisk_helpers_secrets_{{ version }}.yml"
+  no_log: true
 - name: add logrotate job
   copy:
     src: src/logrotate/logrotate.d/asterisk
@@ -21,7 +24,7 @@
     dest: /etc/logwatch
 - name: copy logwatch conf which is local or has secrets
   copy:
-    src: conf/logwatch.conf.{{ version }}
+    content: "{{logwatch_conf}}"
     dest: /etc/logwatch/conf/logwatch.conf
 - name: make futel directory
   file:
@@ -44,7 +47,7 @@
     mode: "a+x"    
 - name: install event listener conf which is local or has secrets
   copy:
-    src: conf/eventlistenerconf.{{ version }}.py
+    content: "{{eventlistener_conf}}"    
     dest: /opt/futel/src/eventlistenerconf.py
     owner: asterisk
     group: asterisk

@@ -1,4 +1,10 @@
 ---
+- name: load flavored secrets
+  include_vars: "update_asterisk_secrets_{{ version }}.yml"
+  no_log: true
+- name: load generic secrets
+  include_vars: "update_asterisk_secrets_generic.yml"
+  no_log: true
 - name: delete asterisk conf
   file:
     path: "{{ item }}"
@@ -53,37 +59,37 @@
     group: asterisk
 - name: copy voip provider conf with secrets
   copy:
-    src: conf/sip_callcentric.conf.{{ version }}
+    content: "{{sip_callcentric_conf}}"    
     dest: /opt/asterisk/etc/asterisk/sip_callcentric.conf
     owner: asterisk
     group: asterisk
 - name: copy sip conf with secrets
   copy:
-    src: conf/sip_secret.conf
+    content: "{{sip_secret_conf}}"
     dest: /opt/asterisk/etc/asterisk/sip_secret.conf
     owner: asterisk
     group: asterisk
 - name: copy dialplan conf with secrets
   copy:
-    src: conf/extensions_secret.conf
+    content: "{{extensions_secret_conf}}"
     dest: /opt/asterisk/etc/asterisk/extensions_secret.conf
     owner: asterisk
     group: asterisk
 - name: copy followme conf with secrets
   copy:
-    src: conf/followme_secret.conf
+    content: "{{followme_secret_conf}}"
     dest: /opt/asterisk/etc/asterisk/followme_secret.conf
     owner: asterisk
     group: asterisk
 - name: copy blocklist conf with secrets
   copy:
-    src: conf/blocklist.yaml
+    content: "{{blocklist_yaml}}"
     dest: /opt/asterisk/etc/asterisk/blocklist.yaml
     owner: asterisk
     group: asterisk
 - name: copy manager conf with secrets
   copy:
-    src: conf/manager.conf
+    content: "{{manager_conf}}"
     dest: /opt/asterisk/etc/asterisk/manager.conf
     owner: asterisk
     group: asterisk
