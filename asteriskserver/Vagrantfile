@@ -50,14 +50,10 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   end
 
   config.vm.provider :virtualbox do |vb|
+    # this creates vboxnet0 and vboxnet1, with pingable eth1 on vboxnet1
+    config.vm.network "private_network", type: "dhcp", :adapter => 2    
     # uncomment to disable headless mode
     # vb.gui = true
-    # bridged network, may have specific setup for each host
-    # interface differs with OS, debian/thinkpad may be 'wlp3s0'
-    # Must be a working interface with an IP address, for example
-    # 'wlan0', 'wlp3s0', is there a way to create
-    # one without a device? On my ubuntu box, creating a wireless hotspot works.
-    config.vm.network :public_network, :bridge => 'wlan0'
   end
 
 end
