@@ -70,14 +70,14 @@
     owner: asterisk
     group: asterisk
 - name: copy dialplan conf with secrets
-  copy:
-    content: "{{extensions_secret_conf}}"
+  template:
+    src: src/etc/asterisk/extensions_secret.conf.j2
     dest: /opt/asterisk/etc/asterisk/extensions_secret.conf
     owner: asterisk
     group: asterisk
 - name: copy followme conf with secrets
-  copy:
-    content: "{{followme_secret_conf}}"
+  template:
+    src: src/etc/asterisk/followme_secret.conf.j2
     dest: /opt/asterisk/etc/asterisk/followme_secret.conf
     owner: asterisk
     group: asterisk
@@ -88,11 +88,9 @@
     owner: asterisk
     group: asterisk
 - name: copy manager conf with secrets
-  copy:
-    content: "{{manager_conf}}"
+  template:
+    src: src/manager.conf.j2
     dest: /opt/asterisk/etc/asterisk/manager.conf
-    owner: asterisk
-    group: asterisk
 - name: copy asterisk scripts
   copy:
     src: src/var/lib/asterisk/agi-bin/

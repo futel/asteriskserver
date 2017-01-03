@@ -4,8 +4,8 @@
   include_vars: "config_secrets.yml"
   no_log: true
 - name: write relay creds
-  copy:
-    content: "{{sasl_passwd}}"
+  template:
+    src: src/sasl_passwd.j2
     dest: /etc/postfix/sasl_passwd
 - name: update postfix to use relay creds
   shell: postmap /etc/postfix/sasl_passwd
