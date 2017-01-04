@@ -82,8 +82,8 @@
     owner: asterisk
     group: asterisk
 - name: copy blocklist conf with secrets
-  copy:
-    content: "{{blocklist_yaml}}"
+  template:
+    src: src/etc/asterisk/blocklist.yaml.j2
     dest: /opt/asterisk/etc/asterisk/blocklist.yaml
     owner: asterisk
     group: asterisk
