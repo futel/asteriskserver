@@ -64,8 +64,8 @@
     owner: asterisk
     group: asterisk
 - name: copy sip conf with secrets
-  copy:
-    content: "{{sip_secret_conf}}"
+  template:
+    src: src/etc/asterisk/sip_secret.conf.j2
     dest: /opt/asterisk/etc/asterisk/sip_secret.conf
     owner: asterisk
     group: asterisk
