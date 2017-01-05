@@ -58,8 +58,8 @@
     owner: asterisk
     group: asterisk
 - name: copy voip provider conf with secrets
-  copy:
-    content: "{{sip_callcentric_conf}}"    
+  template:
+    src: src/etc/asterisk/sip_callcentric.conf.j2    
     dest: /opt/asterisk/etc/asterisk/sip_callcentric.conf
     owner: asterisk
     group: asterisk
