@@ -14,7 +14,7 @@ client.start(
     config.config.botName,
     {channels: config.config.channels,
      userName: config.config.userName,
-     realName: config.config.realName},
+     realName: config.config.realName}
 );
 
 var poller = snspoller.Poller(
