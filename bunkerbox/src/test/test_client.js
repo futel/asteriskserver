@@ -3,7 +3,8 @@ var sinon = require('sinon');
 var client_mod = require('../client');
 
 var getClient = function() {
-    var client = new client_mod.Client('server', 'nick', {}, ['noisyChannel'], 'dbFileName', 'password');
+    var client = new client_mod.Client(['noisyChannel'], 'dbFileName', 'password');
+    client.start('server', 'nick', {});
     // we don't mock the server, which supplies the nick
     client.nick = 'nick';
     // disable first throttle
@@ -14,7 +15,7 @@ var getClient = function() {
 }
 
 var testOneSay = function(client, to, message) {
-    assert(client.say.calledOnce);
+    assert(client.say.calledOnce, 'say not called once');
     assert.equal(client.say.args[0][0], to);
     var sayMessage = client.say.args[0][1];
     if (message instanceof RegExp) {

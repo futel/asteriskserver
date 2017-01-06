@@ -15,18 +15,12 @@ var stringIn = function(str1, str2) {
     return str2.indexOf(str1) > -1;
 }
 
-function Client(server, nick, opt, noisyChannels, dbFileName, botPassword) {
+function Client(noisyChannels, dbFileName, botPassword) {
     this.noisyChannels = noisyChannels;
     this.dbFileName = dbFileName;
     this.botPassword = botPassword;
     this.peerStatuses = new Object();
     this.resetThrottle();
-    
-    irc.Client.call(this, server, nick, opt);        
-    // respond to commands in pm
-    this.addListener("pm", this.pm);
-    // respond to talking in channels
-    this.addListener("message#", this.channelMessage);
 }
 
 util.inherits(Client, irc.Client);
@@ -43,7 +37,7 @@ Client.prototype.date = function() {
 Client.prototype.doSay = function(to, text) {
     this.log('say', to, text);
     this.say(to, text);
-}
+};
 
 Client.prototype.sayOrSay = function(from, to, text) {
     if (to === null) {
@@ -62,8 +56,7 @@ Client.prototype.noisySay = function(text) {
         });
     }
     catch (e) {
-        // XXX this is just bad setup order? Other callers of doSay don't catch errors.
-        //     maybe replace with a better global catch to prevent death
+        // XXX this is just bad setup order? Replace with global catch to log and prevent death?
     }
 };
 
@@ -235,8 +228,6 @@ Client.prototype.substrings = function(from, to, text, message) {
     // substring to response
     var self = this;
     var responses = {};
-    var self = this;
-    var responses = {};
     // is message greeting the morning?
     responses['morning'] = function(text) {
         if (self.date().getHours() < 12) {
@@ -367,6 +358,15 @@ Client.prototype.channelMessage = function(from, to, text, message) {
         // respond to talking in noisychannels
         this.noYoureTalk(from, to, text, message);        
     }
+};
+
+Client.prototype.start = function(server, nick, opt) {
+    var self = this;    
+    irc.Client.call(this, server, nick, opt);        
+    // respond to commands in pm
+    this.addListener("pm", this.pm);
+    // respond to talking in channels
+    this.addListener("message#", this.channelMessage);
 };
 
 module.exports = {
