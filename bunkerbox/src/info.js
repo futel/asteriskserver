@@ -42,7 +42,7 @@ Info.prototype.reportLatest = function(results) {
     });
     out = [];
     out.push("latest channel events");
-    out.push(results.join('\n'));
+    out = out.concat(results);    
     return out;
 };
 
@@ -63,7 +63,7 @@ Info.prototype.reportRecentBad = function(results) {
     });
     out = [];
     out.push("recent bad events");
-    out.push(results.join('\n'));
+    out = out.concat(results);
     return out;
 };
 
