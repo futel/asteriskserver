@@ -384,7 +384,7 @@ Client.prototype.channelMessage = function(from, to, text, message) {
 };
 
 Client.prototype.start = function(server, nick, opt) {
-    var tenSeconds = 100;
+    var tenthSecond = 100;
     
     var self = this;    
     irc.Client.call(this, server, nick, opt);        
@@ -395,7 +395,7 @@ Client.prototype.start = function(server, nick, opt) {
 
     setInterval(function() {
         self.doSays();
-    }, tenSeconds);
+    }, tenthSecond);
 };
 
 module.exports = {
