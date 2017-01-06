@@ -20,6 +20,7 @@ function Client(noisyChannels, dbFileName, botPassword) {
     this.dbFileName = dbFileName;
     this.botPassword = botPassword;
     this.peerStatuses = new Object();
+    this.says = new Map();
     this.resetThrottle();
 }
 
@@ -34,6 +35,28 @@ Client.prototype.date = function() {
     return new Date();
 };
 
+Client.prototype.addSay = function(to, text) {
+    if (this.says.get(to) === undefined) {
+        this.says.set(to, [text]);
+    } else {
+        says = this.says.get(to);
+        says.push(text);
+        this.says.set(to, says);
+    }
+};
+
+Client.prototype.doSays = function() {
+    // doSay up to once for each key in says.
+    var self = this;
+    self.says.forEach(function(value, key) {
+        if (value.length) {
+            text = value.shift();
+            self.says.set(key, value);
+            self.doSay(key, text);
+        }
+    });
+};
+
 Client.prototype.doSay = function(to, text) {
     this.log('say', to, text);
     this.say(to, text);
@@ -42,17 +65,17 @@ Client.prototype.doSay = function(to, text) {
 Client.prototype.sayOrSay = function(from, to, text) {
     if (to === null) {
         // pm
-        this.doSay(from, text);
+        this.addSay(from, text);
     } else {
         // channel command
-        this.doSay(to, text);
+        this.addSay(to, text);
     }
 };
 
 Client.prototype.noisySay = function(text) {
     try {
         this.noisyChannels.forEach(function(channel) {
-            this.doSay(channel, text);
+            this.addSay(channel, text);
         });
     }
     catch (e) {
@@ -361,12 +384,18 @@ Client.prototype.channelMessage = function(from, to, text, message) {
 };
 
 Client.prototype.start = function(server, nick, opt) {
+    var tenSeconds = 100;
+    
     var self = this;    
     irc.Client.call(this, server, nick, opt);        
     // respond to commands in pm
     this.addListener("pm", this.pm);
     // respond to talking in channels
     this.addListener("message#", this.channelMessage);
+
+    setInterval(function() {
+        self.doSays();
+    }, tenSeconds);
 };
 
 module.exports = {

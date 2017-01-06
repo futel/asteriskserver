@@ -2,6 +2,8 @@ var assert = require('assert');
 var sinon = require('sinon');
 var client_mod = require('../client');
 
+var tenSeconds = 100;
+
 var getClient = function() {
     var client = new client_mod.Client(['noisyChannel'], 'dbFileName', 'password');
     client.start('server', 'nick', {});
@@ -14,7 +16,8 @@ var getClient = function() {
     return client;
 }
 
-var testOneSay = function(client, to, message) {
+var testOneSay = function(client, to, message, clock) {
+    clock.tick(tenSeconds);
     assert(client.say.calledOnce, 'say not called once');
     assert.equal(client.say.args[0][0], to);
     var sayMessage = client.say.args[0][1];
@@ -25,7 +28,8 @@ var testOneSay = function(client, to, message) {
     }
 }
 
-var testSays = function(client, to, messages) {
+var testSays = function(client, to, messages, clock) {
+    clock.tick(tenSeconds * messages.length);    
     client.say.args.forEach(function(arg) {
         assert.equal(arg[0], to);
         assert.equal(arg[1], messages.shift());
@@ -45,16 +49,16 @@ describe('main', function() {
     });
 
     describe('pm', function() {
-        describe('unknown', function() {
+        describe('unknown', function(done) {
             it('should pm help summary from unknown input', function() {
                 client.pm('from', 'xyzzy', 'message');
-                testOneSay(client, 'from', 'Use "help" for help.');
+                testOneSay(client, 'from', 'Use "help" for help.', this.clock);
             });
         });
         describe('hi', function() {
             it('should pm hi response', function() {
                 client.pm('from', 'hi', 'message');
-                testOneSay(client, 'from', 'Hi from!');
+                testOneSay(client, 'from', 'Hi from!', this.clock);
             });
         });
         describe('die', function() {
@@ -86,7 +90,7 @@ describe('main', function() {
                     'stats [days [extension]] get event stats',
                     'recentbad get recent events',
                     'peerstatus get recent peer status',
-                    'peerstatusbad get recent bad peer status'])
+                    'peerstatusbad get recent bad peer status'], this.clock)
             });
         });
     });
@@ -101,7 +105,7 @@ describe('main', function() {
         describe('hi', function() {
             it('should say hi response', function() {
                 client.channelMessage('from', 'to', '!hi', 'message');
-                testOneSay(client, 'to', 'Hi from!');                
+                testOneSay(client, 'to', 'Hi from!', this.clock);                
             });
         });
         describe('help', function() {
@@ -114,7 +118,7 @@ describe('main', function() {
             describe('empty', function() {            
                 it('should provide an empty peer status', function() {
                     client.channelMessage('from', 'to', '!peerstatus', 'message');
-                    testSays(client, 'to', ['Peer statuses:']);
+                    testSays(client, 'to', ['Peer statuses:'], this.clock);
                 });
             });
             describe('populated', function() {
@@ -134,7 +138,7 @@ describe('main', function() {
                           'SIP/704 Registered December 31, 1969 4:06 PM',                        
                           'SIP/703 Unreachable December 31, 1969 4:04 PM',
                           'SIP/668 Registered December 31, 1969 4:00 PM'
-                         ]);
+                         ], this.clock);
                 });
             });
         });            
@@ -142,7 +146,7 @@ describe('main', function() {
             describe('empty', function() {            
                 it('should provide an empty peer status', function() {
                     client.channelMessage('from', 'to', '!peerstatusbad', 'message');
-                    testSays(client, 'to', ['Peer statuses:']);
+                    testSays(client, 'to', ['Peer statuses:'], this.clock);
                 });
             });
             describe('populated', function() {
@@ -161,7 +165,7 @@ describe('main', function() {
                          'to',
                          ['Peer statuses:',
                           'SIP/704 Unreachable December 31, 1969 4:08 PM',
-                          'SIP/703 Unreachable December 31, 1969 4:06 PM']);
+                          'SIP/703 Unreachable December 31, 1969 4:06 PM'], this.clock);
                 });
             });
         });            
@@ -176,7 +180,7 @@ describe('main', function() {
         describe('hi', function() {
             it('should say hi response', function() {
                 client.channelMessage('from', 'to', 'nick: hi', 'message');
-                testOneSay(client, 'to', 'Hi from!');                
+                testOneSay(client, 'to', 'Hi from!', this.clock);                
             });
         });
         describe('help', function() {
@@ -214,70 +218,70 @@ describe('main', function() {
             it('should respond to nick is', function() {
                 client.channelMessage(
                     'from', 'to', 'nick is foo', {args: ['noisyChannel']});
-                testOneSay(client, 'to', "No, from, you're foo!");
+                testOneSay(client, 'to', "No, from, you're foo!", this.clock);
             });
         });
         describe('nick is', function() {
             it('should respond to nick is with surrounding text', function() {
                 client.channelMessage(
                     'from', 'to', 'foo nick is bar...', {args: ['noisyChannel']});
-                testOneSay(client, 'to', "No, from, you're bar!");
+                testOneSay(client, 'to', "No, from, you're bar!", this.clock);
             });
         });
         describe('nick is', function() {
             it('should respond to nick is with capitalization', function() {
                 client.channelMessage(
                     'from', 'to', 'Nick is bar', {args: ['noisyChannel']});
-                testOneSay(client, 'to', "No, from, you're bar!");
+                testOneSay(client, 'to', "No, from, you're bar!", this.clock);
             });
         });
         describe('nick is', function() {
             it('should respond to nick is with capitalization', function() {
                 client.channelMessage(
                     'from', 'to', 'NICK IS BAR', {args: ['noisyChannel']});
-                testOneSay(client, 'to', "No, from, you're bar!");
+                testOneSay(client, 'to', "No, from, you're bar!", this.clock);
             });
         });
         describe('plate', function() {
             it('should respond to plate', function() {
                 client.channelMessage(
                     'from', 'to', 'foo plate bar', {args: ['noisyChannel']});
-                testOneSay(client, 'to', "Suddenly someone'll say, like, plate, or shrimp, or plate o' shrimp out of the blue, no explanation.");
+                testOneSay(client, 'to', "Suddenly someone'll say, like, plate, or shrimp, or plate o' shrimp out of the blue, no explanation.", this.clock);
             });
         });
         describe('plate', function() {
             it('should respond to plate with capitalization', function() {
                 client.channelMessage(
                     'from', 'to', 'Foo Plate Bar', {args: ['noisyChannel']});
-                testOneSay(client, 'to', "Suddenly someone'll say, like, plate, or shrimp, or plate o' shrimp out of the blue, no explanation.");
+                testOneSay(client, 'to', "Suddenly someone'll say, like, plate, or shrimp, or plate o' shrimp out of the blue, no explanation.", this.clock);
             });
         });
         describe('plate', function() {
             it('should respond to plate with capitalization', function() {
                 client.channelMessage(
                     'from', 'to', 'Foo PLATE Bar', {args: ['noisyChannel']});
-                testOneSay(client, 'to', "Suddenly someone'll say, like, plate, or shrimp, or plate o' shrimp out of the blue, no explanation.");
+                testOneSay(client, 'to', "Suddenly someone'll say, like, plate, or shrimp, or plate o' shrimp out of the blue, no explanation.", this.clock);
             });
         });
         describe('yes', function() {
             it('should respond to yes', function() {
                 client.channelMessage(
                     'from', 'to', 'yes', {args: ['noisyChannel']});
-                testOneSay(client, 'to', "No.");
+                testOneSay(client, 'to', "No.", this.clock);
             });
         });
         describe('yes', function() {
             it('should respond to yes with punctuation', function() {
                 client.channelMessage(
                     'from', 'to', ' yes??', {args: ['noisyChannel']});
-                testOneSay(client, 'to', "No.");
+                testOneSay(client, 'to', "No.", this.clock);
             });
         });
         describe('yes', function() {
             it('should respond to yes with capitalization', function() {
                 client.channelMessage(
                     'from', 'to', 'YES', {args: ['noisyChannel']});
-                testOneSay(client, 'to', "No.");
+                testOneSay(client, 'to', "No.", this.clock);
             });
         });
         describe('morning', function() {
@@ -286,7 +290,7 @@ describe('main', function() {
                 client.channelMessage(
                     'from', 'to', 'foo morning bar', {args: ['noisyChannel']});
                 // just test that we get something
-                testOneSay(client, 'to', /.*/);
+                testOneSay(client, 'to', /.*/, this.clock);
             });
         });
         describe('morning', function() {
@@ -297,12 +301,12 @@ describe('main', function() {
                 assert.equal(false, client.say.called);
             });
         });
-        describe('timeout', function() {
+        describe('throttling and rate limiting', function() {
             it('should not respond again before timeout', function() {
                 // talk to channel
                 client.channelMessage(
                     'from', 'to', 'nick is foo', {args: ['noisyChannel']});
-                testOneSay(client, 'to', "No, from, you're foo!");
+                testOneSay(client, 'to', "No, from, you're foo!", this.clock);
 
                 // advance one second
                 this.clock.tick(1000);
@@ -310,7 +314,7 @@ describe('main', function() {
                 client.channelMessage(
                     'from', 'to', 'nick is bar', {args: ['noisyChannel']});
                 // still only one say
-                testOneSay(client, 'to', "No, from, you're foo!");
+                testOneSay(client, 'to', "No, from, you're foo!", this.clock);
 
                 // advance one second
                 this.clock.tick(1000);
@@ -318,7 +322,7 @@ describe('main', function() {
                 client.channelMessage(
                     'from', 'to', 'nick is baz', {args: ['noisyChannel']});
                 // still only one say
-                testOneSay(client, 'to', "No, from, you're foo!");
+                testOneSay(client, 'to', "No, from, you're foo!", this.clock);
 
                 // advance 6 minutes
                 this.clock.tick(1000 * 60 * 6);
@@ -326,7 +330,7 @@ describe('main', function() {
                 client.channelMessage(
                     'from', 'to', 'nick is qux', {args: ['noisyChannel']});
                 // two says                
-                testSays(client, 'to', ["No, from, you're foo!", "No, from, you're qux!"]);
+                testSays(client, 'to', ["No, from, you're foo!", "No, from, you're qux!"], this.clock);
 
                 // advance one second
                 this.clock.tick(1000);
@@ -334,7 +338,7 @@ describe('main', function() {
                 client.channelMessage(
                     'from', 'to', 'nick is quux', {args: ['noisyChannel']});
                 // still two says                
-                testSays(client, 'to', ["No, from, you're foo!", "No, from, you're qux!"]);
+                testSays(client, 'to', ["No, from, you're foo!", "No, from, you're qux!"], this.clock);
                 // talk to channel for other responses
                 client.channelMessage(
                     'from', 'to', 'foo plate bar', {args: ['noisyChannel']});
@@ -344,10 +348,50 @@ describe('main', function() {
                 client.channelMessage(
                     'from', 'to', 'foo morning bar', {args: ['noisyChannel']});
                 // still two says                
-                testSays(client, 'to', ["No, from, you're foo!", "No, from, you're qux!"]);
-                
-                
+                testSays(client, 'to', ["No, from, you're foo!", "No, from, you're qux!"], this.clock);
             });
+        });
+        it('should rate limit', function() {
+            client.pm('from', 'xyzzy', 'message');
+            client.channelMessage('from', 'to', '!hi', 'message');
+            client.pm('from', 'hi', 'message');
+            client.channelMessage(
+                'from', 'to', 'nick is foo', {args: ['noisyChannel']});
+            assert.equal(false, client.say.called);            
+            this.clock.tick(1);
+            assert.equal(false, client.say.called);
+            this.clock.tick(tenSeconds - 1);
+            assert.equal(client.say.args[0][0], 'from');
+            assert.equal(client.say.args[0][1], 'Use "help" for help.');
+            this.clock.tick(tenSeconds);
+            assert.equal(client.say.args[1][0], 'to');
+            assert.equal(client.say.args[1][1], 'Hi from!');
+            this.clock.tick(tenSeconds * 2);
+            assert.equal(client.say.args[2][0], 'from');
+            assert.equal(client.say.args[2][1], 'Hi from!');
+            assert.equal(client.say.args[3][0], 'to');
+            assert.equal(client.say.args[3][1], "No, from, you're foo!");
+        });
+    });
+    describe('multiple channel and pm messages', function() {
+        it('should handle multiple destinations', function() {
+            client.pm('from', 'xyzzy', 'message');
+            client.channelMessage('from', 'to', '!hi', 'message');
+            client.pm('from', 'hi', 'message');
+            client.channelMessage(
+                'from', 'to', 'nick is foo', {args: ['noisyChannel']});
+            sayArgs = [['from', 'Use "help" for help.'],
+                       ['to', 'Hi from!'],
+                       ['from', 'Hi from!'],
+                       ['to', "No, from, you're foo!"]]
+            this.clock.tick(tenSeconds * 4);
+            while (sayArgs.length) {
+                var expected = sayArgs.pop();
+                var actual = client.say.args.pop();
+                assert.equal(expected[0], actual[0]);
+                assert.equal(expected[1], actual[1]);
+            }
+            assert.equal(client.say.args.length, 0);
         });
     });
 });
