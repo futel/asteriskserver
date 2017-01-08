@@ -5,22 +5,51 @@ ext 999 starts default menu
 ext 1000 starts dialtone
 ext 1001 starts incoming menu
 
-outgoing call works
-
-outgoing call sends r2d2 id from 670
 outgoing call indicates 911 when calling 933 from 670
-outgoing call indicates 911 when calling 15555550911 from
-650, 655, 667, 668, 680, 691
-outgoing call indicates no 911 when calling 15555550911 from 656, 669, 690, 700, 701
+outgoing call sends r2d2 id from 670
+outgoing call indicates 911 when calling 15555550911 from 650
 outgoing call sends iprc id from 650
+outgoing call indicates 911 when calling 15555550911 from 655
 outgoing call sends garth id from 655
-outgoing call sends incoming id from 656
+outgoing call indicates 911 when calling 933 from 667
 outgoing call sends oskar indoors id from 667
+outgoing call indicates 911 when calling 15555550911 from 668
 outgoing call sends oskar id from 668
+outgoing call indicates 911 when calling 15555550911 from 680
 outgoing call sends xnor id from 680
+
+outgoing call indicates no 911 when calling 933 from 671
+outgoing call sends incoming id from 656
+outgoing call indicates no 911 when calling 15555550911 from 651
+outgoing call sends incoming id from 651
+outgoing call indicates no 911 when calling 15555550911 from 656
+outgoing call sends incoming id from 656
+outgoing call indicates no 911 when calling 15555550911 from 665
+outgoing call sends incoming id from 665
+outgoing call indicates no 911 when calling 15555550911 from 666
+outgoing call sends incoming id from 666
+outgoing call indicates no 911 when calling 15555550911 from 669
+outgoing call sends incoming id from 669
+outgoing call indicates no 911 when calling 15555550911 from 681
+outgoing call sends incoming id from 681
+outgoing call indicates no 911 when calling 15555550911 from 690
 outgoing call sends incoming id from 690
+outgoing call indicates no 911 when calling 15555550911 from 691
+outgoing call sends incoming id from 691
+outgoing call indicates no 911 when calling 15555550911 from 700
 outgoing call sends demo id from 700
+outgoing call indicates no 911 when calling 15555550911 from 701
 outgoing call sends incoming id from 701
+outgoing call indicates no 911 when calling 15555550911 from 702
+outgoing call sends incoming id from 702
+outgoing call indicates no 911 when calling 15555550911 from 703
+outgoing call sends incoming id from 703
+outgoing call indicates no 911 when calling 15555550911 from 704
+outgoing call sends incoming id from 704
+outgoing call indicates no 911 when calling 15555550911 from 710
+outgoing call sends incoming id from 710
+outgoing call indicates no 911 when calling 15555550911 from 711
+outgoing call sends incoming id from 711
 
 outgoing call filters number when configured for extension
 
