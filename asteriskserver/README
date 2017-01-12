@@ -22,7 +22,6 @@ ssh -F src/ssh_config futel-prod.phu73l.net 'grep "foo\|bar" /opt/asterisk/etc/a
 ansible-playbook -i hosts baseinstall_playbook.yml --vault-password-file=conf/vault_pass.txt --extra-vars conf_version=<conf version not used by prod>
 ansible-playbook -i hosts secure_playbook.yml
 src/promote_stage.sh futel-stage.phu73l.net
-ssh -F src/ssh_config futel-stage.phu73l.net 'sudo reboot'
 
 if testplan has changed since last release branch, update google sheet testplan,
 keeping dates of nonupdated completed tests
