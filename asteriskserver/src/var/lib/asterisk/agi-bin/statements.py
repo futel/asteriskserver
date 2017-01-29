@@ -11,6 +11,10 @@
 
 statements = {
     'general': [
+        'outgoing-circuits',
+        'are',
+        'currently-unavailable',
+        'try-again-later',
         'for-one-eight-five-five-ladyfun',
         'for-the-next-available-outgoing-line',
         'for-community-services',
