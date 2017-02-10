@@ -38,9 +38,9 @@ def action(action_map, config_map):
     """Return action_map indicated by config_map, or default."""
     return action_map.get(config_map.get('action', 'noop'), noop)
 
-def friction(agi, config, extension, now):
+def friction(agi, config, extension, now, context):
     if config:
-        config_map = util.relevant_config(config, extension, now)
+        config_map = util.relevant_config(config, extension, now, context)
         if config_map:
             action(action_map, config_map)(agi)
 

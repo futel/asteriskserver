@@ -123,11 +123,12 @@ def within_timestrs(start_time, end_time, now):
                 return True
     return False
 
-def relevant_config(config, extension, now):
+def relevant_config(config, extension, now, context=None):
     """Return map from config corresponding to extension and now, or None."""
     for config_map in config:
         if str(config_map['extension']) == extension:
-            (start_time, end_time) = (
-                config_map.get('start_time'), config_map.get('end_time'))
-            if within_timestrs(start_time, end_time, now):
-                return config_map
+            if context is None or config_map.get('context') == context:
+                (start_time, end_time) = (
+                    config_map.get('start_time'), config_map.get('end_time'))
+                if within_timestrs(start_time, end_time, now):
+                    return config_map

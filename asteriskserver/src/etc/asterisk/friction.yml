@@ -1,29 +1,35 @@
 - extension: 668
+  context: filterdial
   start_time: "21:00"
   end_time: "21:59"
   action: delay_5
 
 - extension: 668
+  context: filterdial
   start_time: "22:00"
   end_time: "22:59"
   action: delay_10
   
 - extension: 668
+  context: filterdial  
   start_time: "23:00"
   end_time: "23:59"
   action: delay_20
 
 - extension: 668
+  context: filterdial  
   start_time: "00:00"
   end_time: "03:59"
   action: delay_20
 
 - extension: 668
+  context: filterdial  
   start_time: "04:00"
   end_time: "04:59"
   action: delay_10
 
 - extension: 668
+  context: filterdial  
   start_time: "05:00"
   end_time: "05:59"
   action: delay_5

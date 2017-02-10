@@ -22,10 +22,12 @@ def load_config():
     return yaml.load(file(yfile, 'r'))
 
 def main():
+    # first argument is context
+    context = sys.argv[1]
     extension = util.calling_extension(agi)
     config = load_config()
     now = datetime.datetime.now()
-    friction.friction(agi, config, extension, now)
+    friction.friction(agi, config, extension, now, context)
 
 agi.answer()
 util.agi_tracebacker(agi, main)
