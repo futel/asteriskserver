@@ -67,6 +67,8 @@ outgoing call warns caller before timeout when configured
 outgoing call does not time out when calling 933 when configured
 outgoing call does not time out when calling canned number when configured
 
+incoming call to stage oskar indoors test number calls oskar indoors phone
+
 incoming call to oskar calls oskar phone
 incoming call to oskar indoors calls oskar indoors phone
 incoming call to garth gets garth phone
