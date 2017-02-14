@@ -1,24 +1,29 @@
-- extension: 668
+- extensions:
+    - 668
   start_time: "00:00"
   end_time: "04:59"
   timeout: 5
 
-- extension: 668
+- extensions:
+    - 668
   start_time: "05:00"
   end_time: "05:59"
   timeout: 10
 
-- extension: 668
+- extensions:
+    - 668
   start_time: "05:00"
   end_time: "20:59"
   timeout: 30
 
-- extension: 668
+- extensions:
+    - 668
   start_time: "21:00"
   end_time: "21:59"
   timeout: 10
 
-- extension: 668
+- extensions:
+    - 668
   start_time: "22:00"
   end_time: "23:59"
   timeout: 5
