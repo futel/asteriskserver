@@ -39,3 +39,10 @@
   start_time: "05:00"
   end_time: "05:59"
   action: delay_5
+
+- extensions:
+    - 668
+  context: outgoing-ivr
+  start_time: "02:00"
+  end_time: "02:59"
+  action: context_restricted_dialtone

@@ -26,12 +26,19 @@ def delay_20(agi):
     agi.appexec('MusicOnHold', ',6')
     agi.appexec('wait', 1)
 
+def context_restricted_dialtone(agi):
+    util.metric(agi, 'context-restricted-dialtone')
+    agi.set_context('restricted-outgoing-dialtone-wrapper')
+    agi.set_extension('s')
+    agi.set_priority(1)
+
 action_map = {
     'noop': noop,
     'busy': busy,
     'delay_5': delay_5,
     'delay_10': delay_10,
-    'delay_20': delay_20
+    'delay_20': delay_20,
+    'context_restricted_dialtone': context_restricted_dialtone
 }
 
 def action(action_map, config_map):

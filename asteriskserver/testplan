@@ -1,9 +1,13 @@
-ext 996 starts default menu
+ext 996 starts restricted dialtone
 ext 997 starts gallery/demo destination
 ext 998 starts admin menu
 ext 999 starts default menu
 ext 1000 starts dialtone
 ext 1001 starts incoming menu
+
+outgoing menu performs friction action when configured for extension and time
+outgoing menu does not perform friction action when configured for extension and time
+outgoing menu performs, metrics context_restricted_dialtone when configured
 
 outgoing call indicates 911 when calling 933 from 670
 outgoing call sends r2d2 id from 670
