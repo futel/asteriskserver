@@ -4,10 +4,10 @@ import unittest
 
 class TestFriction(unittest.TestCase):
 
-    def test_empty(self):
+    def test_action_empty(self):
         self.assertEqual(friction.action({}, {}), friction.noop)
 
-    def test_noop(self):
+    def test_action_noop(self):
         self.assertEqual(friction.action({'noop': friction.noop}, {}), friction.noop)
         self.assertEqual(friction.action(
             {'noop': friction.noop}, {'action': 'noop'}), friction.noop)

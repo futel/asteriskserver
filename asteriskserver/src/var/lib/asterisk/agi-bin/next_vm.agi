@@ -5,13 +5,11 @@ import util
 
 agi = agi.AGI()
 
-ASTERISK_DIR = '/opt/asterisk/etc/asterisk'
 VM_USER_FILE = 'vm_futel_users.inc'
 
 def next_vm():
     """ return the next voicemailbox number """
-    # XXX assume one exists!  Should default to 1000
-    vfile = '/'.join((ASTERISK_DIR, VM_USER_FILE))
+    vfile = '/'.join((util.asterisk_etc_dir, VM_USER_FILE))
     # XXX do this smarter to not have the entire user file in memory
     vfile = open(vfile)
     lines = vfile.readlines()

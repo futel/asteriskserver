@@ -1,6 +1,9 @@
 import datetime
 import sys, os, traceback
 import logging
+import yaml
+
+asterisk_etc_dir = '/opt/asterisk/etc/asterisk'
 
 # general directories for gsm files, in order of preference
 statement_dirs = [
@@ -21,6 +24,10 @@ preferred_statement_dirs = [
     'karl-wildcard-line/']
 
 metric_filename = '/opt/asterisk/var/log/asterisk/metrics'
+
+def read_config(config_filename):
+    yfile = '/'.join((asterisk_etc_dir, config_filename))
+    return yaml.load(file(yfile, 'r'))
 
 def agi_tracebacker(agi_o, func, *args, **kwargs):
     try:

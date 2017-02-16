@@ -5,14 +5,12 @@ for example by hanging up or doing nothing.
 """
 
 import sys
-import yaml
 from asterisk import *
 import util
 
 agi = agi.AGI()
 
-ASTERISK_DIR = '/opt/asterisk/etc/asterisk'
-BLOCKLIST = 'blocklist.yaml'
+config_filename = 'blocklist.yaml'
 
 premium_nampa_prefixes = [
     '1900',
@@ -37,10 +35,6 @@ premium_nampa_prefixes = [
     '1868',
     '1869',
     '1876']
-
-def load_blocklist():
-    yfile = '/'.join((ASTERISK_DIR, BLOCKLIST))
-    return yaml.load(file(yfile, 'r'))
 
 def filter_blocklist(blocklist, number, extension):
     """Return True if number and extension are in blocklist."""
@@ -71,7 +65,7 @@ def filter_outgoing(blocklist, number, extension):
 def main():
     number = sys.argv[1]
     extension = util.calling_extension(agi)
-    blocklist = load_blocklist()
+    blocklist = util.read_config(config_filename)
     filter_outgoing(blocklist, number, extension)
 
 agi.answer()

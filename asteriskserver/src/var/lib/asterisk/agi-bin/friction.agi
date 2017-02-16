@@ -5,7 +5,6 @@ Perform friction action.
 
 import sys
 import datetime
-import yaml
 
 from asterisk import *
 
@@ -14,20 +13,12 @@ import friction
 
 agi = agi.AGI()
 
-ASTERISK_DIR = '/opt/asterisk/etc/asterisk'
-CONFIGFILE = 'friction.yml'
-
-def load_config():
-    yfile = '/'.join((ASTERISK_DIR, CONFIGFILE))
-    return yaml.load(file(yfile, 'r'))
-
 def main():
     # first argument is context
     context = sys.argv[1]
     extension = util.calling_extension(agi)
-    config = load_config()
     now = datetime.datetime.now()
-    friction.friction(agi, config, extension, now, context)
+    friction.friction(agi, extension, now, context)
 
 agi.answer()
 util.agi_tracebacker(agi, main)
