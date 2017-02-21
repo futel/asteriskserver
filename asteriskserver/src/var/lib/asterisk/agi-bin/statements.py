@@ -11,6 +11,7 @@
 
 statements = {
     'general': [
+        'for-a-random-payphone',
         'outgoing-circuits',
         'are',
         'currently-unavailable',
