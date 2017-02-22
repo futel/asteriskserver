@@ -28,6 +28,7 @@ var receiveMessage = function(sqs, sqsUrl, hostname, eventMap) {
                     var body = JSON.parse(message.Body);
                     var body = JSON.parse(body.Message);
                     if (body.hostname == hostname) {
+                        console.log(body.event);                        
                         var fn = eventMap[body.event.Event];
                         if (fn) {
                             fn(body);
@@ -57,7 +58,6 @@ var poll = function(sqsUrl, akey, secret, hostname, eventMap) {
 
 function Poller(sqsUrl, awsAkey, awsSecret, eventHostname, client) {
     var defaultEventAction = function(body) {
-        console.log(body.event);
     };
     var confbridgeJoinAction = function(body) {
         client.noisySay('Voice conference joined');
