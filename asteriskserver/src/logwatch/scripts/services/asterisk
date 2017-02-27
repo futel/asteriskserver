@@ -38,7 +38,9 @@ while (defined($ThisLine = <STDIN>)) {
       ( $ThisLine =~ /app_voicemail.c: No entry in voicemail config file for/ ) or
       ( $ThisLine =~ /chan_sip.c: Got OK on REFER Notify message/ ) or      
       ( $ThisLine =~ /app_dial.c: Unable to write frametype: 2/ ) or
-      ( $ThisLine =~ /file.c: Failed to write frame/ ) or      
+      ( $ThisLine =~ /file.c: Failed to write frame/ ) or
+      ( $ThisLine =~ /is now Lagged/ ) or
+      ( $ThisLine =~ /is now Reachable/ ) or      
       ( $ThisLine =~ /Unknown RTP codec 126 received from/ ) ) {    
                 # nop, we don't care about these
       } elsif  ( ( $ThisLine =~ /WARNING/ ) or 
@@ -59,9 +61,7 @@ while (defined($ThisLine = <STDIN>)) {
    } elsif ( $ThisLine =~ /ERROR/ ) {
       $Errors{$ThisLine}++;
    } elsif ( ( $ThisLine =~ /is now UNREACHABLE/ ) or
-      ( $ThisLine =~ /is now Lagged/ ) or
-      ( $ThisLine =~ /timed out, trying again/ ) or
-      ( $ThisLine =~ /is now Reachable/ ) ) {
+      ( $ThisLine =~ /timed out, trying again/ ) ) {
       $Unreachables{$ThisLine}++;
    } elsif ( ( $ThisLine =~ /No matching peer found/ ) or
       ( $ThisLine =~ /Wrong password/ ) or
