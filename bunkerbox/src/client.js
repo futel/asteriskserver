@@ -73,13 +73,15 @@ Client.prototype.sayOrSay = function(from, to, text) {
 };
 
 Client.prototype.noisySay = function(text) {
+    var self = this;
     try {
         this.noisyChannels.forEach(function(channel) {
-            this.addSay(channel, text);
+            self.addSay(channel, text);
         });
     }
     catch (e) {
         // XXX this is just bad setup order? Replace with global catch to log and prevent death?
+        console.log(e);
     }
 };
 
