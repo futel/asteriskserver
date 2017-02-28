@@ -11,6 +11,8 @@
 
 statements = {
     'general': [
+        'to-ring-the-ainsworth-street-telephone',
+        'to-ring-the-taylor-street-telephone',
         'for-a-random-payphone',
         'outgoing-circuits',
         'are',
