@@ -86,8 +86,8 @@ describe('main', function() {
                     'available commands:',
                     'hi say hello',
                     'help get command help',
-                    'latest [extension [extension...]] get latest events',
-                    'stats [days [extension]] get event stats',
+                    'latest [days] [extension] get latest events',
+                    'stats [days] [extension] get event stats',
                     'recentbad get recent events',
                     'peerstatus get recent peer status',
                     'peerstatusbad get recent bad peer status'], this.clock)

@@ -123,8 +123,8 @@ Client.prototype.help = function(self, from, to, text, message) {
     var help = ['available commands:',
                 'hi say hello',
                 'help get command help',
-                'latest [extension [extension...]] get latest events',
-                'stats [days [extension]] get event stats',
+                'latest [days] [extension] get latest events',
+                'stats [days] [extension] get event stats',
                 'recentbad get recent events',
                 'peerstatus get recent peer status',
                 'peerstatusbad get recent bad peer status'
@@ -137,6 +137,23 @@ Client.prototype.help = function(self, from, to, text, message) {
 
 Client.prototype.textToCommands = function(text) {
     return text.trim().split(/\s+/);
+};
+
+Client.prototype.textToArgs = function(self, text) {
+    var args = self.textToCommands(text);
+    var days = args[0];
+    var extension = args[1];
+    try {
+        days = days.toString();
+    } catch(e) {
+        days = defaultStatsDays;
+    }
+    try {
+        extension = extension.toString();
+    } catch(e) {
+        extension = null;
+    }
+    return [days, extension];
 };
 
 Client.prototype.passwordMatch = function(text) {
@@ -156,20 +173,9 @@ Client.prototype.die = function(self, from, to, text, message) {
 };
 
 Client.prototype.stats = function(self, from, to, text, message) {
-    var words = self.textToCommands(text);
-    var days = words[1];
-    try {
-        days = days.toString();
-    } catch(e) {
-        days = defaultStatsDays;
-    }
-    var extension = words[2];
-    try {
-        extension = extension.toString();
-    } catch(e) {
-        extension = null;
-    }
-    
+    var args = self.textToArgs(self, text);
+    var days = args[0];
+    var extension = args[1];
     info.stats(
         self.dbFileName,
         days,
@@ -180,14 +186,12 @@ Client.prototype.stats = function(self, from, to, text, message) {
 };
     
 Client.prototype.latest = function(self, from, to, text, message) {
-    var words = self.textToCommands(text);
-    var extensions = words.slice(1);
-    if (!extensions.length) {
-        extensions = null;
-    }
+    var args = self.textToArgs(self, text);
+    var days = args[0];
+    var extension = args[1];
     info.latest(
         self.dbFileName,
-        extensions,
+        [extension],
         function(result) {
             result.map(function (line) { self.sayOrSay(from, to, line); });
         });
