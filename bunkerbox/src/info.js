@@ -71,7 +71,7 @@ Info.prototype.recentBad = function(dbFileName, callback) {
     var self = this;
     metrics_util.recentEvents(
         dbFileName,
-        null,
+        10,
         null,
         null,
         function(results) {
