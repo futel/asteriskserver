@@ -2,7 +2,7 @@ var assert = require('assert');
 var sinon = require('sinon');
 var client_mod = require('../client');
 
-var tenthSecond = 100;
+var fifthSecond = 500;
 
 var getClient = function() {
     var client = new client_mod.Client(['noisyChannel'], 'dbFileName', 'password');
@@ -17,7 +17,7 @@ var getClient = function() {
 }
 
 var testOneSay = function(client, to, message, clock) {
-    clock.tick(tenthSecond);
+    clock.tick(fifthSecond);
     assert(client.say.calledOnce, 'say not called once');
     assert.equal(client.say.args[0][0], to);
     var sayMessage = client.say.args[0][1];
@@ -29,7 +29,7 @@ var testOneSay = function(client, to, message, clock) {
 }
 
 var testSays = function(client, to, messages, clock) {
-    clock.tick(tenthSecond * messages.length);    
+    clock.tick(fifthSecond * messages.length);    
     client.say.args.forEach(function(arg) {
         assert.equal(arg[0], to);
         assert.equal(arg[1], messages.shift());
@@ -360,13 +360,13 @@ describe('main', function() {
             assert.equal(false, client.say.called);            
             this.clock.tick(1);
             assert.equal(false, client.say.called);
-            this.clock.tick(tenthSecond - 1);
+            this.clock.tick(fifthSecond - 1);
             assert.equal(client.say.args[0][0], 'from');
             assert.equal(client.say.args[0][1], 'Use "help" for help.');
-            this.clock.tick(tenthSecond);
+            this.clock.tick(fifthSecond);
             assert.equal(client.say.args[1][0], 'to');
             assert.equal(client.say.args[1][1], 'Hi from!');
-            this.clock.tick(tenthSecond * 2);
+            this.clock.tick(fifthSecond * 2);
             assert.equal(client.say.args[2][0], 'from');
             assert.equal(client.say.args[2][1], 'Hi from!');
             assert.equal(client.say.args[3][0], 'to');
@@ -384,7 +384,7 @@ describe('main', function() {
                        ['to', 'Hi from!'],
                        ['from', 'Hi from!'],
                        ['to', "No, from, you're foo!"]]
-            this.clock.tick(tenthSecond * 4);
+            this.clock.tick(fifthSecond * 4);
             while (sayArgs.length) {
                 var expected = sayArgs.pop();
                 var actual = client.say.args.pop();
