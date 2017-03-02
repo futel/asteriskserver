@@ -46,11 +46,11 @@ Info.prototype.reportLatest = function(results) {
     return out;
 };
 
-Info.prototype.latest = function(dbFileName, extensions, callback) {
+Info.prototype.latest = function(dbFileName, extension, callback) {
     var self = this;
     metrics_util.latest_events(
         dbFileName,
-        extensions,
+        extension,
         function(results) {
             callback(self.reportLatest(results));
         });

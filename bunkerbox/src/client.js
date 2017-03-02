@@ -187,11 +187,11 @@ Client.prototype.stats = function(self, from, to, text, message) {
     
 Client.prototype.latest = function(self, from, to, text, message) {
     var args = self.textToArgs(self, text);
-    var days = args[0];
+    var days = args[0];         // XXX ignored
     var extension = args[1];
     info.latest(
         self.dbFileName,
-        [extension],
+        extension,
         function(result) {
             result.map(function (line) { self.sayOrSay(from, to, line); });
         });

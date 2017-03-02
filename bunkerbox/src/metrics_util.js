@@ -99,10 +99,10 @@ var get_latest_events = function(dbconn, extension, events, limit) {
     return Q.fcall(db_all(dbconn), query, params)
 };
 
-var latest_events = function(dbFileName, extensions, callback) {
+var latest_events = function(dbFileName, extension, callback) {
     var db = new sqlite3.Database(dbFileName);
-    if (extensions !== null) {
-        var get_extensions = get_promise(extensions);
+    if (extension !== null) {
+        var get_extensions = get_promise([extension]);
     } else {
         var get_extensions = all_extensions(db);
     }
