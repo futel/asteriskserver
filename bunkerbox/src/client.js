@@ -141,8 +141,8 @@ Client.prototype.textToCommands = function(text) {
 
 Client.prototype.textToArgs = function(self, text) {
     var args = self.textToCommands(text);
-    var days = args[0];
-    var extension = args[1];
+    var days = args[1];
+    var extension = args[2];
     try {
         days = days.toString();
     } catch(e) {
