@@ -112,7 +112,7 @@ Client.prototype.peerStatusStrings = function(peerStatuses, filterStatuses) {
 
 Client.prototype.peerStatusBad = function(self, from, to, text, message) {
     self.sayOrSay(from, to, 'Peer statuses:');
-    self.peerStatusStrings(self.peerStatuses, ['Registered']).forEach(function(line) {self.sayOrSay(from, to, line);});
+    self.peerStatusStrings(self.peerStatuses, ['Registered', 'Reachable']).forEach(function(line) {self.sayOrSay(from, to, line);});
 };
 
 Client.prototype.hi = function(self, from, to, text, message) {
