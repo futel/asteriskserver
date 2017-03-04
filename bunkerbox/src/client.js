@@ -1,10 +1,5 @@
 var irc = require('irc');
 var util = require('util');
-var moment = require('moment');
-
-var info_mod = require('./info');
-
-var info = new info_mod.Info();
 
 var defaultStatsDays = 60;
 
@@ -15,11 +10,11 @@ var stringIn = function(str1, str2) {
     return str2.indexOf(str1) > -1;
 }
 
-function Client(noisyChannels, dbFileName, botPassword) {
+function Client(info, noisyChannels, dbFileName, botPassword) {
+    this.info = info;
     this.noisyChannels = noisyChannels;
     this.dbFileName = dbFileName;
     this.botPassword = botPassword;
-    this.peerStatuses = new Object();
     this.says = new Map();
     this.resetThrottle();
 }
@@ -86,33 +81,15 @@ Client.prototype.noisySay = function(text) {
 };
 
 Client.prototype.peerStatusAction = function(peer, status) {
-    this.peerStatuses[peer] = {'status': status, 'timestamp': new Date()};
+    this.info.peerStatusAction(peer, status);
 };
 
 Client.prototype.peerStatus = function(self, from, to, text, message) {
-    self.sayOrSay(from, to, 'Peer statuses:');
-    self.peerStatusStrings(self.peerStatuses).forEach(function(line) {self.sayOrSay(from, to, line);});    
-};
-
-Client.prototype.peerStatusStrings = function(peerStatuses, filterStatuses) {
-    if (filterStatuses === undefined) { filterStatuses = [] }
-        
-    return Object.keys(peerStatuses).filter(
-        function(key) { return !(filterStatuses.indexOf(peerStatuses[key].status) >= 0); }
-    ).sort(
-        function(x, y) { return peerStatuses[y].timestamp - peerStatuses[x].timestamp; }
-    ).map(
-        function(key) {
-            formatTimestamp = function(dateString) {
-                return moment(dateString).format('LLL');
-            }
-            return key + ' ' + peerStatuses[key].status + ' ' + formatTimestamp(peerStatuses[key].timestamp);
-        });
+    self.info.peerStatus().forEach(function(line) {self.sayOrSay(from, to, line);});
 };
 
 Client.prototype.peerStatusBad = function(self, from, to, text, message) {
-    self.sayOrSay(from, to, 'Peer statuses:');
-    self.peerStatusStrings(self.peerStatuses, ['Registered', 'Reachable']).forEach(function(line) {self.sayOrSay(from, to, line);});
+    self.info.peerStatusBad().forEach(function(line) {self.sayOrSay(from, to, line);});    
 };
 
 Client.prototype.hi = function(self, from, to, text, message) {
@@ -176,7 +153,7 @@ Client.prototype.stats = function(self, from, to, text, message) {
     var args = self.textToArgs(self, text);
     var days = args[0];
     var extension = args[1];
-    info.stats(
+    self.info.stats(
         self.dbFileName,
         days,
         extension,
@@ -189,7 +166,7 @@ Client.prototype.latest = function(self, from, to, text, message) {
     var args = self.textToArgs(self, text);
     var days = args[0];         // XXX ignored
     var extension = args[1];
-    info.latest(
+    self.info.latest(
         self.dbFileName,
         extension,
         function(result) {
@@ -198,7 +175,7 @@ Client.prototype.latest = function(self, from, to, text, message) {
 };
 
 Client.prototype.recentBad = function(self, from, to, text, message) {
-    info.recentBad(
+    self.info.recentBad(
         self.dbFileName,
         function(result) {
             result.map(function (line) { self.sayOrSay(from, to, line); });

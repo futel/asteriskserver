@@ -1,11 +1,13 @@
 var assert = require('assert');
 var sinon = require('sinon');
+var info_mod = require('../info');
 var client_mod = require('../client');
 
 var fifthSecond = 500;
 
 var getClient = function() {
-    var client = new client_mod.Client(['noisyChannel'], 'dbFileName', 'password');
+    var info = new info_mod.Info();    
+    var client = new client_mod.Client(info, ['noisyChannel'], 'dbFileName', 'password');
     client.start('server', 'nick', {});
     // we don't mock the server, which supplies the nick
     client.nick = 'nick';

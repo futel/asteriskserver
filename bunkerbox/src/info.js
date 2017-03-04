@@ -4,8 +4,42 @@ var metrics_util = require('./metrics_util');
 var moment = require('moment');
 
 function Info() {
-    var self = this;
+    this.peerStatuses = new Object();
 }
+
+Info.prototype.peerStatusAction = function(peer, status) {
+    this.peerStatuses[peer] = {'status': status, 'timestamp': new Date()};
+};
+
+Info.prototype.peerStatusStrings = function(peerStatuses, filterStatuses) {
+    if (filterStatuses === undefined) { filterStatuses = [] }
+        
+    return Object.keys(peerStatuses).filter(
+        function(key) { return !(filterStatuses.indexOf(peerStatuses[key].status) >= 0); }
+    ).sort(
+        function(x, y) { return peerStatuses[y].timestamp - peerStatuses[x].timestamp; }
+    ).map(
+        function(key) {
+            formatTimestamp = function(dateString) {
+                return moment(dateString).format('LLL');
+            }
+            return key + ' ' + peerStatuses[key].status + ' ' + formatTimestamp(peerStatuses[key].timestamp);
+        });
+};
+
+Info.prototype.peerStatus = function() {
+    out = [];    
+    out.push('Peer statuses:');
+    this.peerStatusStrings(this.peerStatuses).forEach(function(line) {out.push(line);});
+    return out;
+};
+
+Info.prototype.peerStatusBad = function() {
+    out = []
+    out.push('Peer statuses:');
+    this.peerStatusStrings(this.peerStatuses, ['Registered', 'Reachable']).forEach(function(line) {out.push(line);});
+    return out;
+};
 
 Info.prototype.reportStats = function(days, rows) {
     rows = rows.map(function (row) { return row.name + ":" + row.count; });
