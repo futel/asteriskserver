@@ -116,34 +116,6 @@ describe('main', function() {
                 assert.equal(false, client.say.called);
             });
         });
-        describe('peerStatus', function() {
-            describe('empty', function() {            
-                it('should provide an empty peer status', function() {
-                    client.channelMessage('from', 'to', '!peerstatus', 'message');
-                    testSays(client, 'to', ['Peer statuses:'], this.clock);
-                });
-            });
-            describe('populated', function() {
-                it('should provide a populated peer status', function() {
-                    client.peerStatusAction('SIP/668', 'Registered');
-                    this.clock.tick(1000 * 60 * 2);                    
-                    client.peerStatusAction('SIP/703', 'Registered');
-                    this.clock.tick(1000 * 60 * 2);                    
-                    client.peerStatusAction('SIP/703', 'Unreachable');
-                    this.clock.tick(1000 * 60 * 2);                    
-                    client.peerStatusAction('SIP/704', 'Registered');
-                    
-                    client.channelMessage('from', 'to', '!peerstatus', 'message');
-                testSays(client,
-                         'to',
-                         ['Peer statuses:',
-                          'SIP/704 Registered December 31, 1969 4:06 PM',                        
-                          'SIP/703 Unreachable December 31, 1969 4:04 PM',
-                          'SIP/668 Registered December 31, 1969 4:00 PM'
-                         ], this.clock);
-                });
-            });
-        });            
         describe('peerStatusBad', function() {
             describe('empty', function() {            
                 it('should provide an empty peer status', function() {
