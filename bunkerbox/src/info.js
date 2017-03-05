@@ -3,7 +3,8 @@
 var metrics_util = require('./metrics_util');
 var moment = require('moment');
 
-function Info() {
+function Info(dbFilename) {
+    this.dbFileName = dbFileName;
     this.peerStatuses = new Object();
 }
 
@@ -49,10 +50,10 @@ Info.prototype.reportStats = function(days, rows) {
     return out;
 }
 
-Info.prototype.stats = function(dbFileName, days, extension, callback) {
+Info.prototype.stats = function(days, extension, callback) {
     var self = this;
     metrics_util.frequent_events(
-        dbFileName,
+        self.dbFileName,
         null,
         null,
         days,
@@ -80,10 +81,10 @@ Info.prototype.reportLatest = function(results) {
     return out;
 };
 
-Info.prototype.latest = function(dbFileName, extension, callback) {
+Info.prototype.latest = function(extension, callback) {
     var self = this;
     metrics_util.latest_events(
-        dbFileName,
+        self.dbFileName,
         extension,
         function(results) {
             callback(self.reportLatest(results));
@@ -101,10 +102,10 @@ Info.prototype.reportRecentBad = function(results) {
     return out;
 };
 
-Info.prototype.recentBad = function(dbFileName, callback) {
+Info.prototype.recentBad = function(callback) {
     var self = this;
     metrics_util.recentEvents(
-        dbFileName,
+        self.dbFileName,
         5,
         null,
         null,

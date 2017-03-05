@@ -10,10 +10,9 @@ var stringIn = function(str1, str2) {
     return str2.indexOf(str1) > -1;
 }
 
-function Client(info, noisyChannels, dbFileName, botPassword) {
+function Client(info, noisyChannels, botPassword) {
     this.info = info;
     this.noisyChannels = noisyChannels;
-    this.dbFileName = dbFileName;
     this.botPassword = botPassword;
     this.says = new Map();
     this.resetThrottle();
@@ -92,6 +91,14 @@ Client.prototype.peerStatusBad = function(self, from, to, text, message) {
     self.info.peerStatusBad().forEach(function(line) {self.sayOrSay(from, to, line);});    
 };
 
+Client.prototype.confbridgeJoinAction = function() {
+    this.noisySay('Voice conference joined');
+};
+
+Client.prototype.confbridgeLeaveAction = function() {
+    this.noisySay('Voice conference left');
+};
+
 Client.prototype.hi = function(self, from, to, text, message) {
     self.sayOrSay(from, to, 'Hi ' + from + '!');    
 };
@@ -154,7 +161,6 @@ Client.prototype.stats = function(self, from, to, text, message) {
     var days = args[0];
     var extension = args[1];
     self.info.stats(
-        self.dbFileName,
         days,
         extension,
         function(result) {
@@ -167,7 +173,6 @@ Client.prototype.latest = function(self, from, to, text, message) {
     var days = args[0];         // XXX ignored
     var extension = args[1];
     self.info.latest(
-        self.dbFileName,
         extension,
         function(result) {
             result.map(function (line) { self.sayOrSay(from, to, line); });
@@ -176,7 +181,6 @@ Client.prototype.latest = function(self, from, to, text, message) {
 
 Client.prototype.recentBad = function(self, from, to, text, message) {
     self.info.recentBad(
-        self.dbFileName,
         function(result) {
             result.map(function (line) { self.sayOrSay(from, to, line); });
         });

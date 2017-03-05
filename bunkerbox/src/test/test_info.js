@@ -3,7 +3,7 @@ var sinon = require('sinon');
 var info_mod = require('../info');
 
 var getInfo = function() {
-    var info = new info_mod.Info();    
+    var info = new info_mod.Info('dbFileName');    
     return info;
 }
 

@@ -60,10 +60,10 @@ function Poller(sqsUrl, awsAkey, awsSecret, eventHostname, client) {
     var defaultEventAction = function(body) {
     };
     var confbridgeJoinAction = function(body) {
-        client.noisySay('Voice conference joined');
+        client.confbridgeJoinAction();
     };
     var confbridgeLeaveAction = function(body) {
-        client.noisySay('Voice conference left');
+        client.confbridgeLeaveAction();
     };
     var peerStatusAction = function(body) {
         client.peerStatusAction(body.event.Peer, body.event.PeerStatus);

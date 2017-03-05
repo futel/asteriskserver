@@ -5,11 +5,10 @@ var snspoller = require('./snspoller');
 var config = require('./config');
 var secrets = require('./secrets');
 
-var info = new info_mod.Info();
+var info = new info_mod.Info(config.config.dbFileName);
 var client = new client_mod.Client(
     info,
     config.config.noisyChannels,
-    config.config.dbFileName,
     config.config.botPassword);
 
 client.start(

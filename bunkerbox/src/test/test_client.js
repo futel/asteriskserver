@@ -6,8 +6,8 @@ var client_mod = require('../client');
 var fifthSecond = 500;
 
 var getClient = function() {
-    var info = new info_mod.Info();    
-    var client = new client_mod.Client(info, ['noisyChannel'], 'dbFileName', 'password');
+    var info = new info_mod.Info('dbFileName');    
+    var client = new client_mod.Client(info, ['noisyChannel'], 'password');
     client.start('server', 'nick', {});
     // we don't mock the server, which supplies the nick
     client.nick = 'nick';
