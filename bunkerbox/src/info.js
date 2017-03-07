@@ -3,7 +3,7 @@
 var metrics_util = require('./metrics_util');
 var moment = require('moment');
 
-function Info(dbFilename) {
+function Info(dbFileName) {
     this.dbFileName = dbFileName;
     this.peerStatuses = new Object();
 }
