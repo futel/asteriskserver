@@ -1,23 +1,15 @@
 var info_mod = require('../info');
-var dbFileName = 'test/metrics.db'
+var dbFileName = 'test/assets/metrics.db'
 
-var info = new info_mod.Info();
-
-info.recentBad(
-    dbFileName,
-    function(result) {
-        result.map(function (line) { console.log(line); });
-    });
+var info = new info_mod.Info(dbFileName);
 
 info.latest(
-    dbFileName,
     null,
     function(result) {
         result.map(function (line) { console.log(line); });
     });
 
 info.stats(
-    dbFileName,
     null,
     null,
     function(result) {
