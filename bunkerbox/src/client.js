@@ -194,12 +194,13 @@ Client.prototype.errorMessage = function(self, from, to, text, message) {
 Client.prototype.simpleStrings = function(from, to, text, message) {
     // simple string to string response
     var self = this;
-    var responses = {};
-    responses['yes'] = "No.";
-    responses['no'] = "Yes.";
-    responses['maybe'] = "MAYBE?";
-    responses['false'] = "True.";
-    responses['true'] = "False.";
+    var responses = {
+        'yes': "No.",
+        'no': "Yes.",
+        'maybe': "MAYBE?",
+        'false': "True.",
+        'true': "False."
+    }
     text = text.toLowerCase();
     text = text.replace(/[^\w]/g,'');
     for (var key in responses) {
