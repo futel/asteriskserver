@@ -74,7 +74,8 @@ Client.prototype.noisySay = function(text) {
         });
     }
     catch (e) {
-        // XXX this is just bad setup order? Replace with global catch to log and prevent death?
+        // XXX this is just bad setup order? Replace with global catch to log and prevent death,
+        //     or a real job scheduler
         console.log(e);
     }
 };
@@ -275,8 +276,8 @@ Client.prototype.substrings = function(from, to, text, message) {
 };
 
 Client.prototype.sinceThrottle = function() {
-    var fiveMinutes = 1000 * 60 * 5;
-    if ((new Date() - this.throttleDate) < fiveMinutes) {
+    var twoMinutes = 1000 * 60 * 2;
+    if ((new Date() - this.throttleDate) < twoMinutes) {
         return false;
     }
     this.resetThrottle();
