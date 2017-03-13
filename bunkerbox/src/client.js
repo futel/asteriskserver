@@ -199,7 +199,9 @@ Client.prototype.simpleStrings = function(from, to, text, message) {
         'no': "Yes.",
         'maybe': "MAYBE?",
         'false': "True.",
-        'true': "False."
+        'true': "False.",
+        'hi': "Hi!",
+        'hello': "Hi!",        
     }
     text = text.toLowerCase();
     text = text.replace(/[^\w]/g,'');
