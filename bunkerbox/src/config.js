@@ -9,4 +9,4 @@ var config = {
     eventHostname: 'futel-prod'
 };
 
-module.exports = { config: config};
+module.exports = { config: config };
