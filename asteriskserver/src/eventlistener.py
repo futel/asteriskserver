@@ -39,7 +39,7 @@ def handle_interesting_event(event, manager, snsclient):
         TopicArn=eventlistenerconf.aws_arn, Message=message)
 
 def handle_misc_event(event, manager, snsclient):
-    if event.headers.get('AppData') == 'OperatorAttempt':
+    if event.headers.get('AppData') in ('OperatorAttempt', 'OperatorNoPickup'):
         return handle_interesting_event(event, manager, snsclient)
     logging.info('not publishing %s' % event.headers)
 
