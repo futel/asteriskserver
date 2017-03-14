@@ -11,8 +11,6 @@ outgoing menu performs, metrics context_restricted_dialtone when configured
 
 outgoing call indicates 911 when calling 933 from 670
 outgoing call sends r2d2 id from 670
-outgoing call indicates 911 when calling 15555550911 from 650
-outgoing call sends iprc id from 650
 outgoing call indicates 911 when calling 15555550911 from 655
 outgoing call sends garth id from 655
 outgoing call indicates 911 when calling 933 from 667
@@ -24,6 +22,8 @@ outgoing call sends xnor id from 680
 
 outgoing call indicates no 911 when calling 933 from 671
 outgoing call sends incoming id from 656
+outgoing call indicates no 911 when calling 933 from 650
+outgoing call sends incoming id from 650
 outgoing call indicates no 911 when calling 15555550911 from 651
 outgoing call sends incoming id from 651
 outgoing call indicates no 911 when calling 15555550911 from 656
