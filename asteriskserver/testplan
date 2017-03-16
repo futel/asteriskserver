@@ -132,4 +132,8 @@ can record statements
 logs are generated
 metrics are generated
 eventlistener logs are generated
-events are received by irc bot
+
+conference bridge join event is received by irc bot
+conference bridge leave event is received by irc bot
+operator attempt event is received by irc bot
+operator nopickup event is received by irc bot
