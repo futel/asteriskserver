@@ -79,7 +79,7 @@ incoming call to garth gets garth phone
 incoming call to r2d2 calls r2d2 phone
 incoming call to incoming line gets incoming menu
 incoming call with disconnected device does the right thing
-simultaneous incoming calls do the right thing (probably not call waiting)
+simultaneous incoming calls do the right thing
 
 can call one extension from another using internal dialtone
 
