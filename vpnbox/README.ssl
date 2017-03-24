@@ -8,50 +8,17 @@ source ./vars
 
 # set up ca and server, do this once for vpnbox
 # some of these are interactive, can we set up args beforehand?
+source ./vars
 ./build-ca
 ./build-key-server server
 cp keys/ca.crt keys/ca.key keys/dh1024.pem keys/server.crt keys/server.csr keys/server.key ~/Documents/futel-installation/vpnbox/conf/
 
 # set up client with creds named 'client-foo', do this for each client
+source ./vars
 cp ../conf/ca.crt ../conf/ca.key keys # if not there from last step
-./build-key client-foo # hit return for all questions then confirm last
-cp keys/client-foo.crt keys/client-foo.csr keys/client-foo.key ../conf/client
+./build-key client-foo # hit return for all questions then confirm
+cp keys/client-foo.* ../conf/client
 # set up ../conf/client.conf.ddwrt
 # give client/client-foo.crt client/client-foo.csr
 # client/client-foo.key to client, renaming as client.crt etc
 # set up client with appropriate client.conf as in vpnclient/README
-
-
-## alternative, set up openssl keys with openssl commands
-# I'm supposed to know how to do this, but this is missing something
-
-# create certificate authority
-openssl genrsa -des3 -passout pass:cheese -out ca.key 2048
-openssl rsa -passin pass:cheese -in ca.key -out ca.key
-# XXX enter config including cn futel-ca during this?
-openssl req -new -x509 -days 365 -key ca.key -out ca.crt
-
-# create server key and certificate
-openssl genrsa -des3 -passout pass:cheese -out server.key 2048
-openssl rsa -passin pass:cheese -in server.key -out server.key
-# XXX enter config including cn futel-server during this?
-openssl req -new -key server.key -out server.csr
-#openssl ca -batch -days 365 -in server.csr -out server.crt -keyfile ca.key -cert ca.crt
-openssl x509 -req -days 365 -in server.csr -signkey server.key -out server.crt
-
-# test
-# XXX we are broken, we need to trust the server with the ca
-#     maybe because we skipped the openssl ca step?
-openssl verify -CAfile ca.crt  server.crt
-
-# create diffie-hellman parameters
-openssl dhparam -out dh2048.pem 2048
-
-# create client key and certificate
-#openssl req -days 365 -new  -keyout client.key -out client.csr
-#openssl ca -days 365 -out client.crt -in client.csr
-openssl genrsa -des3 -passout pass:cheese -out client.key 2048
-openssl rsa -passin pass:cheese -in client.key -out client.key
-# XXX enter config including cn futel-client during this?
-openssl req -new -key client.key -out client.csr
-openssl x509 -req -days 365 -in client.csr -CA ca.crt -CAkey ca.key -set_serial 01 -out client.crt
