@@ -17,14 +17,16 @@ openvpn client:
 enable
 server name vpnbox-prod-foo.phu73l.net
 LZO enable
-paste vpnbox/conf/ca.crt into public server cert
+paste vpnbox/conf/ca.crt into public server cert or CA cert
 paste vpnbox/conf/client/client-foo.crt into public client cert
 paste vpnbox/conf/client/client-foo.key into private client key
 
 administration/commands:
 paste src/ddwrt_startup into the text area and then press 'save startup'
 
-administration/management: add cron line:
+administration/management:
+enable cron
+additional cron jobs:
 0,3,6,9,12,15,18,21,24,27,30,33,36,39,42,45,48,51,54,57 * * * * root /tmp/replace_openvpn
 
 
