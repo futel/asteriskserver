@@ -124,7 +124,7 @@ def within_timestrs(start_time, end_time, now):
     return False
 
 def relevant_config(config, extension, now, context=None):
-    """Return map from config corresponding to extension and now, or None."""
+    """Return map from config corresponding to extension and now and context, or None."""
     extension = int(extension)  # normalize
     for config_map in config:
         if extension in config_map['extensions']:

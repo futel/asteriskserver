@@ -1,5 +1,10 @@
 ## Deploy an asterisk server to Digital Ocean
 
+## test
+
+cd src/var/lib/asterisk/agi-bin
+python -m unittest discover test
+
 ## Deploy stage asteriskbox to digital ocean manually
 
 all droplets:
