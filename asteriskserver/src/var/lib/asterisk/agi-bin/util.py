@@ -1,4 +1,4 @@
-#import datetime
+import datetime
 import sys, os, traceback
 import logging
 
@@ -100,26 +100,40 @@ def calling_extension(agi_o):
     except:
         return None
 
-def timestr_to_timetup(timestr):
+def timestr_to_datetime(timestr):
+    try:
+        return datetime.datetime.strptime(timestr, '%H:%M')
+    except ValueError:
+        return datetime.datetime.strptime(timestr, '%Y-%m-%dT%H:%M')
     return [int(s) for s in timestr.split(':')]
 
-def cmp_time(hour, minute, now):
-    if now.hour < hour:
+def cmp_time(dt, now):
+    if dt.year != 1900:
+        # includes date
+        if now.year < dt.year:
+            return -1
+        if now.year > dt.year:
+            return 1
+        if now.month < dt.month:
+            return -1
+        if now.month > dt.month:
+            return 1
+    if now.hour < dt.hour:
         return -1
-    if now.hour > hour:
+    if now.hour > dt.hour:
         return 1
-    if now.minute < minute:
+    if now.minute < dt.minute:
         return -1
-    if now.minute > minute:
+    if now.minute > dt.minute:
         return 1
     return 0
 
-def within_timestrs(start_time, end_time, now):
-    if start_time and end_time:
-        (hour, minute) = timestr_to_timetup(start_time)
-        if cmp_time(hour, minute, now) >= 0:
-            (hour, minute) = timestr_to_timetup(end_time)
-            if cmp_time(hour, minute, now) < 0:
+def within_timestrs(start_string, end_string, now):
+    if start_string and end_string:
+        start_time = timestr_to_datetime(start_string)
+        if cmp_time(start_time, now) >= 0:
+            end_time = timestr_to_datetime(end_string)
+            if cmp_time(end_time, now) < 0:
                 return True
     return False
 
