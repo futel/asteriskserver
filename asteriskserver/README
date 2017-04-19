@@ -55,10 +55,10 @@ wait for DNS to propagate
 stop asterisk on futel-prod-back
   sudo service asterisk stop
 make a snapshot of futel-prod-back
-halt futel-prod-back
+destroy droplet futel-prod-back
 test that futel-prod outgoing calls work
 test that futel-prod incoming call to incoming line works
 test that futel-prod incoming calls to extensions work or get channel unavailable
 remove snapshots of futel-prod-back except for most recent
 test that futel-prod incoming calls to extensions work (may take time)
-destroy droplet futel-prod-back
+
