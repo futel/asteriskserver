@@ -12,7 +12,7 @@ line1: register yes
 line1: display name, user ID <extension>
 line1: password <secret>
 line1: use auth ID no
-
+line1: Supplementary Service Subscription: call waiting serv no
 line1: dial plan S0<:999> (or desired extension in default-outgoing context)
 
 ## set up an unlocked grandstream HT701
