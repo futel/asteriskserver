@@ -100,12 +100,7 @@ def metric_metriclog(**kwargs):
 
 def calling_extension(agi_o):
     """ Return the calling extension. """
-    # eg SIP/702-00000000
-    channel= agi_o.get_variable('CHANNEL')
-    try:
-        return channel.split('/').pop().split('-').pop(0)
-    except:
-        return None
+    return agi_o.get_variable('calling_extension')
 
 def timestr_to_datetime(timestr):
     try:
