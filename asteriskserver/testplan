@@ -1,9 +1,11 @@
+ext 994 starts ypsi menu
 ext 995 starts default menu
 ext 996 starts restricted dialtone
 ext 997 starts gallery/demo destination
 ext 998 starts admin menu
 ext 1000 starts dialtone
 ext 1001 starts incoming menu
+ext 999 starts ypsi menu from extension 630
 ext 999 starts default menu from extension 665
 ext 999 starts default menu from extension 667
 ext 999 starts default menu from extension 668
@@ -16,6 +18,8 @@ outgoing menu performs friction action when configured for extension and time
 outgoing menu does not perform friction action when configured for extension and time
 outgoing menu performs, metrics context_restricted_dialtone when configured
 
+outgoing call indicates 911 when calling 933 from 630
+outgoing call sends ypsi id from 640
 outgoing call indicates 911 when calling 933 from 670
 outgoing call sends r2d2 id from 670
 outgoing call indicates 911 when calling 933 from 655
@@ -90,6 +94,15 @@ simultaneous incoming calls do the right thing
 
 can call one extension from another using internal dialtone
 
+outgoing menu:
+can hear, choose each option
+
+outgoing menu ypsi:
+can hear, choose each option
+
+outgoing menu admin:
+can hear, choose each option
+
 outgoing operator:
 calling operator plays intro, then music while operators are called
 calling operator dials all operators
@@ -117,7 +130,13 @@ can leave voicemail, check voicemail, hear voicemail info
 outgoing directory:
 can call each directory number
 
+outgoing directory ypsi:
+can call each directory number
+
 outgoing utilities:
+can call each utility number
+
+outgoing utilities ypsi:
 can call each utility number
 
 outgoing and incoming conference:
