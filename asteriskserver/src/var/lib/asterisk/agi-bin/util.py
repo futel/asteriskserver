@@ -25,9 +25,17 @@ preferred_statement_dirs = [
 
 metric_filename = '/opt/asterisk/var/log/asterisk/metrics'
 
-def read_config(config_filename):
-    yfile = '/'.join((asterisk_etc_dir, config_filename))
+def read_config(config_filename, etc_dir=asterisk_etc_dir):
+    """ Parse and return YAML config. """
+    yfile = '/'.join((etc_dir, config_filename))
     return yaml.load(file(yfile, 'r'))
+
+def write_config(config_map, config_filename, etc_dir=asterisk_etc_dir):
+    """ Parse and append config_map to YAML config. """
+    config = util.read_config(config_filename, etc_dir)
+    config.append(config_map)
+    yfile = '/'.join((etc_dir, config_filename))
+    return yaml.dump(config, file(yfile, 'w'))
 
 def agi_tracebacker(agi_o, func, *args, **kwargs):
     try:
