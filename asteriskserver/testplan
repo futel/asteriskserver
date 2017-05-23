@@ -6,6 +6,7 @@ ext 998 starts admin menu
 ext 1000 starts dialtone
 ext 1001 starts incoming menu
 ext 999 starts ypsi menu from extension 630
+ext 999 starts incoming ivr from extension 640
 ext 999 starts default menu from extension 665
 ext 999 starts default menu from extension 667
 ext 999 starts default menu from extension 668
@@ -18,8 +19,10 @@ outgoing menu performs friction action when configured for extension and time
 outgoing menu does not perform friction action when configured for extension and time
 outgoing menu performs, metrics context_restricted_dialtone when configured
 
-outgoing call indicates 911 when calling 933 from 630
-outgoing call sends ypsi id from 640
+outgoing call indicates no 911 when calling 933 from 630
+outgoing call sends incoming id from 630
+outgoing call indicates no 911 when calling 933 from 640
+outgoing call sends incoming id from 640
 outgoing call indicates 911 when calling 933 from 670
 outgoing call sends r2d2 id from 670
 outgoing call indicates 911 when calling 933 from 655
