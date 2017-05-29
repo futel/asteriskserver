@@ -1,0 +1,7 @@
+make[3]: Entering directory '/home/openwrt/src/lede/package/libs/ustream-ssl'
+mkdir -p /home/openwrt/src/lede/staging_dir/target-mips_24kc_musl/root-ar71xx/stamp
+echo '2016-07-02-ec80adaa' | cmp -s - /home/openwrt/src/lede/staging_dir/target-mips_24kc_musl/pkginfo/libustream-mbedtls.version || echo '2016-07-02-ec80adaa' > /home/openwrt/src/lede/staging_dir/target-mips_24kc_musl/pkginfo/libustream-mbedtls.version
+SHELL= flock /home/openwrt/src/lede/tmp/.root-copy.flock -c 'cp -fpR /home/openwrt/src/lede/build_dir/target-mips_24kc_musl/ustream-ssl-mbedtls/ustream-ssl-2016-07-02-ec80adaa/.pkgdir/libustream-mbedtls/. /home/openwrt/src/lede/staging_dir/target-mips_24kc_musl/root-ar71xx/'
+touch /home/openwrt/src/lede/staging_dir/target-mips_24kc_musl/root-ar71xx/stamp/.libustream-mbedtls_installed
+echo "libustream-mbedtls" >> /home/openwrt/src/lede/staging_dir/target-mips_24kc_musl/pkginfo/ustream-ssl.mbedtls.install
+make[3]: Leaving directory '/home/openwrt/src/lede/package/libs/ustream-ssl'

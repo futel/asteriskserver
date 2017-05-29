@@ -1,0 +1,6 @@
+make[3]: Entering directory '/home/openwrt/src/lede/package/network/ipv6/odhcp6c'
+mkdir -p /home/openwrt/src/lede/staging_dir/target-mips_24kc_musl/root-ar71xx/stamp
+SHELL= flock /home/openwrt/src/lede/tmp/.root-copy.flock -c 'cp -fpR /home/openwrt/src/lede/build_dir/target-mips_24kc_musl/odhcp6c-2017-03-22-0463b057/.pkgdir/odhcp6c/. /home/openwrt/src/lede/staging_dir/target-mips_24kc_musl/root-ar71xx/'
+touch /home/openwrt/src/lede/staging_dir/target-mips_24kc_musl/root-ar71xx/stamp/.odhcp6c_installed
+echo "odhcp6c" >> /home/openwrt/src/lede/staging_dir/target-mips_24kc_musl/pkginfo/odhcp6c.default.install
+make[3]: Leaving directory '/home/openwrt/src/lede/package/network/ipv6/odhcp6c'

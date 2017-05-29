@@ -1,0 +1,3 @@
+make[3]: Entering directory '/home/openwrt/src/lede/package/firmware/linux-firmware'
+make[3]: Nothing to be done for 'compile'.
+make[3]: Leaving directory '/home/openwrt/src/lede/package/firmware/linux-firmware'

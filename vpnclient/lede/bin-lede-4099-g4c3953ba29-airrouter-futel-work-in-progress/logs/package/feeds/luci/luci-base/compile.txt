@@ -1,0 +1,6 @@
+make[3]: Entering directory '/home/openwrt/src/lede/feeds/luci/modules/luci-base'
+mkdir -p /home/openwrt/src/lede/staging_dir/target-mips_24kc_musl/root-ar71xx/stamp
+SHELL= flock /home/openwrt/src/lede/tmp/.root-copy.flock -c 'cp -fpR /home/openwrt/src/lede/build_dir/target-mips_24kc_musl/luci-base/.pkgdir/luci-base/. /home/openwrt/src/lede/staging_dir/target-mips_24kc_musl/root-ar71xx/'
+touch /home/openwrt/src/lede/staging_dir/target-mips_24kc_musl/root-ar71xx/stamp/.luci-base_installed
+echo "luci-base" >> /home/openwrt/src/lede/staging_dir/target-mips_24kc_musl/pkginfo/luci-base.default.install
+make[3]: Leaving directory '/home/openwrt/src/lede/feeds/luci/modules/luci-base'

@@ -1,0 +1,6 @@
+make[3]: Entering directory '/home/openwrt/src/lede/feeds/luci/libs/luci-lib-nixio'
+mkdir -p /home/openwrt/src/lede/staging_dir/target-mips_24kc_musl/root-ar71xx/stamp
+SHELL= flock /home/openwrt/src/lede/tmp/.root-copy.flock -c 'cp -fpR /home/openwrt/src/lede/build_dir/target-mips_24kc_musl/luci-lib-nixio/.pkgdir/luci-lib-nixio/. /home/openwrt/src/lede/staging_dir/target-mips_24kc_musl/root-ar71xx/'
+touch /home/openwrt/src/lede/staging_dir/target-mips_24kc_musl/root-ar71xx/stamp/.luci-lib-nixio_installed
+echo "luci-lib-nixio" >> /home/openwrt/src/lede/staging_dir/target-mips_24kc_musl/pkginfo/luci-lib-nixio.default.install
+make[3]: Leaving directory '/home/openwrt/src/lede/feeds/luci/libs/luci-lib-nixio'

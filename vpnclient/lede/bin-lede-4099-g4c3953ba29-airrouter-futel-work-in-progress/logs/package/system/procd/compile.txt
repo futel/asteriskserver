@@ -1,0 +1,6 @@
+make[3]: Entering directory '/home/openwrt/src/lede/package/system/procd'
+mkdir -p /home/openwrt/src/lede/staging_dir/target-mips_24kc_musl/root-ar71xx/stamp
+SHELL= flock /home/openwrt/src/lede/tmp/.root-copy.flock -c 'cp -fpR /home/openwrt/src/lede/build_dir/target-mips_24kc_musl/procd-2017-03-05-8f218f56/.pkgdir/procd/. /home/openwrt/src/lede/staging_dir/target-mips_24kc_musl/root-ar71xx/'
+touch /home/openwrt/src/lede/staging_dir/target-mips_24kc_musl/root-ar71xx/stamp/.procd_installed
+echo "procd" >> /home/openwrt/src/lede/staging_dir/target-mips_24kc_musl/pkginfo/procd.default.install
+make[3]: Leaving directory '/home/openwrt/src/lede/package/system/procd'

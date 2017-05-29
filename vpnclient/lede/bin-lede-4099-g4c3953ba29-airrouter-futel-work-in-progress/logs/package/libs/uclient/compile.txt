@@ -1,0 +1,11 @@
+make[3]: Entering directory '/home/openwrt/src/lede/package/libs/uclient'
+mkdir -p /home/openwrt/src/lede/staging_dir/target-mips_24kc_musl/root-ar71xx/stamp
+echo '2016-12-09-52d955fd' | cmp -s - /home/openwrt/src/lede/staging_dir/target-mips_24kc_musl/pkginfo/libuclient.version || echo '2016-12-09-52d955fd' > /home/openwrt/src/lede/staging_dir/target-mips_24kc_musl/pkginfo/libuclient.version
+SHELL= flock /home/openwrt/src/lede/tmp/.root-copy.flock -c 'cp -fpR /home/openwrt/src/lede/build_dir/target-mips_24kc_musl/uclient-2016-12-09-52d955fd/.pkgdir/libuclient/. /home/openwrt/src/lede/staging_dir/target-mips_24kc_musl/root-ar71xx/'
+touch /home/openwrt/src/lede/staging_dir/target-mips_24kc_musl/root-ar71xx/stamp/.libuclient_installed
+echo "libuclient" >> /home/openwrt/src/lede/staging_dir/target-mips_24kc_musl/pkginfo/uclient.default.install
+mkdir -p /home/openwrt/src/lede/staging_dir/target-mips_24kc_musl/root-ar71xx/stamp
+SHELL= flock /home/openwrt/src/lede/tmp/.root-copy.flock -c 'cp -fpR /home/openwrt/src/lede/build_dir/target-mips_24kc_musl/uclient-2016-12-09-52d955fd/.pkgdir/uclient-fetch/. /home/openwrt/src/lede/staging_dir/target-mips_24kc_musl/root-ar71xx/'
+touch /home/openwrt/src/lede/staging_dir/target-mips_24kc_musl/root-ar71xx/stamp/.uclient-fetch_installed
+echo "uclient-fetch" >> /home/openwrt/src/lede/staging_dir/target-mips_24kc_musl/pkginfo/uclient.default.install
+make[3]: Leaving directory '/home/openwrt/src/lede/package/libs/uclient'

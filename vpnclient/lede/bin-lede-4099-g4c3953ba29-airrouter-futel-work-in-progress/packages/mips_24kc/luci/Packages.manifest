@@ -1,0 +1,132 @@
+Package: luci-app-firewall
+Version: git-17.126.47167-57121f3-1
+Depends: libc, firewall
+Source: feeds/luci/applications/luci-app-firewall
+Section: luci
+Architecture: all
+Installed-Size: 10769
+Filename: luci-app-firewall_git-17.126.47167-57121f3-1_all.ipk
+Size: 11479
+SHA256sum: 987ea3729da2f9be7b50dfbc883903667facae5b09de5f40811031e24c7c3246
+Description:  Firewall and Portforwarding application
+
+Package: luci-base
+Version: git-17.126.47167-57121f3-1
+Depends: libc, lua, libuci-lua, luci-lib-nixio, luci-lib-ip, rpcd, libubus-lua, luci-lib-jsonc
+Source: feeds/luci/modules/luci-base
+Section: luci
+Architecture: mips_24kc
+Installed-Size: 123357
+Filename: luci-base_git-17.126.47167-57121f3-1_mips_24kc.ipk
+Size: 124250
+SHA256sum: d3880760c1d5910a9496e0476ea7c1c4510c25549da9e50a765cc7b8c3afe845
+Description:  LuCI core libraries
+
+Package: luci-lib-ip
+Version: git-17.126.47167-57121f3-1
+Depends: libc, liblua, libnl-tiny
+Source: feeds/luci/libs/luci-lib-ip
+Section: luci
+Architecture: mips_24kc
+Installed-Size: 8500
+Filename: luci-lib-ip_git-17.126.47167-57121f3-1_mips_24kc.ipk
+Size: 9222
+SHA256sum: 608a6590eacba4c394c1818b510c610f8664bb07c272de73022f0b7e8dfa43ce
+Description:  Lua library for IP calculation and routing information
+
+Package: luci-lib-jsonc
+Version: git-17.126.47167-57121f3-1
+Depends: libc, liblua, libjson-c
+Source: feeds/luci/libs/luci-lib-jsonc
+Section: luci
+Architecture: mips_24kc
+Installed-Size: 3563
+Filename: luci-lib-jsonc_git-17.126.47167-57121f3-1_mips_24kc.ipk
+Size: 4250
+SHA256sum: 4cbfdef4ac2461a5032f7ef15921c2fafaf425ac1a242ac358692d992830ecac
+Description:  Lua binding for JSON-C
+
+Package: luci-lib-nixio
+Version: git-17.126.47167-57121f3-1
+Depends: libc, liblua
+Source: feeds/luci/libs/luci-lib-nixio
+Section: luci
+Architecture: mips_24kc
+Installed-Size: 27222
+Filename: luci-lib-nixio_git-17.126.47167-57121f3-1_mips_24kc.ipk
+Size: 27645
+SHA256sum: 73eec96025bffb124b673491398c2af8bf3acac87dd7ac626e27e59077202223
+Description:  NIXIO POSIX library
+
+Package: luci-mod-admin-full
+Version: git-17.126.47167-57121f3-1
+Depends: libc, luci-base
+Source: feeds/luci/modules/luci-mod-admin-full
+Section: luci
+Architecture: mips_24kc
+Installed-Size: 75592
+Filename: luci-mod-admin-full_git-17.126.47167-57121f3-1_mips_24kc.ipk
+Size: 76492
+SHA256sum: 49eba90baa1f593d754f8199ff2d27ba6f25b59c1ea7c9f9302475bad4f37efb
+Description:  LuCI Administration - full-featured for full control
+
+Package: luci-proto-ipv6
+Version: git-17.126.47167-57121f3-1
+Depends: libc
+Source: feeds/luci/protocols/luci-proto-ipv6
+Section: luci
+Architecture: all
+Installed-Size: 4788
+Filename: luci-proto-ipv6_git-17.126.47167-57121f3-1_all.ipk
+Size: 5512
+SHA256sum: 4d330b1051d2b8de70198824db0bc929414f8308a3e8fde4a9a2805250ab0176
+Description:  Support for DHCPv6/6in4/6to4/6rd/DS-Lite/aiccu
+
+Package: luci-proto-ppp
+Version: git-17.126.47167-57121f3-1
+Depends: libc
+Source: feeds/luci/protocols/luci-proto-ppp
+Section: luci
+Architecture: all
+Installed-Size: 3088
+Filename: luci-proto-ppp_git-17.126.47167-57121f3-1_all.ipk
+Size: 3767
+SHA256sum: be6192016f103f965c1e3fe5e25ada86069facef5dc2794a80362f2bf336a345
+Description:  Support for PPP/PPPoE/PPPoA/PPtP
+
+Package: luci-ssl
+Version: git-17.126.47167-57121f3-1
+Depends: libc, luci, libustream-mbedtls, px5g
+Source: feeds/luci/collections/luci-ssl
+Section: luci
+Architecture: all
+Installed-Size: 105
+Filename: luci-ssl_git-17.126.47167-57121f3-1_all.ipk
+Size: 809
+SHA256sum: ca198f89ab8db485992bd221d0276dff77eb0eb9c972089a7a1df802140a0526
+Description:  LuCI with HTTPS support (mbedTLS as SSL backend)
+
+Package: luci-theme-bootstrap
+Version: git-17.126.47167-57121f3-1
+Depends: libc
+Source: feeds/luci/themes/luci-theme-bootstrap
+Section: luci
+Architecture: all
+Installed-Size: 13155
+Filename: luci-theme-bootstrap_git-17.126.47167-57121f3-1_all.ipk
+Size: 13894
+SHA256sum: 9a7fbb2850973c2013781d46816e2836c38f0c3967239ebcfe7c8fbad35d49f1
+Description:  Bootstrap Theme (default)
+
+Package: luci
+Version: git-17.126.47167-57121f3-1
+Depends: libc, uhttpd, uhttpd-mod-ubus, luci-mod-admin-full, luci-theme-bootstrap, luci-app-firewall, luci-proto-ppp, libiwinfo-lua, luci-proto-ipv6
+Source: feeds/luci/collections/luci
+Section: luci
+Architecture: all
+Installed-Size: 105
+Filename: luci_git-17.126.47167-57121f3-1_all.ipk
+Size: 877
+SHA256sum: f84be4b027b3f0e9e7253fa04142cd6e8f96bc1ac77a996e277e0942c7a2aa5c
+Description:  Standard OpenWrt set including full admin with ppp support and the default Bootstrap theme
+

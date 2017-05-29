@@ -1,0 +1,6 @@
+make[3]: Entering directory '/home/openwrt/src/lede/package/kernel/gpio-button-hotplug'
+mkdir -p /home/openwrt/src/lede/staging_dir/target-mips_24kc_musl/root-ar71xx/stamp
+SHELL= flock /home/openwrt/src/lede/tmp/.root-copy.flock -c 'cp -fpR /home/openwrt/src/lede/build_dir/target-mips_24kc_musl/linux-ar71xx_generic/gpio-button-hotplug/.pkgdir/kmod-gpio-button-hotplug/. /home/openwrt/src/lede/staging_dir/target-mips_24kc_musl/root-ar71xx/'
+touch /home/openwrt/src/lede/staging_dir/target-mips_24kc_musl/root-ar71xx/stamp/.kmod-gpio-button-hotplug_installed
+echo "kmod-gpio-button-hotplug" >> /home/openwrt/src/lede/staging_dir/target-mips_24kc_musl/pkginfo/gpio-button-hotplug.default.install
+make[3]: Leaving directory '/home/openwrt/src/lede/package/kernel/gpio-button-hotplug'

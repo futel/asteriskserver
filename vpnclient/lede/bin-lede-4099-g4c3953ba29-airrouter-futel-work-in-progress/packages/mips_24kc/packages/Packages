@@ -1,0 +1,13 @@
+Package: diffutils
+Version: 3.3-2
+Depends: libc
+License: GPL-3.0
+Section: devel
+Architecture: mips_24kc
+Installed-Size: 98268
+Filename: diffutils_3.3-2_mips_24kc.ipk
+Size: 98673
+SHA256sum: 6efaaa8cde170cd0f30612d60189840697bae4e79f9ed38e10fd7a3cf06911ac
+Description:  The Diffutils package contains programs that show the differences between
+ files or directories.
+

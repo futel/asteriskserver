@@ -1,0 +1,6 @@
+make[3]: Entering directory '/home/openwrt/src/lede/package/utils/busybox'
+mkdir -p /home/openwrt/src/lede/staging_dir/target-mips_24kc_musl/root-ar71xx/stamp
+SHELL= flock /home/openwrt/src/lede/tmp/.root-copy.flock -c 'cp -fpR /home/openwrt/src/lede/build_dir/target-mips_24kc_musl/busybox-1.26.2/.pkgdir/busybox/. /home/openwrt/src/lede/staging_dir/target-mips_24kc_musl/root-ar71xx/'
+touch /home/openwrt/src/lede/staging_dir/target-mips_24kc_musl/root-ar71xx/stamp/.busybox_installed
+echo "busybox" >> /home/openwrt/src/lede/staging_dir/target-mips_24kc_musl/pkginfo/busybox.default.install
+make[3]: Leaving directory '/home/openwrt/src/lede/package/utils/busybox'

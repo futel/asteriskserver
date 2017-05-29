@@ -1,0 +1,2 @@
+make[3]: Entering directory '/home/openwrt/src/lede/package/system/fwtool'
+make[3]: Leaving directory '/home/openwrt/src/lede/package/system/fwtool'

@@ -1,0 +1,6 @@
+make[3]: Entering directory '/home/openwrt/src/lede/feeds/packages/devel/diffutils'
+mkdir -p /home/openwrt/src/lede/staging_dir/target-mips_24kc_musl/root-ar71xx/stamp
+SHELL= flock /home/openwrt/src/lede/tmp/.root-copy.flock -c 'cp -fpR /home/openwrt/src/lede/build_dir/target-mips_24kc_musl/diffutils-3.3/.pkgdir/diffutils/. /home/openwrt/src/lede/staging_dir/target-mips_24kc_musl/root-ar71xx/'
+touch /home/openwrt/src/lede/staging_dir/target-mips_24kc_musl/root-ar71xx/stamp/.diffutils_installed
+echo "diffutils" >> /home/openwrt/src/lede/staging_dir/target-mips_24kc_musl/pkginfo/diffutils.default.install
+make[3]: Leaving directory '/home/openwrt/src/lede/feeds/packages/devel/diffutils'

@@ -1,0 +1,6 @@
+make[3]: Entering directory '/home/openwrt/src/lede/package/libs/libjson-c'
+mkdir -p /home/openwrt/src/lede/staging_dir/target-mips_24kc_musl/root-ar71xx/stamp
+SHELL= flock /home/openwrt/src/lede/tmp/.root-copy.flock -c 'cp -fpR /home/openwrt/src/lede/build_dir/target-mips_24kc_musl/json-c-0.12.1/.pkgdir/libjson-c/. /home/openwrt/src/lede/staging_dir/target-mips_24kc_musl/root-ar71xx/'
+touch /home/openwrt/src/lede/staging_dir/target-mips_24kc_musl/root-ar71xx/stamp/.libjson-c_installed
+echo "libjson-c" >> /home/openwrt/src/lede/staging_dir/target-mips_24kc_musl/pkginfo/libjson-c.default.install
+make[3]: Leaving directory '/home/openwrt/src/lede/package/libs/libjson-c'

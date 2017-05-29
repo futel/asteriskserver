@@ -1,0 +1,19 @@
+make[3]: Entering directory '/home/openwrt/src/lede/package/libs/libubox'
+mkdir -p /home/openwrt/src/lede/staging_dir/target-mips_24kc_musl/root-ar71xx/stamp
+echo '2017-02-24-96305a3c' | cmp -s - /home/openwrt/src/lede/staging_dir/target-mips_24kc_musl/pkginfo/libubox.version || echo '2017-02-24-96305a3c' > /home/openwrt/src/lede/staging_dir/target-mips_24kc_musl/pkginfo/libubox.version
+SHELL= flock /home/openwrt/src/lede/tmp/.root-copy.flock -c 'cp -fpR /home/openwrt/src/lede/build_dir/target-mips_24kc_musl/libubox-2017-02-24-96305a3c/.pkgdir/libubox/. /home/openwrt/src/lede/staging_dir/target-mips_24kc_musl/root-ar71xx/'
+touch /home/openwrt/src/lede/staging_dir/target-mips_24kc_musl/root-ar71xx/stamp/.libubox_installed
+echo "libubox" >> /home/openwrt/src/lede/staging_dir/target-mips_24kc_musl/pkginfo/libubox.default.install
+mkdir -p /home/openwrt/src/lede/staging_dir/target-mips_24kc_musl/root-ar71xx/stamp
+SHELL= flock /home/openwrt/src/lede/tmp/.root-copy.flock -c 'cp -fpR /home/openwrt/src/lede/build_dir/target-mips_24kc_musl/libubox-2017-02-24-96305a3c/.pkgdir/libblobmsg-json/. /home/openwrt/src/lede/staging_dir/target-mips_24kc_musl/root-ar71xx/'
+touch /home/openwrt/src/lede/staging_dir/target-mips_24kc_musl/root-ar71xx/stamp/.libblobmsg-json_installed
+echo "libblobmsg-json" >> /home/openwrt/src/lede/staging_dir/target-mips_24kc_musl/pkginfo/libubox.default.install
+mkdir -p /home/openwrt/src/lede/staging_dir/target-mips_24kc_musl/root-ar71xx/stamp
+SHELL= flock /home/openwrt/src/lede/tmp/.root-copy.flock -c 'cp -fpR /home/openwrt/src/lede/build_dir/target-mips_24kc_musl/libubox-2017-02-24-96305a3c/.pkgdir/jshn/. /home/openwrt/src/lede/staging_dir/target-mips_24kc_musl/root-ar71xx/'
+touch /home/openwrt/src/lede/staging_dir/target-mips_24kc_musl/root-ar71xx/stamp/.jshn_installed
+echo "jshn" >> /home/openwrt/src/lede/staging_dir/target-mips_24kc_musl/pkginfo/libubox.default.install
+mkdir -p /home/openwrt/src/lede/staging_dir/target-mips_24kc_musl/root-ar71xx/stamp
+SHELL= flock /home/openwrt/src/lede/tmp/.root-copy.flock -c 'cp -fpR /home/openwrt/src/lede/build_dir/target-mips_24kc_musl/libubox-2017-02-24-96305a3c/.pkgdir/libjson-script/. /home/openwrt/src/lede/staging_dir/target-mips_24kc_musl/root-ar71xx/'
+touch /home/openwrt/src/lede/staging_dir/target-mips_24kc_musl/root-ar71xx/stamp/.libjson-script_installed
+echo "libjson-script" >> /home/openwrt/src/lede/staging_dir/target-mips_24kc_musl/pkginfo/libubox.default.install
+make[3]: Leaving directory '/home/openwrt/src/lede/package/libs/libubox'

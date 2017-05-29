@@ -1,0 +1,6 @@
+make[3]: Entering directory '/home/openwrt/src/lede/package/system/lede-keyring'
+mkdir -p /home/openwrt/src/lede/staging_dir/target-mips_24kc_musl/root-ar71xx/stamp
+SHELL= flock /home/openwrt/src/lede/tmp/.root-copy.flock -c 'cp -fpR /home/openwrt/src/lede/build_dir/target-mips_24kc_musl/lede-keyring-2017-01-20-a50b7529/.pkgdir/lede-keyring/. /home/openwrt/src/lede/staging_dir/target-mips_24kc_musl/root-ar71xx/'
+touch /home/openwrt/src/lede/staging_dir/target-mips_24kc_musl/root-ar71xx/stamp/.lede-keyring_installed
+echo "lede-keyring" >> /home/openwrt/src/lede/staging_dir/target-mips_24kc_musl/pkginfo/lede-keyring.default.install
+make[3]: Leaving directory '/home/openwrt/src/lede/package/system/lede-keyring'

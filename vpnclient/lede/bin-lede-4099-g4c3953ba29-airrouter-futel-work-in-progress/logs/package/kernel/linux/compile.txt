@@ -1,0 +1,107 @@
+make[3]: Entering directory '/home/openwrt/src/lede/package/kernel/linux'
+mkdir -p /home/openwrt/src/lede/staging_dir/target-mips_24kc_musl/root-ar71xx/stamp
+
+SHELL= flock /home/openwrt/src/lede/tmp/.root-copy.flock -c 'cp -fpR /home/openwrt/src/lede/build_dir/target-mips_24kc_musl/linux-ar71xx_generic/packages/.pkgdir/kernel/. /home/openwrt/src/lede/staging_dir/target-mips_24kc_musl/root-ar71xx/'
+touch /home/openwrt/src/lede/staging_dir/target-mips_24kc_musl/root-ar71xx/stamp/.kernel_installed
+echo "kernel" >> /home/openwrt/src/lede/staging_dir/target-mips_24kc_musl/pkginfo/linux.default.install
+mkdir -p /home/openwrt/src/lede/staging_dir/target-mips_24kc_musl/root-ar71xx/stamp
+
+SHELL= flock /home/openwrt/src/lede/tmp/.root-copy.flock -c 'cp -fpR /home/openwrt/src/lede/build_dir/target-mips_24kc_musl/linux-ar71xx_generic/packages/.pkgdir/kmod-lib-crc-ccitt/. /home/openwrt/src/lede/staging_dir/target-mips_24kc_musl/root-ar71xx/'
+touch /home/openwrt/src/lede/staging_dir/target-mips_24kc_musl/root-ar71xx/stamp/.kmod-lib-crc-ccitt_installed
+echo "kmod-lib-crc-ccitt" >> /home/openwrt/src/lede/staging_dir/target-mips_24kc_musl/pkginfo/linux.default.install
+mkdir -p /home/openwrt/src/lede/staging_dir/target-mips_24kc_musl/root-ar71xx/stamp
+
+SHELL= flock /home/openwrt/src/lede/tmp/.root-copy.flock -c 'cp -fpR /home/openwrt/src/lede/build_dir/target-mips_24kc_musl/linux-ar71xx_generic/packages/.pkgdir/kmod-nf-ipt/. /home/openwrt/src/lede/staging_dir/target-mips_24kc_musl/root-ar71xx/'
+touch /home/openwrt/src/lede/staging_dir/target-mips_24kc_musl/root-ar71xx/stamp/.kmod-nf-ipt_installed
+echo "kmod-nf-ipt" >> /home/openwrt/src/lede/staging_dir/target-mips_24kc_musl/pkginfo/linux.default.install
+mkdir -p /home/openwrt/src/lede/staging_dir/target-mips_24kc_musl/root-ar71xx/stamp
+
+SHELL= flock /home/openwrt/src/lede/tmp/.root-copy.flock -c 'cp -fpR /home/openwrt/src/lede/build_dir/target-mips_24kc_musl/linux-ar71xx_generic/packages/.pkgdir/kmod-nf-ipt6/. /home/openwrt/src/lede/staging_dir/target-mips_24kc_musl/root-ar71xx/'
+touch /home/openwrt/src/lede/staging_dir/target-mips_24kc_musl/root-ar71xx/stamp/.kmod-nf-ipt6_installed
+echo "kmod-nf-ipt6" >> /home/openwrt/src/lede/staging_dir/target-mips_24kc_musl/pkginfo/linux.default.install
+mkdir -p /home/openwrt/src/lede/staging_dir/target-mips_24kc_musl/root-ar71xx/stamp
+
+SHELL= flock /home/openwrt/src/lede/tmp/.root-copy.flock -c 'cp -fpR /home/openwrt/src/lede/build_dir/target-mips_24kc_musl/linux-ar71xx_generic/packages/.pkgdir/kmod-ipt-core/. /home/openwrt/src/lede/staging_dir/target-mips_24kc_musl/root-ar71xx/'
+touch /home/openwrt/src/lede/staging_dir/target-mips_24kc_musl/root-ar71xx/stamp/.kmod-ipt-core_installed
+echo "kmod-ipt-core" >> /home/openwrt/src/lede/staging_dir/target-mips_24kc_musl/pkginfo/linux.default.install
+mkdir -p /home/openwrt/src/lede/staging_dir/target-mips_24kc_musl/root-ar71xx/stamp
+
+SHELL= flock /home/openwrt/src/lede/tmp/.root-copy.flock -c 'cp -fpR /home/openwrt/src/lede/build_dir/target-mips_24kc_musl/linux-ar71xx_generic/packages/.pkgdir/kmod-nf-conntrack/. /home/openwrt/src/lede/staging_dir/target-mips_24kc_musl/root-ar71xx/'
+touch /home/openwrt/src/lede/staging_dir/target-mips_24kc_musl/root-ar71xx/stamp/.kmod-nf-conntrack_installed
+echo "kmod-nf-conntrack" >> /home/openwrt/src/lede/staging_dir/target-mips_24kc_musl/pkginfo/linux.default.install
+mkdir -p /home/openwrt/src/lede/staging_dir/target-mips_24kc_musl/root-ar71xx/stamp
+
+SHELL= flock /home/openwrt/src/lede/tmp/.root-copy.flock -c 'cp -fpR /home/openwrt/src/lede/build_dir/target-mips_24kc_musl/linux-ar71xx_generic/packages/.pkgdir/kmod-nf-conntrack6/. /home/openwrt/src/lede/staging_dir/target-mips_24kc_musl/root-ar71xx/'
+touch /home/openwrt/src/lede/staging_dir/target-mips_24kc_musl/root-ar71xx/stamp/.kmod-nf-conntrack6_installed
+echo "kmod-nf-conntrack6" >> /home/openwrt/src/lede/staging_dir/target-mips_24kc_musl/pkginfo/linux.default.install
+mkdir -p /home/openwrt/src/lede/staging_dir/target-mips_24kc_musl/root-ar71xx/stamp
+
+SHELL= flock /home/openwrt/src/lede/tmp/.root-copy.flock -c 'cp -fpR /home/openwrt/src/lede/build_dir/target-mips_24kc_musl/linux-ar71xx_generic/packages/.pkgdir/kmod-nf-nat/. /home/openwrt/src/lede/staging_dir/target-mips_24kc_musl/root-ar71xx/'
+touch /home/openwrt/src/lede/staging_dir/target-mips_24kc_musl/root-ar71xx/stamp/.kmod-nf-nat_installed
+echo "kmod-nf-nat" >> /home/openwrt/src/lede/staging_dir/target-mips_24kc_musl/pkginfo/linux.default.install
+mkdir -p /home/openwrt/src/lede/staging_dir/target-mips_24kc_musl/root-ar71xx/stamp
+
+SHELL= flock /home/openwrt/src/lede/tmp/.root-copy.flock -c 'cp -fpR /home/openwrt/src/lede/build_dir/target-mips_24kc_musl/linux-ar71xx_generic/packages/.pkgdir/kmod-ipt-conntrack/. /home/openwrt/src/lede/staging_dir/target-mips_24kc_musl/root-ar71xx/'
+touch /home/openwrt/src/lede/staging_dir/target-mips_24kc_musl/root-ar71xx/stamp/.kmod-ipt-conntrack_installed
+echo "kmod-ipt-conntrack" >> /home/openwrt/src/lede/staging_dir/target-mips_24kc_musl/pkginfo/linux.default.install
+mkdir -p /home/openwrt/src/lede/staging_dir/target-mips_24kc_musl/root-ar71xx/stamp
+
+SHELL= flock /home/openwrt/src/lede/tmp/.root-copy.flock -c 'cp -fpR /home/openwrt/src/lede/build_dir/target-mips_24kc_musl/linux-ar71xx_generic/packages/.pkgdir/kmod-ipt-nat/. /home/openwrt/src/lede/staging_dir/target-mips_24kc_musl/root-ar71xx/'
+touch /home/openwrt/src/lede/staging_dir/target-mips_24kc_musl/root-ar71xx/stamp/.kmod-ipt-nat_installed
+echo "kmod-ipt-nat" >> /home/openwrt/src/lede/staging_dir/target-mips_24kc_musl/pkginfo/linux.default.install
+mkdir -p /home/openwrt/src/lede/staging_dir/target-mips_24kc_musl/root-ar71xx/stamp
+
+SHELL= flock /home/openwrt/src/lede/tmp/.root-copy.flock -c 'cp -fpR /home/openwrt/src/lede/build_dir/target-mips_24kc_musl/linux-ar71xx_generic/packages/.pkgdir/kmod-ip6tables/. /home/openwrt/src/lede/staging_dir/target-mips_24kc_musl/root-ar71xx/'
+touch /home/openwrt/src/lede/staging_dir/target-mips_24kc_musl/root-ar71xx/stamp/.kmod-ip6tables_installed
+echo "kmod-ip6tables" >> /home/openwrt/src/lede/staging_dir/target-mips_24kc_musl/pkginfo/linux.default.install
+mkdir -p /home/openwrt/src/lede/staging_dir/target-mips_24kc_musl/root-ar71xx/stamp
+
+SHELL= flock /home/openwrt/src/lede/tmp/.root-copy.flock -c 'cp -fpR /home/openwrt/src/lede/build_dir/target-mips_24kc_musl/linux-ar71xx_generic/packages/.pkgdir/kmod-tun/. /home/openwrt/src/lede/staging_dir/target-mips_24kc_musl/root-ar71xx/'
+touch /home/openwrt/src/lede/staging_dir/target-mips_24kc_musl/root-ar71xx/stamp/.kmod-tun_installed
+echo "kmod-tun" >> /home/openwrt/src/lede/staging_dir/target-mips_24kc_musl/pkginfo/linux.default.install
+mkdir -p /home/openwrt/src/lede/staging_dir/target-mips_24kc_musl/root-ar71xx/stamp
+
+SHELL= flock /home/openwrt/src/lede/tmp/.root-copy.flock -c 'cp -fpR /home/openwrt/src/lede/build_dir/target-mips_24kc_musl/linux-ar71xx_generic/packages/.pkgdir/kmod-slhc/. /home/openwrt/src/lede/staging_dir/target-mips_24kc_musl/root-ar71xx/'
+touch /home/openwrt/src/lede/staging_dir/target-mips_24kc_musl/root-ar71xx/stamp/.kmod-slhc_installed
+echo "kmod-slhc" >> /home/openwrt/src/lede/staging_dir/target-mips_24kc_musl/pkginfo/linux.default.install
+mkdir -p /home/openwrt/src/lede/staging_dir/target-mips_24kc_musl/root-ar71xx/stamp
+
+SHELL= flock /home/openwrt/src/lede/tmp/.root-copy.flock -c 'cp -fpR /home/openwrt/src/lede/build_dir/target-mips_24kc_musl/linux-ar71xx_generic/packages/.pkgdir/kmod-ppp/. /home/openwrt/src/lede/staging_dir/target-mips_24kc_musl/root-ar71xx/'
+touch /home/openwrt/src/lede/staging_dir/target-mips_24kc_musl/root-ar71xx/stamp/.kmod-ppp_installed
+echo "kmod-ppp" >> /home/openwrt/src/lede/staging_dir/target-mips_24kc_musl/pkginfo/linux.default.install
+mkdir -p /home/openwrt/src/lede/staging_dir/target-mips_24kc_musl/root-ar71xx/stamp
+
+SHELL= flock /home/openwrt/src/lede/tmp/.root-copy.flock -c 'cp -fpR /home/openwrt/src/lede/build_dir/target-mips_24kc_musl/linux-ar71xx_generic/packages/.pkgdir/kmod-pppox/. /home/openwrt/src/lede/staging_dir/target-mips_24kc_musl/root-ar71xx/'
+touch /home/openwrt/src/lede/staging_dir/target-mips_24kc_musl/root-ar71xx/stamp/.kmod-pppox_installed
+echo "kmod-pppox" >> /home/openwrt/src/lede/staging_dir/target-mips_24kc_musl/pkginfo/linux.default.install
+mkdir -p /home/openwrt/src/lede/staging_dir/target-mips_24kc_musl/root-ar71xx/stamp
+
+SHELL= flock /home/openwrt/src/lede/tmp/.root-copy.flock -c 'cp -fpR /home/openwrt/src/lede/build_dir/target-mips_24kc_musl/linux-ar71xx_generic/packages/.pkgdir/kmod-pppoe/. /home/openwrt/src/lede/staging_dir/target-mips_24kc_musl/root-ar71xx/'
+touch /home/openwrt/src/lede/staging_dir/target-mips_24kc_musl/root-ar71xx/stamp/.kmod-pppoe_installed
+echo "kmod-pppoe" >> /home/openwrt/src/lede/staging_dir/target-mips_24kc_musl/pkginfo/linux.default.install
+mkdir -p /home/openwrt/src/lede/staging_dir/target-mips_24kc_musl/root-ar71xx/stamp
+
+SHELL= flock /home/openwrt/src/lede/tmp/.root-copy.flock -c 'cp -fpR /home/openwrt/src/lede/build_dir/target-mips_24kc_musl/linux-ar71xx_generic/packages/.pkgdir/kmod-nls-base/. /home/openwrt/src/lede/staging_dir/target-mips_24kc_musl/root-ar71xx/'
+touch /home/openwrt/src/lede/staging_dir/target-mips_24kc_musl/root-ar71xx/stamp/.kmod-nls-base_installed
+echo "kmod-nls-base" >> /home/openwrt/src/lede/staging_dir/target-mips_24kc_musl/pkginfo/linux.default.install
+mkdir -p /home/openwrt/src/lede/staging_dir/target-mips_24kc_musl/root-ar71xx/stamp
+
+SHELL= flock /home/openwrt/src/lede/tmp/.root-copy.flock -c 'cp -fpR /home/openwrt/src/lede/build_dir/target-mips_24kc_musl/linux-ar71xx_generic/packages/.pkgdir/kmod-usb-core/. /home/openwrt/src/lede/staging_dir/target-mips_24kc_musl/root-ar71xx/'
+touch /home/openwrt/src/lede/staging_dir/target-mips_24kc_musl/root-ar71xx/stamp/.kmod-usb-core_installed
+echo "kmod-usb-core" >> /home/openwrt/src/lede/staging_dir/target-mips_24kc_musl/pkginfo/linux.default.install
+mkdir -p /home/openwrt/src/lede/staging_dir/target-mips_24kc_musl/root-ar71xx/stamp
+
+SHELL= flock /home/openwrt/src/lede/tmp/.root-copy.flock -c 'cp -fpR /home/openwrt/src/lede/build_dir/target-mips_24kc_musl/linux-ar71xx_generic/packages/.pkgdir/kmod-usb-ohci/. /home/openwrt/src/lede/staging_dir/target-mips_24kc_musl/root-ar71xx/'
+touch /home/openwrt/src/lede/staging_dir/target-mips_24kc_musl/root-ar71xx/stamp/.kmod-usb-ohci_installed
+echo "kmod-usb-ohci" >> /home/openwrt/src/lede/staging_dir/target-mips_24kc_musl/pkginfo/linux.default.install
+mkdir -p /home/openwrt/src/lede/staging_dir/target-mips_24kc_musl/root-ar71xx/stamp
+
+SHELL= flock /home/openwrt/src/lede/tmp/.root-copy.flock -c 'cp -fpR /home/openwrt/src/lede/build_dir/target-mips_24kc_musl/linux-ar71xx_generic/packages/.pkgdir/kmod-usb-ehci/. /home/openwrt/src/lede/staging_dir/target-mips_24kc_musl/root-ar71xx/'
+touch /home/openwrt/src/lede/staging_dir/target-mips_24kc_musl/root-ar71xx/stamp/.kmod-usb-ehci_installed
+echo "kmod-usb-ehci" >> /home/openwrt/src/lede/staging_dir/target-mips_24kc_musl/pkginfo/linux.default.install
+mkdir -p /home/openwrt/src/lede/staging_dir/target-mips_24kc_musl/root-ar71xx/stamp
+
+SHELL= flock /home/openwrt/src/lede/tmp/.root-copy.flock -c 'cp -fpR /home/openwrt/src/lede/build_dir/target-mips_24kc_musl/linux-ar71xx_generic/packages/.pkgdir/kmod-usb2/. /home/openwrt/src/lede/staging_dir/target-mips_24kc_musl/root-ar71xx/'
+touch /home/openwrt/src/lede/staging_dir/target-mips_24kc_musl/root-ar71xx/stamp/.kmod-usb2_installed
+echo "kmod-usb2" >> /home/openwrt/src/lede/staging_dir/target-mips_24kc_musl/pkginfo/linux.default.install
+make[3]: Leaving directory '/home/openwrt/src/lede/package/kernel/linux'

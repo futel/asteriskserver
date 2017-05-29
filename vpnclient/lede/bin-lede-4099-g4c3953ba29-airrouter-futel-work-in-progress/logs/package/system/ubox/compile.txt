@@ -1,0 +1,10 @@
+make[3]: Entering directory '/home/openwrt/src/lede/package/system/ubox'
+mkdir -p /home/openwrt/src/lede/staging_dir/target-mips_24kc_musl/root-ar71xx/stamp
+SHELL= flock /home/openwrt/src/lede/tmp/.root-copy.flock -c 'cp -fpR /home/openwrt/src/lede/build_dir/target-mips_24kc_musl/ubox-2017-03-03-21a4bd04/.pkgdir/ubox/. /home/openwrt/src/lede/staging_dir/target-mips_24kc_musl/root-ar71xx/'
+touch /home/openwrt/src/lede/staging_dir/target-mips_24kc_musl/root-ar71xx/stamp/.ubox_installed
+echo "ubox" >> /home/openwrt/src/lede/staging_dir/target-mips_24kc_musl/pkginfo/ubox.default.install
+mkdir -p /home/openwrt/src/lede/staging_dir/target-mips_24kc_musl/root-ar71xx/stamp
+SHELL= flock /home/openwrt/src/lede/tmp/.root-copy.flock -c 'cp -fpR /home/openwrt/src/lede/build_dir/target-mips_24kc_musl/ubox-2017-03-03-21a4bd04/.pkgdir/logd/. /home/openwrt/src/lede/staging_dir/target-mips_24kc_musl/root-ar71xx/'
+touch /home/openwrt/src/lede/staging_dir/target-mips_24kc_musl/root-ar71xx/stamp/.logd_installed
+echo "logd" >> /home/openwrt/src/lede/staging_dir/target-mips_24kc_musl/pkginfo/ubox.default.install
+make[3]: Leaving directory '/home/openwrt/src/lede/package/system/ubox'

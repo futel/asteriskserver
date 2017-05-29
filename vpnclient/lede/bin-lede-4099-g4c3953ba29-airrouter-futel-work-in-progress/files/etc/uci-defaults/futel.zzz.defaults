@@ -1,0 +1,3 @@
+#!/bin/sh
+
+uci show > /etc/uci-firstboot
