@@ -1,6 +1,0 @@
-make[3]: Entering directory '/home/openwrt/src/lede/feeds/luci/protocols/luci-proto-ppp'
-mkdir -p /home/openwrt/src/lede/staging_dir/target-mips_24kc_musl/root-ar71xx/stamp
-SHELL= flock /home/openwrt/src/lede/tmp/.root-copy.flock -c 'cp -fpR /home/openwrt/src/lede/build_dir/target-mips_24kc_musl/luci-proto-ppp/.pkgdir/luci-proto-ppp/. /home/openwrt/src/lede/staging_dir/target-mips_24kc_musl/root-ar71xx/'
-touch /home/openwrt/src/lede/staging_dir/target-mips_24kc_musl/root-ar71xx/stamp/.luci-proto-ppp_installed
-echo "luci-proto-ppp" >> /home/openwrt/src/lede/staging_dir/target-mips_24kc_musl/pkginfo/luci-proto-ppp.default.install
-make[3]: Leaving directory '/home/openwrt/src/lede/feeds/luci/protocols/luci-proto-ppp'

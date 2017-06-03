@@ -1,7 +1,0 @@
-make[3]: Entering directory '/home/openwrt/src/lede/package/libs/mbedtls'
-mkdir -p /home/openwrt/src/lede/staging_dir/target-mips_24kc_musl/root-ar71xx/stamp
-echo '2.4.2-1' | cmp -s - /home/openwrt/src/lede/staging_dir/target-mips_24kc_musl/pkginfo/libmbedtls.version || echo '2.4.2-1' > /home/openwrt/src/lede/staging_dir/target-mips_24kc_musl/pkginfo/libmbedtls.version
-SHELL= flock /home/openwrt/src/lede/tmp/.root-copy.flock -c 'cp -fpR /home/openwrt/src/lede/build_dir/target-mips_24kc_musl/mbedtls-2.4.2/.pkgdir/libmbedtls/. /home/openwrt/src/lede/staging_dir/target-mips_24kc_musl/root-ar71xx/'
-touch /home/openwrt/src/lede/staging_dir/target-mips_24kc_musl/root-ar71xx/stamp/.libmbedtls_installed
-echo "libmbedtls" >> /home/openwrt/src/lede/staging_dir/target-mips_24kc_musl/pkginfo/mbedtls.default.install
-make[3]: Leaving directory '/home/openwrt/src/lede/package/libs/mbedtls'

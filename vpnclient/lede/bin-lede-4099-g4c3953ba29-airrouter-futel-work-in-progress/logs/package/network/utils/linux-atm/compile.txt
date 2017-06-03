@@ -1,2 +1,0 @@
-make[3]: Entering directory '/home/openwrt/src/lede/package/network/utils/linux-atm'
-make[3]: Leaving directory '/home/openwrt/src/lede/package/network/utils/linux-atm'

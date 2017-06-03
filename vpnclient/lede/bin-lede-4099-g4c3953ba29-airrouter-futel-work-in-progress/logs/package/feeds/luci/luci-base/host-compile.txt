@@ -1,2 +1,0 @@
-make[3]: Entering directory '/home/openwrt/src/lede/feeds/luci/modules/luci-base'
-make[3]: Leaving directory '/home/openwrt/src/lede/feeds/luci/modules/luci-base'

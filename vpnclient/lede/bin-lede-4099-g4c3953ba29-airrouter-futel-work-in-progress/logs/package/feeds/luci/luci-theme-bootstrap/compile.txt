@@ -1,6 +1,0 @@
-make[3]: Entering directory '/home/openwrt/src/lede/feeds/luci/themes/luci-theme-bootstrap'
-mkdir -p /home/openwrt/src/lede/staging_dir/target-mips_24kc_musl/root-ar71xx/stamp
-SHELL= flock /home/openwrt/src/lede/tmp/.root-copy.flock -c 'cp -fpR /home/openwrt/src/lede/build_dir/target-mips_24kc_musl/luci-theme-bootstrap/.pkgdir/luci-theme-bootstrap/. /home/openwrt/src/lede/staging_dir/target-mips_24kc_musl/root-ar71xx/'
-touch /home/openwrt/src/lede/staging_dir/target-mips_24kc_musl/root-ar71xx/stamp/.luci-theme-bootstrap_installed
-echo "luci-theme-bootstrap" >> /home/openwrt/src/lede/staging_dir/target-mips_24kc_musl/pkginfo/luci-theme-bootstrap.default.install
-make[3]: Leaving directory '/home/openwrt/src/lede/feeds/luci/themes/luci-theme-bootstrap'

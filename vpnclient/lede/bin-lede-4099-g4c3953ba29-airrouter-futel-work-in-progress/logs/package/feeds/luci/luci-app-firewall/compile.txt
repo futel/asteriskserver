@@ -1,6 +1,0 @@
-make[3]: Entering directory '/home/openwrt/src/lede/feeds/luci/applications/luci-app-firewall'
-mkdir -p /home/openwrt/src/lede/staging_dir/target-mips_24kc_musl/root-ar71xx/stamp
-SHELL= flock /home/openwrt/src/lede/tmp/.root-copy.flock -c 'cp -fpR /home/openwrt/src/lede/build_dir/target-mips_24kc_musl/luci-app-firewall/.pkgdir/luci-app-firewall/. /home/openwrt/src/lede/staging_dir/target-mips_24kc_musl/root-ar71xx/'
-touch /home/openwrt/src/lede/staging_dir/target-mips_24kc_musl/root-ar71xx/stamp/.luci-app-firewall_installed
-echo "luci-app-firewall" >> /home/openwrt/src/lede/staging_dir/target-mips_24kc_musl/pkginfo/luci-app-firewall.default.install
-make[3]: Leaving directory '/home/openwrt/src/lede/feeds/luci/applications/luci-app-firewall'

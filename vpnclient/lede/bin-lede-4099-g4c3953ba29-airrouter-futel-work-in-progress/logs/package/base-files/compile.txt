@@ -1,6 +1,0 @@
-make[3]: Entering directory '/home/openwrt/src/lede/package/base-files'
-mkdir -p /home/openwrt/src/lede/staging_dir/target-mips_24kc_musl/root-ar71xx/stamp
-SHELL= flock /home/openwrt/src/lede/tmp/.root-copy.flock -c 'cp -fpR /home/openwrt/src/lede/build_dir/target-mips_24kc_musl/linux-ar71xx_generic/base-files/.pkgdir/base-files/. /home/openwrt/src/lede/staging_dir/target-mips_24kc_musl/root-ar71xx/'
-touch /home/openwrt/src/lede/staging_dir/target-mips_24kc_musl/root-ar71xx/stamp/.base-files_installed
-echo "base-files" >> /home/openwrt/src/lede/staging_dir/target-mips_24kc_musl/pkginfo/base-files.default.install
-make[3]: Leaving directory '/home/openwrt/src/lede/package/base-files'
