@@ -7,11 +7,12 @@ ext 1000 starts dialtone
 ext 1001 starts incoming menu
 ext 999 starts ypsi menu from extension 630
 ext 999 starts incoming ivr from extension 640
+ext 999 starts default menu from extension 655
 ext 999 starts default menu from extension 665
 ext 999 starts default menu from extension 667
 ext 999 starts default menu from extension 668
 ext 999 starts default menu from extension 669
-ext 999 starts default menu from extension 670
+ext 999 starts dialtone from extension 670
 ext 999 starts default menu from extension 680
 ext 999 starts incoming ivr from other extensions
 
