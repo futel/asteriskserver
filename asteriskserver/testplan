@@ -20,6 +20,8 @@ outgoing menu performs friction action when configured for extension and time
 outgoing menu does not perform friction action when configured for extension and time
 outgoing menu performs, metrics context_restricted_dialtone when configured
 
+outgoing dialtone:
+
 outgoing call indicates no 911 when calling 933 from 620
 outgoing call sends incoming id from 630
 outgoing call indicates no 911 when calling 933 from 630
@@ -75,6 +77,7 @@ outgoing call indicates no 911 when calling 15555550911 from 711
 outgoing call sends incoming id from 711
 
 outgoing call filters number when configured for extension
+outgoing call sends 15551212 to operator
 
 outgoing call performs friction action after dialtone number input when configured for extension and time
 outoging call does not perform friction action when calling 933 when configured for extension and time
@@ -90,6 +93,8 @@ outgoing call warns caller before timeout when configured
 outgoing call does not time out when calling 933 when configured
 outgoing call does not time out when calling canned number when configured
 
+incoming call:
+
 incoming call to stage oskar indoors test number calls oskar indoors phone
 
 incoming call to oskar calls oskar extension
@@ -102,6 +107,7 @@ incoming call to incoming line gets incoming menu
 incoming call with disconnected device does the right thing
 simultaneous incoming calls do the right thing
 
+internal dialtone dialtone:
 can call one extension from another using internal dialtone
 
 outgoing menu:
