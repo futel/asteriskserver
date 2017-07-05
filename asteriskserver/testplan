@@ -1,4 +1,4 @@
-ext 994 starts ypsi menu
+bext 994 starts ypsi menu
 ext 995 starts default menu
 ext 996 starts restricted dialtone
 ext 997 starts gallery/demo destination
@@ -36,6 +36,8 @@ outgoing call indicates 911 when calling 933 from 668
 outgoing call sends oskar id from 668
 outgoing call indicates 911 when calling 933 from 680
 outgoing call sends xnor id from 680
+outgoing call indicates 911 when calling 933 from 630
+outgoing call sends ypsi id from 680
 
 outgoing call indicates no 911 when calling 933 from 671
 outgoing call sends incoming id from 656
@@ -90,10 +92,12 @@ outgoing call does not time out when calling canned number when configured
 
 incoming call to stage oskar indoors test number calls oskar indoors phone
 
-incoming call to oskar calls oskar phone
-incoming call to oskar indoors calls oskar indoors phone
-incoming call to garth gets garth phone
-incoming call to r2d2 calls r2d2 phone
+incoming call to oskar calls oskar extension
+incoming call to oskar indoors calls oskar indoors extension
+incoming call to garth gets garth extension
+incoming call to r2d2 calls r2d2 extension
+incoming call to xnor calls xnor extension
+incoming call to ypsi calls ypsi extension
 incoming call to incoming line gets incoming menu
 incoming call with disconnected device does the right thing
 simultaneous incoming calls do the right thing
