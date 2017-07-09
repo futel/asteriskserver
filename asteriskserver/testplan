@@ -39,7 +39,7 @@ outgoing call sends oskar id from 668
 outgoing call indicates 911 when calling 933 from 680
 outgoing call sends xnor id from 680
 outgoing call indicates 911 when calling 933 from 630
-outgoing call sends ypsi id from 680
+outgoing call sends ypsi id from 630
 
 outgoing call indicates no 911 when calling 933 from 671
 outgoing call sends incoming id from 656
@@ -107,7 +107,7 @@ incoming call to incoming line gets incoming menu
 incoming call with disconnected device does the right thing
 simultaneous incoming calls do the right thing
 
-internal dialtone dialtone:
+internal dialtone:
 can call one extension from another using internal dialtone
 
 outgoing menu:
