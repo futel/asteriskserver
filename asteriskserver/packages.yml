@@ -17,6 +17,10 @@
     - rpcbind
     - selinux-policy
     - selinux-policy-targeted
+- name: update yum
+  yum:
+    name: "*"
+    state: latest
 - name: copy epel rpm
   copy:
     src: src/epel-release-6-8.noarch.rpm
@@ -72,10 +76,6 @@
     - libsamplerate-devel
     - alsa-lib-devel
     - libsndfile-devel
-- name: update yum
-  yum:
-    name: "*"
-    state: latest
 - name: update pip
   pip:
     name: pip
