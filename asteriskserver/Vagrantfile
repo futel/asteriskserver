@@ -50,6 +50,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   end
 
   config.vm.provider :virtualbox do |vb|
+    vb.memory = 1024            # current prod is 512mb, this is for convenience
     # this creates vboxnet0 and vboxnet1, with pingable eth1 on vboxnet1
     config.vm.network "private_network", type: "dhcp", :adapter => 2    
     # uncomment to disable headless mode
