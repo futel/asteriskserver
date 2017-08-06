@@ -1,9 +1,5 @@
 ## Deploy a futel asterisk server on 32-bit centos.
 
-We will start with test_32,
-update centos to get centos6_32_baseinstall,
-install/config to get an asterisk box.
-
 ## Set up vagrant:
 
 have vagrant, virtualbox, ansible
@@ -11,14 +7,6 @@ vagrant plugin install vagrant-vbguest
 
 ## Deploy to virtualbox with vagrant:
 
-# Make boxes and init
-# this only needs to be done once unless replaing the base box
-vagrant box add test_32 http://developer.nrel.gov/downloads/vagrant-boxes/CentOS-6.5-i386-v20140110.box
-# http://sourceforge.net/projects/nrel-vagrant-boxes/files/CentOS-6.6-i386-v20150426.box/download
-
-# bulld from test_32
-vagrant up
-vagrant halt
 vagrant up
 vagrant ssh
 # note: do this after every reboot
