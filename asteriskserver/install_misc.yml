@@ -9,8 +9,8 @@
     chdir: /tmp/pyst-0.6.50
 - name: link pyst
   file:
-    src: /usr/local/lib/python2.6/site-packages/asterisk/
-    dest: /usr/lib/python2.6/site-packages/asterisk
+    src: /usr/local/lib/python2.7/site-packages/asterisk/
+    dest: /usr/lib/python2.7/site-packages/asterisk
     state: link
 # docs claim this is not needed but yet to see it work without
 - name: unpack mpg123

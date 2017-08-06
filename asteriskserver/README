@@ -8,7 +8,7 @@ python -m unittest discover test
 ## Deploy stage asteriskbox to digital ocean manually
 
 all droplets:
-image CentOS 6.9 x32
+image CentOS 7.x x64
 hostname futel-stage.phu73l.net
 size smallest
 region San Francisco 1

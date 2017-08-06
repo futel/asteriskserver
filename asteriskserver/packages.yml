@@ -23,22 +23,24 @@
     state: latest
 - name: copy epel rpm
   copy:
-    src: src/epel-release-6-8.noarch.rpm
-    dest: /tmp/epel-release-6-8.noarch.rpm
+    src: src/epel-release-latest-7.noarch.rpm 
+    dest: /tmp/epel-release-latest-7.noarch.rpm 
 - name: install epel rpm
   yum:
-    name: /tmp/epel-release-6-8.noarch.rpm
+    name: /tmp/epel-release-latest-7.noarch.rpm
     state: present
 - name: install yum packages
   yum:
     name: "{{ item }}"
     state: present
   with_items:
+    - iptables-services
     - ntp
     - man
     - vim-enhanced
     - gcc
     - gcc-c++
+    - SDL
     - make
     - automake
     - libtool
