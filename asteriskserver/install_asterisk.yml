@@ -12,10 +12,8 @@
     owner: asterisk
     group: asterisk
     creates: /tmp/asterisk-11.5.1    
-# if 64bit, --libdir=/usr/lib64, but must be root to install?
-# prefix, exec-prefix: install into /opt/asterisk
 - name: configure asterisk
-  command: sudo -u asterisk ./configure --prefix=/opt/asterisk --exec_prefix=/opt/asterisk
+  command: sudo -u asterisk ./configure --libdir=/opt/asterisk/lib64 --prefix=/opt/asterisk --exec_prefix=/opt/asterisk
   args:
     chdir: /tmp/asterisk-11.5.1
     creates: /tmp/asterisk-11.5.1/makeopts    
