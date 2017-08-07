@@ -75,7 +75,9 @@ outgoing call indicates no 911 when calling 15555550911 from 711
 outgoing call sends incoming id from 711
 
 outgoing call filters number when configured for extension
-outgoing call sends 15551212 to operator
+outgoing call sends 15035551212 to operator
+outgoing call sends 18005551212 to operator
+outgoing call sends 15555551212 to operator
 
 outgoing call performs friction action after dialtone number input when configured for extension and time
 outoging call does not perform friction action when calling 933 when configured for extension and time
