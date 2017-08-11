@@ -13,10 +13,9 @@
     group: asterisk
     creates: /tmp/asterisk-11.5.1    
 # if 64bit, --libdir=/usr/lib64, but must be root to install?
-# with-resample: inteface with jack audio connectoin toolkit
 # prefix, exec-prefix: install into /opt/asterisk
 - name: configure asterisk
-  command: sudo -u asterisk ./configure --with-resample --prefix=/opt/asterisk --exec_prefix=/opt/asterisk
+  command: sudo -u asterisk ./configure --prefix=/opt/asterisk --exec_prefix=/opt/asterisk
   args:
     chdir: /tmp/asterisk-11.5.1
     creates: /tmp/asterisk-11.5.1/makeopts    

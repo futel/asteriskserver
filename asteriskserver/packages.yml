@@ -70,12 +70,6 @@
     - cyrus-sasl-plain
     - python-yaml
     - python-pip
-    # jack
-    - libresample
-    - libresample-devel
-    - libsamplerate-devel
-    - alsa-lib-devel
-    - libsndfile-devel
 - name: update pip
   pip:
     name: pip
