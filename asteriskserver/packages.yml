@@ -65,7 +65,6 @@
     - libuuid-devel
     - festival
     - supervisor
-    # logwatch
     - logwatch
     - cyrus-sasl-plain
     - python-yaml
