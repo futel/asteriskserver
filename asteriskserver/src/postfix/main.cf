@@ -1,32 +1,18 @@
-# postfix main.cf
 queue_directory = /var/spool/postfix
-
 command_directory = /usr/sbin
-
 daemon_directory = /usr/libexec/postfix
-
 data_directory = /var/lib/postfix
-
 mail_owner = postfix
-
 inet_interfaces = localhost
-
 inet_protocols = ipv4
+smtp_tls_security_level = may
+smtpd_tls_security_level = may
 
+#mydomain                = phu73l.net
+#myhostname              = futel-prod.phu73l.net
 mydestination = $myhostname, localhost.$mydomain, localhost
 
 unknown_local_recipient_reject_code = 550
-
-# gmail relay setup
-# XXX this may break local delivery? does that matter? probably not
-# XXX test this
-relayhost = [smtp.gmail.com]:587
-smtp_sasl_auth_enable = yes
-smtp_sasl_password_maps = hash:/etc/postfix/sasl_passwd
-smtp_sasl_security_options = 
-smtp_sasl_mechanism_filter = plain
-smtp_tls_CAfile = /etc/ssl/certs/ca-bundle.trust.crt
-smtp_use_tls = yes
 
 alias_maps = hash:/etc/aliases
 

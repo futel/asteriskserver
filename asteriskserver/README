@@ -9,7 +9,7 @@ python -m unittest discover test
 
 all droplets:
 image CentOS 6.9 x32
-hostname futel-stage
+hostname futel-stage.phu73l.net
 size smallest
 region San Francisco 1
 ssh key (personal key)
@@ -22,11 +22,14 @@ wait for DNS to propagate
 create or check out release branch
 
 SSH into prod to find out what conf version is being used:
-ssh -F src/ssh_config futel-prod.phu73l.net 'grep "foo\|bar" /opt/asterisk/etc/asterisk/sip_callcentric.conf'
 
-ansible-playbook -i hosts baseinstall_playbook.yml --vault-password-file=conf/vault_pass.txt --extra-vars conf_version=<conf version not used by prod>
-ansible-playbook -i hosts secure_playbook.yml
-src/promote_stage.sh futel-stage.phu73l.net
+  ssh -F src/ssh_config futel-prod.phu73l.net 'grep "foo\|bar" /opt/asterisk/etc/asterisk/sip_callcentric.conf'
+
+deploy stage:
+
+  ansible-playbook -i hosts baseinstall_playbook.yml --vault-password-file=conf/vault_pass.txt --extra-vars conf_version=<conf version not used by prod>
+  ansible-playbook -i hosts secure_playbook.yml
+  src/promote_stage.sh futel-stage.phu73l.net
 
 if testplan has changed since last release branch, update google sheet testplan,
 keeping dates of nonupdated completed tests
@@ -34,30 +37,28 @@ test stage against google sheet testplan
 
 ## promote stage to prod
 
-rename futel-prod droplet to futel-prod-back
-rename futel-stage droplet to futel-prod
-rename futel-prod hostname to futel-prod-back
-rename futel-stage hostname to futel-prod
+rename futel-prod.phu73l.net droplet to futel-prod-back
+rename futel-stage.phu73l.net droplet to futel-prod.phu73l.net
+rename futel-prod.phu73l.net hostname to futel-prod-back
+rename futel-stage.phu73l.net hostname to futel-prod.phu73l.net
   ssh -t -F src/ssh_config futel-prod.phu73l.net
   sudo hostname futel-prod-back && sudo sed -i '$s/futel-prod/futel-prod-back/' /etc/sysconfig/network
   ssh -t -F src/ssh_config futel-stage.phu73l.net
   sudo hostname futel-prod && sudo sed -i '$s/futel-stage/futel-prod/' /etc/sysconfig/network
 src/promote_stage.sh futel-stage.phu73l.net 
-change A record for futel-prod to point to new futel-prod
-remove A record for futel-stage
-point all callcentric DID forwarding rules to extensions corresponding to new
-futel-prod conf_version
+change A record for futel-prod.phu73l.net to point to new futel-prod.phu73l.net
+remove A record for futel-stage.phu73l.net
+point all callcentric DID forwarding rules to extensions corresponding to new conf_version on futel-prod.phu73l.net
   futel-r2d2 user to foo|bar
-point all voip.ms DID forwarding rules to subaccounts corresponding to new
-futel-prod conf_version
+point all voip.ms DID forwarding rules to subaccounts corresponding to new conf_version on futel-prod.phu73l.net
   185060_prod-foo|bar subaccount
 wait for DNS to propagate
 stop asterisk on futel-prod-back
   sudo service asterisk stop
 make a snapshot of futel-prod-back
 destroy droplet futel-prod-back
-test that futel-prod outgoing calls work
-test that futel-prod incoming call to incoming line works
-test that futel-prod incoming calls to extensions work or get channel unavailable
+test that prod outgoing calls work
+test that prod incoming call to incoming line works
+test that prod incoming calls to extensions work or get channel unavailable
 remove snapshots of futel-prod-back except for most recent
-test that futel-prod incoming calls to extensions work (may take time)
+test that prod incoming calls to extensions work (may take time)
