@@ -13,14 +13,16 @@
     name: firewalld
     state: stopped
     enabled: no
-- name: stop iptables
+- name: stop and enable iptables
   service:
     name: iptables
     state: stopped
-- name: stop ip6tables
+    enabled: yes
+- name: stop and enable ip6tables
   service:
     name: ip6tables
     state: stopped
+    enabled: yes
 - name: update iptables rules
   script: src/iptables.sh
 - name: update ip6tables rules
