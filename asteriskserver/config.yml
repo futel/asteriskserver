@@ -31,3 +31,8 @@
   service:
     name: ntpd
     enabled: yes
+- name: enable and start redis service
+  service:
+    name: redis
+    enabled: yes
+    state: started

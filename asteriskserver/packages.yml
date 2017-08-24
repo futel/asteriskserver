@@ -71,11 +71,15 @@
     - cyrus-sasl-plain
     - python-yaml
     - python-pip
+    - redis
 - name: update pip
   pip:
     name: pip
     state: latest
 - name: update pip packages
   pip:
-    name: boto3
+    name: "{{ item }}"
     state: present
+  with_items:
+    - boto3
+    - redis
