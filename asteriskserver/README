@@ -41,10 +41,8 @@ rename futel-prod.phu73l.net droplet to futel-prod-back
 rename futel-stage.phu73l.net droplet to futel-prod.phu73l.net
 rename futel-prod.phu73l.net hostname to futel-prod-back
 rename futel-stage.phu73l.net hostname to futel-prod.phu73l.net
-  ssh -t -F src/ssh_config futel-prod.phu73l.net
-  sudo hostname futel-prod-back && sudo sed -i '$s/futel-prod/futel-prod-back/' /etc/sysconfig/network
-  ssh -t -F src/ssh_config futel-stage.phu73l.net
-  sudo hostname futel-prod && sudo sed -i '$s/futel-stage/futel-prod/' /etc/sysconfig/network
+  ssh -t -F src/ssh_config futel-prod.phu73l.net 'sudo hostnamectl set-hostname futel-prod-back'
+  ssh -t -F src/ssh_config futel-stage.phu73l.net 'sudo hostnamectl set-hostname futel-prod.phu73l.net'
 src/promote_stage.sh futel-stage.phu73l.net 
 change A record for futel-prod.phu73l.net to point to new futel-prod.phu73l.net
 remove A record for futel-stage.phu73l.net
