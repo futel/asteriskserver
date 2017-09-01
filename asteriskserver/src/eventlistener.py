@@ -16,7 +16,7 @@ import boto3
 from asterisk import manager
 
 # asterisk manager config
-asterisk_ip = "0.0.0.0"
+asterisk_ip = "localhost"
 asterisk_user = "futel"
 
 # aws config
