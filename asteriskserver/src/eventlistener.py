@@ -53,6 +53,7 @@ def get_manager():
     amanager = manager.Manager()
     amanager.connect(asterisk_ip)
     amanager.login(asterisk_user, eventlistenerconf.asterisk_passwd)
+
     event_handler = functools.partial(
         handle_interesting_event, snsclient=snsclient)
     misc_event_handler = functools.partial(
@@ -62,19 +63,35 @@ def get_manager():
     amanager.register_event('ConfbridgeJoin', event_handler)
     amanager.register_event('ConfbridgeLeave', event_handler)
     amanager.register_event('*', misc_event_handler)
+
     return amanager
+
+def retry_get_manager():
+    while True:
+        try:
+            amanager = get_manager()
+            if not amanager.connected():
+                raise Exception('not connected')
+            return amanager
+        except Exception as exc:
+            # all of this rescuing is silly
+            # should just let supervisord do its thing
+            logging.info(str(exc))
+        finally:
+            time.sleep(60)
 
 def main():
     logging.info('starting')
-    amanager = get_manager()
+    amanager = retry_get_manager()
     while True:
         try:
             if not amanager.connected():
-                logging.info('not connected')
-                raise Exception
+                raise Exception('not connected')
             _response = amanager.mailbox_count(1337)
             logging.debug('.')
         except Exception as exc:
+            # all of this rescuing is silly
+            # should just let supervisord do its thing
             try:
                 logging.info(str(exc))
                 amanager.logoff()
@@ -82,10 +99,6 @@ def main():
                 logging.info(str(exc))
             try:
                 amanager.close()
-            except Exception as exc:
-                logging.info(str(exc))
-            try:
-                amanager = get_manager()
             except Exception as exc:
                 logging.info(str(exc))
         finally:
