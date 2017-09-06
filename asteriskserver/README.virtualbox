@@ -8,11 +8,8 @@ vagrant plugin install vagrant-vbguest
 ## Deploy to virtualbox with vagrant:
 
 vagrant up
-vagrant ssh
-# note: do this after every reboot
-sudo service iptables stop
-sudo service asterisk restart
-exit
+vagrant halt
+vagrant up
 
 # shortcut: update asterisk conf and scripts for already built box
 # this assumes everything you want to do is in update_asterisk.yml
