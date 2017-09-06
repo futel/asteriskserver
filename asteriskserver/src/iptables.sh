@@ -12,6 +12,7 @@ iptables -P OUTPUT ACCEPT
 
 # allow localhost
 iptables -A INPUT -i lo -j ACCEPT
+iptables -A OUTPUT -o lo -j ACCEPT
 # allow established connections
 iptables -A INPUT -m state --state ESTABLISHED,RELATED -j ACCEPT
 # let ssh in from anywhere
