@@ -101,6 +101,7 @@ def main():
                 amanager.close()
             except Exception as exc:
                 logging.info(str(exc))
+            # XXX we cleaned up the manager, now we need to create a new one
         finally:
             time.sleep(60)
 
