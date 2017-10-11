@@ -12,6 +12,7 @@ agi = agi.AGI()
 
 config_filename = 'blocklist.yaml'
 
+# prefixes of expensive numbers
 premium_nampa_prefixes = [
     '1900',
     '1976',
@@ -36,6 +37,9 @@ premium_nampa_prefixes = [
     '1869',
     '1876']
 
+# prefixes of numbers which providers will fail
+invalid_prefixes = ['1911']
+
 def filter_blocklist(blocklist, number, extension):
     """Return True if number and extension are in blocklist."""
     return any(
@@ -43,7 +47,7 @@ def filter_blocklist(blocklist, number, extension):
              str(block_map.get('extension')) == extension])
         for block_map in blocklist)
 
-def filter_premium(prefixes, number):
+def filter_prefix(prefixes, number):
     """Return True if prefix of number is in prefixes."""
     return any(number.startswith(prefix) for prefix in prefixes)
 
@@ -55,8 +59,11 @@ def filter_outgoing(blocklist, number, extension):
         return                  # survive
     if number == '933':         # callcentric 911 test number
         return                  # survive
-    if filter_premium(premium_nampa_prefixes, number):
+    if filter_prefix(premium_nampa_prefixes, number):
         util.metric(agi, 'filter-outgoing-premium')
+        agi.hangup()
+    if filter_prefix(invalid_prefixes, number):
+        util.metric(agi, 'filter-outgoing-invalid')
         agi.hangup()
     if filter_blocklist(blocklist, number, extension):
         util.metric(agi, 'filter-outgoing-blocked')
