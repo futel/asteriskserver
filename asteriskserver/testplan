@@ -5,8 +5,9 @@ ext 997 starts gallery/demo destination
 ext 998 starts admin menu
 ext 1000 starts dialtone
 ext 1001 starts incoming menu
+ext 999 starts default menu from extension 610
 ext 999 starts ypsi menu from extension 630
-ext 999 starts incoming ivr from extension 640
+ext 999 starts default menu from extension 640
 ext 999 starts default menu from extension 655
 ext 999 starts default menu from extension 665
 ext 999 starts default menu from extension 667
@@ -22,6 +23,8 @@ outgoing menu performs, metrics context_restricted_dialtone when configured
 
 outgoing dialtone:
 
+outgoing call indicates no 911 when calling 933 from 610
+outgoing call sends incoming id from 610
 outgoing call indicates no 911 when calling 933 from 620
 outgoing call sends incoming id from 630
 outgoing call indicates 911 when calling 933 from 630
@@ -104,7 +107,7 @@ incoming call to r2d2 calls r2d2 extension
 incoming call to xnor calls xnor extension
 incoming call to ypsi calls ypsi extension
 incoming call to incoming line gets incoming menu
-incoming call with disconnected device does the right thing
+incoming call with disconnected device gets busy signal
 simultaneous incoming calls do the right thing
 
 internal dialtone:
