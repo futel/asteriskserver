@@ -35,13 +35,31 @@ def context_restricted_dialtone(agi):
     agi.set_extension('s')
     agi.set_priority(1)
 
+def vmauthenticate(agi):
+    """Authenticate a voice mailbox and continue, or busy."""
+    util.metric(agi, 'friction-vmauthenticate')
+    # Note vmauthenticate lets user jump to 'a' extension if existing,
+    # so don't call this in a context that defines that!
+    try:
+        util.say(agi, 'authenticate-with-your-voice-mail-box-to-continue')
+        res = agi.appexec('VMAuthenticate')
+    except Exception as exc:
+        # we expect AGIAppError('Error executing application, or hangup',)
+        util.metric(agi, 'friction-vmauthenticate-deny')
+        agi.appexec('busy')
+        # above command should not exit
+    else:
+        util.metric(agi, 'friction-vmauthenticate-allow')
+        # if we got here, user authed, we are done
+
 action_map = {
     'noop': noop,
     'busy': busy,
     'delay_5': delay_5,
     'delay_10': delay_10,
     'delay_20': delay_20,
-    'context_restricted_dialtone': context_restricted_dialtone
+    'context_restricted_dialtone': context_restricted_dialtone,
+    'vmauthenticate': vmauthenticate
 }
 
 def action(action_map, config_map):

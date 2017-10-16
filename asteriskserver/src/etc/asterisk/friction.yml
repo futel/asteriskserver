@@ -23,26 +23,40 @@
     - 668
   context: filterdial  
   start_time: "00:00"
-  end_time: "03:59"
+  end_time: "01:59"
   action: delay_20
+
+- extensions:
+    - 668
+  context: filterdial  
+  start_time: "02:00"
+  end_time: "03:59"
+  action: vmauthenticate
 
 - extensions:
     - 668
   context: filterdial  
   start_time: "04:00"
   end_time: "04:59"
-  action: delay_10
+  action: delay_20
 
 - extensions:
     - 668
   context: filterdial  
   start_time: "05:00"
   end_time: "05:59"
-  action: delay_5
+  action: delay_10
 
 - extensions:
     - 668
-  context: outgoing-ivr
-  start_time: "02:00"
-  end_time: "02:59"
-  action: context_restricted_dialtone
+  context: filterdial  
+  start_time: "06:00"
+  end_time: "06:59"
+  action: delay_5
+
+# - extensions:
+#     - 668
+#   context: outgoing-ivr
+#   start_time: "02:00"
+#   end_time: "02:59"
+#   action: context_restricted_dialtone

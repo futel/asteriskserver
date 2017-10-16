@@ -11,6 +11,7 @@
 
 statements = {
     'general': [
+        'authenticate-with-your-voice-mail-box-to-continue',
         'for-the-outgoing-menu',
         'to-ring-the-ainsworth-street-telephone',
         'to-ring-the-taylor-street-telephone',

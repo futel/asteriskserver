@@ -90,6 +90,11 @@ outgoing call does not perform friction action after dialtone number input when 
 outgoing call performs, metrics delay_5 when configured
 outgoing call performs, metrics delay_10 when configured
 outgoing call performs, metrics delay_20 when configured
+outgoing call performs, metrics vmauthenticate when configured
+vmauthenticate denies, metrics on incorrect mailbox or password before call
+vmauthenticate allows, metrics on correct mailbox or password before call
+vemauthenticate does not challenge before 933 call
+vemauthenticate does not challenge before operator call
 
 outgoing call times out when configured for extension and time
 outgoing call warns caller before timeout when configured
