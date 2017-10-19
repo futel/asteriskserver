@@ -8,18 +8,19 @@ def noop(agi):
 def busy(agi):
     util.metric(agi, 'friction-busy')
     agi.appexec('busy')
+    # above command should not return
 
 def delay_5(agi):
-    util.metric(agi, 'delay-5')
+    util.metric(agi, 'friction-delay-5')
     agi.appexec('wait', 5)
 
 def delay_10(agi):
-    util.metric(agi, 'delay-10')
+    util.metric(agi, 'friction-delay-10')
     agi.appexec('wait', 5)
     agi.appexec('MusicOnHold', ',5')
 
 def delay_20(agi):
-    util.metric(agi, 'delay-20')
+    util.metric(agi, 'friction-delay-20')
     agi.appexec('wait', 5)
     util.say(agi, 'please-hold')
     agi.appexec('wait', 1)
@@ -29,7 +30,7 @@ def delay_20(agi):
     agi.appexec('wait', 1)
 
 def context_restricted_dialtone(agi):
-    util.metric(agi, 'context-restricted-dialtone')
+    util.metric(agi, 'friction-context-restricted-dialtone')
     agi.set_context('restricted-outgoing-dialtone-wrapper')
     agi.set_extension('s')
     agi.set_priority(1)
