@@ -20,6 +20,9 @@ ext 999 starts incoming ivr from other extensions
 outgoing menu performs friction action when configured for extension and time
 outgoing menu does not perform friction action when configured for extension and time
 outgoing menu performs, metrics context_restricted_dialtone when configured
+outgoing menu ypsi performs friction action when configured for extension and time
+outgoing menu ypsi does not perform friction action when configured for extension and time
+outgoing menu ypsi performs, metrics context_restricted_dialtone when configure
 
 outgoing dialtone:
 
@@ -177,11 +180,16 @@ can call operator voicemail
 incoming wildcard line:
 can hear all episodes of wildcard line
 
+incoming info:
+can hear futel info
+
+admin record statements:
 can record statements
 
 logs are generated
 metrics are generated
 eventlistener logs are generated
+events are received by irc bot
 
 conference bridge join event is received by irc bot
 conference bridge leave event is received by irc bot
