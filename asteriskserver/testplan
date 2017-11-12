@@ -5,7 +5,8 @@ ext 997 starts gallery/demo destination
 ext 998 starts admin menu
 ext 1000 starts dialtone
 ext 1001 starts incoming menu
-ext 999 starts default menu from extension 610
+ext 999 starts dialtone from extension 610
+ext 999 starts default menu from extension 611
 ext 999 starts ypsi menu from extension 630
 ext 999 starts default menu from extension 640
 ext 999 starts default menu from extension 655
@@ -26,8 +27,10 @@ outgoing menu ypsi performs, metrics context_restricted_dialtone when configure
 
 outgoing dialtone:
 
-outgoing call indicates no 911 when calling 933 from 610
-outgoing call sends incoming id from 610
+outgoing call indicates 911 when calling 933 from 610
+outgoing call sends crossclinton id from 610
+outgoing call indicates 911 when calling 933 from 611
+outgoing call sends crossclinton id from 611
 outgoing call indicates no 911 when calling 933 from 620
 outgoing call sends incoming id from 630
 outgoing call indicates 911 when calling 933 from 630
@@ -112,6 +115,7 @@ incoming call to garth gets garth extension
 incoming call to r2d2 calls r2d2 extension
 incoming call to xnor calls xnor extension
 incoming call to ypsi calls ypsi extension
+incoming call to crossclinton calls crossclinton extension
 incoming call to incoming line gets incoming menu
 incoming call with disconnected device gets busy signal
 simultaneous incoming calls do the right thing
