@@ -1,0 +1,4 @@
+---
+- hosts: digitalocean
+  tasks:
+    - include: promote.yml

@@ -7,14 +7,12 @@ python -m unittest discover test
 
 ## Deploy stage asteriskbox to digital ocean manually
 
-all droplets:
+create droplet
 image CentOS 7.x x64
 hostname futel-stage.phu73l.net
 size smallest
 region San Francisco 1
 ssh key (personal key)
-
-create droplet
 
 create or replace A record for new futel-stage
 wait for DNS to propagate
@@ -54,7 +52,9 @@ wait for DNS to propagate
 stop asterisk on futel-prod-back
   sudo service asterisk stop
 make a snapshot of futel-prod-back
-destroy droplet futel-prod-back
+
+  ansible-playbook -i hosts promote_playbook.yml --vault-password-file=conf/vault_pass.txt
+
 test that prod outgoing calls work
 test that prod incoming call to incoming line works
 test that prod incoming calls to extensions work or get channel unavailable

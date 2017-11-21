@@ -1,0 +1,18 @@
+---
+- name: load secrets
+  include_vars: "promote_secrets.yml"
+  no_log: true
+# delete does not work with name, only id
+# this makes the task not idempotent
+- name: get data including droplet id
+  digital_ocean:
+    unique_name: yes
+    api_token: "{{ do_token }}"
+    name: futel-prod-back
+  register: message  
+- name: delete futel-prod-back
+  digital_ocean:
+    state: deleted
+    command: droplet
+    id: "{{ message.droplet.id }}"
+    api_token: "{{ do_token }}"
