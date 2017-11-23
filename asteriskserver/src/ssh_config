@@ -1,4 +1,4 @@
-Host *
+Host futel-prod.phu73l.net futel-stage.phu73l.net
 Port 42422
 IdentityFile conf/id_rsa
 User futel
