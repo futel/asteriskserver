@@ -102,8 +102,7 @@
     state: directory
     owner: asterisk
     group: asterisk
-# enable but do not yet start asterisk
-- name: enable asterisk
+- name: enable but do not yet start asterisk
   service:
     name: asterisk
     enabled: yes
