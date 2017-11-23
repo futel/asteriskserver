@@ -1,0 +1,9 @@
+---
+- name: update iptables rules
+  script: src/iptables.sh
+- name: update ip6tables rules
+  script: src/ip6tables.sh
+- name: save iptables rules
+  command: service iptables save
+- name: save ip6tables rules
+  command: service ip6tables save

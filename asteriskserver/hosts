@@ -1,5 +1,8 @@
 [baseinstall]
 futel-stage.phu73l.net
 
+[prod]
+futel-prod.phu73l.net
+
 [digitalocean]
 localhost ansible_connection=local

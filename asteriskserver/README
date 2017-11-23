@@ -60,3 +60,9 @@ test that prod incoming call to incoming line works
 test that prod incoming calls to extensions work or get channel unavailable
 remove snapshots of futel-prod-back except for most recent
 test that prod incoming calls to extensions work (may take time)
+
+## update iptables
+
+This is done after a new vpnbox is deployed.
+
+  ansible-playbook -i hosts update_iptables_playbook.yml

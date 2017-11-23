@@ -1,0 +1,6 @@
+---
+- hosts: prod
+  become: true
+  remote_user: futel
+  tasks:
+  - include: update_iptables.yml
