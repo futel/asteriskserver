@@ -1,9 +1,0 @@
-## Deploy a futel openvpn server on 32-bit centos.
-
-We will start with centos6_32-baseconfig,
-install/config to get an openvpn box.
-
-# make asteriskbox from centos6_32_baseconfig
-# have conf directory as in README
-export vagrantbox=vpnbox
-vagrant up
