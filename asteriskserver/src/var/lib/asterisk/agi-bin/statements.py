@@ -11,6 +11,7 @@
 
 statements = {
     'general': [
+        'for-the-office-of-night-things',
         'for-robotron-battle-poetry',
         'authenticate-with-your-voice-mail-box-to-continue',
         'for-the-outgoing-menu',
