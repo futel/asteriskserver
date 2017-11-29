@@ -1,7 +1,7 @@
 ## Deploy AWS services
 
-create SNS topic for asterisk manager events
-create SQS queue for asterisk manager events
+create SNS topic asterisk-prod-events for asterisk manager events
+create SQS queue asterisk-prod-events for asterisk manager events
 add permisison to queue: allow everybody sendMessage condition arnEquals key aws:sourceArn value SNS topic arn
 subscribe SQS queue to SNS topic
 
@@ -16,3 +16,14 @@ SNS topic ARN aws_arn
 SNS topic region aws_region_name
 AWS user aws_access_key_id
 AWS user aws_secret_access_key
+
+# Test AWS services
+
+view asterisk-prod-events SNS topic
+  assert that there is an SNS subscription
+  subscribe with email using "Create Subscription" and confirm that messages are received
+view asterisk-prod-events SQS queue
+  assert that NumberOfMessagesReceived increases after message-causing event happens
+  assert that ApproximateNumberOfMessagesVisible is small
+  assert that ApproximateAgeOfOldestMessage is small
+  view "View/Delete Messages" under "Queue Actions" dropdown and confirm that messages are received
