@@ -35,8 +35,8 @@ outgoing call indicates no 911 when calling 933 from 620
 outgoing call sends incoming id from 630
 outgoing call indicates 911 when calling 933 from 630
 outgoing call sends ypsi id from 630
-outgoing call indicates no 911 when calling 933 from 640
-outgoing call sends incoming id from 640
+outgoing call indicates 911 when calling 933 from 640
+outgoing call sends mykle id from 640
 outgoing call indicates 911 when calling 933 from 670
 outgoing call sends r2d2 id from 670
 outgoing call indicates 911 when calling 933 from 655
@@ -116,6 +116,7 @@ incoming call to r2d2 calls r2d2 extension
 incoming call to xnor calls xnor extension
 incoming call to ypsi calls ypsi extension
 incoming call to crossclinton calls crossclinton extension
+incoming call to mykle calls mykle extension
 incoming call to incoming line gets incoming menu
 incoming call with disconnected device gets busy signal
 simultaneous incoming calls do the right thing
@@ -176,14 +177,17 @@ outgoing wildcard line:
 can hear all episodes of wildcard line
 can leave wildcard line message
 
+incoming voicemail:
+can access incoming voicemail features
+
 incoming operator:
 can call operator voicemail
 
 incoming wildcard line:
 can hear all episodes of wildcard line
 
-incoming info:
-can hear futel info
+incoming community:
+sends user to community menu
 
 admin record statements:
 can record statements
