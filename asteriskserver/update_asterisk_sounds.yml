@@ -1,8 +1,38 @@
 ---
+- name: copy asterisk misc sounds
+  copy:
+    src: src/var/lib/asterisk/sounds/futel/misc
+    dest: /opt/asterisk/var/lib/asterisk/sounds/futel
+    owner: asterisk
+    group: asterisk
+- name: copy asterisk long oracle sounds
+  copy:
+    src: src/var/lib/asterisk/sounds/futel/oracle-dead-interstitial-long
+    dest: /opt/asterisk/var/lib/asterisk/sounds/futel
+    owner: asterisk
+    group: asterisk
+- name: copy asterisk short oracle sounds
+  copy:
+    src: src/var/lib/asterisk/sounds/futel/oracle-dead-interstitial-short
+    dest: /opt/asterisk/var/lib/asterisk/sounds/futel
+    owner: asterisk
+    group: asterisk
+- name: copy asterisk oracle oracle sounds
+  copy:
+    src: src/var/lib/asterisk/sounds/futel/oracle-dead-oracle
+    dest: /opt/asterisk/var/lib/asterisk/sounds/futel
+    owner: asterisk
+    group: asterisk
 - name: copy asterisk statement sounds
   copy:
-    src: src/var/lib/asterisk/sounds/futel/
+    src: src/var/lib/asterisk/sounds/futel/recordings
     dest: /opt/asterisk/var/lib/asterisk/sounds/futel
+    owner: asterisk
+    group: asterisk
+- name: copy asterisk wildcard line sounds
+  copy:
+    src: src/var/lib/asterisk/sounds/futel/wildcard-line
+    dest: /opt/asterisk/var/lib/asterisk/sounds
     owner: asterisk
     group: asterisk
 - name: copy asterisk confbridge menu sounds
