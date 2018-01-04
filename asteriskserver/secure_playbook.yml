@@ -1,5 +1,9 @@
 ---
 - hosts: baseinstall
   become: true
+  vars:
+    ansible_user: futel
+    ansible_port: 42422
+    ansible_ssh_private_key_file: conf/id_rsa
   tasks:
     - include: secure.yml

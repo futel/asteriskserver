@@ -1,13 +1,5 @@
 ---
-# firewall, port, ssh configuration
-- name: write sshd config
-  copy:
-    src: src/sshd_config
-    dest: /etc/ssh/sshd_config
-- name: restart sshd
-  service:
-    name: sshd
-    state: restarted
+# firewall, port configuration
 - name: stop and disable firewalld
   service:
     name: firewalld

@@ -26,6 +26,7 @@ SSH into prod to find out what conf version is being used:
 deploy stage:
 
   ansible-playbook -i hosts baseinstall_playbook.yml --vault-password-file=conf/vault_pass.txt --extra-vars conf_version=<conf version not used by prod>
+  ansible-playbook -i hosts ssh_playbook.yml  
   ansible-playbook -i hosts secure_playbook.yml
   src/promote_stage.sh futel-stage.phu73l.net
 
