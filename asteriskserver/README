@@ -66,4 +66,4 @@ test that prod incoming calls to extensions work (may take time)
 
 This is done after a new vpnbox is deployed.
 
-  ansible-playbook -i hosts update_iptables_playbook.yml
+  ansible-playbook -i hosts secure_playbook.yml
