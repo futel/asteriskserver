@@ -67,15 +67,17 @@ def prompt_menu(agi_o, keys):
     """
     Prompt user to choose a key, and return valid key when chosen.
     """
+    statement_enumerator = [tup for tup in enumerate(keys, 1)]
+    statement_chooser_keys = [str(i) for (i, statement) in statement_enumerator]
     statement_chooser = dict(
-        (str(i), statement) for (i, statement) in enumerate(keys, 1))
+        (str(i), statement) for (i, statement) in statement_enumerator)
     chosen_statement_key = None
-    while chosen_statement_key not in statement_chooser.keys():
-        for (expected_key, statement_key) in statement_chooser.items():
+    while chosen_statement_key not in statement_chooser_keys:
+        for (expected_key, statement_key) in statement_enumerator:
             util.say(agi_o, 'for')
             util.say(agi_o, statement_key)
             util.say(agi_o, 'press')
-            util.say(agi_o, int_to_ordinal_string(int(expected_key)))
+            util.say(agi_o, int_to_ordinal_string(expected_key))
         chosen_statement_key = agi_o.wait_for_digit(timeout=-1)
     return statement_chooser[chosen_statement_key]
 
