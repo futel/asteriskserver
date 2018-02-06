@@ -56,10 +56,14 @@ def sound_path(sound_name, preferred_subs=None):
             return path
     return None
 
-def say(agi_o, filename, preferred_subs=None):
+def say(agi_o, filename, preferred_subs=None, escape=False):
+    if escape:
+        escape_digits = '0123456789#*'
+    else:
+        escape_digits = ''
     path = sound_path(filename, preferred_subs)
     if path:
-        return agi_o.stream_file(path)
+        return agi_o.stream_file(path, escape_digits=escape_digits)
     # this seems to be parsed into args, punctuation may break it
     return agi_o.appexec('festival', filename)
 
