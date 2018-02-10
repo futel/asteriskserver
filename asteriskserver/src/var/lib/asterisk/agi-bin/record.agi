@@ -109,6 +109,7 @@ def record_statements(statements):
 
     util.say(agi, 'thank-you')
     util.say(agi, 'goodbye')
+    util.metric(agi, 'record-menu')
 
 
 def main():
