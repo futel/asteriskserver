@@ -48,41 +48,6 @@ outgoing call sends oskar id from 668
 outgoing call indicates 911 when calling 933 from 680
 outgoing call sends xnor id from 680
 
-outgoing call indicates no 911 when calling 933 from 671
-outgoing call sends incoming id from 656
-outgoing call indicates no 911 when calling 933 from 650
-outgoing call sends incoming id from 650
-outgoing call indicates no 911 when calling 15555550911 from 651
-outgoing call sends incoming id from 651
-outgoing call indicates no 911 when calling 15555550911 from 656
-outgoing call sends incoming id from 656
-outgoing call indicates no 911 when calling 15555550911 from 665
-outgoing call sends incoming id from 665
-outgoing call indicates no 911 when calling 15555550911 from 666
-outgoing call sends incoming id from 666
-outgoing call indicates no 911 when calling 933 from 669
-outgoing call sends incoming id from 669
-outgoing call indicates no 911 when calling 15555550911 from 681
-outgoing call sends incoming id from 681
-outgoing call indicates no 911 when calling 15555550911 from 690
-outgoing call sends incoming id from 690
-outgoing call indicates no 911 when calling 15555550911 from 691
-outgoing call sends incoming id from 691
-outgoing call indicates no 911 when calling 15555550911 from 700
-outgoing call sends demo id from 700
-outgoing call indicates no 911 when calling 15555550911 from 701
-outgoing call sends incoming id from 701
-outgoing call indicates no 911 when calling 15555550911 from 702
-outgoing call sends incoming id from 702
-outgoing call indicates no 911 when calling 15555550911 from 703
-outgoing call sends incoming id from 703
-outgoing call indicates no 911 when calling 15555550911 from 704
-outgoing call sends incoming id from 704
-outgoing call indicates no 911 when calling 15555550911 from 710
-outgoing call sends incoming id from 710
-outgoing call indicates no 911 when calling 15555550911 from 711
-outgoing call sends incoming id from 711
-
 outgoing call filters number when configured for extension
 outgoing call sends 15035551212 to operator
 outgoing call sends 18005551212 to operator
@@ -150,12 +115,18 @@ caller gets hangup after call with operator ends
 operator can transfer caller to outgoing-menu using #999
 operator can transfer caller using outgoing-dialtone #998+number
 
-outgoing voicemail:
-can create voicemail box, leave voicemail, check voicemail, hear voicemail info
+voicemail:
+can create voicemail box
+can leave voicemail
+can check voicemail
+can hear voicemail info
 can attempt to check, leave voicemail for invalid mailbox
 
+outgoing voicemail:
+can access all voicemail menu items
+
 incoming voicemail:
-can leave voicemail, check voicemail, hear voicemail info
+can access all voicemail menu items except create voicemail
 
 outgoing directory:
 can call each directory number
