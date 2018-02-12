@@ -26,7 +26,7 @@ def write_vm(vmbox, password):
     vmline = (
         '%s => %s,,,,attach=no|saycid=no|envelope=no|delete=no\n' %
         (vmbox, password))
-    vfile = '/'.join((ASTERISK_DIR, VM_USER_FILE))
+    vfile = '/'.join((util.asterisk_etc_dir, VM_USER_FILE))
     vfile = open(vfile, 'a')
     vfile.write(vmline)
     vfile.close()
@@ -43,7 +43,7 @@ def get_pw():
         digit_1 = agi.wait_for_digit(timeout=TIMEOUT)
         digit_2 = agi.wait_for_digit(timeout=TIMEOUT)
         digit_3 = agi.wait_for_digit(timeout=TIMEOUT)
-        digits = ''.join((digit_0, digit_1, digit_2, digit_3))        
+        digits = ''.join((digit_0, digit_1, digit_2, digit_3))
         return(digits)
     pw = ''
     while not pw:
@@ -55,7 +55,7 @@ def get_pw():
 def say_pw(digits):
     """ Say the password. """
     util.say(agi, 'your-password-is')
-    agi.say_digits(digits)    
+    agi.say_digits(digits)
     util.say(agi, 'again')
     util.say(agi, 'your-password-is')
     agi.say_digits(digits)
