@@ -11,6 +11,9 @@
 
 statements = {
     'general': [
+        'for-beyond-the-echo',
+        'for-the-telecommunications-network',
+        'for-the-dark-fiber',
         'for-the-office-of-night-things',
         'for-robotron-battle-poetry',
         'authenticate-with-your-voice-mail-box-to-continue',
