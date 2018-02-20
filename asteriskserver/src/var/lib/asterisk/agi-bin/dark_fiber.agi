@@ -1,0 +1,39 @@
+#!/usr/bin/env python
+"""
+Return random content from list of strings. This could be accomplished more
+easily with queue, but queues are not noticing pickup from many of these
+numbers, possibly because they seem to have some kind of non-success status.
+"""
+
+import random
+
+from asterisk import *
+import util
+
+numbers = [
+    '+13305720999',
+    '+13138499906',
+    '+19164400031',
+    '+15739960002',
+    '+16107970014',
+    '+17189809901',
+    '+14128850075',
+    '+15703870000',
+    '+19147379938',
+    '+12029659970',
+    '+19164400029',
+    '+12129679999',
+    '+19412329901',
+    #; harvard sentence reading
+    '+18586515050']
+
+agi = agi.AGI()
+
+def main():
+    out = random.choice(numbers)
+    # return
+    agi.set_variable('agi_out', out)
+
+agi.answer()
+util.agi_tracebacker(agi, main)
+
