@@ -2,7 +2,7 @@ import redis
 import time
 
 call_key = "ratelimiter:call"
-call_secs = 2
+call_secs = 3
 
 def block_ratelimit(key, secs):
     """
