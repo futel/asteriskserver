@@ -48,6 +48,12 @@ outgoing call sends oskar id from 668
 outgoing call indicates 911 when calling 933 from 680
 outgoing call sends xnor id from 680
 
+outgoing can call NANPA number without prefix (11 digit NANPA)
+outgoing can call NANPA number with 1 prefix
+outgoing can call NANPA number with 011 1 prefix
+outgoing can call Mexico number without 011 prefix (12 digit with 52 prefix)
+outgoing can call Mexico number with 011 52 prefix
+
 outgoing call filters number when configured for extension
 outgoing call sends 15035551212 to operator
 outgoing call sends 18005551212 to operator
