@@ -54,10 +54,13 @@ outgoing can call NANPA number with 011 1 prefix
 outgoing can call Mexico number without 011 prefix (12 digit with 52 prefix)
 outgoing can call Mexico number with 011 52 prefix
 
-outgoing call filters number when configured for extension
-outgoing call sends 15035551212 to operator
-outgoing call sends 18005551212 to operator
-outgoing call sends 15555551212 to operator
+dialtone filters number when configured for extension
+dialtone sends 15035551212 to operator
+dialtone sends 18005551212 to operator
+dialtone sends 15555551212 to operator
+
+restricted dialtone indicates 911 when calling 933 from 680 (note weak test, restricted dialtone not in use)
+restricted dialtone gets operator voicemail when calling 0
 
 outgoing call performs friction action after dialtone number input when configured for extension and time
 outoging call does not perform friction action when calling 933 when configured for extension and time
