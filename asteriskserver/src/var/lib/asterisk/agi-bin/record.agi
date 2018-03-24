@@ -45,8 +45,11 @@ def prompt_and_record(agi_o, statement, username):
     agi_o.stream_file(path)
 
 def digit_pound(agi_o):
-    util.say(agi_o, 'to-accept')
-    util.say(agi_o, 'press-pound')
+    says = ['to-accept', 'press-pound']
+    for say in says:
+        digit = util.say(agi_o, say, escape=True)
+        if digit is not '':
+            return digit == '#'
     digit = agi_o.wait_for_digit(timeout=-1)
     return digit == '#'
 
