@@ -11,6 +11,7 @@
 
 statements = {
     'general': [
+        'for-the-druid-of-sissyphus-gardens',
         'for-beyond-the-echo',
         'for-the-telecommunications-network',
         'for-the-dark-fiber',
