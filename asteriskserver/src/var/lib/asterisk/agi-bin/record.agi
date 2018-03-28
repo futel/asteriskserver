@@ -45,7 +45,7 @@ def prompt_and_record(agi_o, statement, username):
     agi_o.stream_file(path)
 
 def digit_pound(agi_o):
-    says = ['to-accept', 'press-pound']
+    says = ['to-accept', 'press-pound', 'to-reject', 'press-any-key']
     for say in says:
         digit = util.say(agi_o, say, escape=True)
         if digit is not '':
@@ -89,34 +89,47 @@ def prompt_menu(agi_o, keys):
             if chosen_statement_key in statement_chooser_keys:
                 return statement_chooser[chosen_statement_key]
 
-def record_statements(statements):
+def interruptable_statements(agi_o, statements):
+    """
+    Say statements until a key is entered or statements run out.
+    Return key entered or None.
+    """
+    for statement in statements:
+        digit = util.say(agi_o, statement, escape=True)
+        if digit is not '':
+            return digit
+    return None
+
+def record_statements(agi_o, statements):
     username = get_username()
-    util.say(agi, 'hello')
+    util.say(agi_o, 'hello')
 
     # statement section keys from statements that we care about
     statement_keys = statements.keys()
-    statement_key = prompt_menu(agi, statement_keys)
+    statement_key = prompt_menu(agi_o, statement_keys)
 
-    util.say(agi, 'after-each-statement')
-    util.say(agi, 'please-repeat')
-    util.say(agi, 'then-press-pound')
-
-    util.say(agi, 'to-begin')
-    util.say(agi, 'press-any-key')
-    agi.wait_for_digit(timeout=-1)
+    intro_statements = [
+        'after-each-statement',
+        'please-repeat',
+        'then-press-pound',
+        'to-begin',
+        'press-any-key']
+    digit = interruptable_statements(agi_o, intro_statements)
+    if digit is None:
+        agi_o.wait_for_digit(timeout=-1)
 
     for statement in statements[statement_key]:
-        prompt_and_record(agi, statement, username)
-        while not digit_pound(agi):
-            prompt_and_record(agi, statement, username)
+        prompt_and_record(agi_o, statement, username)
+        while not digit_pound(agi_o):
+            prompt_and_record(agi_o, statement, username)
 
-    util.say(agi, 'thank-you')
-    util.say(agi, 'goodbye')
-    util.metric(agi, 'record-menu')
+    util.say(agi_o, 'thank-you')
+    util.say(agi_o, 'goodbye')
+    util.metric(agi_o, 'record-menu')
 
 
 def main():
-    record_statements(statements.statements)
+    record_statements(agi, statements.statements)
 
 agi.answer()
 util.agi_tracebacker(agi, main)
