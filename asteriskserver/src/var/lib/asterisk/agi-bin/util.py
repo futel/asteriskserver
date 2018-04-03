@@ -15,6 +15,8 @@ statement_dirs = [
 # preferred submenu directories for gsm files, in order of preference
 preferred_statement_dirs = [
     '/opt/asterisk/var/lib/asterisk/sounds/futel/recordings/'
+    'karl-robotron/',
+    '/opt/asterisk/var/lib/asterisk/sounds/futel/recordings/'
     'karl-oracle-dead/',
     '/opt/asterisk/var/lib/asterisk/sounds/futel/recordings/'
     'karl-voicemail-ivr/',

@@ -11,12 +11,11 @@
 
 statements = {
     'general': [
-        'for-the-druid-of-sissyphus-gardens',
+        'for-the-church-of-robotron',
         'for-beyond-the-echo',
         'for-the-telecommunications-network',
         'for-the-dark-fiber',
         'for-the-office-of-night-things',
-        'for-robotron-battle-poetry',
         'authenticate-with-your-voice-mail-box-to-continue',
         'for-the-outgoing-menu',
         'to-ring-the-ainsworth-street-telephone',
@@ -199,6 +198,23 @@ statements = {
         'eight',
         'nine',
         'zero'],
+    'for-the-church-of-robotron': [
+        'for-the-doctrine-of-futility',
+        'for-the-eight-ways',
+        'for-the-doctrine-of-error',
+        'for-the-ninth-position',
+        'for-what-are-the-robotrons',
+        'for-robotron-battle-poetry',
+        'press-one',
+        'press-two',
+        'press-three',
+        'press-four',
+        'press-five',
+        'press-six',
+        'press-seven',
+        'press-eight',
+        'press-nine',
+        'press-zero'],
     'for-communication-with-those-beyond': [
         'thank-you',
         'press-any-key-to-continue',

@@ -1,7 +1,7 @@
 ---
-- name: copy asterisk misc sounds
+- name: copy asterisk robotron sounds
   copy:
-    src: src/var/lib/asterisk/sounds/futel/misc
+    src: src/var/lib/asterisk/sounds/futel/robotron
     dest: /opt/asterisk/var/lib/asterisk/sounds/futel
     owner: asterisk
     group: asterisk
@@ -38,6 +38,12 @@
 - name: copy asterisk statement sounds
   copy:
     src: src/var/lib/asterisk/sounds/futel/recordings/karl_quuux
+    dest: /opt/asterisk/var/lib/asterisk/sounds/futel/recordings
+    owner: asterisk
+    group: asterisk
+- name: copy asterisk statement sounds
+  copy:
+    src: src/var/lib/asterisk/sounds/futel/recordings/karl-robotron
     dest: /opt/asterisk/var/lib/asterisk/sounds/futel/recordings
     owner: asterisk
     group: asterisk
