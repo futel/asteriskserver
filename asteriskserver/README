@@ -54,7 +54,9 @@ stop asterisk on futel-prod-back
   sudo service asterisk stop
 make a snapshot of futel-prod-back
 
-  ansible-playbook -i hosts post_promote_playbook.yml --vault-password-file=conf/vault_pass.txt
+  # XXX not working
+  #ansible-playbook -i hosts post_promote_playbook.yml --vault-password-file=conf/vault_pass.txt
+  instead, delete droplet futel-prod-back
 
 test that prod outgoing calls work
 test that prod incoming call to incoming line works
