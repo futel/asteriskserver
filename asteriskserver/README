@@ -51,6 +51,7 @@ point all voip.ms DID forwarding rules to subaccounts corresponding to new conf_
   185060_prod-foo|bar subaccount
 wait for DNS to propagate
 stop asterisk on futel-prod-back
+  XXX cp ssh_config and use for Host * if kicked out already
   sudo service asterisk stop
 make a snapshot of futel-prod-back
 
