@@ -5,29 +5,27 @@
     name: firewalld
     state: stopped
     enabled: no
-- name: stop and enable iptables
+- name: enable iptables
   service:
     name: iptables
-    state: stopped
     enabled: yes
-- name: stop and enable ip6tables
+- name: enable ip6tables
   service:
     name: ip6tables
-    state: stopped
     enabled: yes
 - name: update iptables rules
   script: src/iptables.sh
 - name: update ip6tables rules
   script: src/ip6tables.sh
 - name: save iptables rules
-  command: service iptables save
+  shell: iptables-save >/etc/sysconfig/iptables
 - name: save ip6tables rules
-  command: service ip6tables save
+  shell: ip6tables-save >/etc/sysconfig/ip6tables
 - name: start iptables
   service:
     name: iptables
-    state: started
+    state: restarted
 - name: start ip6tables
   service:
     name: ip6tables
-    state: started
+    state: restarted
