@@ -6,3 +6,6 @@ futel-prod.phu73l.net
 
 [digitalocean]
 localhost ansible_connection=local
+
+[localhost]
+localhost

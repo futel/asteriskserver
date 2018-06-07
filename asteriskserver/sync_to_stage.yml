@@ -1,0 +1,56 @@
+---
+- name: copy voicemail to stage
+  synchronize:
+    mode: push
+    src: tmp/stage/vm_futel_users.inc
+    dest: /opt/asterisk/etc/asterisk/vm_futel_users.inc
+- name: set ownership of voicemail on stage
+  file:
+    path: /opt/asterisk/etc/asterisk/vm_futel_users.inc
+    owner: asterisk
+    group: asterisk
+- name: copy voicemail to stage
+  synchronize:
+    mode: push
+    src: tmp/stage/default
+    dest: /opt/asterisk/var/spool/asterisk/voicemail
+    delete: yes
+- name: set ownership of voicemail on stage
+  file:
+    path: /opt/asterisk/var/spool/asterisk/voicemail/default
+    owner: asterisk
+    group: asterisk
+    recurse: yes
+- name: copy logs to stage
+  synchronize:
+    mode: push
+    src: tmp/stage/messages
+    dest: /opt/asterisk/var/log/asterisk/messages
+- name: set ownership of logs on stage
+  file:
+    path: /opt/asterisk/var/log/asterisk/messages
+    owner: asterisk
+    group: asterisk
+- name: copy logs to stage
+  synchronize:
+    mode: push
+    src: tmp/stage/metrics
+    dest: /opt/asterisk/var/log/asterisk/metrics
+- name: set ownership of logs on stage
+  file:
+    path: /opt/asterisk/var/log/asterisk/metrics
+    owner: asterisk
+    group: asterisk
+- name: copy logs to stage
+  synchronize:
+    mode: push
+    src: tmp/stage/old
+    dest: /opt/asterisk/var/log/asterisk
+    delete: yes
+- name: set ownership of logs on stage
+  file:
+    path: /opt/asterisk/var/log/asterisk/old
+    owner: asterisk
+    group: asterisk
+    recurse: yes
+

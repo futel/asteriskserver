@@ -1,0 +1,5 @@
+---
+- name: set up local stash
+  file:
+    path: tmp/stage
+    state: directory

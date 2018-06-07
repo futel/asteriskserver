@@ -1,0 +1,28 @@
+---
+- name: copy voicemail from prod
+  synchronize:
+    mode: pull
+    src: /opt/asterisk/etc/asterisk/vm_futel_users.inc
+    dest: tmp/stage
+- name: copy voicemail from prod
+  synchronize:
+    mode: pull
+    src: /opt/asterisk/var/spool/asterisk/voicemail/default
+    dest: tmp/stage
+    delete: yes
+- name: copy logs from prod
+  synchronize:
+    mode: pull
+    src: /opt/asterisk/var/log/asterisk/messages
+    dest: tmp/stage
+- name: copy logs from prod
+  synchronize:
+    mode: pull
+    src: /opt/asterisk/var/log/asterisk/metrics
+    dest: tmp/stage
+- name: copy logs from prod
+  synchronize:
+    mode: pull
+    src: /opt/asterisk/var/log/asterisk/old
+    dest: tmp/stage
+    delete: yes
