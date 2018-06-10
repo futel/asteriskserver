@@ -1,0 +1,34 @@
+---
+- name: load generic secrets
+  include_vars: "deploy_digitalocean_secrets.yml"
+  no_log: true
+- name: assert ssh key is present
+  digital_ocean:
+    state: present
+    command: ssh
+    name: karl@tehom
+    ssh_pub_key: ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQClAEwrF0VCIKwRHdbjxEFCtGDaFvWoGAc7FOAEG3aaBD1qdvP8wh2DvgITUj5zekYOo1vhnFdFJidxxMGZKALyiNffDRIrCdB7VPhxM/9ursFy/rdCYuwUdr8PjCatFbf+gyKFtf2hjVgnzKY7+ob0NZnH7IIlSFZP7mMCJeiOcC2cPDJBRgmQjY8+aCJV1XvNzD7OeYSof/lJRQ03jj4EQmr4TkY8nfDV9Joi/embE4S+oTCsinQeDfIg/7fQ+HUl4FWDifFwJq/RP2OjnOKd8ZUWiEbTB+InfmCdAf0PFuM1tJb9wsXC8Cn178LwZvo3YKdkdssYsJ37ir/Metpn karl@tehom
+    api_token: "{{ deploy_access_token }}"
+  register: ssh_key
+- debug: msg="ssh_key_id {{ ssh_key.ssh_key.id }}"
+- name: create stage droplet
+  digital_ocean:
+    state: present
+    command: droplet
+    name: futel-stage.phu73l.net
+    unique_name: yes
+    api_token: "{{ deploy_access_token }}"
+    size_id: s-1vcpu-1gb
+    region_id: sfo1
+    image_id: centos-7-x64
+    ssh_key_ids: "{{ ssh_key.ssh_key.id }}"
+  register: droplet
+- debug: msg="IP is {{ droplet.droplet.ip_address }}"
+#- debug: msg="ID is {{ droplet.droplet.id }}"
+#- debug: msg="name is {{ droplet.droplet.name }}"
+- name: point name to droplet
+  digital_ocean_domain:
+    state: present
+    name: "{{ droplet.droplet.name }}"
+    ip: "{{ droplet.droplet.ip_address }}"
+    oauth_token: "{{ deploy_access_token }}"
