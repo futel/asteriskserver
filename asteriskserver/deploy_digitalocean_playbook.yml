@@ -11,4 +11,4 @@
     ansible_ssh_private_key_file: conf/id_rsa
   tasks:
     - include: find_prod_conf.yml
-    - include: foo.yml    
+    - include: find_stage_conf.yml    
