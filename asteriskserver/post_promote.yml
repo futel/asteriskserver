@@ -1,13 +1,12 @@
 ---
-- name: load secrets
-  include_vars: "promote_secrets.yml"
+- name: load generic secrets
+  include_vars: "deploy_digitalocean_secrets.yml"
   no_log: true
 # delete does not work with name, only id
-# this makes the task not idempotent
 - name: get data including droplet id
   digital_ocean:
     unique_name: yes
-    api_token: "{{ do_token }}"
+    api_token: "{{ deploy_access_token }}"
     name: futel-prod-back
   register: message  
 - name: delete futel-prod-back
@@ -15,4 +14,4 @@
     state: deleted
     command: droplet
     id: "{{ message.droplet.id }}"
-    api_token: "{{ do_token }}"
+    api_token: "{{ deploy_access_token }}"
