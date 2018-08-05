@@ -11,6 +11,7 @@
 
 statements = {
     'general': [
+        'for-an-internal-dialtone',
         'for-the-church-of-robotron',
         'for-beyond-the-echo',
         'for-the-telecommunications-network',
