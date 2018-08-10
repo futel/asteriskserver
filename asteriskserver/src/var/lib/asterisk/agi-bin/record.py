@@ -3,6 +3,7 @@
 Prompt for and collect recordings.
 """
 
+from itertools import cycle
 import os, errno
 import uuid
 import util
@@ -73,19 +74,31 @@ def prompt_menu_says(statement_enumerator):
         yield  'press'
         yield int_to_ordinal_string(expected_key)
 
+def say_and_get_digit(agi_o, statement):
+    """Say statement and return digit pressed, or None."""
+    choice = util.say(agi_o, statement, escape=True)
+    try:
+        return int(choice)
+    except Exception:
+        return None
+
+def key_enumerator_chooser(keys):
+    """Return structures that let us do things with given list of keys."""
+    statement_enumerator = [tup for tup in enumerate(keys, 1)]
+    statement_chooser = dict(
+        (i, statement) for (i, statement) in statement_enumerator)
+    return (statement_enumerator, statement_chooser)
+
 def prompt_menu(agi_o, keys):
     """
     Prompt user to choose a key, and return valid key when chosen.
     """
-    statement_enumerator = [tup for tup in enumerate(keys, 1)]
-    statement_chooser_keys = [str(i) for (i, statement) in statement_enumerator]
-    statement_chooser = dict(
-        (str(i), statement) for (i, statement) in statement_enumerator)
-    while True:
-        for say in prompt_menu_says(statement_enumerator):
-            chosen_statement_key = util.say(agi_o, say, escape=True)
-            if chosen_statement_key in statement_chooser_keys:
-                return statement_chooser[chosen_statement_key]
+    (statement_enumerator, statement_chooser) = key_enumerator_chooser(keys)
+    says = cycle(prompt_menu_says(statement_enumerator))
+    for say in says:
+        chosen_statement_key = say_and_get_digit(agi_o, say)
+        if chosen_statement_key in statement_chooser.keys():
+            return statement_chooser[chosen_statement_key]
 
 def interruptable_statements(agi_o, statements):
     """
