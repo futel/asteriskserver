@@ -115,8 +115,7 @@ def record_statements(agi_o, statements):
     username = get_username()
     util.say(agi_o, 'hello')
 
-    # statement section keys from statements that we care about
-    statement_keys = statements.keys()
+    statement_keys = [group['name'] for group in statements.statement_groups]
     statement_key = prompt_menu(agi_o, statement_keys)
 
     intro_statements = [
@@ -129,7 +128,12 @@ def record_statements(agi_o, statements):
     if digit is None:
         agi_o.wait_for_digit(timeout=-1)
 
-    for statement in statements[statement_key]:
+    (statement_statements,) = [
+        group['statements']
+        for group in statements.statement_groups
+        if group['name'] == statement_key]
+
+    for statement in statement_statements:
         prompt_and_record(agi_o, statement, username)
         while not digit_pound(agi_o):
             prompt_and_record(agi_o, statement, username)
@@ -140,4 +144,4 @@ def record_statements(agi_o, statements):
 
 
 def main(agi):
-    record_statements(agi, statements.statements)
+    record_statements(agi, statements)

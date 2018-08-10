@@ -9,7 +9,7 @@
 
 # The names are themselves statements used to assist recording prompts.
 
-statements = [
+statement_groups = [
     {'name': 'general',
      'statements': [
          'for-an-internal-dialtone',
@@ -165,7 +165,7 @@ statements = [
          'for-the-mojave-phone-booth-conference-line',
          'to-listen-to-the-multnomah-county-police-scanner',
          'for-multnomah-county-mental-health-crisis-intervention']},
-    {'name': 'for-voicemail'.
+    {'name': 'for-voicemail',
      'statements': [
          'voicemail',
          'to-check-your-voicemail',
