@@ -12,6 +12,7 @@
 statement_groups = [
     {'name': 'general',
      'statements': [
+         'for-longmont-potion-castle',
          'for-an-internal-dialtone',
          'for-the-church-of-robotron',
          'for-beyond-the-echo',
