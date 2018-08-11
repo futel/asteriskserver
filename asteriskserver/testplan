@@ -1,4 +1,5 @@
-bext 994 starts ypsi menu
+ext 993 starts members menu
+ext 994 starts ypsi menu
 ext 995 starts default menu
 ext 996 starts restricted dialtone
 ext 997 starts gallery/demo destination
@@ -139,6 +140,9 @@ outgoing menu ypsi:
 can hear, choose each option
 
 outgoing menu admin:
+can hear, choose each option
+
+outgoing menu members:
 can hear, choose each option
 
 outgoing operator:
