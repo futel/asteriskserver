@@ -6,7 +6,7 @@ end
 
 ARGV.each do |f|
   b = File.basename(f, File.extname(f))
-  wav = b + ".wav"
+  wav = File.join(File.dirname(f), b + ".wav")
   raise "couldn't convert to #{f} to #{wav}" unless system('sndfile-convert', '-pcm16', f, wav)
   raise "couldn't normailze #{wav}" unless system('normalize-audio', '--peak', '--quiet', wav)
 end
