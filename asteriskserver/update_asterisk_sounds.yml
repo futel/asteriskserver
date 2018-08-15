@@ -1,10 +1,4 @@
 ---
-- name: copy asterisk robotron sounds
-  copy:
-    src: src/var/lib/asterisk/sounds/futel/church-of-robotron
-    dest: /opt/asterisk/var/lib/asterisk/sounds/futel
-    owner: asterisk
-    group: asterisk
 - name: copy asterisk williams short sounds
   copy:
     src: src/var/lib/asterisk/sounds/futel/williams-short

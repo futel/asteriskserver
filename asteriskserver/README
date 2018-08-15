@@ -7,6 +7,8 @@ python -m unittest discover test
 
 ## Deploy stage asteriskbox to digital ocean manually
 
+populate assets directory
+
 create or check out release branch
 
 create droplet and subdomain:

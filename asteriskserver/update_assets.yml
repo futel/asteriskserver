@@ -1,0 +1,9 @@
+---
+- name: load conf
+  include_vars: "conf.yml"
+- name: copy asterisk robotron sounds
+  copy:
+    src: "{{ asset_directory }}/sounds/church-of-robotron"
+    dest: /opt/asterisk/var/lib/asterisk/sounds/futel
+    owner: asterisk
+    group: asterisk

@@ -3,4 +3,5 @@
   become: true
   tasks:
     - include: update_asterisk.yml version={{ conf_version }}
-    - include: update_asterisk_sounds.yml version={{ conf_version }}
+    - include: update_asterisk_sounds.yml
+    - include: update_assets.yml
