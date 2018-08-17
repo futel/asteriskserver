@@ -1,6 +1,7 @@
 import datetime
 import sys, os, traceback
 import logging
+import random
 import yaml
 
 asterisk_etc_dir = '/opt/asterisk/etc/asterisk'
@@ -144,7 +145,9 @@ def within_timestrs(start_string, end_string, now):
     return False
 
 def relevant_config(config, extension, now, context=None):
-    """Return map from config corresponding to extension and now and context, or None."""
+    """
+    Return map from config corresponding to extension and now and context,
+    or None."""
     extension = int(extension)  # normalize
     for config_map in config:
         if extension in config_map['extensions']:
@@ -153,3 +156,15 @@ def relevant_config(config, extension, now, context=None):
                     config_map.get('start_time'), config_map.get('end_time'))
                 if within_timestrs(start_time, end_time, now):
                     return config_map
+
+def random_file(dirpath, do_strip):
+    """Return full path for random file chosen from given directory"""
+    # find files
+    paths = filter(
+        os.path.isfile,
+        (os.path.join(dirpath, f) for f in os.listdir(dirpath)))
+    # choose file
+    path = random.choice(paths)
+    if do_strip:
+        path = path.split('.').pop(0)
+    return path
