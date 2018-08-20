@@ -3,13 +3,13 @@
   include_vars: "conf.yml"
 - name: copy robotron sounds
   copy:
-    src: "{{ asset_directory }}/sounds/church-of-robotron"
+    src: "{{ asset_directory }}/sounds/futel/church-of-robotron"
     dest: /opt/asterisk/var/lib/asterisk/sounds/futel
     owner: asterisk
     group: asterisk
 - name: copy longmont sounds
   copy:
-    src: "{{ asset_directory }}/sounds/longmont"
+    src: "{{ asset_directory }}/sounds/futel/longmont"
     dest: /opt/asterisk/var/lib/asterisk/sounds/futel
     owner: asterisk
     group: asterisk
