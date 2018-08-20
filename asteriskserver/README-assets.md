@@ -15,7 +15,7 @@ make audio
 This will create normalized audio assets in the DEST dir pointed to in the makefile.
 It simply copies mp3s, no normalization happens for those files.
 
-## Hot to delete generated assets
+## How to delete generated assets
 
 run:
 
