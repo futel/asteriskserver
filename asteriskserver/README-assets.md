@@ -1,4 +1,10 @@
-## How to create assets
+# Audio assets
+
+We want to normalize audio for the maximum volume and get it into a format the asterisk can read.
+
+See [https://wiki.asterisk.org/wiki/display/AST/Asterisk+10+Codecs+and+Audio+Formats](formats)
+
+## How to generate assets
 
 run:
 
@@ -12,20 +18,25 @@ It simply copies mp3s, no normalization happens for those files.
 ## Hot to delete generated assets
 
 run:
+
 ```
 make clean
 ```
 
 ## Requirements:
 
-* *make*
-* *ruby*
-* *ruby-dev*
-* ruby gems:
-  *sndfile*
-* *sndfile-programs*
+* make
+* ruby
+  * ruby gems:
+    * sndfile
+      * requires
+        * libgsl-dev
+        * libsndfile-dev
+        * ruby-dev
+* sndfile-mix-to-mono
+* normalize-audio
 
 ```
-sudo apt-get install ruby ruby-dev libsndfile-dev make sndfile-programs libgsl-dev
+sudo apt-get install ruby ruby-dev libsndfile-dev make sndfile-programs libgsl-dev normalize-audio
 gem install --user sndfile
 ```
