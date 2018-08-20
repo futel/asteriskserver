@@ -1,0 +1,3 @@
+[submodule "asteriskserver/src/audio"]
+	path = asteriskserver/src/audio
+	url = git@gitlab.com:futel/futel-content.git
