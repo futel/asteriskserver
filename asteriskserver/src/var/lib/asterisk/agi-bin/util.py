@@ -55,8 +55,10 @@ def sound_path(sound_name, preferred_subs=None):
     for statement_dir in dirs:
         path = statement_dir + sound_name
         # stream_file and Background want it without the extension
-        if os.path.isfile(path + '.gsm'):
-            return path
+        suffixes = ['.gsm', '.sl44', 'wav']
+        for suffix in suffixes:
+            if os.path.isfile(path + suffix):
+                return path
     return None
 
 def say(agi_o, filename, preferred_subs=None, escape=False):
