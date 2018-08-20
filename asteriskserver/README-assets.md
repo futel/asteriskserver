@@ -2,7 +2,7 @@
 
 We want to normalize audio for the maximum volume and get it into a format the asterisk can read.
 
-See [https://wiki.asterisk.org/wiki/display/AST/Asterisk+10+Codecs+and+Audio+Formats](formats)
+See [audio formats](https://wiki.asterisk.org/wiki/display/AST/Asterisk+10+Codecs+and+Audio+Formats)
 
 ## How to generate assets
 
