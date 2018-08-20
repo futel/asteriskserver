@@ -1,5 +1,12 @@
+## How to create assets
 
-## requirements:
+run:
+
+```
+make audio
+```
+
+## Requirements:
 
 * *make*
 * *ruby*
