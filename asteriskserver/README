@@ -7,9 +7,19 @@ python -m unittest discover test
 
 ## Deploy stage asteriskbox to digital ocean manually
 
-populate assets directory by copying src/sounds from futel-assets repo to assets/sounds
-
 create or check out release branch
+
+populate assets source directory by copying src/sounds from futel-assets repo to assets/sounds
+
+have requirements listed in README-assets.md
+On Ubuntu:
+  sudo apt-get install ruby ruby-dev libsndfile-dev make sndfile-programs libgsl-dev normalize-audio
+  gem install --user sndfile  
+  
+copy assets:
+
+  make clean
+  make audio
 
 create droplet and subdomain:
 
