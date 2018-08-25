@@ -25,7 +25,6 @@ sln_ext = {
 
 known_ext = sln_ext.values + ["mp3", "gsm"]
 
-remove = SRC_DIR.split("/").length
 Find.find(SRC_DIR).each do |f|
   cleanup = []
   next if File.directory?(f)
@@ -34,7 +33,7 @@ Find.find(SRC_DIR).each do |f|
   src_ext = File.extname(src)
 
   #create the destination
-  f = f.split("/").pop(remove).join("/")
+  f = f.split("/").last
   dst = File.join(DEST_DIR, f)
   base = File.join(File.dirname(dst), File.basename(dst, ".*"))
 
