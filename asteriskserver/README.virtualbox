@@ -1,13 +1,19 @@
 ## Deploy a futel asterisk server on 32-bit centos.
 
-## Set up vagrant:
+## have requirements
 
-have vagrant, virtualbox, ansible
+have requirements listed in README
+have virtualbox
 vagrant plugin install vagrant-vbguest
 
 ## Deploy to virtualbox with vagrant:
 
-populate assets directory
+populate assets source directory by copying src/sounds from futel-assets repo to assets/sounds
+
+install assets in install directory:
+
+  make clean
+  make audio
 
 vagrant up
 vagrant halt

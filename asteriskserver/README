@@ -1,5 +1,14 @@
 ## Deploy an asterisk server to Digital Ocean
 
+## have requirements
+
+have vagrant, ansible
+
+have requirements listed in README-assets.md
+On Ubuntu:
+  sudo apt-get install ruby ruby-dev libsndfile-dev make sndfile-programs libgsl-dev normalize-audio
+  gem install --user sndfile  
+
 ## test
 
 cd src/var/lib/asterisk/agi-bin
@@ -11,12 +20,7 @@ create or check out release branch
 
 populate assets source directory by copying src/sounds from futel-assets repo to assets/sounds
 
-have requirements listed in README-assets.md
-On Ubuntu:
-  sudo apt-get install ruby ruby-dev libsndfile-dev make sndfile-programs libgsl-dev normalize-audio
-  gem install --user sndfile  
-  
-copy assets:
+install assets in install directory:
 
   make clean
   make audio
