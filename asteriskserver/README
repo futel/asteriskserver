@@ -9,7 +9,7 @@ python -m unittest discover test
 
 create or check out release branch
 
-populate assets directory by copying src/sounds from futel-assets repo to assets/sounds
+populate assets by copying sounds directory in futel-assets repo to assets directory
 
 create droplet and subdomain:
 
