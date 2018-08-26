@@ -7,9 +7,9 @@ python -m unittest discover test
 
 ## Deploy stage asteriskbox to digital ocean manually
 
-populate assets directory by copying src/sounds from futel-assets repo to assets/sounds
-
 create or check out release branch
+
+populate assets directory by copying src/sounds from futel-assets repo to assets/sounds
 
 create droplet and subdomain:
 

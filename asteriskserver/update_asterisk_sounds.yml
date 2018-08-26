@@ -77,6 +77,12 @@
     dest: /opt/asterisk/var/lib/asterisk/sounds/futel
     owner: asterisk
     group: asterisk
+- name: copy longmont sounds
+  copy:
+    src: src/var/lib/asterisk/sounds/futel/longmont
+    dest: /opt/asterisk/var/lib/asterisk/sounds/futel
+    owner: asterisk
+    group: asterisk
 - name: copy asterisk confbridge menu sounds
   copy:
     src: src/var/lib/asterisk/sounds/en/futelconf/
