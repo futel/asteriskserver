@@ -1,5 +1,4 @@
 ---
-- hosts: baseinstall
-  become: true
+- hosts: localhost
   tasks:
     - include: update_assets.yml

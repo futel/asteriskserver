@@ -1,9 +1,7 @@
 ---
 - name: load conf
   include_vars: "conf.yml"
-- name: copy robotron sounds
-  copy:
-    src: "{{ asset_directory }}/sounds/futel/church-of-robotron"
-    dest: /opt/asterisk/var/lib/asterisk/sounds/futel
-    owner: asterisk
-    group: asterisk
+- name: update and copy longmont sounds
+  command: ruby scripts/update_audio_assets.rb {{ asterisk_sound_directory }}/longmont {{ asset_directory }}/longmont
+- name: update and copy robotron sounds
+  command: ruby scripts/update_audio_assets.rb {{ asterisk_sound_directory }}/church-of-robotron {{ asset_directory }}/church-of-robotron

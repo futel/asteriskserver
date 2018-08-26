@@ -1,6 +1,5 @@
 ---
 - hosts: digitalocean
-#  become: true
   tasks:
     - include: deploy_digitalocean.yml
 - hosts: prod
