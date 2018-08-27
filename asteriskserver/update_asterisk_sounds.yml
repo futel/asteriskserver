@@ -1,4 +1,6 @@
 ---
+- name: load conf
+  include_vars: "conf.yml"
 - name: copy asterisk williams short sounds
   copy:
     src: src/var/lib/asterisk/sounds/futel/williams-short
@@ -77,18 +79,15 @@
     dest: /opt/asterisk/var/lib/asterisk/sounds/futel
     owner: asterisk
     group: asterisk
-- name: copy longmont sounds
+- name: copy sounds
   copy:
-    src: src/var/lib/asterisk/sounds/futel/longmont
+    src: "{{ asterisk_sound_directory }}/{{ item }}"
     dest: /opt/asterisk/var/lib/asterisk/sounds/futel
     owner: asterisk
     group: asterisk
-- name: copy robotron sounds
-  copy:
-    src: src/var/lib/asterisk/sounds/futel/church-of-robotron
-    dest: /opt/asterisk/var/lib/asterisk/sounds/futel
-    owner: asterisk
-    group: asterisk
+  with_items:
+    - longmont
+    - church-of-robotron
 - name: copy asterisk confbridge menu sounds
   copy:
     src: src/var/lib/asterisk/sounds/en/futelconf/

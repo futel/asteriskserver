@@ -21,6 +21,7 @@ wait for DNS to propagate with "nslookup futel-stage.phu73l.net"
 
 deploy stage:
 
+  make clean
   ansible-playbook -i hosts update_assets_playbook.yml    
   ansible-playbook -i hosts baseinstall_playbook.yml --vault-password-file=conf/vault_pass.txt --extra-vars conf_version=<stage conf version>
   ansible-playbook -i hosts ssh_playbook.yml  
