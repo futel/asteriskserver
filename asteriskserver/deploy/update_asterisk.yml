@@ -1,9 +1,9 @@
 ---
 - name: load flavored secrets
-  include_vars: "update_asterisk_secrets_{{ version }}.yml"
+  include_vars: "deploy/update_asterisk_secrets_{{ version }}.yml"
   no_log: true
 - name: load generic secrets
-  include_vars: "update_asterisk_secrets_generic.yml"
+  include_vars: "deploy/update_asterisk_secrets_generic.yml"
   no_log: true
 - name: delete asterisk conf
   file:

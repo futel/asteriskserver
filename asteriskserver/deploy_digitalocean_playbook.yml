@@ -1,7 +1,7 @@
 ---
 - hosts: digitalocean
   tasks:
-    - include: deploy_digitalocean.yml
+    - include: deploy/deploy_digitalocean.yml
 - hosts: prod
   become: true
   vars:
@@ -9,5 +9,5 @@
     ansible_port: 42422
     ansible_ssh_private_key_file: conf/id_rsa
   tasks:
-    - include: find_prod_conf.yml
-    - include: find_stage_conf.yml    
+    - include: deploy/find_prod_conf.yml
+    - include: deploy/find_stage_conf.yml    

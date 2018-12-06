@@ -1,6 +1,6 @@
 ---
 - name: load secrets
-  include_vars: "install_asterisk_helpers_secrets_{{ version }}.yml"
+  include_vars: "deploy/install_asterisk_helpers_secrets_{{ version }}.yml"
   no_log: true
 - name: add logrotate job
   copy:

@@ -15,7 +15,7 @@ to assets directory
 
 create droplet and subdomain:
 
-  ansible-playbook -i hosts deploy_digitalocean_playbook.yml  --vault-password-file=conf/vault_pass.txt
+  ansible-playbook -i deploy/hosts deploy_digitalocean_playbook.yml  --vault-password-file=conf/vault_pass.txt
 
 note IP address printed
 note stage conf version printed
@@ -24,11 +24,11 @@ wait for DNS to propagate with "nslookup futel-stage.phu73l.net"
 deploy stage:
 
   make clean
-  ansible-playbook -i hosts update_assets_playbook.yml    
-  ansible-playbook -i hosts baseinstall_playbook.yml --vault-password-file=conf/vault_pass.txt --extra-vars conf_version=<stage conf version>
-  ansible-playbook -i hosts ssh_playbook.yml  
-  ansible-playbook -i hosts secure_playbook.yml
-  ansible-playbook -i hosts sync_playbook.yml
+  ansible-playbook -i deploy/hosts update_assets_playbook.yml    
+  ansible-playbook -i deploy/hosts baseinstall_playbook.yml --vault-password-file=conf/vault_pass.txt --extra-vars conf_version=<stage conf version>
+  ansible-playbook -i deploy/hosts ssh_playbook.yml  
+  ansible-playbook -i deploy/hosts secure_playbook.yml
+  ansible-playbook -i deploy/hosts sync_playbook.yml
 
 if testplan has changed since last release branch, update google sheet testplan,
 keeping dates of nonupdated completed tests
@@ -42,7 +42,7 @@ rename futel-prod.phu73l.net hostname to futel-prod-back
 rename futel-stage.phu73l.net hostname to futel-prod.phu73l.net
   ssh -t -F src/ssh_config futel-prod.phu73l.net 'sudo hostnamectl set-hostname futel-prod-back'
   ssh -t -F src/ssh_config futel-stage.phu73l.net 'sudo hostnamectl set-hostname futel-prod.phu73l.net'
-ansible-playbook -i hosts sync_playbook.yml  
+ansible-playbook -i deploy/hosts sync_playbook.yml  
 change A record for futel-prod.phu73l.net to point to new futel-prod.phu73l.net
 remove A record for futel-stage.phu73l.net (in own DO domain interface)
 point all callcentric DID forwarding rules to extensions corresponding to new conf_version on futel-prod.phu73l.net
@@ -55,7 +55,7 @@ stop asterisk on futel-prod-back
   sudo service asterisk stop
 make a snapshot of futel-prod-back
 
-ansible-playbook -i hosts post_promote_playbook.yml --vault-password-file=conf/vault_pass.txt
+ansible-playbook -i deploy/hosts post_promote_playbook.yml --vault-password-file=conf/vault_pass.txt
 
 remove snapshots of futel-prod-back except for most recent
 
@@ -68,4 +68,4 @@ test that prod incoming calls to extensions work (may take time)
 
 This is done after a new vpnbox is deployed.
 
-  ansible-playbook -i hosts secure_playbook.yml
+  ansible-playbook -i deploy/hosts secure_playbook.yml

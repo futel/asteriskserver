@@ -11,7 +11,7 @@ vagrant plugin install vagrant-vbguest
 populate assets source directory by copying src/sounds from futel-assets repo to assets/sounds
 
 make clean
-ansible-playbook -i hosts update_assets_playbook.yml
+ansible-playbook -i deploy/hosts update_assets_playbook.yml
 vagrant up
 vagrant halt
 vagrant up

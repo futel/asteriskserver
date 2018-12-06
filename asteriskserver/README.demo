@@ -3,9 +3,9 @@
 
 install centos 6.8
 add personal public key to ~root/.ssh/authorized_keys
-put ip address in hosts_demo
+put ip address in deploy/hosts_demo
 
-ansible-playbook -i hosts_demo baseinstall_playbook.yml --extra-vars conf_version=demo
+ansible-playbook -i deploy/hosts_demo baseinstall_playbook.yml --extra-vars conf_version=demo
 
 add 1337 voicemailbox to demo box
 edit /opt/asterisk/etc/asterisk/vm_futel_users to add 1337

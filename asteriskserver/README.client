@@ -1,7 +1,7 @@
 on prod, have the appropriate extension from sip.conf
 on stage or dev VM, have the extension you want to test from sip.conf
 have the secret for the extension from sip_secret.conf
-- ansible-vault view update_asterisk_secrets_generic.yml --vault-password-file=conf/vault_pass.txt
+- ansible-vault view deploy/update_asterisk_secrets_generic.yml --vault-password-file=conf/vault_pass.txt
 
 set up linphone
 manage sip accounts:

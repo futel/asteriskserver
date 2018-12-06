@@ -1,6 +1,6 @@
 ---
 - name: load conf
-  include_vars: "conf.yml"
+  include_vars: "deploy/conf.yml"
 - name: update and copy sounds
   command: ruby scripts/update_audio_assets.rb {{ asterisk_sound_directory }}/{{ item }} {{ asset_directory }}/{{ item }}
   with_items:

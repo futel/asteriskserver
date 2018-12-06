@@ -2,11 +2,11 @@
 - hosts: baseinstall
   become: true
   tasks:
-    - include: packages.yml
-    - include: users.yml
-    - include: config.yml
-    - include: install_misc.yml
-    - include: install_asterisk.yml
-    - include: install_asterisk_helpers.yml version={{ conf_version }}
-    - include: update_asterisk.yml version={{ conf_version }}
-    - include: update_asterisk_sounds.yml version={{ conf_version }}
+    - include: deploy/packages.yml
+    - include: deploy/users.yml
+    - include: deploy/config.yml
+    - include: deploy/install_misc.yml
+    - include: deploy/install_asterisk.yml
+    - include: deploy/install_asterisk_helpers.yml version={{ conf_version }}
+    - include: deploy/update_asterisk.yml version={{ conf_version }}
+    - include: deploy/update_asterisk_sounds.yml version={{ conf_version }}

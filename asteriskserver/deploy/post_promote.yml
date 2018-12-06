@@ -1,6 +1,6 @@
 ---
 - name: load generic secrets
-  include_vars: "deploy_digitalocean_secrets.yml"
+  include_vars: "deploy/deploy_digitalocean_secrets.yml"
   no_log: true
 # delete does not work with name, only id
 - name: get data including droplet id
