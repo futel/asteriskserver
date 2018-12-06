@@ -6,17 +6,16 @@
     state: present 
 - name: remove yum packages
   yum:
-    name: "{{ item }}"
+    name:
+      #- "@FCoE Storage Client"
+      #- "@iSCSI Storage Client"
+      #- "2Network file system client"
+      #- "@Storage Availability Tools"
+      - audit
+      - rpcbind
+      - selinux-policy
+      - selinux-policy-targeted
     state: absent
-  with_items:
-    - "@FCoE Storage Client"
-    - "@iSCSI Storage Client"
-    - "2Network file system client"
-    - "@Storage Availability Tools"
-    - audit
-    - rpcbind
-    - selinux-policy
-    - selinux-policy-targeted
 - name: update yum
   yum:
     name: "*"
@@ -31,56 +30,55 @@
     state: present
 - name: install yum packages
   yum:
-    name: "{{ item }}"
+    name:
+      - iptables-services
+      - firewalld
+      - ntp
+      - man
+      - vim-enhanced
+      - gcc
+      - gcc-c++
+      - SDL
+      - make
+      - automake
+      - libtool
+      - autoconf
+      - mlocate
+      - lynx
+      - cvs
+      - git
+      - subversion
+      - strace
+      - ltrace
+      - wget
+      - lsof
+      - tcpdump
+      - openssh
+      - openssh-server
+      - openssh-clients
+      - openssl-devel
+      - ncurses-devel
+      - libxml2-devel
+      - newt-devel
+      - kernel-devel
+      - sqlite-devel
+      - libuuid-devel
+      - festival
+      - supervisor
+      - logwatch
+      - cyrus-sasl-plain
+      - python-yaml
+      - python-pip
+      - redis
     state: present
-  with_items:
-    - iptables-services
-    - firewalld
-    - ntp
-    - man
-    - vim-enhanced
-    - gcc
-    - gcc-c++
-    - SDL
-    - make
-    - automake
-    - libtool
-    - autoconf
-    - mlocate
-    - lynx
-    - cvs
-    - git
-    - subversion
-    - strace
-    - ltrace
-    - wget
-    - lsof
-    - tcpdump
-    - openssh
-    - openssh-server
-    - openssh-clients
-    - openssl-devel
-    - ncurses-devel
-    - libxml2-devel
-    - newt-devel
-    - kernel-devel
-    - sqlite-devel
-    - libuuid-devel
-    - festival
-    - supervisor
-    - logwatch
-    - cyrus-sasl-plain
-    - python-yaml
-    - python-pip
-    - redis
 - name: update pip
   pip:
     name: pip
     state: latest
 - name: update pip packages
   pip:
-    name: "{{ item }}"
+    name:
+      - boto3
+      - redis
     state: present
-  with_items:
-    - boto3
-    - redis
+
