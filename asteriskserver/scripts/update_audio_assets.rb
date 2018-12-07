@@ -1,5 +1,9 @@
 #!/usr/bin/env ruby
 
+# copy and normalize assets into source directory
+# usage: update_audio_assets <dest_dir> <src_dir>
+
+
 #https://wiki.asterisk.org/wiki/display/AST/Asterisk+10+Codecs+and+Audio+Formats
 
 require 'find'

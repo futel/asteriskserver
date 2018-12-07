@@ -8,7 +8,9 @@ vagrant plugin install vagrant-vbguest
 
 ## Deploy to virtualbox with vagrant:
 
-populate assets source directory by copying src/sounds from futel-assets repo to assets/sounds
+populate assets by copying sounds directory from futel-assets repo
+(currently https://gitlab.com/futel/futel-content.git)
+to assets directory
 
 make clean
 ansible-playbook -i deploy/hosts update_assets_playbook.yml

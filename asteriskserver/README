@@ -9,7 +9,7 @@ python -m unittest discover test
 
 create or check out release branch
 
-populate assets by copying sounds directory in futel-assets repo
+populate assets by copying sounds directory from futel-assets repo
 (currently https://gitlab.com/futel/futel-content.git)
 to assets directory
 
