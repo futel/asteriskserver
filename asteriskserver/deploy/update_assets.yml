@@ -4,5 +4,17 @@
 - name: update and copy sounds
   command: ruby scripts/update_audio_assets.rb {{ asterisk_sound_directory }}/{{ item }} {{ asset_directory }}/{{ item }}
   with_items:
-    - longmont
     - church-of-robotron
+    - longmont
+    - oracle-dead-interstitial-long
+    - oracle-dead-interstitial-short
+    - oracle-dead-oracle
+    - recordings/karl-oracle-dead
+    - recordings/karl_quuux
+    - recordings/karl-robotron
+    - recordings/karl-voicemail-ivr
+    - recordings/karl-wildcard-line
+    - recordings/tishbite
+    - wildcard-line
+    - williams-long
+    - williams-short
