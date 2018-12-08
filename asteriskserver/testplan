@@ -12,7 +12,6 @@ ext 999 starts default menu from extension 620
 ext 999 starts default menu from extension 625
 ext 999 starts ypsi menu from extension 630
 ext 999 starts default menu from extension 635
-ext 999 starts incoming menu from extension 636
 ext 999 starts default menu from extension 640
 ext 999 starts default menu from extension 645
 ext 999 starts default menu from extension 655
@@ -49,8 +48,6 @@ outgoing call indicates 911 when calling 933 from 630
 outgoing call sends ypsi id from 630
 outgoing call indicates no 911 when calling 933 from 635
 outgoing call sends incoming id from 635
-outgoing call indicates no 911 when calling 933 from 636
-outgoing call sends incoming id from 636
 outgoing call indicates 911 when calling 933 from 640
 outgoing call sends mykle id from 640
 outgoing call indicates 911 when calling 933 from 645
