@@ -81,9 +81,20 @@ Find.find(SRC_DIR).each do |f|
   end
 
   #copy then normalize
-  FileUtils.copy(src, dst)
-  raise "failed to normalize" unless system("normalize-audio", "--quiet", "--peak", dst)
+  normalized = base + "-tmp-norm." + out_ext
+  cleanup << normalized
+  FileUtils.copy(src, normalized)
+  raise "failed to normalize" unless system("normalize-audio", "--quiet", "--peak", normalized)
 
+  #remove header
+  raw = base + "-tmp.raw"
+  cleanup << raw
+  raise "cannot create raw encoding" unless system("sndfile-convert", "-pcm16", src, raw)
+
+  #copy to the final location
+  FileUtils.copy(raw, dst)
+
+  #cleanup
   cleanup.each { |f| File.unlink(f) }
 end
 
