@@ -2,10 +2,17 @@
 
 ## test
 
+Requirements:
+python-pip apt package
+pyyaml pip package
+
 cd src/var/lib/asterisk/agi-bin
 python -m unittest discover test
 
 ## Deploy stage asteriskbox to digital ocean manually
+
+Requirements:
+ansible apt package
 
 create or check out release branch
 
