@@ -3,8 +3,16 @@
 ## test
 
 Requirements:
-python-pip apt package
-pyyaml pip package
+apt packages:
+- libgsl-dev
+- ruby-dev
+- normalize-audio
+- sndfile-programs
+- python-pip
+pip packages:
+- pyyaml
+gem packages:
+- sndfile
 
 cd src/var/lib/asterisk/agi-bin
 python -m unittest discover test
