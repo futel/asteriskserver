@@ -1,5 +1,9 @@
 # set up sip client
 
+requirements
+<extension>
+<secret>
+
 ## set up a spa-1001 linksysPAP etc
 
 line1: NAT mapping enable no

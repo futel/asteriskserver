@@ -1,17 +1,20 @@
-on prod, have the appropriate extension from sip.conf
-on stage or dev VM, have the extension you want to test from sip.conf
-have the secret for the extension from sip_secret.conf
-- ansible-vault view deploy/update_asterisk_secrets_generic.yml --vault-password-file=conf/vault_pass.txt
+requirements
+<extension> from sip.conf
+<secret> from sip_secret.conf and sip.conf
+- find variable name used for extension in sip_secret_conf.j2
+- use ansible-vault to view variable value in update_asterisk_secrets_generic.yml
+-- ansible-vault view deploy/update_asterisk_secrets_generic.yml --vault-password-file=conf/vault_pass.txt
+
 
 set up linphone
 manage sip accounts:
 add:
-sip identity: sip:700@futel-stage.phu73l.net
-- replace 700 with extension
+(substitute <extension> <secret>)
+sip identity: sip:<extension>@futel-stage.phu73l.net
 - replace stage with stage, prod, or dev VM ip address
-sip proxy address: <sip:futel-stage.phu73l.net>
+sip proxy address: sip:futel-stage.phu73l.net
 - replace stage with stage, prod, or dev VM ip address
-when prompted, enter sip secret
+when prompted, enter <secret>
 
 use linphone:
-dial appropriate exstension from testplan
+dial appropriate extension from testplan
