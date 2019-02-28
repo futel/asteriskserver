@@ -21,6 +21,8 @@ ext 999 starts default menu from extension 668
 ext 999 starts default menu from extension 669
 ext 999 starts dialtone from extension 670
 ext 999 starts default menu from extension 680
+ext 999 starts default menu from extension 685
+ext 999 starts default menu from extension 690
 ext 999 starts default menu from extension 700
 ext 999 starts default menu from extension 701
 ext 999 starts default menu from extension 702
@@ -66,6 +68,10 @@ outgoing call indicates 911 when calling 933 from 670
 outgoing call sends r2d2 id from 670
 outgoing call indicates 911 when calling 933 from 680
 outgoing call sends xnor id from 680
+outgoing call indicates no 911 when calling 933 from 685
+outgoing call sends incoming id from 680
+outgoing call indicates no 911 when calling 933 from 690
+outgoing call sends incoming id from 690
 outgoing call indicates no 911 when calling 933 from 700
 outgoing call sends incoming id from 700
 outgoing call indicates no 911 when calling 933 from 701
