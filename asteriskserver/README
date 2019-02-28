@@ -20,7 +20,8 @@ python -m unittest discover test
 ## Deploy stage asteriskbox to digital ocean manually
 
 Requirements:
-ansible apt package
+pip packages:
+- dopy
 
 create or check out release branch
 
