@@ -141,6 +141,9 @@ can hear, choose each option
 outgoing menu ypsi:
 can hear, choose each option
 
+outgoing menu souwester:
+can hear, choose each option
+
 outgoing menu admin:
 can hear, choose each option
 
@@ -183,10 +186,16 @@ can call each directory number
 outgoing directory ypsi:
 can call each directory number
 
+outgoing directory souwester:
+can call each directory number
+
 outgoing utilities:
 can call each utility number
 
 outgoing utilities ypsi:
+can call each utility number
+
+outgoing utilities souwester:
 can call each utility number
 
 outgoing and incoming conference:
