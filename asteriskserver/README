@@ -66,9 +66,6 @@ point all callcentric DID forwarding rules to extensions corresponding to new co
 point all voip.ms DID forwarding rules to subaccounts corresponding to new conf_version on futel-prod.phu73l.net
   185060_prod-foo|bar subaccount
 wait for DNS to propagate
-stop asterisk on futel-prod-back
-  XXX cp ssh_config and use for Host * if kicked out already
-  sudo service asterisk stop
 make a snapshot of futel-prod-back
 
 ansible-playbook -i deploy/hosts post_promote_playbook.yml --vault-password-file=conf/vault_pass.txt
