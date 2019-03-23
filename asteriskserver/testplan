@@ -58,8 +58,8 @@ outgoing call indicates 911 when calling 933 from 655
 outgoing call sends taylor id from 655
 outgoing call indicates no 911 when calling 933 from 665
 outgoing call sends incoming id from 665
-outgoing call indicates 911 when calling 933 from 667
-outgoing call sends oskar indoors id from 667
+outgoing call indicates no 911 when calling 933 from 667
+outgoing call sends incoming id from 667
 outgoing call indicates 911 when calling 933 from 668
 outgoing call sends oskar id from 668
 outgoing call indicates no 911 when calling 933 from 669
@@ -119,7 +119,6 @@ incoming call:
 incoming call to stage oskar indoors test number calls oskar indoors phone
 
 incoming call to oskar calls oskar extension
-incoming call to oskar indoors calls oskar indoors extension
 incoming call to garth gets garth extension
 incoming call to r2d2 calls r2d2 extension
 incoming call to xnor calls xnor extension
