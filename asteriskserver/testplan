@@ -24,7 +24,7 @@ ext 999 starts dialtone from extension 670
 ext 999 starts default menu from extension 680
 ext 999 starts default menu from extension 685
 ext 999 starts default menu from extension 690
-ext 999 starts default menu from extension 700
+ext 999 starts blerg menu from extension 700
 ext 999 starts default menu from extension 701
 ext 999 starts default menu from extension 702
 ext 999 starts default menu from extension 703
