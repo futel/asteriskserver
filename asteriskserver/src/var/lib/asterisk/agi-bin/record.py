@@ -111,7 +111,7 @@ def interruptable_statements(agi_o, statements):
             return digit
     return None
 
-def record_statements(agi_o, statements):
+def record_statements(agi_o):
     username = get_username()
     util.say(agi_o, 'hello')
 

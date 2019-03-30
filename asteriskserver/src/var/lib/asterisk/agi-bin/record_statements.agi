@@ -12,7 +12,7 @@ import record
 agi = agi.AGI()
 
 def main():
-    record.main(agi)
+    record.record_statements(agi)
 
 agi.answer()
 util.agi_tracebacker(agi, main)
