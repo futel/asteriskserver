@@ -3,7 +3,7 @@ requirements
 <secret> from sip_secret.conf and sip.conf
 - find variable name used for extension in sip_secret_conf.j2
 - use ansible-vault to view variable value in update_asterisk_secrets_generic.yml
--- ansible-vault view deploy/update_asterisk_secrets_generic.yml --vault-password-file=conf/vault_pass.txt
+-- ansible-vault view deploy/update_asterisk_secrets_generic.yml --vault-password-file=conf/vault_pass_generic.txt
 
 
 set up linphone

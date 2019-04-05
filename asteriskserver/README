@@ -31,7 +31,7 @@ to assets directory
 
 create droplet and subdomain:
 
-  ansible-playbook -i deploy/hosts deploy_digitalocean_playbook.yml  --vault-password-file=conf/vault_pass.txt
+  ansible-playbook -i deploy/hosts deploy_digitalocean_playbook.yml  --vault-password-file=conf/vault_pass_digitalocean.txt
 
 note IP address printed
 note stage conf version printed
@@ -41,9 +41,9 @@ deploy stage:
 
   make clean
   ansible-playbook -i deploy/hosts update_assets_playbook.yml    
-  ansible-playbook -i deploy/hosts baseinstall_playbook.yml --vault-password-file=conf/vault_pass.txt --extra-vars conf_version=<stage conf version>
-  ansible-playbook -i deploy/hosts update_asterisk_playbook.yml --vault-password-file=conf/vault_pass.txt
-  ansible-playbook -i deploy/hosts update_asterisk_sip_playbook.yml --vault-password-file=conf/vault_pass.txt --extra-vars conf_version=<stage conf version>  
+  ansible-playbook -i deploy/hosts baseinstall_playbook.yml --vault-password-file=conf/vault_pass_prod.txt --extra-vars conf_version=<stage conf version>
+  ansible-playbook -i deploy/hosts update_asterisk_playbook.yml --vault-password-file=conf/vault_pass_generic.txt
+  ansible-playbook -i deploy/hosts update_asterisk_sip_playbook.yml --vault-password-file=conf/vault_pass_prod.txt --extra-vars conf_version=<stage conf version>  
   ansible-playbook -i deploy/hosts ssh_playbook.yml  
   ansible-playbook -i deploy/hosts secure_playbook.yml
   ansible-playbook -i deploy/hosts sync_playbook.yml
@@ -70,7 +70,7 @@ point all voip.ms DID forwarding rules to subaccounts corresponding to new conf_
 wait for DNS to propagate
 make a snapshot of futel-prod-back
 
-ansible-playbook -i deploy/hosts post_promote_playbook.yml --vault-password-file=conf/vault_pass.txt
+ansible-playbook -i deploy/hosts post_promote_playbook.yml --vault-password-file=conf/vault_pass_digitalocean.txt
 
 remove snapshots of futel-prod-back except for most recent
 

@@ -6,8 +6,8 @@ add personal public key to ~root/.ssh/authorized_keys
 put ip address in deploy/hosts_demo
 
 ansible-playbook -i deploy/hosts_demo baseinstall_playbook.yml --extra-vars conf_version=demo
-ansible-playbook -i deploy/hosts update_asterisk_playbook.yml --vault-password-file=conf/vault_pass.txt
-ansible-playbook -i deploy/hosts_demo update_asterisk_sip.yml --vault-password-file=conf/vault_pass.txt  --extra-vars conf_version=demo
+ansible-playbook -i deploy/hosts update_asterisk_playbook.yml --vault-password-file=conf/vault_pass_generic.txt
+ansible-playbook -i deploy/hosts_demo update_asterisk_sip_playbook.yml --vault-password-file=conf/vault_pass_demo.txt  --extra-vars conf_version=demo
 
 add 1337 voicemailbox to demo box
 edit /opt/asterisk/etc/asterisk/vm_futel_users to add 1337
