@@ -23,5 +23,6 @@ vagrant halt
 vagrant up
 
 # shortcut: update asterisk conf and scripts for already built box
-# this assumes everything you want to do is in update_asterisk.yml
+# this assumes everything you want to do is in update_asterisk.yml and update_asterisk_sip.yml
 vagrant provision --provision-with update_asterisk
+vagrant provision --provision-with update_asterisk_sip

@@ -1,0 +1,10 @@
+---
+- name: load flavored secrets
+  include_vars: "deploy/update_asterisk_secrets_{{ version }}.yml"
+  no_log: true
+- name: copy voip provider conf with secrets
+  template:
+    src: src/etc/asterisk/sip_callcentric.conf.j2    
+    dest: /opt/asterisk/etc/asterisk/sip_callcentric.conf
+    owner: asterisk
+    group: asterisk

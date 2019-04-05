@@ -1,8 +1,5 @@
 ---
 - name: load flavored secrets
-  include_vars: "deploy/update_asterisk_secrets_{{ version }}.yml"
-  no_log: true
-- name: load generic secrets
   include_vars: "deploy/update_asterisk_secrets_generic.yml"
   no_log: true
 - name: delete asterisk conf
@@ -55,12 +52,6 @@
   copy:
     src: src/etc/asterisk/
     dest: /opt/asterisk/etc/asterisk
-    owner: asterisk
-    group: asterisk
-- name: copy voip provider conf with secrets
-  template:
-    src: src/etc/asterisk/sip_callcentric.conf.j2    
-    dest: /opt/asterisk/etc/asterisk/sip_callcentric.conf
     owner: asterisk
     group: asterisk
 - name: copy sip conf with secrets
