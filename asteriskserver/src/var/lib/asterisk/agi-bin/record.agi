@@ -1,7 +1,9 @@
 #!/usr/bin/env python
 """
-Prompt for and collect recordings.
+Collect one recording.
 """
+
+import sys
 
 from asterisk import *
 import util
@@ -12,7 +14,9 @@ import record
 agi = agi.AGI()
 
 def main():
-    record.main(agi)
+    # first argument is subdirectory path
+    dirname = sys.argv[1]
+    record.record_feature(agi, dirname)
 
 agi.answer()
 util.agi_tracebacker(agi, main)

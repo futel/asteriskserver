@@ -1,3 +1,4 @@
+ext 992 starts blerg menu
 ext 993 starts members menu
 ext 994 starts ypsi menu
 ext 995 starts default menu
@@ -21,7 +22,9 @@ ext 999 starts default menu from extension 668
 ext 999 starts default menu from extension 669
 ext 999 starts dialtone from extension 670
 ext 999 starts default menu from extension 680
-ext 999 starts default menu from extension 700
+ext 999 starts default menu from extension 685
+ext 999 starts default menu from extension 690
+ext 999 starts blerg menu from extension 700
 ext 999 starts default menu from extension 701
 ext 999 starts default menu from extension 702
 ext 999 starts default menu from extension 703
@@ -56,8 +59,8 @@ outgoing call indicates 911 when calling 933 from 655
 outgoing call sends taylor id from 655
 outgoing call indicates no 911 when calling 933 from 665
 outgoing call sends incoming id from 665
-outgoing call indicates 911 when calling 933 from 667
-outgoing call sends oskar indoors id from 667
+outgoing call indicates no 911 when calling 933 from 667
+outgoing call sends incoming id from 667
 outgoing call indicates 911 when calling 933 from 668
 outgoing call sends oskar id from 668
 outgoing call indicates no 911 when calling 933 from 669
@@ -66,6 +69,10 @@ outgoing call indicates 911 when calling 933 from 670
 outgoing call sends r2d2 id from 670
 outgoing call indicates 911 when calling 933 from 680
 outgoing call sends xnor id from 680
+outgoing call indicates no 911 when calling 933 from 685
+outgoing call sends incoming id from 680
+outgoing call indicates no 911 when calling 933 from 690
+outgoing call sends incoming id from 690
 outgoing call indicates no 911 when calling 933 from 700
 outgoing call sends incoming id from 700
 outgoing call indicates no 911 when calling 933 from 701
@@ -113,7 +120,6 @@ incoming call:
 incoming call to stage oskar indoors test number calls oskar indoors phone
 
 incoming call to oskar calls oskar extension
-incoming call to oskar indoors calls oskar indoors extension
 incoming call to garth gets garth extension
 incoming call to r2d2 calls r2d2 extension
 incoming call to xnor calls xnor extension
@@ -133,6 +139,9 @@ outgoing menu:
 can hear, choose each option
 
 outgoing menu ypsi:
+can hear, choose each option
+
+outgoing menu souwester:
 can hear, choose each option
 
 outgoing menu admin:
@@ -177,10 +186,16 @@ can call each directory number
 outgoing directory ypsi:
 can call each directory number
 
+outgoing directory souwester:
+can call each directory number
+
 outgoing utilities:
 can call each utility number
 
 outgoing utilities ypsi:
+can call each utility number
+
+outgoing utilities souwester:
 can call each utility number
 
 outgoing and incoming conference:

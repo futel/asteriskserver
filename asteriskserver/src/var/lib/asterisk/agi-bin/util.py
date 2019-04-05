@@ -16,6 +16,8 @@ statement_dirs = [
 # preferred submenu directories for gsm files, in order of preference
 preferred_statement_dirs = [
     '/opt/asterisk/var/lib/asterisk/sounds/futel/recordings/'
+    'blerg/',
+    '/opt/asterisk/var/lib/asterisk/sounds/futel/recordings/'
     'karl-robotron/',
     '/opt/asterisk/var/lib/asterisk/sounds/futel/recordings/'
     'karl-oracle-dead/',
@@ -55,7 +57,7 @@ def sound_path(sound_name, preferred_subs=None):
     for statement_dir in dirs:
         path = statement_dir + sound_name
         # stream_file and Background want it without the extension
-        suffixes = ['.gsm', '.sl44', '.sln', 'wav']
+        suffixes = ['.gsm', '.sl44', '.sln', '.sln44', '.wav']
         for suffix in suffixes:
             if os.path.isfile(path + suffix):
                 return path

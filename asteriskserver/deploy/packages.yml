@@ -70,6 +70,7 @@
       - python-yaml
       - python-pip
       - redis
+      - jansson-devel
     state: present
 - name: update pip
   pip:

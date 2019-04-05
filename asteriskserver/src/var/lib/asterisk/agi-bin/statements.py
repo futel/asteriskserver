@@ -12,6 +12,14 @@
 statement_groups = [
     {'name': 'general',
      'statements': [
+         'outgoing',
+         'menu',
+         'menus',
+         'portland',
+         'ipsalanty',
+         'souwester',
+         'blerg',
+         'for-the-outgoing-menus',
          'for-longmont-potion-castle',
          'for-an-internal-dialtone',
          'for-the-church-of-robotron',
@@ -20,7 +28,6 @@ statement_groups = [
          'for-the-dark-fiber',
          'for-the-office-of-night-things',
          'authenticate-with-your-voice-mail-box-to-continue',
-         'for-the-outgoing-menu',
          'to-ring-the-ainsworth-street-telephone',
          'to-ring-the-taylor-street-telephone',
          'for-a-random-payphone',

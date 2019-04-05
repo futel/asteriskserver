@@ -9,6 +9,7 @@
     - oracle-dead-interstitial-long
     - oracle-dead-interstitial-short
     - oracle-dead-oracle
+    - recordings/blerg  
     - recordings/karl-oracle-dead
     - recordings/karl_quuux
     - recordings/karl-robotron
@@ -18,3 +19,4 @@
     - wildcard-line
     - williams-long
     - williams-short
+    

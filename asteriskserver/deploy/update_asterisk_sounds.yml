@@ -73,6 +73,12 @@
     dest: /opt/asterisk/var/lib/asterisk/sounds/futel/recordings
     owner: asterisk
     group: asterisk
+- name: copy asterisk statement sounds
+  copy:
+    src: src/var/lib/asterisk/sounds/futel/recordings/blerg
+    dest: /opt/asterisk/var/lib/asterisk/sounds/futel/recordings
+    owner: asterisk
+    group: asterisk
 - name: copy asterisk wildcard line sounds
   copy:
     src: src/var/lib/asterisk/sounds/futel/wildcard-line

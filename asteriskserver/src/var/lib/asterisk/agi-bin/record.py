@@ -16,6 +16,7 @@ def get_username():
     return str(uuid.uuid4())
 
 def mkdir(path):
+    """Make directory and parents, silently ignoring existing directories."""
     try:
         os.makedirs(path)
     except OSError as exc:
@@ -36,6 +37,10 @@ def statement_path(statement, username):
     return os.path.join(path, statement_to_filename(statement))
 
 def prompt_and_record(agi_o, statement, username):
+    """
+    Play prompts for statement, record gsm file,
+    save at path for statement and username.
+    """
     util.say(agi_o, 'please-repeat')
     util.say(agi_o, statement)
     path = statement_path(statement, username)
@@ -111,7 +116,18 @@ def interruptable_statements(agi_o, statements):
             return digit
     return None
 
-def record_statements(agi_o, statements):
+def record_feature(agi_o, dirname):
+    """Top function to record one recording to unique wav file."""
+    path = os.path.join(RECORDING_DIR, dirname)
+    mkdir(path)
+    username = get_username()
+    path = os.path.join(path, username)
+    path_in = path  + ':wav'
+    options = ','.join([path_in, ',,ky'])
+    agi_o.appexec('record', options)
+
+def record_statements(agi_o):
+    """Top function to prompt, select, and record statements."""
     username = get_username()
     util.say(agi_o, 'hello')
 
@@ -141,7 +157,3 @@ def record_statements(agi_o, statements):
     util.say(agi_o, 'thank-you')
     util.say(agi_o, 'goodbye')
     util.metric(agi_o, 'record-menu')
-
-
-def main(agi):
-    record_statements(agi, statements)

@@ -7,89 +7,50 @@
     group: asterisk
 - name: unpack asterisk
   unarchive:
-    src: src/asterisk-11-current.tar.gz
+    src: src/asterisk-13-current.tar.gz
     dest: /tmp
     owner: asterisk
     group: asterisk
-    creates: /tmp/asterisk-11.5.1    
+    creates: /tmp/asterisk-13.25.0
 - name: configure asterisk
   command: sudo -u asterisk ./configure --libdir=/opt/asterisk/lib64 --prefix=/opt/asterisk --exec_prefix=/opt/asterisk
   args:
-    chdir: /tmp/asterisk-11.5.1
-    creates: /tmp/asterisk-11.5.1/makeopts    
+    chdir: /tmp/asterisk-13.25.0
+    creates: /tmp/asterisk-13.25.0/makeopts    
 # what a crock!  Some of these may be superstition.    
 - name: configure asterisk menuselect things
   command: sudo -u asterisk make {{ item }}
   args:
-    chdir: /tmp/asterisk-11.5.1
+    chdir: /tmp/asterisk-13.25.0
   with_items:
     - menuselect.makeopts
-    - menuselect-tree
-    - menuselect/cmenuselect
-    - menuselect/nmenuselect
-    - menuselect/gmenuselect
-# is this needed?
-- name: clean up asterisk menuselect things
-  file:
-    path: "{{ item }}"
-    state: absent
-  with_items:
-    - /tmp/asterisk-11.5.1/channels/h323/Makefile.ast
-    - /tmp/asterisk-11.5.1/main/asterisk
-# need to pare these files down
-# alternative, create a smaller menuselect file starting with
-# sudo -u asterisk menuselect/menuselect --enable-all menuselect.makeopts
-# the virtualbox version is used for virtualbox and digital ocean
-- name: copy files normally done with make menuselect
-  copy:
-    src: src/menuselect.makeopts.virtualbox
-    dest: /tmp/asterisk-11.5.1/menuselect.makeopts
-    owner: asterisk
-    group: asterisk
-    force: yes
 # virtualbox, digital ocean, and probably all virtual providers disbable native
 # optimizations
 - name: run menuselect
   command: sudo -u asterisk menuselect/menuselect --disable BUILD_NATIVE menuselect.makeopts
   args:
-    chdir: /tmp/asterisk-11.5.1
-# is this necessary?
-- name: copy more files normally done with make menuselect
-  copy:
-    src: src/menuselect.makedeps 
-    dest: /tmp/asterisk-11.5.1/menuselect.makedeps
-    owner: asterisk
-    group: asterisk
-    force: yes
-# is this necessary?
-- name: copy more files normally done with make menuselect
-  copy:
-    src: src/menuselect-tree
-    dest: /tmp/asterisk-11.5.1/menuselect-tree
-    owner: asterisk
-    group: asterisk
-    force: yes
+    chdir: /tmp/asterisk-13.25.0
 # XXX this creates is already there?
 # We're changed=false here and just doing this on the install?
 - name: make asterisk
   command: sudo -u asterisk make
   args:
-    chdir: /tmp/asterisk-11.5.1
-    creates: /tmp/asterisk-11.5.1/main    
+    chdir: /tmp/asterisk-13.25.0
+    creates: /tmp/asterisk-13.25.0/main    
 - name: install asterisk
   command: sudo -u asterisk make install
   args:
-    chdir: /tmp/asterisk-11.5.1
+    chdir: /tmp/asterisk-13.25.0
     creates: /opt/asterisk/sbin/asterisk
 - name: make asterisk samples
   command: sudo -u asterisk make samples
   args:
-    chdir: /tmp/asterisk-11.5.1
+    chdir: /tmp/asterisk-13.25.0
     creates: /opt/asterisk/etc/asterisk/extensions.conf
 - name: make asterisk config, as root
   command: make config
   args:
-    chdir: /tmp/asterisk-11.5.1
+    chdir: /tmp/asterisk-13.25.0
     creates: /etc/init.d/asterisk
 # this adds ASTARGS="-U asterisk"
 - name: copy our safe_asterisk
