@@ -166,6 +166,7 @@ denying operator call hangs up on operator
 denying operator call does not affect caller
 denying operator call does not affect other operators being dialed
 denying operator call does not affect other operators hearing menu
+caller hangup stops ringing for all operators still ringing
 caller gets operator voicemail if no operator accepts before timeout
 caller gets hangup after voicemail ends
 caller gets hangup after call with operator ends
