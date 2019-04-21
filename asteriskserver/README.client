@@ -5,8 +5,9 @@ requirements
 - use ansible-vault to view variable value in update_asterisk_secrets_generic.yml
 -- ansible-vault view deploy/update_asterisk_secrets_generic.yml --vault-password-file=conf/vault_pass_generic.txt
 
+setup linphone or ekiga for stage
 
-set up linphone for stage
+configure linphone
 manage sip accounts:
 add:
 (substitute <extension> <secret>)
@@ -14,5 +15,15 @@ sip identity: sip:<extension>@futel-stage.phu73l.net
 sip proxy address: sip:futel-stage.phu73l.net
 when prompted, enter <secret>
 
-use linphone:
+configure ekiga manually (avoid config assistant)
+edit tab -> accounts -> in accounts window, click accounts again -> "add a SIP account"
+-name: user name 
+-registrar: futel-stage.phu73l.net
+-user: <extension>
+-authentication user: leave blank
+-password: <secret>
+-enable account: checked
+status for account should read "Registered" upon completion
+
+using linphone or ekiga:
 dial appropriate extension from testplan
