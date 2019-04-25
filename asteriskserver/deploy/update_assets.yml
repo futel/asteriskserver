@@ -4,19 +4,19 @@
 - name: update and copy sounds
   command: ruby scripts/update_audio_assets.rb {{ asterisk_sound_directory }}/{{ item }} {{ asset_directory }}/{{ item }}
   with_items:
-    - church-of-robotron
-    - longmont
-    - oracle-dead-interstitial-long
-    - oracle-dead-interstitial-short
-    - oracle-dead-oracle
-    - recordings/blerg  
-    - recordings/karl-oracle-dead
-    - recordings/karl_quuux
-    - recordings/karl-robotron
-    - recordings/karl-voicemail-ivr
-    - recordings/karl-wildcard-line
-    - recordings/tishbite
-    - wildcard-line
-    - williams-long
-    - williams-short
-    
+    - futel/church-of-robotron
+    - futel/longmont
+    - futel/oracle-dead-interstitial-long
+    - futel/oracle-dead-interstitial-short
+    - futel/oracle-dead-oracle
+    - futel/recordings/blerg  
+    - futel/recordings/karl-oracle-dead
+    - futel/recordings/karl_quuux
+    - futel/recordings/karl-robotron
+    - futel/recordings/karl-voicemail-ivr
+    - futel/recordings/karl-wildcard-line
+    - futel/recordings/tishbite
+    - futel/wildcard-line
+    - futel/williams-long
+    - futel/williams-short
+    - en/futelconf

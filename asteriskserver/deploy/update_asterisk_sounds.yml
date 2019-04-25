@@ -87,7 +87,7 @@
     group: asterisk
 - name: copy sounds
   copy:
-    src: "{{ asterisk_sound_directory }}/{{ item }}"
+    src: "{{ asterisk_sound_directory }}/futel/{{ item }}"
     dest: /opt/asterisk/var/lib/asterisk/sounds/futel
     owner: asterisk
     group: asterisk
@@ -96,8 +96,8 @@
     - church-of-robotron
 - name: copy asterisk confbridge menu sounds
   copy:
-    src: src/var/lib/asterisk/sounds/en/futelconf/
-    dest: /opt/asterisk/var/lib/asterisk/sounds/en/futelconf
+    src: "{{ asterisk_sound_directory }}/en/futelconf"
+    dest: /opt/asterisk/var/lib/asterisk/sounds/en
     owner: asterisk
     group: asterisk
 - name: copy asterisk hold music
