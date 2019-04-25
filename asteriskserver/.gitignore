@@ -1,1 +1,3 @@
 *.pyc
+ansible.log
+assets/*
