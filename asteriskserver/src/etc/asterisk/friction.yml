@@ -1,5 +1,6 @@
 - extensions:
     - 668
+    - 645
   context: filterdial
   start_time: "21:00"
   end_time: "21:59"
@@ -7,6 +8,7 @@
 
 - extensions:
     - 668
+    - 645
   context: filterdial
   start_time: "22:00"
   end_time: "23:59"
@@ -14,6 +16,7 @@
 
 - extensions:
     - 668
+    - 645
   context: filterdial  
   start_time: "00:00"
   end_time: "03:59"
@@ -21,6 +24,7 @@
 
 - extensions:
     - 668
+    - 645
   context: filterdial  
   start_time: "04:00"
   end_time: "04:59"
@@ -28,6 +32,7 @@
 
 - extensions:
     - 668
+    - 645
   context: filterdial  
   start_time: "05:00"
   end_time: "05:59"
@@ -35,6 +40,7 @@
 
 - extensions:
     - 668
+    - 645
   context: filterdial  
   start_time: "06:00"
   end_time: "06:59"
