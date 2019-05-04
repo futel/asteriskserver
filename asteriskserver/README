@@ -20,8 +20,9 @@ python -m unittest discover test
 ## Deploy stage asteriskbox to digital ocean manually
 
 Requirements:
-pip packages:
-- dopy
+- vagrant plugin install vagrant-vbguest
+- pip packages:
+-- dopy
 
 create or check out release branch
 
