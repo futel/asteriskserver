@@ -61,6 +61,7 @@ rename futel-prod.phu73l.net hostname to futel-prod-back
 rename futel-stage.phu73l.net hostname to futel-prod.phu73l.net
   ssh -t -F src/ssh_config futel-prod.phu73l.net 'sudo hostnamectl set-hostname futel-prod-back'
   ssh -t -F src/ssh_config futel-stage.phu73l.net 'sudo hostnamectl set-hostname futel-prod.phu73l.net'
+save any recordings on prod located in /opt/asterisk/var/lib/asterisk/sounds/futel/recordings
 ansible-playbook -i deploy/hosts sync_playbook.yml  
 change A record for futel-prod.phu73l.net to point to new futel-prod.phu73l.net
 remove A record for futel-stage.phu73l.net (in own DO domain interface)
