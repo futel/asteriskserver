@@ -34,6 +34,9 @@ iptables -A INPUT -p udp -m udp -s 66.193.176.58 --dport 10000:20000 -j ACCEPT
 # voip.ms
 iptables -A INPUT -p udp -m udp -s sanjose.voip.ms --dport 5060:5080 -j ACCEPT
 iptables -A INPUT -p udp -m udp -s sanjose.voip.ms --dport 10000:20000 -j ACCEPT
-# twilio
-iptables -A INPUT -p udp -m udp -s 54.172.60.0/30 --dport 5060:5061 -j ACCEPT
-iptables -A INPUT -p udp -m udp -s 54.172.60.0/23 --dport 10000:20000 -j ACCEPT
+# twilio us1 (east coast)
+iptables -A INPUT -p udp -m udp -s 54.172.60.0/24 --dport 5060:5061 -j ACCEPT
+iptables -A INPUT -p udp -m udp -s 54.172.60.0/24 --dport 10000:20000 -j ACCEPT
+# twilio us2 (west coast)
+iptables -A INPUT -p udp -m udp -s 54.244.51.0/24 --dport 5060:5061 -j ACCEPT
+iptables -A INPUT -p udp -m udp -s 54.244.51.0/24 --dport 10000:20000 -j ACCEPT
