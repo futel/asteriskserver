@@ -47,6 +47,7 @@ deploy stage:
   ansible-playbook -i deploy/hosts update_asterisk_sip_playbook.yml --vault-password-file=conf/vault_pass_prod.txt --extra-vars conf_version=<stage conf version>  
   ansible-playbook -i deploy/hosts ssh_playbook.yml  
   ansible-playbook -i deploy/hosts secure_playbook.yml
+save any recordings on prod located in /opt/asterisk/var/lib/asterisk/sounds/futel/recordings  
   ansible-playbook -i deploy/hosts sync_playbook.yml
 
 if testplan has changed since last release branch, update google sheet testplan,
