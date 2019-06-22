@@ -9,13 +9,15 @@
     - futel/oracle-dead-interstitial-long
     - futel/oracle-dead-interstitial-short
     - futel/oracle-dead-oracle
-    - futel/recordings/blerg  
+    - futel/recordings/blerg
+    - futel/recordings/jodi-voyager
     - futel/recordings/karl-oracle-dead
     - futel/recordings/karl_quuux
     - futel/recordings/karl-robotron
     - futel/recordings/karl-voicemail-ivr
     - futel/recordings/karl-wildcard-line
     - futel/recordings/tishbite
+    - futel/voyager
     - futel/wildcard-line
     - futel/williams-long
     - futel/williams-short
