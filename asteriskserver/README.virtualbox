@@ -1,11 +1,14 @@
-## Deploy a futel asterisk server on 32-bit centos.
+## Deploy a futel asterisk server on a 64 bit centos VM
+
+We use Vagrant. This document assumes you are using Virtualbox on an Ubuntu host.
 
 ## have requirements
 
-have requirements listed in README
-sudo apt install vagrant
-sudo apt install ./virtualbox-6.0_6.0.4-128413~Ubuntu~bionic_amd64.deb 
-vagrant plugin install vagrant-vbguest
+Requirements:
+- have requirements listed in README
+- sudo apt install vagrant
+- sudo apt install ./virtualbox-6.0_6.0.4-128413~Ubuntu~bionic_amd64.deb 
+- vagrant plugin install vagrant-vbguest
 
 ## Deploy to virtualbox with vagrant:
 
@@ -20,5 +23,6 @@ vagrant halt
 vagrant up
 
 # shortcut: update asterisk conf and scripts for already built box
-# this assumes everything you want to do is in update_asterisk.yml
+# this assumes everything you want to do is in update_asterisk.yml and update_asterisk_sip.yml
 vagrant provision --provision-with update_asterisk
+vagrant provision --provision-with update_asterisk_sip

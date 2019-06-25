@@ -79,15 +79,27 @@
     dest: /opt/asterisk/var/lib/asterisk/sounds/futel/recordings
     owner: asterisk
     group: asterisk
+- name: copy asterisk statement sounds
+  copy:
+    src: src/var/lib/asterisk/sounds/futel/recordings/jodi-voyager
+    dest: /opt/asterisk/var/lib/asterisk/sounds/futel/recordings
+    owner: asterisk
+    group: asterisk
 - name: copy asterisk wildcard line sounds
   copy:
     src: src/var/lib/asterisk/sounds/futel/wildcard-line
     dest: /opt/asterisk/var/lib/asterisk/sounds/futel
     owner: asterisk
     group: asterisk
+- name: copy asterisk voyager sounds
+  copy:
+    src: src/var/lib/asterisk/sounds/futel/voyager
+    dest: /opt/asterisk/var/lib/asterisk/sounds/futel
+    owner: asterisk
+    group: asterisk
 - name: copy sounds
   copy:
-    src: "{{ asterisk_sound_directory }}/{{ item }}"
+    src: "{{ asterisk_sound_directory }}/futel/{{ item }}"
     dest: /opt/asterisk/var/lib/asterisk/sounds/futel
     owner: asterisk
     group: asterisk
@@ -96,8 +108,8 @@
     - church-of-robotron
 - name: copy asterisk confbridge menu sounds
   copy:
-    src: src/var/lib/asterisk/sounds/en/futelconf/
-    dest: /opt/asterisk/var/lib/asterisk/sounds/en/futelconf
+    src: "{{ asterisk_sound_directory }}/en/futelconf"
+    dest: /opt/asterisk/var/lib/asterisk/sounds/en
     owner: asterisk
     group: asterisk
 - name: copy asterisk hold music

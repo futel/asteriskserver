@@ -1,6 +1,6 @@
 ---
-- name: load generic secrets
-  include_vars: "deploy/deploy_digitalocean_secrets.yml"
+- name: load secrets
+  include_vars: "deploy/deploy_digitalocean_secrets_digitalocean.yml"
   no_log: true
 # - name: assert ssh key is present
 #   digital_ocean:

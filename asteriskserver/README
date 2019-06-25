@@ -20,8 +20,9 @@ python -m unittest discover test
 ## Deploy stage asteriskbox to digital ocean manually
 
 Requirements:
-pip packages:
-- dopy
+- vagrant plugin install vagrant-vbguest
+- pip packages:
+-- dopy
 
 create or check out release branch
 
@@ -31,7 +32,7 @@ to assets directory
 
 create droplet and subdomain:
 
-  ansible-playbook -i deploy/hosts deploy_digitalocean_playbook.yml  --vault-password-file=conf/vault_pass.txt
+  ansible-playbook -i deploy/hosts deploy_digitalocean_playbook.yml  --vault-password-file=conf/vault_pass_digitalocean.txt
 
 note IP address printed
 note stage conf version printed
@@ -41,9 +42,12 @@ deploy stage:
 
   make clean
   ansible-playbook -i deploy/hosts update_assets_playbook.yml    
-  ansible-playbook -i deploy/hosts baseinstall_playbook.yml --vault-password-file=conf/vault_pass.txt --extra-vars conf_version=<stage conf version>
+  ansible-playbook -i deploy/hosts baseinstall_playbook.yml --vault-password-file=conf/vault_pass_prod.txt --extra-vars conf_version=<stage conf version>
+  ansible-playbook -i deploy/hosts update_asterisk_playbook.yml --vault-password-file=conf/vault_pass_generic.txt
+  ansible-playbook -i deploy/hosts update_asterisk_sip_playbook.yml --vault-password-file=conf/vault_pass_prod.txt --extra-vars conf_version=<stage conf version>  
   ansible-playbook -i deploy/hosts ssh_playbook.yml  
   ansible-playbook -i deploy/hosts secure_playbook.yml
+save any recordings on prod located in /opt/asterisk/var/lib/asterisk/sounds/futel/recordings  
   ansible-playbook -i deploy/hosts sync_playbook.yml
 
 if testplan has changed since last release branch, update google sheet testplan,
@@ -58,6 +62,7 @@ rename futel-prod.phu73l.net hostname to futel-prod-back
 rename futel-stage.phu73l.net hostname to futel-prod.phu73l.net
   ssh -t -F src/ssh_config futel-prod.phu73l.net 'sudo hostnamectl set-hostname futel-prod-back'
   ssh -t -F src/ssh_config futel-stage.phu73l.net 'sudo hostnamectl set-hostname futel-prod.phu73l.net'
+save any recordings on prod located in /opt/asterisk/var/lib/asterisk/sounds/futel/recordings
 ansible-playbook -i deploy/hosts sync_playbook.yml  
 change A record for futel-prod.phu73l.net to point to new futel-prod.phu73l.net
 remove A record for futel-stage.phu73l.net (in own DO domain interface)
@@ -68,7 +73,7 @@ point all voip.ms DID forwarding rules to subaccounts corresponding to new conf_
 wait for DNS to propagate
 make a snapshot of futel-prod-back
 
-ansible-playbook -i deploy/hosts post_promote_playbook.yml --vault-password-file=conf/vault_pass.txt
+ansible-playbook -i deploy/hosts post_promote_playbook.yml --vault-password-file=conf/vault_pass_digitalocean.txt
 
 remove snapshots of futel-prod-back except for most recent
 
@@ -81,4 +86,4 @@ test that prod incoming calls to extensions work (may take time)
 
 This is done after a new vpnbox is deployed.
 
-  ansible-playbook -i deploy/hosts secure_playbook.yml
+  ansible-playbook -i deploy/hosts secure_playbook_prod.yml

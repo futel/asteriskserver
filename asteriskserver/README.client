@@ -3,17 +3,15 @@ requirements
 <secret> from sip_secret.conf and sip.conf
 - find variable name used for extension in sip_secret_conf.j2
 - use ansible-vault to view variable value in update_asterisk_secrets_generic.yml
--- ansible-vault view deploy/update_asterisk_secrets_generic.yml --vault-password-file=conf/vault_pass.txt
+-- ansible-vault view deploy/update_asterisk_secrets_generic.yml --vault-password-file=conf/vault_pass_generic.txt
 
 
-set up linphone
+set up linphone for stage
 manage sip accounts:
 add:
 (substitute <extension> <secret>)
 sip identity: sip:<extension>@futel-stage.phu73l.net
-- replace stage with stage, prod, or dev VM ip address
 sip proxy address: sip:futel-stage.phu73l.net
-- replace stage with stage, prod, or dev VM ip address
 when prompted, enter <secret>
 
 use linphone:

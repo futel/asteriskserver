@@ -41,18 +41,15 @@ Find.find(SRC_DIR).each do |f|
   dst = File.join(DEST_DIR, f)
   base = File.join(File.dirname(dst), File.basename(dst, ".*"))
 
+
   #simply copy mp3, if the source is newer
   if src_ext == ".mp3"
-    unless File.exist?(dst) and File.mtime(dst) > File.mtime(src)
-      FileUtils.mkdir_p(File.dirname(dst))
-      FileUtils.copy(src, dst)
-    end
-    next
+    out_ext = "mp3"
+  else
+    info = Sndfile::File.info(src)    
+    out_ext = sln_ext[info.samplerate]
+    raise "#{src} has an unsuppored sampling rate of #{info.samplerate}" unless out_ext
   end
-
-  info = Sndfile::File.info(src)
-  out_ext = sln_ext[info.samplerate]
-  raise "#{src} has an unsuppored sampling rate of #{info.samplerate}" unless out_ext
 
   dst = base + "." + out_ext
   #ditch if the file exists and the dest is newer
@@ -72,12 +69,14 @@ Find.find(SRC_DIR).each do |f|
     src = wav
   end
 
-  #make mono
-  if info.channels != 1
-    mono = base + "-tmp-mono.wav"
-    raise "failed to make a mono file of #{src}" unless system("sndfile-mix-to-mono", src, mono)
-    cleanup << mono
-    src = mono
+  if src_ext != ".mp3"  
+    #make mono
+    if info.channels != 1
+      mono = base + "-tmp-mono.wav"
+      raise "failed to make a mono file of #{src}" unless system("sndfile-mix-to-mono", src, mono)
+      cleanup << mono
+      src = mono
+    end
   end
 
   #copy then normalize

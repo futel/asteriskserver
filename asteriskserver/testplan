@@ -16,6 +16,7 @@ ext 999 starts default menu from extension 635
 ext 999 starts default menu from extension 640
 ext 999 starts default menu from extension 645
 ext 999 starts default menu from extension 655
+ext 999 starts default menu from extension 660
 ext 999 starts default menu from extension 665
 ext 999 starts default menu from extension 667
 ext 999 starts default menu from extension 668
@@ -24,6 +25,7 @@ ext 999 starts dialtone from extension 670
 ext 999 starts default menu from extension 680
 ext 999 starts default menu from extension 685
 ext 999 starts default menu from extension 690
+ext 999 starts default menu from extension 695
 ext 999 starts blerg menu from extension 700
 ext 999 starts default menu from extension 701
 ext 999 starts default menu from extension 702
@@ -57,6 +59,8 @@ outgoing call indicates 911 when calling 933 from 645
 outgoing call sends paz id from 645
 outgoing call indicates 911 when calling 933 from 655
 outgoing call sends taylor id from 655
+outgoing call indicates no 911 when calling 933 from 660
+outgoing call sends incoming id from 660
 outgoing call indicates no 911 when calling 933 from 665
 outgoing call sends incoming id from 665
 outgoing call indicates no 911 when calling 933 from 667
@@ -73,6 +77,8 @@ outgoing call indicates no 911 when calling 933 from 685
 outgoing call sends incoming id from 680
 outgoing call indicates no 911 when calling 933 from 690
 outgoing call sends incoming id from 690
+outgoing call indicates 911 when calling 933 from 695
+outgoing call sends hoyt id from 695
 outgoing call indicates no 911 when calling 933 from 700
 outgoing call sends incoming id from 700
 outgoing call indicates no 911 when calling 933 from 701
@@ -128,6 +134,8 @@ incoming call to crossclinton calls crossclinton extension
 incoming call to mykle calls mykle extension
 incoming call to paz calls paz extension
 incoming call to robotron calls robotron extension
+incoming call to souwester calls souwester extension
+incoming call to hoyt calls hoyt extension
 incoming call to incoming line gets incoming menu
 incoming call with disconnected device gets busy signal
 simultaneous incoming calls do the right thing
@@ -161,6 +169,7 @@ denying operator call hangs up on operator
 denying operator call does not affect caller
 denying operator call does not affect other operators being dialed
 denying operator call does not affect other operators hearing menu
+caller hangup stops ringing for all operators still ringing
 caller gets operator voicemail if no operator accepts before timeout
 caller gets hangup after voicemail ends
 caller gets hangup after call with operator ends
@@ -180,8 +189,10 @@ can access all voicemail menu items
 incoming voicemail:
 can access all voicemail menu items except create voicemail
 
-outgoing directory:
+outgoing directory portland:
 can call each directory number
+carlos the rollerblader presented and selectable 14:00-18:00 M-F
+carlos the rollerblader not presented or selectable outside 14:00-18:00 M-F
 
 outgoing directory ypsi:
 can call each directory number
