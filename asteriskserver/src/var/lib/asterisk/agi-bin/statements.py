@@ -12,6 +12,7 @@
 statement_groups = [
     {'name': 'general',
      'statements': [
+         'for-a-random-concentration-camp',
          'for-the-p-l-a-telephone-network-interface',
          'for-the-pink-phone-from-the-future',
          'for-carlos-the-rollerblader',
