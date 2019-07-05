@@ -1,0 +1,4 @@
+---
+- hosts: localhost
+  tasks:
+    - include: deploy/requirements_conf_prod.yml
