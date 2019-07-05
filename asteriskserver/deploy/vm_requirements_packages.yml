@@ -1,0 +1,8 @@
+---
+- name: have apt packages
+  apt:
+    name:
+      - vagrant
+      - virtualbox-6.0
+- name: have vagrant plugins
+  command: vagrant plugin install vagrant-vbguest
