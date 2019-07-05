@@ -1,7 +1,5 @@
 ## Deploy an asterisk server to Digital Ocean
 
-## test
-
 Requirements:
 apt packages:
 - libgsl-dev
@@ -14,15 +12,16 @@ pip packages:
 gem packages:
 - sndfile
 
+## Test
+
 cd src/var/lib/asterisk/agi-bin
 python -m unittest discover test
 
 ## Deploy stage asteriskbox to digital ocean manually
 
 Requirements:
-- vagrant plugin install vagrant-vbguest
-- pip packages:
--- dopy
+pip packages:
+- dopy
 
 create or check out release branch
 
