@@ -25,10 +25,6 @@ pip packages:
 
 create or check out release branch
 
-populate assets by copying sounds directory from futel-assets repo
-(currently https://gitlab.com/futel/futel-content.git)
-to assets directory
-
 create droplet and subdomain:
 
   ansible-playbook -i deploy/hosts deploy_digitalocean_playbook.yml  --vault-password-file=conf/vault_pass_digitalocean.txt
