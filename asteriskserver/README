@@ -14,7 +14,7 @@ gem packages:
 
 # Check for requirements
 
-ansible-playbook -i deploy/hosts prod_requirements_playbook.yml
+ansible-playbook -i deploy/hosts prod_requirements_conf_playbook.yml
 
 ## Test
 
