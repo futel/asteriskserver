@@ -12,6 +12,10 @@ pip packages:
 gem packages:
 - sndfile
 
+# Check for requirements
+
+ansible-playbook -i deploy/hosts prod_requirements_playbook.yml
+
 ## Test
 
 cd src/var/lib/asterisk/agi-bin

@@ -10,11 +10,12 @@ Requirements:
 -- sudo apt install vagrant
 -- sudo apt install ./virtualbox-6.0_6.0.4-128413~Ubuntu~bionic_amd64.deb 
 -- vagrant plugin install vagrant-vbguest
-- have conf files in conf directory:
--- conf/vault_pass_generic.txt
--- conf/vault_pass_virtualbox.txt
 
-## Deploy to virtualbox with vagrant:
+## Check for requirements
+
+ansible-playbook -i deploy/hosts vm_requirements_virtualbox.yml
+
+## Deploy to virtualbox with vagrant
 
 make clean
 ansible-playbook -i deploy/hosts update_assets_playbook.yml

@@ -1,0 +1,4 @@
+---
+- hosts: localhost
+  tasks:
+    - include: deploy/vm_requirements_playbook.yml

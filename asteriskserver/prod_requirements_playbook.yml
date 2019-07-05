@@ -1,0 +1,4 @@
+---
+- hosts: localhost
+  tasks:
+    - include: deploy/prod_requirements_playbook.yml

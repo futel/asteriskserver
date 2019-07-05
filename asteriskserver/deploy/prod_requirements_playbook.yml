@@ -1,0 +1,42 @@
+---
+- name: check for conf file
+  stat:
+    path: conf/vault_pass_generic.txt
+  register: r
+- name: fail without conf file
+  fail:
+    msg: "conf/vault_pass_generic is required"
+  when: not r.stat.exists
+- name: check for conf file
+  stat:
+    path: conf/vault_pass_prod.txt
+  register: r
+- name: fail without conf file
+  fail:
+    msg: "conf/vault_pass_prod is required"
+  when: not r.stat.exists
+- name: check for conf file
+  stat:
+    path: conf/vault_pass_digitalocean.txt
+  register: r
+- name: fail without conf file
+  fail:
+    msg: "conf/vault_pass_digitalocean is required"
+  when: not r.stat.exists
+- name: check for conf file
+  stat:
+    path: conf/id_rsa
+  register: r
+- name: fail without conf file
+  fail:
+    msg: "conf/id_rsa is required"
+  when: not r.stat.exists 
+- name: check for conf file
+  stat:
+    path: conf/backup_id_rsa
+  register: r
+- name: fail without conf file
+  fail:
+    msg: "conf/backup_id_rsa is required"
+  when: not r.stat.exists
+   
