@@ -1,19 +1,15 @@
 ## Deploy a futel asterisk server on a 64 bit centos VM
 
-We use Vagrant. This document assumes you are using Virtualbox on an Ubuntu host.
-
-Requirements:
-- have requirements listed in README
+We use Vagrant and Virtualbox on an Ubuntu host.
 
 ## Require or install requirements
-Note that some of these may be specific to the single Ubuntu host version that has been tested.
 
-ansible-playbook -i deploy/hosts vm_requirements_conf_playbook.yml
-ansible-playbook -K -i deploy/hosts vm_requirements_packages_playbook.yml
+ansible-playbook -i deploy/hosts requirements_conf_vm_playbook.yml
+ansible-playbook -K -i deploy/hosts requirements_packages_generic_playbook.yml
+ansible-playbook -K -i deploy/hosts requirements_packages_vm_playbook.yml
 
-## Deploy to virtualbox with vagrant
+## Deploy to VM
 
-make clean
 ansible-playbook -i deploy/hosts update_assets_playbook.yml
 vagrant up
 vagrant halt

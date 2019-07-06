@@ -11,6 +11,7 @@
   pip:
     name:
       - pyyaml
+      - dopy
     state: present
 - name: have gem packages
   gem:

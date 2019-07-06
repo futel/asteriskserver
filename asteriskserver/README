@@ -1,20 +1,9 @@
 ## Deploy an asterisk server to Digital Ocean
 
-Requirements:
-apt packages:
-- libgsl-dev
-- ruby-dev
-- normalize-audio
-- sndfile-programs
-- python-pip
-pip packages:
-- pyyaml
-gem packages:
-- sndfile
+## Require or install requirements
 
-# Check for requirements
-
-ansible-playbook -i deploy/hosts prod_requirements_conf_playbook.yml
+ansible-playbook -i deploy/hosts requirements_conf_prod_playbook.yml
+ansible-playbook -K -i deploy/hosts requirements_packages_generic_playbook.yml
 
 ## Test
 
@@ -22,10 +11,6 @@ cd src/var/lib/asterisk/agi-bin
 python -m unittest discover test
 
 ## Deploy stage asteriskbox to digital ocean manually
-
-Requirements:
-pip packages:
-- dopy
 
 create or check out release branch
 
@@ -39,7 +24,6 @@ wait for DNS to propagate with "nslookup futel-stage.phu73l.net"
 
 deploy stage:
 
-  make clean
   ansible-playbook -i deploy/hosts update_assets_playbook.yml    
   ansible-playbook -i deploy/hosts baseinstall_playbook.yml --vault-password-file=conf/vault_pass_prod.txt --extra-vars conf_version=<stage conf version>
   ansible-playbook -i deploy/hosts update_asterisk_playbook.yml --vault-password-file=conf/vault_pass_generic.txt

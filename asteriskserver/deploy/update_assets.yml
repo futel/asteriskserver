@@ -1,6 +1,13 @@
 ---
 - name: load conf
   include_vars: "deploy/conf.yml"
+- name: clean sounds directories
+  file:
+    path: "{{ asterisk_sound_directory }}/{{ item }}"
+    state: absent
+  with_items:
+    - futel
+    - en
 - name: update and copy sounds
   command: ruby scripts/update_audio_assets.rb {{ asterisk_sound_directory }}/{{ item }} {{ asset_directory }}/{{ item }}
   with_items:
