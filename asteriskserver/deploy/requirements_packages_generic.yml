@@ -1,0 +1,19 @@
+---
+- name: have apt packages
+  apt:
+    name:
+      - libgsl-dev
+      - ruby-dev
+      - normalize-audio
+      - sndfile-programs
+      - python-pip
+- name: have pip packages
+  pip:
+    name:
+      - pyyaml
+    state: present
+- name: have gem packages
+  gem:
+    name:
+      - soundfile
+    state: present
