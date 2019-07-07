@@ -1,0 +1,16 @@
+#!/usr/bin/env python
+"""
+Block until ratelimiter at key is available, then consume rate and return.
+"""
+from asterisk import *
+
+import util
+import ratelimiter
+
+agi = agi.AGI()
+
+def main():
+    ratelimiter.incoming_ratelimit()
+
+agi.answer()
+util.agi_tracebacker(agi, main)
