@@ -1,5 +1,0 @@
----
-- name: start asterisk
-  service:
-    name: asterisk
-    state: started

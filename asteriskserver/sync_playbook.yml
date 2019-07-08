@@ -19,4 +19,3 @@
   tasks:
     - include: deploy/pre_sync_to_stage.yml
     - include: deploy/sync_to_stage.yml
-    - include: deploy/post_sync_to_stage.yml

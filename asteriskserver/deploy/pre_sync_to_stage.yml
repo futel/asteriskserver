@@ -1,4 +1,8 @@
 ---
+- name: stop supervisord
+  service:
+    name: supervisord
+    state: stopped
 - name: stop asterisk
   service:
     name: asterisk

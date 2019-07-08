@@ -12,8 +12,6 @@ ansible-playbook -K -i deploy/hosts requirements_packages_vm_playbook.yml
 
 ansible-playbook -i deploy/hosts update_assets_playbook.yml
 vagrant up
-vagrant halt
-vagrant up
 
 # shortcut: update asterisk conf and scripts for already built box
 # this assumes everything you want to do is in update_asterisk.yml and update_asterisk_sip.yml

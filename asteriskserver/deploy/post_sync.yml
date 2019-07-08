@@ -1,0 +1,9 @@
+---
+- name: start asterisk
+  service:
+    name: asterisk
+    state: started
+- name: start supervisord
+  service:
+    name: supervisord
+    state: started
