@@ -1,21 +1,30 @@
 ## Deploy AWS services
 
-create SNS topic asterisk-prod-events for asterisk manager events
-create SQS queue asterisk-prod-events for asterisk manager events
-add permisison to queue: allow everybody sendMessage condition arnEquals key aws:sourceArn value SNS topic arn
+AWS management user is operator@futel.net
+
+# Topic and queue:
+create SNS topic "asterisk-prod-events" for asterisk manager events
+(note ARN)
+create SQS queue "asterisk-prod-events" for asterisk manager events
+add permisison to queue: "allow everybody sendMessage condition arnEquals key aws:sourceArn value <SNS topic ARN>"
 subscribe SQS queue to SNS topic
 
-create AWS user
+# User and policy:
+create AWS user "asteriskmanager" in IAM ("Identity and Access Management")
+create access key for AWS user
+(note ID)
 create AWS policy which allows writing to SNS topic (or use AmazonSNSFullAccess)
+(note ID)
 attach AWS policy to AWS user
 create AWS policy which allows reading from SQS queues (or use AmazonSQSFullAccess)
+(note ID)
 attach AWS policy to AWS user
 
 add credentials to eventlistenerconf.py in asteriskserver conf:
-SNS topic ARN aws_arn
-SNS topic region aws_region_name
-AWS user aws_access_key_id
-AWS user aws_secret_access_key
+aws_arn: <SNS topic ARN>
+(SNS topic region aws_region_name is "us-west-2", defined in eventlistener.py)
+aws_access_key_id: <ID of AWS user access key>
+aws_secret_access_key: <value of AWS user access key>
 
 # Test AWS services
 
@@ -26,4 +35,4 @@ view asterisk-prod-events SQS queue
   assert that NumberOfMessagesReceived increases after message-causing event happens
   assert that ApproximateNumberOfMessagesVisible is small
   assert that ApproximateAgeOfOldestMessage is small
-  view "View/Delete Messages" under "Queue Actions" dropdown and confirm that messages are received
+  view "View/Delete Messages" under "Queue Actions" dropdown and confirm that messages are received (note that this prevents legitimate recipients)
