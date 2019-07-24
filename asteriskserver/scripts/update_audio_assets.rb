@@ -10,7 +10,7 @@ require 'find'
 require 'fileutils'
 require 'sndfile'
 
-SOX_COMPAND = "compand 0.3,1 6:-70,-60,-20 -5 -90 0.2"
+SOX_COMPAND = "compand 0.14,1 6:-70,-24,-4.8 -8 -90 0.2"
 
 SRC_DIR = ARGV[1]
 DEST_DIR = ARGV[0]
