@@ -10,6 +10,8 @@ require 'find'
 require 'fileutils'
 require 'sndfile'
 
+SOX_COMPAND = "compand 0.3,1 6:-70,-60,-20 -5 -90 0.2"
+
 SRC_DIR = ARGV[1]
 DEST_DIR = ARGV[0]
 
@@ -65,13 +67,11 @@ Find.find(SRC_DIR).each do |f|
   #report
   puts "#{src} -> #{dst}"
 
-  #convert gsm to wav so we can normalize
-  if src_ext == ".gsm"
-    wav = base + "-tmp.wav"
-    raise "cannot create tmp wav from gsm" unless system("sndfile-convert", "-pcm16", src, wav)
-    cleanup << wav
-    src = wav
-  end
+  #convert to wav
+  wav = base + "-tmp.wav"
+  raise "cannot create tmp wav from #{out_ext}" unless system("sox", src, wav)
+  cleanup << wav
+  src = wav
 
   if src_ext != ".mp3"  
     #make mono
@@ -81,6 +81,20 @@ Find.find(SRC_DIR).each do |f|
       cleanup << mono
       src = mono
     end
+  end
+
+  #compress
+  compressed = base + "-tmp-compressed.wav"
+  raise "failed to apply dynamic range compression" unless system("sox #{src} #{compressed} #{SOX_COMPAND}")
+  cleanup << compressed
+  src = compressed
+
+  #convert back to mp3
+  if src_ext == ".mp3"  
+    mp3 = base + "-tmp-mp3.mp3"
+    raise "failed to encode to mp3" unless system("lame", "--quiet", src, mp3)
+    src = mp3
+    cleanup << mp3
   end
 
   #copy then normalize
