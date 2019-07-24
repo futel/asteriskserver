@@ -29,7 +29,10 @@ sln_ext = {
 
 known_ext = sln_ext.values + ["mp3", "gsm"]
 
+script_mtime = File.mtime(__FILE__)
+
 Find.find(SRC_DIR).each do |f|
+  is_raw = false
   cleanup = []
   next if File.directory?(f)
 
@@ -48,12 +51,13 @@ Find.find(SRC_DIR).each do |f|
   else
     info = Sndfile::File.info(src)    
     out_ext = sln_ext[info.samplerate]
+    is_raw = true
     raise "#{src} has an unsuppored sampling rate of #{info.samplerate}" unless out_ext
   end
 
   dst = base + "." + out_ext
   #ditch if the file exists and the dest is newer
-  next if File.exist?(dst) and File.mtime(dst) > File.mtime(src)
+  next if File.exist?(dst) and File.mtime(dst) > File.mtime(src) and File.mtime(dst) > script_mtime
 
   #make the dir
   FileUtils.mkdir_p(File.dirname(dst))
@@ -82,16 +86,20 @@ Find.find(SRC_DIR).each do |f|
   #copy then normalize
   normalized = base + "-tmp-norm." + out_ext
   cleanup << normalized
-  FileUtils.copy(src, normalized)
+  FileUtils.copy(src, normalized) #normalize happens in place, so copy the file first
   raise "failed to normalize" unless system("normalize-audio", "--quiet", "--peak", normalized)
+  src = normalized
 
-  #remove header
-  raw = base + "-tmp.raw"
-  cleanup << raw
-  raise "cannot create raw encoding" unless system("sndfile-convert", "-pcm16", src, raw)
+  #remove header if it is raw
+  if is_raw
+    raw = base + "-tmp.raw"
+    raise "cannot create raw encoding" unless system("sndfile-convert", "-pcm16", src, raw)
+    cleanup << raw
+    src = raw
+  end
 
   #copy to the final location
-  FileUtils.copy(raw, dst)
+  FileUtils.copy(src, dst)
 
   #cleanup
   cleanup.each { |f| File.unlink(f) }
