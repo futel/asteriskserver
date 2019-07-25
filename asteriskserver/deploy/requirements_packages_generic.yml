@@ -15,6 +15,5 @@
     state: present
 - name: have gem packages
   gem:
-    name:
-      - soundfile
+    name: sndfile
     state: present

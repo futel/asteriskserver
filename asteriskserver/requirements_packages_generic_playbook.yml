@@ -2,4 +2,4 @@
 - hosts: localhost
   become: true
   tasks:
-    - include: deploy/requirements_packages_vm.yml
+    - include: deploy/requirements_packages_generic.yml
