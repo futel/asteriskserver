@@ -7,6 +7,9 @@
       - normalize-audio
       - sndfile-programs
       - python-pip
+      - libsox-fmt-mp3
+      - sox
+      - lame
 - name: have pip packages
   pip:
     name:
