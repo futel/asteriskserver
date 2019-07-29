@@ -10,6 +10,8 @@ require 'find'
 require 'fileutils'
 require 'sndfile'
 
+# usage:
+# attack1,decay1{,attack2,decay2} [soft-knee-dB:]in-dB1[,out-dB1]{,in-dB2,out-dB2} [gain [initial-volume-dB [delay]]]
 SOX_COMPAND = "compand 0.14,1 6:-70,-24,-4.8 -8 -90 0.2"
 
 SRC_DIR = ARGV[1]
@@ -29,8 +31,6 @@ sln_ext = {
   192_000 =>"sln192"
 }
 
-known_ext = sln_ext.values + ["mp3", "gsm"]
-
 script_mtime = File.mtime(__FILE__)
 
 Find.find(SRC_DIR).each do |f|
@@ -47,15 +47,24 @@ Find.find(SRC_DIR).each do |f|
   base = File.join(File.dirname(dst), File.basename(dst, ".*"))
 
 
-  #simply copy mp3, if the source is newer
-  if src_ext == ".mp3"
-    out_ext = "mp3"
-  else
-    info = Sndfile::File.info(src)    
-    out_ext = sln_ext[info.samplerate]
-    is_raw = true
-    raise "#{src} has an unsuppored sampling rate of #{info.samplerate}" unless out_ext
-  end
+  # if src_ext == ".mp3"
+  #   #convert to wav
+  #   wav = base + "-tmp.wav"
+  #   raise "cannot create tmp wav from #{out_ext}" unless system("sox", src, wav)
+  #   cleanup << wav
+  #   src = wav
+  # end
+    
+  #convert to wav
+  wav = base + "-tmp.wav"
+  raise "cannot create tmp wav from #{out_ext}" unless system("sox", src, wav)
+  cleanup << wav
+  src = wav
+  
+  info = Sndfile::File.info(src)    
+  out_ext = sln_ext[info.samplerate]
+  is_raw = true
+  raise "#{src} has an unsuppored sampling rate of #{info.samplerate}" unless out_ext
 
   dst = base + "." + out_ext
   #ditch if the file exists and the dest is newer
@@ -67,11 +76,12 @@ Find.find(SRC_DIR).each do |f|
   #report
   puts "#{src} -> #{dst}"
 
-  #convert to wav
-  wav = base + "-tmp.wav"
-  raise "cannot create tmp wav from #{out_ext}" unless system("sox", src, wav)
-  cleanup << wav
-  src = wav
+  # #convert to wav
+  # # XXX
+  # wav = base + "-foo.wav"
+  # raise "cannot create tmp wav from #{out_ext}" unless system("sox", src, wav)
+  # cleanup << wav
+  # src = wav
 
   if src_ext != ".mp3"  
     #make mono
@@ -88,14 +98,6 @@ Find.find(SRC_DIR).each do |f|
   raise "failed to apply dynamic range compression" unless system("sox #{src} #{compressed} #{SOX_COMPAND}")
   cleanup << compressed
   src = compressed
-
-  #convert back to mp3
-  if src_ext == ".mp3"  
-    mp3 = base + "-tmp-mp3.mp3"
-    raise "failed to encode to mp3" unless system("lame", "--quiet", src, mp3)
-    src = mp3
-    cleanup << mp3
-  end
 
   #copy then normalize
   normalized = base + "-tmp-norm." + out_ext
