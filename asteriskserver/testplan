@@ -238,3 +238,18 @@ conference bridge join event is received by irc bot
 conference bridge leave event is received by irc bot
 operator attempt event is received by irc bot
 operator nopickup event is received by irc bot
+
+test backend interfaces for frontend:
+frontend/800 client with creds can get a context on server
+frontend/800 client without creds can't get a context on server
+multiple simultaneous frontend/800 clients can get a context on server
+call sent from frontend/800 gets default menu for extension 999
+outgoing call indicates no 911 when calling 933 from frontend/800
+outgoing call sends incoming id when calling from frontend/800 
+
+call sent to XXX gets busy when appropriate connected client is busy
+call sent to XXX gets busy when appropriate client not connected
+
+XXX test frontend interfaces for backend:
+
+call sent to XXX rings XXX when frontend/800 is connected
