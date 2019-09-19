@@ -12,6 +12,8 @@
 statement_groups = [
     {'name': 'general',
      'statements': [
+         'for-the-payphone-radio-network',
+         'to-ring-the-open-signal-telephone',
          'for-a-random-concentration-camp',
          'for-the-p-l-a-telephone-network-interface',
          'for-the-pink-phone-from-the-future',
