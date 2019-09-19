@@ -59,7 +59,7 @@ outgoing call indicates 911 when calling 933 from 645
 outgoing call sends paz id from 645
 outgoing call indicates 911 when calling 933 from 655
 outgoing call sends taylor id from 655
-outgoing call indicates no 911 when calling 933 from 660
+outgoing call indicates 911 when calling 933 from 660
 outgoing call sends open signal id from 660
 outgoing call indicates no 911 when calling 933 from 665
 outgoing call sends incoming id from 665
