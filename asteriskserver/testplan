@@ -16,7 +16,7 @@ ext 999 starts default menu from extension 635
 ext 999 starts default menu from extension 640
 ext 999 starts default menu from extension 645
 ext 999 starts default menu from extension 655
-ext 999 starts voyager menu from extension 660
+ext 999 starts default menu from extension 660
 ext 999 starts default menu from extension 665
 ext 999 starts default menu from extension 667
 ext 999 starts default menu from extension 668
@@ -60,7 +60,7 @@ outgoing call sends paz id from 645
 outgoing call indicates 911 when calling 933 from 655
 outgoing call sends taylor id from 655
 outgoing call indicates no 911 when calling 933 from 660
-outgoing call sends incoming id from 660
+outgoing call sends open signal id from 660
 outgoing call indicates no 911 when calling 933 from 665
 outgoing call sends incoming id from 665
 outgoing call indicates no 911 when calling 933 from 667
@@ -127,6 +127,7 @@ incoming call to stage oskar indoors test number calls oskar indoors phone
 
 incoming call to oskar calls oskar extension
 incoming call to garth gets garth extension
+incoming call to open signal gets open signal extension
 incoming call to r2d2 calls r2d2 extension
 incoming call to xnor calls xnor extension
 incoming call to ypsi calls ypsi extension
