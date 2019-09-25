@@ -8,24 +8,24 @@ asterisk_etc_dir = '/opt/asterisk/etc/asterisk'
 
 # general directories for gsm files, in order of preference
 statement_dirs = [
-    '/opt/asterisk/var/lib/asterisk/sounds/futel/recordings/karl_quuux/',
-    '/opt/asterisk/var/lib/asterisk/sounds/futel/recordings/tishbite/',
+    '/opt/asterisk/var/lib/asterisk/sounds/en/statements/karl_quuux/',
+    '/opt/asterisk/var/lib/asterisk/sounds/en/statements/tishbite/',
     '/opt/asterisk/var/lib/asterisk/sounds/en/'
     ]
 
 # preferred submenu directories for gsm files, in order of preference
 preferred_statement_dirs = [
-    '/opt/asterisk/var/lib/asterisk/sounds/futel/recordings/'
+    '/opt/asterisk/var/lib/asterisk/sounds/en/statements/'
     'blerg/',
-    '/opt/asterisk/var/lib/asterisk/sounds/futel/recordings/'
+    '/opt/asterisk/var/lib/asterisk/sounds/en/statements/'
     'jodi-voyager/',
-    '/opt/asterisk/var/lib/asterisk/sounds/futel/recordings/'
+    '/opt/asterisk/var/lib/asterisk/sounds/en/statements/'
     'karl-robotron/',
-    '/opt/asterisk/var/lib/asterisk/sounds/futel/recordings/'
+    '/opt/asterisk/var/lib/asterisk/sounds/en/statements/'
     'karl-oracle-dead/',
-    '/opt/asterisk/var/lib/asterisk/sounds/futel/recordings/'
+    '/opt/asterisk/var/lib/asterisk/sounds/en/statements/'
     'karl-voicemail-ivr/',
-    '/opt/asterisk/var/lib/asterisk/sounds/futel/recordings/'
+    '/opt/asterisk/var/lib/asterisk/sounds/en/statements/'
     'karl-wildcard-line/']
 
 metric_filename = '/opt/asterisk/var/log/asterisk/metrics'

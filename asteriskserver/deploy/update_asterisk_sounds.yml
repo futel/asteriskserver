@@ -1,6 +1,12 @@
 ---
 - name: load conf
   include_vars: "conf.yml"
+- name: make recordings directory
+  file:
+    path: /opt/asterisk/var/lib/asterisk/sounds/futel/recordings
+    state: directory
+    owner: asterisk
+    group: asterisk
 - name: copy asterisk williams short sounds
   copy:
     src: src/var/lib/asterisk/sounds/futel/williams-short
@@ -31,58 +37,58 @@
     dest: /opt/asterisk/var/lib/asterisk/sounds/futel
     owner: asterisk
     group: asterisk
-- name: make recordings directory
+- name: make statements directory
   file:
-    path: /opt/asterisk/var/lib/asterisk/sounds/futel/recordings
+    path: /opt/asterisk/var/lib/asterisk/sounds/en/statements
     state: directory
     owner: asterisk
     group: asterisk
 - name: copy asterisk statement sounds
   copy:
-    src: src/var/lib/asterisk/sounds/futel/recordings/karl-oracle-dead
-    dest: /opt/asterisk/var/lib/asterisk/sounds/futel/recordings
+    src: src/var/lib/asterisk/sounds/en/statements/karl-oracle-dead
+    dest: /opt/asterisk/var/lib/asterisk/sounds/en/statements
     owner: asterisk
     group: asterisk
 - name: copy asterisk statement sounds
   copy:
-    src: src/var/lib/asterisk/sounds/futel/recordings/karl_quuux
-    dest: /opt/asterisk/var/lib/asterisk/sounds/futel/recordings
+    src: src/var/lib/asterisk/sounds/en/statements/karl_quuux
+    dest: /opt/asterisk/var/lib/asterisk/sounds/en/statements
     owner: asterisk
     group: asterisk
 - name: copy asterisk statement sounds
   copy:
-    src: src/var/lib/asterisk/sounds/futel/recordings/karl-robotron
-    dest: /opt/asterisk/var/lib/asterisk/sounds/futel/recordings
+    src: src/var/lib/asterisk/sounds/en/statements/karl-robotron
+    dest: /opt/asterisk/var/lib/asterisk/sounds/en/statements
     owner: asterisk
     group: asterisk
 - name: copy asterisk statement sounds
   copy:
-    src: src/var/lib/asterisk/sounds/futel/recordings/karl-voicemail-ivr
-    dest: /opt/asterisk/var/lib/asterisk/sounds/futel/recordings
+    src: src/var/lib/asterisk/sounds/en/statements/karl-voicemail-ivr
+    dest: /opt/asterisk/var/lib/asterisk/sounds/en/statements
     owner: asterisk
     group: asterisk
 - name: copy asterisk statement sounds
   copy:
-    src: src/var/lib/asterisk/sounds/futel/recordings/karl-wildcard-line
-    dest: /opt/asterisk/var/lib/asterisk/sounds/futel/recordings
+    src: src/var/lib/asterisk/sounds/en/statements/karl-wildcard-line
+    dest: /opt/asterisk/var/lib/asterisk/sounds/en/statements
     owner: asterisk
     group: asterisk
 - name: copy asterisk statement sounds
   copy:
-    src: src/var/lib/asterisk/sounds/futel/recordings/tishbite
-    dest: /opt/asterisk/var/lib/asterisk/sounds/futel/recordings
+    src: src/var/lib/asterisk/sounds/en/statements/tishbite
+    dest: /opt/asterisk/var/lib/asterisk/sounds/en/statements
     owner: asterisk
     group: asterisk
 - name: copy asterisk statement sounds
   copy:
-    src: src/var/lib/asterisk/sounds/futel/recordings/blerg
-    dest: /opt/asterisk/var/lib/asterisk/sounds/futel/recordings
+    src: src/var/lib/asterisk/sounds/en/statements/blerg
+    dest: /opt/asterisk/var/lib/asterisk/sounds/en/statements
     owner: asterisk
     group: asterisk
 - name: copy asterisk statement sounds
   copy:
-    src: src/var/lib/asterisk/sounds/futel/recordings/jodi-voyager
-    dest: /opt/asterisk/var/lib/asterisk/sounds/futel/recordings
+    src: src/var/lib/asterisk/sounds/en/statements/jodi-voyager
+    dest: /opt/asterisk/var/lib/asterisk/sounds/en/statements
     owner: asterisk
     group: asterisk
 - name: copy asterisk wildcard line sounds

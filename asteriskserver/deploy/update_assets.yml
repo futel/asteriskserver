@@ -3,11 +3,12 @@
   include_vars: "deploy/conf.yml"
 - name: clean sounds directories
   file:
-    path: "{{ asterisk_sound_directory }}/{{ item }}"
+    path: "{{ asterisk_sound_directory }}"
     state: absent
-  with_items:
-    - futel
-    - en
+- name: clean sounds directories
+  file:
+    path: "{{ asterisk_sound_directory }}"
+    state: directory
 - name: update and copy sounds
   command: ruby scripts/update_audio_assets.rb {{ asterisk_sound_directory }}/{{ item }} {{ asset_directory }}/{{ item }}
   with_items:
@@ -16,16 +17,16 @@
     - futel/oracle-dead-interstitial-long
     - futel/oracle-dead-interstitial-short
     - futel/oracle-dead-oracle
-    - futel/recordings/blerg
-    - futel/recordings/jodi-voyager
-    - futel/recordings/karl-oracle-dead
-    - futel/recordings/karl_quuux
-    - futel/recordings/karl-robotron
-    - futel/recordings/karl-voicemail-ivr
-    - futel/recordings/karl-wildcard-line
-    - futel/recordings/tishbite
     - futel/voyager
     - futel/wildcard-line
     - futel/williams-long
     - futel/williams-short
+    - en/statements/blerg
+    - en/statements/jodi-voyager
+    - en/statements/karl-oracle-dead
+    - en/statements/karl_quuux
+    - en/statements/karl-robotron
+    - en/statements/karl-voicemail-ivr
+    - en/statements/karl-wildcard-line
+    - en/statements/tishbite
     - en/futelconf
