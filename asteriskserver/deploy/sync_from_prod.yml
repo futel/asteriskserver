@@ -1,4 +1,17 @@
 ---
+- name: copy recordings from prod
+  synchronize:
+    mode: pull
+    src: /opt/asterisk/var/lib/asterisk/sounds/futel/recordings
+    dest: tmp/stage
+- name: fail if recordings exist on prod
+  find:
+    paths: '/opt/asterisk/var/lib/asterisk/sounds/futel/recordings'
+    file_type: directory
+  register: recordings_found
+- fail:
+     msg: 'The recordings directory is not empty.'
+  when: recordings_found.matched > 0
 - name: copy voicemail from prod
   synchronize:
     mode: pull
