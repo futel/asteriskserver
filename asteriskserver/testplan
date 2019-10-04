@@ -37,7 +37,7 @@ outgoing menu does not perform friction action when configured for extension and
 outgoing menu performs, metrics context_restricted_dialtone when configured
 outgoing menu ypsi performs friction action when configured for extension and time
 outgoing menu ypsi does not perform friction action when configured for extension and time
-outgoing menu ypsi performs, metrics context_restricted_dialtone when configure
+outgoing menu ypsi performs, metrics context_restricted_dialtone when configured
 
 outgoing dialtone:
 
