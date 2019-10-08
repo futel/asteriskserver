@@ -1,3 +1,0 @@
-[submodule "asteriskserver/assets"]
-	path = asteriskserver/assets
-	url = git@gitlab.com:futel/futel-content.git
