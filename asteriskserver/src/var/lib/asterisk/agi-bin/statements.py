@@ -33,7 +33,6 @@ statement_groups = [
          'portland',
          'ipsalanty',
          'souwester',
-         'blerg',
          'for-the-outgoing-menus',
          'for-longmont-potion-castle',
          'for-an-internal-dialtone',
