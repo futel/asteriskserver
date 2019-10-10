@@ -1,4 +1,3 @@
-ext 992 starts voyager menu
 ext 993 starts members menu
 ext 994 starts ypsi menu
 ext 995 starts default menu
@@ -26,7 +25,7 @@ ext 999 starts default menu from extension 680
 ext 999 starts default menu from extension 685
 ext 999 starts default menu from extension 690
 ext 999 starts default menu from extension 695
-ext 999 starts voyager menu from extension 700
+ext 999 starts default menu from extension 700
 ext 999 starts default menu from extension 701
 ext 999 starts default menu from extension 702
 ext 999 starts default menu from extension 703
