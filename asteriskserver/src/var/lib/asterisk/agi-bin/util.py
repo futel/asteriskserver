@@ -43,21 +43,26 @@ def agi_tracebacker(agi_o, func, *args, **kwargs):
 def sound_path(sound_name, preferred_subs=None):
     """
     Return full path without extension for file for sound_name, or None.
-    If preferred_sub is given, prefer paths with it as a substring.
+    If preferred_subs is given, prefer a path with any of them as a substring.
     """
     dirs = []
     if not preferred_subs:
         preferred_subs = []
+    # add preferred_statement_dirs directory paths that include preferred_subs
     for preferred_sub in preferred_subs:
         dirs.extend(
             [d for d in preferred_statement_dirs if preferred_sub in d])
+    # add all statement_dirs directory paths
     dirs.extend([d for d in statement_dirs if d not in dirs])
     for statement_dir in dirs:
+        # create a path to check if a sound file is there
         path = statement_dir + sound_name
-        # stream_file and Background want it without the extension
+        # stream_file and Background look for the file without the extension
+        # so look for path with all eligible extensions
         suffixes = ['.gsm', '.sl44', '.sln', '.sln44', '.sln48', '.wav']
         for suffix in suffixes:
             if os.path.isfile(path + suffix):
+                # a playable file exists at the path
                 return path
     return None
 
