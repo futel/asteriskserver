@@ -6,23 +6,19 @@ import yaml
 
 asterisk_etc_dir = '/opt/asterisk/etc/asterisk'
 
+superdirectory = '/opt/asterisk/var/lib/asterisk/sounds/en/'
 # general directories for gsm files, in order of preference
 statement_dirs = [
-    '/opt/asterisk/var/lib/asterisk/sounds/en/statements/karl_quuux/',
-    '/opt/asterisk/var/lib/asterisk/sounds/en/statements/tishbite/',
-    '/opt/asterisk/var/lib/asterisk/sounds/en/'
-    ]
+    'statements/karl_quuux/',
+    'statements/tishbite/',
+    '']
 
 # preferred submenu directories for gsm files, in order of preference
 preferred_statement_dirs = [
-    '/opt/asterisk/var/lib/asterisk/sounds/en/statements/'
-    'karl-robotron/',
-    '/opt/asterisk/var/lib/asterisk/sounds/en/statements/'
-    'karl-oracle-dead/',
-    '/opt/asterisk/var/lib/asterisk/sounds/en/statements/'
-    'karl-voicemail-ivr/',
-    '/opt/asterisk/var/lib/asterisk/sounds/en/statements/'
-    'karl-wildcard-line/']
+    'statements/karl-robotron/',
+    'statements/karl-oracle-dead/',
+    'statements/karl-voicemail-ivr/',
+    'statements/karl-wildcard-line/']
 
 metric_filename = '/opt/asterisk/var/log/asterisk/metrics'
 
@@ -54,6 +50,7 @@ def sound_path(sound_name, preferred_subs=None):
             [d for d in preferred_statement_dirs if preferred_sub in d])
     # add all statement_dirs directory paths
     dirs.extend([d for d in statement_dirs if d not in dirs])
+    dirs = [superdirectory + d for d in dirs]
     for statement_dir in dirs:
         # create a path to check if a sound file is there
         path = statement_dir + sound_name
