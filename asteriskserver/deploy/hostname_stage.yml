@@ -1,0 +1,4 @@
+---
+- name: rename hostname
+  hostname:
+    name: futel-prod.phu73l.net
