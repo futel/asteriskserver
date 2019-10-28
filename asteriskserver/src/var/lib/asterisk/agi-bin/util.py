@@ -12,7 +12,6 @@ statement_dirs = [
     'statements/karl_quuux/',
     'statements/tishbite/',
     '']
-
 # preferred submenu directories for gsm files, in order of preference
 preferred_statement_dirs = [
     'statements/karl-robotron/',
@@ -50,14 +49,13 @@ def sound_path(sound_name, preferred_subs=None):
             [d for d in preferred_statement_dirs if preferred_sub in d])
     # add all statement_dirs directory paths
     paths.extend(statement_dirs)
-    paths = [superdirectory + p for p in paths]
     paths = [p + sound_name for p in paths]
     for path in paths:
         # stream_file and Background look for the file without the extension
         # so look for path with all eligible extensions
         suffixes = ['.gsm', '.sl44', '.sln', '.sln44', '.sln48', '.wav']
         for suffix in suffixes:
-            if os.path.isfile(path + suffix):
+            if os.path.isfile(superdirectory + path + suffix):
                 # a playable file exists at the path
                 return path
     return None
