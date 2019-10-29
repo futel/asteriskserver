@@ -6,13 +6,16 @@ import yaml
 
 asterisk_etc_dir = '/opt/asterisk/etc/asterisk'
 
-superdirectory = '/opt/asterisk/var/lib/asterisk/sounds/en/'
-# general directories for gsm files, in order of preference
+# filename suffixes to consider for sound files
+soundfile_suffixes = ['.gsm', '.sl44', '.sln', '.sln44', '.sln48', '.wav']
+# localization superdirectories for sound files
+superdirectories = ['/opt/asterisk/var/lib/asterisk/sounds/en/']
+# general directories for sound files, in order of preference
 statement_dirs = [
     'statements/karl_quuux/',
     'statements/tishbite/',
     '']
-# preferred submenu directories for gsm files, in order of preference
+# preferred submenu directories for sound files, in order of preference
 preferred_statement_dirs = [
     'statements/karl-robotron/',
     'statements/karl-oracle-dead/',
@@ -51,13 +54,13 @@ def sound_path(sound_name, preferred_subs=None):
     paths.extend(statement_dirs)
     paths = [p + sound_name for p in paths]
     for path in paths:
-        # stream_file and Background look for the file without the extension
-        # so look for path with all eligible extensions
-        suffixes = ['.gsm', '.sl44', '.sln', '.sln44', '.sln48', '.wav']
-        for suffix in suffixes:
-            if os.path.isfile(superdirectory + path + suffix):
-                # a playable file exists at the path
-                return path
+        for superdirectory in superdirectories:
+            # Look for path with all eligible extensions.
+            for suffix in soundfile_suffixes:
+                if os.path.isfile(superdirectory + path + suffix):
+                    # A playable file exists at the path. Return it without the
+                    # localization superdirectory or suffix.
+                    return path
     return None
 
 def say(agi_o, filename, preferred_subs=None, escape=False):
