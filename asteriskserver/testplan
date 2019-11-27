@@ -73,7 +73,7 @@ outgoing call sends r2d2 id from 670
 outgoing call indicates 911 when calling 933 from 680
 outgoing call sends xnor id from 680
 outgoing call indicates 911 when calling 933 from 685
-outgoing call sends breckenridgest id from 680
+outgoing call sends breckenridgest id from 685
 outgoing call indicates no 911 when calling 933 from 690
 outgoing call sends incoming id from 690
 outgoing call indicates 911 when calling 933 from 695
