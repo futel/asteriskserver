@@ -20,7 +20,8 @@ preferred_statement_dirs = [
     'statements/karl-robotron/',
     'statements/karl-oracle-dead/',
     'statements/karl-voicemail-ivr/',
-    'statements/karl-wildcard-line/']
+    'statements/karl-wildcard-line/',
+    'statements/peoples-homes/']
 
 metric_filename = '/opt/asterisk/var/log/asterisk/metrics'
 

@@ -17,6 +17,7 @@
     - futel/oracle-dead-interstitial-long
     - futel/oracle-dead-interstitial-short
     - futel/oracle-dead-oracle
+    - futel/peoples-homes    
     - futel/wildcard-line
     - futel/williams-long
     - futel/williams-short
@@ -25,5 +26,6 @@
     - en/statements/karl-robotron
     - en/statements/karl-voicemail-ivr
     - en/statements/karl-wildcard-line
+    - en/statements/peoples-homes
     - en/statements/tishbite
     - en/futelconf

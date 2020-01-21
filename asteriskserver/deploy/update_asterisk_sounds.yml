@@ -37,6 +37,12 @@
     dest: /opt/asterisk/var/lib/asterisk/sounds/futel
     owner: asterisk
     group: asterisk
+- name: copy asterisk peoples homes sounds
+  copy:
+    src: src/var/lib/asterisk/sounds/futel/peoples-homes
+    dest: /opt/asterisk/var/lib/asterisk/sounds/futel
+    owner: asterisk
+    group: asterisk
 - name: make statements directory
   file:
     path: /opt/asterisk/var/lib/asterisk/sounds/en/statements
@@ -70,6 +76,12 @@
 - name: copy asterisk statement sounds
   copy:
     src: src/var/lib/asterisk/sounds/en/statements/karl-wildcard-line
+    dest: /opt/asterisk/var/lib/asterisk/sounds/en/statements
+    owner: asterisk
+    group: asterisk
+- name: copy asterisk statement sounds
+  copy:
+    src: src/var/lib/asterisk/sounds/en/statements/peoples-homes
     dest: /opt/asterisk/var/lib/asterisk/sounds/en/statements
     owner: asterisk
     group: asterisk
