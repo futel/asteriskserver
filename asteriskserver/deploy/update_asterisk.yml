@@ -25,7 +25,6 @@
     - /opt/asterisk/etc/asterisk/dsp.conf
     - /opt/asterisk/etc/asterisk/extconfig.conf
     - /opt/asterisk/etc/asterisk/extensions.ael
-    - /opt/asterisk/etc/asterisk/extensions.lua
     - /opt/asterisk/etc/asterisk/extensions_minivm.conf
     - /opt/asterisk/etc/asterisk/func_odbc.conf
     - /opt/asterisk/etc/asterisk/http.conf

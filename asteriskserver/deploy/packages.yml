@@ -59,6 +59,7 @@
       - openssl-devel
       - ncurses-devel
       - libxml2-devel
+      - lua-devel
       - newt-devel
       - kernel-devel
       - sqlite-devel
