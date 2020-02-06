@@ -23,8 +23,9 @@ preferred_statement_dirs = [
     'statements/karl-oracle-dead/',
     'statements/karl-voicemail-ivr/',
     'statements/karl-wildcard-line/',
-    'statements/missed-connections/',
-    'statements/peoples-homes/']
+    'statements/peoples-homes/',
+    'statements/conversations/',
+    'statements/missed-connections/']
 
 metric_filename = '/opt/asterisk/var/log/asterisk/metrics'
 

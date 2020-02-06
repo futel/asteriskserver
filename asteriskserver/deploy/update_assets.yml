@@ -13,6 +13,7 @@
   command: ruby scripts/update_audio_assets.rb {{ asterisk_sound_directory }}/{{ item }} {{ asset_directory }}/{{ item }}
   with_items:
     - futel/church-of-robotron
+    - futel/conversations
     - futel/longmont
     - futel/oracle-dead-interstitial-long
     - futel/oracle-dead-interstitial-short
@@ -21,6 +22,7 @@
     - futel/wildcard-line
     - futel/williams-long
     - futel/williams-short
+    - en/statements/conversations
     - en/statements/karl-oracle-dead
     - en/statements/karl_quuux
     - en/statements/karl-robotron

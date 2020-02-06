@@ -57,6 +57,12 @@
     group: asterisk
 - name: copy asterisk statement sounds
   copy:
+    src: src/var/lib/asterisk/sounds/en/statements/conversations
+    dest: /opt/asterisk/var/lib/asterisk/sounds/en/statements
+    owner: asterisk
+    group: asterisk
+- name: copy asterisk statement sounds
+  copy:
     src: src/var/lib/asterisk/sounds/en/statements/karl-oracle-dead
     dest: /opt/asterisk/var/lib/asterisk/sounds/en/statements
     owner: asterisk
@@ -134,8 +140,9 @@
     owner: asterisk
     group: asterisk
   with_items:
-    - longmont
     - church-of-robotron
+    - conversations
+    - longmont
 - name: copy asterisk confbridge menu sounds
   copy:
     src: "{{ asterisk_sound_directory }}/en/futelconf"
