@@ -12,6 +12,8 @@
 statement_groups = [
     {'name': 'general',
      'statements': [
+         'para-espanol',
+         'for-english',
          'for-hold-the-phone',
          'for-the-payphone-radio-network',
          'to-ring-the-open-signal-telephone',
@@ -181,6 +183,8 @@ statement_groups = [
     {'name': 'outgoing',
      'statements': [
          'fewtel',
+         'para-espanol',
+         'for-english',
          'to-make-a-call',
          'for-voicemail',
          'for-the-directory',
@@ -188,7 +192,7 @@ statement_groups = [
          'for-the-fewtel-community',
          'for-community-services',
          'for-the-telecommunications-network',
-         'for-a-random-concentration-camp',
+         'for-hold-the-phone',
          'for-the-operator',
          'press-zero',
          'press-one',
