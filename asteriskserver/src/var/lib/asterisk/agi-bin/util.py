@@ -62,7 +62,12 @@ def sound_path(sound_name, preferred_subs=None):
                     # A playable file exists at the path. Return it without the
                     # localization superdirectory or suffix.
                     return path
-    return None
+    # We didn't find a path, create and return an absolute path without suffix.
+    # This ignores localization.
+    path = "/tmp/%s" % sound_name
+    os.system("echo {} | text2wave -o {}.ulaw -otype ulaw".format(
+        sound_name, path))
+    return path
 
 def say(agi_o, filename, preferred_subs=None, escape=False):
     if escape:
@@ -72,8 +77,6 @@ def say(agi_o, filename, preferred_subs=None, escape=False):
     path = sound_path(filename, preferred_subs)
     if path:
         return agi_o.stream_file(path, escape_digits=escape_digits)
-    # this seems to be parsed into args, punctuation may break it
-    return agi_o.appexec('festival', filename)
 
 def metric(agi_o, name):
     """ Create a metric event with name and values from agi_o. """
