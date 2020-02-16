@@ -14,6 +14,7 @@ superdirectories = ['/opt/asterisk/var/lib/asterisk/sounds/en/']
 statement_dirs = [
     'statements/karl_quuux/',
     'statements/tishbite/',
+    'statements/sailor/',
     '']
 # preferred submenu directories for sound files, in order of preference
 preferred_statement_dirs = [
@@ -21,6 +22,7 @@ preferred_statement_dirs = [
     'statements/karl-oracle-dead/',
     'statements/karl-voicemail-ivr/',
     'statements/karl-wildcard-line/',
+    'statements/missed-connections/',
     'statements/peoples-homes/']
 
 metric_filename = '/opt/asterisk/var/log/asterisk/metrics'
@@ -60,10 +62,14 @@ def sound_path(sound_name, preferred_subs=None):
             for suffix in soundfile_suffixes:
                 if os.path.isfile(superdirectory + path + suffix):
                     # A playable file exists at the path. Return it without the
-                    # localization superdirectory or suffix.
+                    # localization superdirectory or suffix. Note that we are
+                    # ignoring localization, we assume that if it exists in any
+                    # localization superdirectory we found it in, it will exist
+                    # in the localization directory we will be looking it up in.
                     return path
     # We didn't find a path, create and return an absolute path without suffix.
-    # This ignores localization.
+    # This ignores localization in a bad way, always returning the language of the
+    # sound_name.
     path = "/tmp/%s" % sound_name
     os.system("echo {} | text2wave -o {}.ulaw -otype ulaw".format(
         sound_name, path))

@@ -26,6 +26,10 @@
     - en/statements/karl-robotron
     - en/statements/karl-voicemail-ivr
     - en/statements/karl-wildcard-line
+    - en/statements/missed-connections
     - en/statements/peoples-homes
+    - en/statements/sailor
     - en/statements/tishbite
     - en/futelconf
+    - es/statements/missed-connections
+    - es/statements/sailor

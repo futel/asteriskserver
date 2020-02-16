@@ -43,9 +43,15 @@
     dest: /opt/asterisk/var/lib/asterisk/sounds/futel
     owner: asterisk
     group: asterisk
-- name: make statements directory
+- name: make en statements directory
   file:
     path: /opt/asterisk/var/lib/asterisk/sounds/en/statements
+    state: directory
+    owner: asterisk
+    group: asterisk
+- name: make es statements directory
+  file:
+    path: /opt/asterisk/var/lib/asterisk/sounds/es/statements
     state: directory
     owner: asterisk
     group: asterisk
@@ -81,7 +87,19 @@
     group: asterisk
 - name: copy asterisk statement sounds
   copy:
+    src: src/var/lib/asterisk/sounds/en/statements/missed-connections
+    dest: /opt/asterisk/var/lib/asterisk/sounds/en/statements
+    owner: asterisk
+    group: asterisk
+- name: copy asterisk statement sounds
+  copy:
     src: src/var/lib/asterisk/sounds/en/statements/peoples-homes
+    dest: /opt/asterisk/var/lib/asterisk/sounds/en/statements
+    owner: asterisk
+    group: asterisk
+- name: copy asterisk statement sounds
+  copy:
+    src: src/var/lib/asterisk/sounds/en/statements/sailor
     dest: /opt/asterisk/var/lib/asterisk/sounds/en/statements
     owner: asterisk
     group: asterisk
@@ -89,6 +107,18 @@
   copy:
     src: src/var/lib/asterisk/sounds/en/statements/tishbite
     dest: /opt/asterisk/var/lib/asterisk/sounds/en/statements
+    owner: asterisk
+    group: asterisk
+- name: copy asterisk es statement sounds
+  copy:
+    src: src/var/lib/asterisk/sounds/es/statements/missed-connections
+    dest: /opt/asterisk/var/lib/asterisk/sounds/es/statements
+    owner: asterisk
+    group: asterisk
+- name: copy asterisk es statement sounds
+  copy:
+    src: src/var/lib/asterisk/sounds/es/statements/sailor
+    dest: /opt/asterisk/var/lib/asterisk/sounds/es/statements
     owner: asterisk
     group: asterisk
 - name: copy asterisk wildcard line sounds
