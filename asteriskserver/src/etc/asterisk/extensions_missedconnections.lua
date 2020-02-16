@@ -43,7 +43,8 @@ end
 
 function menu_missed_connections(context, extension)
     return menu(
-        {"to-listen-to-missed-connections",
+        {"missed-connections-intro-content",
+         "to-listen-to-missed-connections",
          "press-one",
          "to-record-a-missed-connection",             
          "press-two"},
@@ -95,7 +96,9 @@ end
 
 function menu_message_one_response_play(context, extension)
     return menu(
-        {"message-one-response-content"},
+        {"message-one-response-content",
+         "to-respond-to-this-message-with-a-recording",
+         "press-one"},
          "missed-connections",
         context,
         extension)
@@ -103,7 +106,9 @@ end
 
 function menu_message_two_response_play(context, extension)
     return menu(
-        {"message-two-response-content"},
+        {"message-two-response-content",
+         "to-respond-to-this-message-with-a-recording",
+         "press-one"},
          "missed-connections",
         context,
         extension)
@@ -188,7 +193,7 @@ extensions_missedconnections = {
     message_one_response_play = context(
         menu_message_one_response_play,
         "message_one_play",
-        {});
+        {"message_one_response_record"});
     message_two_play = context(
         menu_message_two_play,    
         "missed_connections_listen",
@@ -201,5 +206,5 @@ extensions_missedconnections = {
     message_two_response_play = context(
         menu_message_two_response_play,    
         "message_two_play",
-        {});
+        {"message_two_response_record"});
 }
