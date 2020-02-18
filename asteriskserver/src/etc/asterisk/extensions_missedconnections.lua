@@ -114,6 +114,8 @@ function menu_message_two_response_play(context, extension)
         extension)
 end
 
+-- Your recording can last up to 2 minutes. The first 10 seconds will play on the Missed Connections List, and the rest will play if the listener selects it
+-- Record your message after the tone.
 function menu_message_one_response_record(context, extension)
     app.VoiceMail(MAILBOX_ONE,u)
     app.Hangup()
