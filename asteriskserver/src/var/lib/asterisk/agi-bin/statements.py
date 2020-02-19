@@ -185,6 +185,7 @@ statement_groups = [
          'fewtel',
          'para-espanol',
          'for-english',
+         'oprima-estrella',
          'to-make-a-call',
          'for-voicemail',
          'for-the-directory',
