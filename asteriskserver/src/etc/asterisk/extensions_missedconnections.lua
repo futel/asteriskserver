@@ -20,7 +20,7 @@ function menu_hold_the_phone_main_missedconnections(context, extension)
         "press-three",
 	"for-more-information-about-hold-the-phone",
 	"press-four"},
-        "peoples-homes",
+        "missed-connections",
         context,
         extension)
 end
