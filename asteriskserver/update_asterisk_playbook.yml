@@ -3,8 +3,8 @@
   become: true
   tasks:
     - include: deploy/update_asterisk.yml
-# - hosts: baseinstall
-#   become: true
-#   tasks:
-#     - include: deploy/update_asterisk_sounds.yml
+- hosts: baseinstall
+  become: true
+  tasks:
+    - include: deploy/update_asterisk_sounds.yml
 
