@@ -12,6 +12,8 @@ MAILBOX_TWO=1502
 function menu_hold_the_phone_main_missedconnections(context, extension)
     return menu(
         {"welcome-to-hold-the-phone",
+        "para-espanol",
+        "oprima-estrella",
 	"for-missed-connections",
 	"press-one",
 	"for-the-futel-menu",
@@ -23,6 +25,16 @@ function menu_hold_the_phone_main_missedconnections(context, extension)
         "missed-connections",
         context,
         extension)
+end
+
+-- the only way this seems workable from lua is to call a conf macro
+-- exten => s,1,Set(CHANNEL(language)=es)
+-- channel.LANGUAGE = "es"
+-- channel.LANGUAGE:set("es")
+-- channel.LANGUAGE():set("es")
+function set_language_es(context, extension)
+    app.Macro("languagees")     -- extensions.conf
+    return app.Goto("hold_the_phone_main_missedconnections", "s", 1)
 end
 
 function menu_hold_the_phone_info_missedconnections(context, extension)
@@ -146,8 +158,15 @@ function menu_message_record(context, extension)
     app.Hangup()
 end
 
+-- return context array with an es localization option on star
+function main_context_en(menu_function, parent_context, destinations)
+    context_array = context(menu_function, parent_context, destinations)
+    context_array["*"] = set_language_es
+    return context_array
+end
+
 extensions_missedconnections = {
-    hold_the_phone_main_missedconnections = context(
+    hold_the_phone_main_missedconnections = main_context_en(
         menu_hold_the_phone_main_missedconnections,
         "hold_the_phone_main_missedconnections",
         {"missed_connections",
