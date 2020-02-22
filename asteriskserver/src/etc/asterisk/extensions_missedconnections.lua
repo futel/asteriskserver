@@ -27,6 +27,22 @@ function menu_hold_the_phone_main_missedconnections(context, extension)
         extension)
 end
 
+function menu_hold_the_phone_incoming_missedconnections(context, extension)
+    return menu(
+        {"welcome-to-hold-the-phone",
+        "para-espanol",
+        "oprima-estrella",
+	"for-missed-connections",
+	"press-one",
+        "for-more-information-about-missed-connections",
+        "press-three",
+	"for-more-information-about-hold-the-phone",
+	"press-four"},
+        "missed-connections",
+        context,
+        extension)
+end
+
 -- the only way this seems workable from lua is to call a conf macro
 -- exten => s,1,Set(CHANNEL(language)=es)
 -- channel.LANGUAGE = "es"
@@ -171,6 +187,12 @@ extensions_missedconnections = {
         "hold_the_phone_main_missedconnections",
         {"missed_connections",
          "outgoing-ivr",	-- extensions.conf
+         "missed_connections_info",
+         "hold_the_phone_info_missedconnections"});
+    hold_the_phone_incoming_missedconnections = main_context_en(
+        menu_hold_the_phone_main_missedconnections,
+        "hold_the_phone_incoming_missedconnections",
+        {"missed_connections",
          "missed_connections_info",
          "hold_the_phone_info_missedconnections"});
     hold_the_phone_info_missedconnections = context(

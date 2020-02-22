@@ -1,5 +1,4 @@
--- execute menu for hold_the_phone context
-function menu_hold_the_phone(context, extension)
+function menu_hold_the_phone_main(context, extension)
     return menu(
         {"welcome-to-hold-the-phone",
 	"for-peoples-homes",
@@ -8,6 +7,18 @@ function menu_hold_the_phone(context, extension)
 	"press-two",
 	"for-more-information-about-hold-the-phone",
 	"press-three"},
+        "peoples-homes",
+        context,
+        extension)
+end
+
+function menu_hold_the_phone_incoming(context, extension)
+    return menu(
+        {"welcome-to-hold-the-phone",
+	"for-peoples-homes",
+	"press-one",
+	"for-more-information-about-hold-the-phone",
+	"press-two"},
         "peoples-homes",
         context,
         extension)
@@ -82,10 +93,15 @@ end
 
 extensions_peopleshomes = {
     hold_the_phone_main = context(
-        menu_hold_the_phone,
+        menu_hold_the_phone_main,
         "hold_the_phone_main",
         {"peoples_homes",
          "outgoing-ivr",	-- extensions.conf
+         "hold_the_phone_info"});
+    hold_the_phone_incoming = context(
+        menu_hold_the_phone_incoming,
+        "hold_the_phone_incoming",
+        {"peoples_homes",
          "hold_the_phone_info"});
     hold_the_phone_info = context(
         menu_hold_the_phone_info,
