@@ -190,7 +190,7 @@ extensions_missedconnections = {
          "missed_connections_info",
          "hold_the_phone_info_missedconnections"});
     hold_the_phone_incoming_missedconnections = main_context_en(
-        menu_hold_the_phone_main_missedconnections,
+        menu_hold_the_phone_incoming_missedconnections,
         "hold_the_phone_incoming_missedconnections",
         {"missed_connections",
          "missed_connections_info",
