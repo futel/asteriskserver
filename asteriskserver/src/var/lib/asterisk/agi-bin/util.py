@@ -7,7 +7,8 @@ import yaml
 asterisk_etc_dir = '/opt/asterisk/etc/asterisk'
 
 # filename suffixes to consider for sound files
-soundfile_suffixes = ['.gsm', '.sl44', '.sln', '.sln44', '.sln48', '.wav']
+soundfile_suffixes = [
+    '.gsm', '.sl44', '.sln', '.sln16', '.sln44', '.sln48', '.wav']
 # localization superdirectories for sound files
 superdirectories = ['/opt/asterisk/var/lib/asterisk/sounds/en/']
 # general directories for sound files, in order of preference
