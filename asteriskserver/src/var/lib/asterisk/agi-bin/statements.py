@@ -12,6 +12,8 @@
 statement_groups = [
     {'name': 'general',
      'statements': [
+         'for-the-suicide-prevention-hotline',
+         'for-an-obamaphone',
          'para-espanol',
          'for-english',
          'for-hold-the-phone',
