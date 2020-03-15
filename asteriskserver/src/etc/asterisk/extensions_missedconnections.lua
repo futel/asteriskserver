@@ -5,9 +5,9 @@
 -- 1501 => 3841,,,,attach=no|saycid=no|envelope=no|delete=no
 -- 1502 => 3841,,,,attach=no|saycid=no|envelope=no|delete=no
 
-MAILBOX_MAIN=1500
-MAILBOX_ONE=1501
-MAILBOX_TWO=1502
+MAILBOX_MAIN=1500 -- mailbox to record a new missed connection
+MAILBOX_ONE=1501  -- maibox to record a response to content 1
+MAILBOX_TWO=1502  -- maibox to record a response to content 2
 
 function menu_hold_the_phone_main_missedconnections(context, extension)
     return menu(
@@ -145,12 +145,12 @@ end
 -- Your recording can last up to 2 minutes. The first 10 seconds will play on the Missed Connections List, and the rest will play if the listener selects it
 -- Record your message after the tone.
 function menu_message_one_response_record(context, extension)
-    app.VoiceMail(MAILBOX_ONE,u)
+    app.VoiceMail(MAILBOX_ONE, "s")
     app.Hangup()
 end
 
 function menu_message_two_response_record(context, extension)
-    app.VoiceMail(MAILBOX_TWO,u)
+    app.VoiceMail(MAILBOX_TWO, "s")
     app.Hangup()
 end
 
@@ -170,7 +170,7 @@ function menu_message_listen(context, extension)
 end
 
 function menu_message_record(context, extension)
-    app.VoiceMail(MAILBOX_MAIN,u)
+    app.VoiceMail(MAILBOX_MAIN, "s")
     app.Hangup()
 end
 
