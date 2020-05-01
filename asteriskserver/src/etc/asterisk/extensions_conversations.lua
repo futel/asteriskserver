@@ -261,30 +261,30 @@ function menu_content_nine_selected(context, extension)
 end
 
 extensions_conversations = {
-    hold_the_phone_main_conversations = context(
+    hold_the_phone_main = context(
         menu_hold_the_phone_main_conversations,
-        "hold_the_phone_main_conversations",
+        "hold_the_phone_main",
         {"conversations",
          "outgoing-ivr",	-- extensions.conf
          "conversations_info",
-         "hold_the_phone_info_conversations"});
-    hold_the_phone_incoming_conversations = context(
+         "hold_the_phone_info"});
+    hold_the_phone_incoming = context(
         menu_hold_the_phone_incoming_conversations,
-        "hold_the_phone_incoming_conversations",
+        "hold_the_phone_incoming",
         {"conversations",
          "conversations_info",
-         "hold_the_phone_info_conversations"});
-    hold_the_phone_info_conversations = context(
+         "hold_the_phone_info"});
+    hold_the_phone_info = context(
         menu_hold_the_phone_info_conversations,
-        "hold_the_phone_main_conversations",
+        "hold_the_phone_main",
         {});
     conversations_info = context(
         menu_conversations_info,
-        "hold_the_phone_main_conversations",
+        "hold_the_phone_main",
         {});
     conversations = context(
         menu_conversations,
-        "hold_the_phone_main_conversations",
+        "hold_the_phone_main",
         {"content_one",
          "content_two",
          "content_three",

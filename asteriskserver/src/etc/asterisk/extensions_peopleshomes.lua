@@ -92,18 +92,18 @@ function menu_paul_knauls_message(context, extension)
 end
 
 extensions_peopleshomes = {
-    hold_the_phone_main = context(
+    hold_the_phone_main_peopleshomes = context(
         menu_hold_the_phone_main,
         "hold_the_phone_main",
         {"peoples_homes",
          "outgoing-ivr",	-- extensions.conf
          "hold_the_phone_info"});
-    hold_the_phone_incoming = context(
+    hold_the_phone_incoming_peopleshomes = context(
         menu_hold_the_phone_incoming,
         "hold_the_phone_incoming",
         {"peoples_homes",
          "hold_the_phone_info"});
-    hold_the_phone_info = context(
+    hold_the_phone_info_peopleshomes = context(
         menu_hold_the_phone_info,
         "hold_the_phone_main",
         {});
