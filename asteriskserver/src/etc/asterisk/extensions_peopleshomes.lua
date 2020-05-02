@@ -94,22 +94,22 @@ end
 extensions_peopleshomes = {
     hold_the_phone_main_peopleshomes = context(
         menu_hold_the_phone_main,
-        "hold_the_phone_main",
+        "hold_the_phone_main_peopleshomes", -- same context to avoid access from incoming
         {"peoples_homes",
          "outgoing-ivr",	-- extensions.conf
          "hold_the_phone_info"});
     hold_the_phone_incoming_peopleshomes = context(
         menu_hold_the_phone_incoming,
-        "hold_the_phone_incoming",
+        "hold_the_phone_incoming_peopleshomes", -- same context to avoid access from incoming
         {"peoples_homes",
          "hold_the_phone_info"});
     hold_the_phone_info_peopleshomes = context(
         menu_hold_the_phone_info,
-        "hold_the_phone_main",
+        "hold_the_phone_info_peopleshomes",  -- same context to avoid access from incoming
         {});
     peoples_homes = context(
         menu_peoples_homes,
-        "hold_the_phone_main",
+        "peoples_homes",  -- same context to avoid access from incoming
         {"paul_knauls",
          "sharon-helgerson",	-- extensions.conf
          "norman-sylvester",	-- extensions.conf

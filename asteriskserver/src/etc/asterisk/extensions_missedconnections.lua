@@ -197,20 +197,20 @@ extensions_missedconnections = {
          "hold_the_phone_info_missedconnections"});
     hold_the_phone_info_missedconnections = context(
         menu_hold_the_phone_info_missedconnections,
-        "hold_the_phone_main_missedconnections",
+        "hold_the_phone_info_missedconnections", -- same context to avoid access from incoming
         {});
     missed_connections_info = context(
         menu_missed_connections_info,
-        "hold_the_phone_main_missedconnections",
+        "missed_connections_info", -- same context to avoid access from incoming
         {});
     missed_connections = context(
         menu_missed_connections,
-        "hold_the_phone_main_missedconnections",
+        "missed_conections",    -- same context to avoid access from incoming
         {"missed_connections_listen",
          "message_record"});
     missed_connections_listen = context(
         menu_missed_connections_listen,
-        "missed_connections",
+        "missed_connections_listen", -- same context to avoid access from incoming
         {"message_one_play",
          "message_two_play",
          "missed_connections_listen", -- placeholder

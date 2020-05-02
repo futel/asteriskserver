@@ -276,15 +276,15 @@ extensions_conversations = {
          "hold_the_phone_info"});
     hold_the_phone_info = context(
         menu_hold_the_phone_info_conversations,
-        "hold_the_phone_main",
+        "hold_the_phone_info",  -- same context to avoid access from incoming
         {});
     conversations_info = context(
         menu_conversations_info,
-        "hold_the_phone_main",
+        "conversations_info",  -- same context to avoid access from incoming
         {});
     conversations = context(
         menu_conversations,
-        "hold_the_phone_main",
+        "conversations",  -- same context to avoid access from incoming
         {"content_one",
          "content_two",
          "content_three",
