@@ -24,7 +24,7 @@ function menu_hold_the_phone_main_conversations(context, extension)
         extension)
 end
 
-function menu_hold_the_phone_incoming_missedconnections(context, extension)
+function menu_hold_the_phone_incoming_conversations(context, extension)
     return menu(
         {"welcome-to-hold-the-phone",
 	"for-conversations",
