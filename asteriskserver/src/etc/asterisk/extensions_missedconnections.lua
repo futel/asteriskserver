@@ -1,10 +1,3 @@
--- have 1500..1502 vm boxes
--- [default]
--- 999 => XXXX,,,,attach=no|saycid=no|envelope=no|delete=no
--- 1500 => 3841,,,,attach=no|saycid=no|envelope=no|delete=no
--- 1501 => 3841,,,,attach=no|saycid=no|envelope=no|delete=no
--- 1502 => 3841,,,,attach=no|saycid=no|envelope=no|delete=no
-
 MAILBOX_MAIN=1500 -- mailbox to record a new missed connection
 MAILBOX_ONE=1501  -- maibox to record a response to content 1
 MAILBOX_TWO=1502  -- maibox to record a response to content 2
@@ -96,6 +89,7 @@ function menu_missed_connections_listen(context, extension)
         extension)
 end
 
+-- xxx add responses when available
 function menu_message_one_play(context, extension)
     return menu(
         {"message-one-full-content",
@@ -109,6 +103,7 @@ function menu_message_one_play(context, extension)
         extension)
 end
 
+-- xxx only add response entries when available
 function menu_message_two_play(context, extension)
     return menu(
         {"message-two-full-content",
@@ -122,6 +117,7 @@ function menu_message_two_play(context, extension)
         extension)
 end
 
+-- xxx only add response entries when available
 function menu_message_one_response_play(context, extension)
     return menu(
         {"message-one-response-content",
@@ -132,6 +128,7 @@ function menu_message_one_response_play(context, extension)
         extension)
 end
 
+-- XXX only add when available
 function menu_message_two_response_play(context, extension)
     return menu(
         {"message-two-response-content",
@@ -142,8 +139,6 @@ function menu_message_two_response_play(context, extension)
         extension)
 end
 
--- Your recording can last up to 2 minutes. The first 10 seconds will play on the Missed Connections List, and the rest will play if the listener selects it
--- Record your message after the tone.
 function menu_message_one_response_record(context, extension)
     app.VoiceMail(MAILBOX_ONE, "s")
     app.Hangup()
@@ -233,6 +228,7 @@ extensions_missedconnections = {
         menu_message_one_response_record,
         "message_one_play",
         {});
+    -- XXX only add when available
     message_one_response_play = context(
         menu_message_one_response_play,
         "message_one_play",
@@ -246,6 +242,7 @@ extensions_missedconnections = {
         menu_message_two_response_record,    
         "message_two_play",
         {});
+    -- XXX only add when available
     message_two_response_play = context(
         menu_message_two_response_play,    
         "message_two_play",
