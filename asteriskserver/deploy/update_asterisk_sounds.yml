@@ -143,6 +143,7 @@
     - church-of-robotron
     - conversations
     - longmont
+    - missed-connections
 - name: copy asterisk confbridge menu sounds
   copy:
     src: "{{ asterisk_sound_directory }}/en/futelconf"
