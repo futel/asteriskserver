@@ -91,9 +91,9 @@ end
 
 -- xxx add responses when available
 function menu_message_one_play(context, extension)
+    app.Background("/opt/asterisk/var/lib/asterisk/sounds/futel/missed-connections/1577674262094")
     return menu(
-        {"message-one-full-content",
-         "message-one-info",
+        {"message-one-info",
          "to-respond-to-this-message-with-a-recording",
          "press-one",
          "to-play-responses-to-this-message",
@@ -105,9 +105,9 @@ end
 
 -- xxx only add response entries when available
 function menu_message_two_play(context, extension)
+    app.Background("/opt/asterisk/var/lib/asterisk/sounds/futel/missed-connections/1578094859777")
     return menu(
-        {"message-two-full-content",
-         "message-two-info",
+        {"message-two-info",
          "to-respond-to-this-message-with-a-recording",
          "press-one",
          "to-play-responses-to-this-message",
@@ -140,11 +140,17 @@ function menu_message_two_response_play(context, extension)
 end
 
 function menu_message_one_response_record(context, extension)
+    say("your-recording-can-last-up-to-two-minutes", "missed-connections")
+    say("the-first-ten-seconds-will-play-on-the-missed-connections-list", "missed-connections")
+    say("and-the-rest-will-play-if-the-listener-selects-it", "missed-connections")
     app.VoiceMail(MAILBOX_ONE, "s")
     app.Hangup()
 end
 
 function menu_message_two_response_record(context, extension)
+    say("your-recording-can-last-up-to-two-minutes", "missed-connections")
+    say("the-first-ten-seconds-will-play-on-the-missed-connections-list", "missed-connections")
+    say("and-the-rest-will-play-if-the-listener-selects-it", "missed-connections")
     app.VoiceMail(MAILBOX_TWO, "s")
     app.Hangup()
 end
@@ -165,6 +171,9 @@ function menu_message_listen(context, extension)
 end
 
 function menu_message_record(context, extension)
+    say("your-recording-can-last-up-to-two-minutes", "missed-connections")
+    say("the-first-ten-seconds-will-play-on-the-missed-connections-list", "missed-connections")
+    say("and-the-rest-will-play-if-the-listener-selects-it", "missed-connections")
     app.VoiceMail(MAILBOX_MAIN, "s")
     app.Hangup()
 end
