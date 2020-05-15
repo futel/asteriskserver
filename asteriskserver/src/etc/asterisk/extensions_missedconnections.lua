@@ -96,8 +96,9 @@ function menu_message_one_play(context, extension)
         {"message-one-info",
          "to-respond-to-this-message-with-a-recording",
          "press-one",
-         "to-play-responses-to-this-message",
-         "press-two"},
+         -- "to-play-responses-to-this-message",
+         -- "press-two"
+         },
         "missed-connections",
         context,
         extension)
@@ -110,14 +111,14 @@ function menu_message_two_play(context, extension)
         {"message-two-info",
          "to-respond-to-this-message-with-a-recording",
          "press-one",
-         "to-play-responses-to-this-message",
-         "press-two"},
+         -- "to-play-responses-to-this-message",
+         -- "press-two"
+         },
         "missed-connections",
         context,
         extension)
 end
 
--- xxx only add response entries when available
 function menu_message_one_response_play(context, extension)
     return menu(
         {"message-one-response-content",
@@ -128,7 +129,6 @@ function menu_message_one_response_play(context, extension)
         extension)
 end
 
--- XXX only add when available
 function menu_message_two_response_play(context, extension)
     return menu(
         {"message-two-response-content",
@@ -237,11 +237,10 @@ extensions_missedconnections = {
         menu_message_one_response_record,
         "message_one_play",
         {});
-    -- XXX only add when available
-    message_one_response_play = context(
-        menu_message_one_response_play,
-        "message_one_play",
-        {"message_one_response_record"});
+    -- message_one_response_play = context(
+    --     menu_message_one_response_play,
+    --     "message_one_play",
+    --     {"message_one_response_record"});
     message_two_play = context(
         menu_message_two_play,    
         "missed_connections_listen",
@@ -251,9 +250,8 @@ extensions_missedconnections = {
         menu_message_two_response_record,    
         "message_two_play",
         {});
-    -- XXX only add when available
-    message_two_response_play = context(
-        menu_message_two_response_play,    
-        "message_two_play",
-        {"message_two_response_record"});
+    -- message_two_response_play = context(
+    --     menu_message_two_response_play,    
+    --     "message_two_play",
+    --     {"message_two_response_record"});
 }
