@@ -1,6 +1,7 @@
 MAILBOX_MAIN=1500 -- mailbox to record a new missed connection
 MAILBOX_ONE=1501  -- maibox to record a response to content 1
 MAILBOX_TWO=1502  -- maibox to record a response to content 2
+MAILBOX_THREE=1503  -- maibox to record a response to content 3
 
 function menu_hold_the_phone_main_missedconnections(context, extension)
     return menu(
@@ -82,6 +83,9 @@ function menu_missed_connections_listen(context, extension)
          "message-two-preview-content",
          "to-hear-more-and-reply",
          "press-two",
+         "message-three-preview-content",
+         "to-hear-more-and-reply",
+         "press-three",
          "to-record-a-missed-connection",             
          "press-nine"},
         "missed-connections",
@@ -89,7 +93,6 @@ function menu_missed_connections_listen(context, extension)
         extension)
 end
 
--- xxx add responses when available
 function menu_message_one_play(context, extension)
     app.Background("/opt/asterisk/var/lib/asterisk/sounds/futel/missed-connections/1577674262094")
     return menu(
@@ -104,11 +107,24 @@ function menu_message_one_play(context, extension)
         extension)
 end
 
--- xxx only add response entries when available
 function menu_message_two_play(context, extension)
     app.Background("/opt/asterisk/var/lib/asterisk/sounds/futel/missed-connections/1578094859777")
     return menu(
         {"message-two-info",
+         "to-respond-to-this-message-with-a-recording",
+         "press-one",
+         -- "to-play-responses-to-this-message",
+         -- "press-two"
+         },
+        "missed-connections",
+        context,
+        extension)
+end
+
+function menu_message_three_play(context, extension)
+    app.Background("/opt/asterisk/var/lib/asterisk/sounds/futel/missed-connections/1578329858737")
+    return menu(
+        {"message-three-info",
          "to-respond-to-this-message-with-a-recording",
          "press-one",
          -- "to-play-responses-to-this-message",
@@ -139,6 +155,16 @@ function menu_message_two_response_play(context, extension)
         extension)
 end
 
+function menu_message_three_response_play(context, extension)
+    return menu(
+        {"message-three-response-content",
+         "to-respond-to-this-message-with-a-recording",
+         "press-one"},
+         "missed-connections",
+        context,
+        extension)
+end
+
 function menu_message_one_response_record(context, extension)
     say("your-recording-can-last-up-to-two-minutes", "missed-connections")
     say("the-first-ten-seconds-will-play-on-the-missed-connections-list", "missed-connections")
@@ -152,6 +178,14 @@ function menu_message_two_response_record(context, extension)
     say("the-first-ten-seconds-will-play-on-the-missed-connections-list", "missed-connections")
     say("and-the-rest-will-play-if-the-listener-selects-it", "missed-connections")
     app.VoiceMail(MAILBOX_TWO, "s")
+    app.Hangup()
+end
+
+function menu_message_three_response_record(context, extension)
+    say("your-recording-can-last-up-to-two-minutes", "missed-connections")
+    say("the-first-ten-seconds-will-play-on-the-missed-connections-list", "missed-connections")
+    say("and-the-rest-will-play-if-the-listener-selects-it", "missed-connections")
+    app.VoiceMail(MAILBOX_THREE, "s")
     app.Hangup()
 end
 
@@ -217,7 +251,7 @@ extensions_missedconnections = {
         "missed_connections_listen", -- same context to avoid access from incoming
         {"message_one_play",
          "message_two_play",
-         "missed_connections_listen", -- placeholder
+         "message_three_play",         
          "missed_connections_listen", -- placeholder
          "missed_connections_listen", -- placeholder
          "missed_connections_listen", -- placeholder
@@ -254,4 +288,17 @@ extensions_missedconnections = {
     --     menu_message_two_response_play,    
     --     "message_two_play",
     --     {"message_two_response_record"});
+    message_three_play = context(
+        menu_message_three_play,
+        "missed_connections_listen",
+        {"message_three_response_record",
+         "message_three_response_play"});
+    message_three_response_record = context(
+        menu_message_three_response_record,
+        "message_three_play",
+        {});
+    -- message_three_response_play = context(
+    --     menu_message_three_response_play,
+    --     "message_three_play",
+    --     {"message_three_response_record"});
 }
