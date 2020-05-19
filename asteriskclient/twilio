@@ -1,0 +1,91 @@
+# Setup for Twilio SIP registration endpoint
+
+Uses programmable voice and TwiML
+
+## asterisk server creds
+
+have SIP extensions XXX
+have SIP passwords YYY
+
+## twilio creds
+
+have credential list username XXX (same as SIP extension)
+have credential list password
+
+## set up TwiML bin dialXXXatstage
+
+(for asterisk SIP extension XXX)
+
+body:
+  <?xml version="1.0" encoding="UTF-8"?>
+  <Response>
+  <Dial>
+      <Sip username="XXX" password="YYY">sip:XXX@futel-stage.phu73l.net</Sip>
+  </Dial>
+  </Response>
+
+## set up TwiML bin dialXXXatprod
+
+(for asterisk SIP extension XXX)
+
+body:
+  <?xml version="1.0" encoding="UTF-8"?>
+  <Response>
+  <Dial>
+      <Sip username="XXX" password="YYY">sip:XXX@futel-prod.phu73l.net</Sip>
+  </Dial>
+  </Response>
+
+
+## set up SIP domain XXX.stage.futel.sip.twilio.com
+
+(for asterisk SIP extension XXX)
+
+SIP URI: XXX.stage.futel
+Call control configuration: TwiML Bin: dial700atstage
+Voice authentication: credential lists: XXX
+SIP registration: enabled
+SIP Registration Authentication: credential lists: XXX
+
+set up SIP domain XXX.prod.futel.sip.twilio.com:
+(for asterisk SIP extension XXX)
+
+SIP URI: XXX.prod.futel
+Call control configuration: TwiML Bin: dial700atprod
+Voice authentication: credential lists: XXX
+SIP registration: enabled
+SIP Registration Authentication: credential lists: XXX
+
+## set up client
+
+register to XXX@XXX.stage.futel.sip.twilio.com
+register to XXX@XXX.prod.futel.sip.twilio.com
+password is for credential list for XXX
+
+## test
+
+register
+dial any number, get server context configured for incoming call from ext XXX
+dial SIP url XXX@XXX.stage.futel.sip.twilio.com, call client
+dial SIP url XXX@XXX.prod.futel.sip.twilio.com, call client
+
+# TODO
+
+just have one SIP domain per group, for example year of creation
+use registered extension to send to analog of outgoing-by-calling-extension
+or can we find the calling extension and send to context on server for 999?
+try BYOC trunk
+
+# XXX
+
+## set up TwiML bin dialXXXattwilio
+
+have SIP domain with uri XXX.stage.futel.sip.twilio.com
+
+body:
+<?xml version="1.0" encoding="UTF-8"?>
+<Response>
+<Dial>
+    <Sip>XXX@XXX.stage.futel.sip.twilio.com</Sip>
+</Dial>
+</Response>
