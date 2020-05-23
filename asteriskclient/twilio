@@ -1,6 +1,4 @@
-# Setup for Twilio SIP registration endpoint
-
-Uses programmable voice and TwiML
+# Setup for Twilio SIP registration endpoint, Programmable Voice, TwiML Bin
 
 ## asterisk server creds
 
@@ -20,7 +18,7 @@ body:
   <?xml version="1.0" encoding="UTF-8"?>
   <Response>
   <Dial>
-      <Sip username="XXX" password="YYY">sip:XXX@futel-stage.phu73l.net</Sip>
+      <Sip username="XXX" password="YYY">sip:999@futel-stage.phu73l.net</Sip>
   </Dial>
   </Response>
 
@@ -32,7 +30,7 @@ body:
   <?xml version="1.0" encoding="UTF-8"?>
   <Response>
   <Dial>
-      <Sip username="XXX" password="YYY">sip:XXX@futel-prod.phu73l.net</Sip>
+      <Sip username="XXX" password="YYY">sip:999@futel-prod.phu73l.net</Sip>
   </Dial>
   </Response>
 
@@ -58,18 +56,29 @@ SIP Registration Authentication: credential lists: XXX
 
 ## set up client
 
-register to XXX@XXX.stage.futel.sip.twilio.com
-register to XXX@XXX.prod.futel.sip.twilio.com
+XXX this should be XXX.stage.futel.us1.sip.twilio.com?
+register to XXX@XXX.stage.futel.sip.us1.twilio.com
+register to XXX@XXX.prod.futel.sip.us1.twilio.com
 password is for credential list for XXX
 
 ## test
 
 register
 dial any number, get server context configured for incoming call from ext XXX
-dial SIP url XXX@XXX.stage.futel.sip.twilio.com, call client
-dial SIP url XXX@XXX.prod.futel.sip.twilio.com, call client
 
 # TODO
+
+incoming?
+XXX dial from linphone? no
+dial SIP url XXX@XXX.stage.futel.sip.us1.twilio.com, call client
+dial SIP url XXX@XXX.prod.futel.sip.us1.twilio.com, call client
+dial from asterisk? 
+same => n,Dial(SIP/700@700.stage.futel.sip.us1.twilio.com)
+same => n,Dial(SIP/700:<pass>@700.stage.futel.sip.us1.twilio.com)
+no,
+[May 19 22:10:56] VERBOSE[30123][C-00000000] app_dial.c: Called SIP/700@700.stage.futel.sip.us1.twilio.com
+[May 19 22:10:56] NOTICE[30062][C-00000000] chan_sip.c: Failed to authenticate on INVITE to '"700" <sip:+15034681337@198.199.98.162>;tag=as3cefb3c0'
+[May 19 22:10:56] VERBOSE[30123][C-00000000] app_dial.c: SIP/700.stage.futel.sip.us1.twilio.com-00000001 is circuit-busy
 
 just have one SIP domain per group, for example year of creation
 use registered extension to send to analog of outgoing-by-calling-extension
@@ -89,3 +98,7 @@ body:
     <Sip>XXX@XXX.stage.futel.sip.twilio.com</Sip>
 </Dial>
 </Response>
+
+
+# Setup for Twilio BYOC
+
