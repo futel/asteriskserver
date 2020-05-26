@@ -8,7 +8,7 @@ have SIP password PASSWORD
 ## twilio creds
 
 have credential list username 700
-have credential list password
+have credential list password PASSWORD
 
 ## set up TwiML bin dial700atstage
 
@@ -30,22 +30,43 @@ body:
   </Dial>
   </Response>
 
+## add TwiML bin dial700attwilio
+
+body:
+<?xml version="1.0" encoding="UTF-8"?>
+    <Response>
+        <Dial answerOnBridge="true">
+            <Sip>700@700.stage.futel.sip.us1.twilio.com</Sip>
+        </Dial>
+</Response>
 
 ## set up SIP domain 700.stage.futel.sip.twilio.com
 
-SIP URI: 700.stage.futel
+Friendly name: 700.stage
+SIP URI: 700.stage.futel (.sip.twilio.com)
 Call control configuration: TwiML Bin: dial700atstage
 Voice authentication: credential lists: 700
 SIP registration: enabled
 SIP Registration Authentication: credential lists: 700
 
-set up SIP domain 700.prod.futel.sip.twilio.com:
+## set up SIP domain 700.prod.futel.sip.twilio.com:
 
-SIP URI: 700.prod.futel
+Friendly name: 700.prod
+SIP URI: 700.prod.futel (.sip.twilio.com)
 Call control configuration: TwiML Bin: dial700atprod
 Voice authentication: credential lists: 700
 SIP registration: enabled
 SIP Registration Authentication: credential lists: 700
+
+## set up SIP domain termination.stage.futel.sip.twilio.com
+
+Friendly name: termination.stage.futel
+SIP URI: termination.stage.futel (.sip.twilio.com)
+Call control configuration: TwiML Bin: dial700stageattwilio
+Voice authentication: credential lists: 700
+SIP registration: disabled
+
+XXX same for prod
 
 ## set up client
 
@@ -56,7 +77,7 @@ password is for credential list for 700
 
 ## test
 
-register
+register 700@700.stage.futel.sip.us1.twilio.com
 dial any number, get server context configured for incoming call from ext 700
 
 # TODO
@@ -77,20 +98,6 @@ just have one SIP domain per group, for example year of creation
 use registered extension to send to analog of outgoing-by-calling-extension
 or can we find the calling extension and send to context on server for 999?
 try BYOC trunk
-
-# XXX
-
-## set up TwiML bin dial700attwilio
-
-have SIP domain with uri 700.stage.futel.sip.twilio.com
-
-body:
-<?xml version="1.0" encoding="UTF-8"?>
-<Response>
-<Dial>
-    <Sip>700@700.stage.futel.sip.twilio.com</Sip>
-</Dial>
-</Response>
 
 
 # Setup for Twilio BYOC
