@@ -2,76 +2,69 @@
 
 ## asterisk server creds
 
-have SIP extensions XXX
-have SIP passwords YYY
+have SIP extension 700
+have SIP password PASSWORD
 
 ## twilio creds
 
-have credential list username XXX (same as SIP extension)
+have credential list username 700
 have credential list password
 
-## set up TwiML bin dialXXXatstage
-
-(for asterisk SIP extension XXX)
+## set up TwiML bin dial700atstage
 
 body:
   <?xml version="1.0" encoding="UTF-8"?>
   <Response>
   <Dial>
-      <Sip username="XXX" password="YYY">sip:999@futel-stage.phu73l.net</Sip>
+      <Sip username="700" password="PASSWORD">sip:999@futel-stage.phu73l.net</Sip>
   </Dial>
   </Response>
 
-## set up TwiML bin dialXXXatprod
-
-(for asterisk SIP extension XXX)
+## set up TwiML bin dial700atprod
 
 body:
   <?xml version="1.0" encoding="UTF-8"?>
   <Response>
   <Dial>
-      <Sip username="XXX" password="YYY">sip:999@futel-prod.phu73l.net</Sip>
+      <Sip username="700" password="PASSWORD">sip:999@futel-prod.phu73l.net</Sip>
   </Dial>
   </Response>
 
 
-## set up SIP domain XXX.stage.futel.sip.twilio.com
+## set up SIP domain 700.stage.futel.sip.twilio.com
 
-(for asterisk SIP extension XXX)
-
-SIP URI: XXX.stage.futel
+SIP URI: 700.stage.futel
 Call control configuration: TwiML Bin: dial700atstage
-Voice authentication: credential lists: XXX
+Voice authentication: credential lists: 700
 SIP registration: enabled
-SIP Registration Authentication: credential lists: XXX
+SIP Registration Authentication: credential lists: 700
 
-set up SIP domain XXX.prod.futel.sip.twilio.com:
-(for asterisk SIP extension XXX)
+set up SIP domain 700.prod.futel.sip.twilio.com:
 
-SIP URI: XXX.prod.futel
+SIP URI: 700.prod.futel
 Call control configuration: TwiML Bin: dial700atprod
-Voice authentication: credential lists: XXX
+Voice authentication: credential lists: 700
 SIP registration: enabled
-SIP Registration Authentication: credential lists: XXX
+SIP Registration Authentication: credential lists: 700
 
 ## set up client
 
-XXX this should be XXX.stage.futel.us1.sip.twilio.com?
-register to XXX@XXX.stage.futel.sip.us1.twilio.com
-register to XXX@XXX.prod.futel.sip.us1.twilio.com
-password is for credential list for XXX
+XXX this should be 700.stage.futel.us1.sip.twilio.com?
+register to 700@700.stage.futel.sip.us1.twilio.com
+register to 700@700.prod.futel.sip.us1.twilio.com
+password is for credential list for 700
 
 ## test
 
 register
-dial any number, get server context configured for incoming call from ext XXX
+dial any number, get server context configured for incoming call from ext 700
 
 # TODO
 
 incoming?
 XXX dial from linphone? no
-dial SIP url XXX@XXX.stage.futel.sip.us1.twilio.com, call client
-dial SIP url XXX@XXX.prod.futel.sip.us1.twilio.com, call client
+dial SIP url 700@700.stage.futel.sip.us1.twilio.com, call client
+dial SIP url 700@700.prod.futel.sip.us1.twilio.com, call client
 dial from asterisk? 
 same => n,Dial(SIP/700@700.stage.futel.sip.us1.twilio.com)
 same => n,Dial(SIP/700:<pass>@700.stage.futel.sip.us1.twilio.com)
@@ -87,18 +80,65 @@ try BYOC trunk
 
 # XXX
 
-## set up TwiML bin dialXXXattwilio
+## set up TwiML bin dial700attwilio
 
-have SIP domain with uri XXX.stage.futel.sip.twilio.com
+have SIP domain with uri 700.stage.futel.sip.twilio.com
 
 body:
 <?xml version="1.0" encoding="UTF-8"?>
 <Response>
 <Dial>
-    <Sip>XXX@XXX.stage.futel.sip.twilio.com</Sip>
+    <Sip>700@700.stage.futel.sip.twilio.com</Sip>
 </Dial>
 </Response>
 
 
 # Setup for Twilio BYOC
 
+## create TwiML bin dial700atstage
+
+as described in Setup for Twilio SIP registration endpoint, Programmable Voice, TwiML Bin
+
+XXX in progress
+
+## create credential list futelterminationcredential
+- friendly name futelterminationcredential
+- user name futelterminationcredentialauthentication
+
+## create termination sip domain futelterminationdomain.sip.twilio.com
+- friendly name futelterminationdomain
+- authentication credential list futelterminationcredential
+
+## create origination connection policy futelpolicy
+- friendly name futelpolicyfoo
+- origination target sip:futel-stage.phu73l.net
+
+## create trunk futeltrunk
+- termination sip domains futelterminationdomain
+- origination connection policy futelpolicy
+- application confguration: a call comes in: XXX was dial700atstage
+
+## register asterisk for termination
+
+sip_callcentric.conf
+[twilio-byoc-termination](+)
+defaultuser=futelterminationcredential
+remotesecret=...
+
+sip.conf
+[twilio-byoc-termination](twilio-trunk)
+host=futelterminationdomain.sip.us1.twilio.com
+; to be populated in sip_callcentric.conf                                 
+defaultuser=
+remotesecret=
+
+XXX dup for prod
+XXX want one bin for all exts
+XXX what next?
+
+
+
+register client
+
+receive call
+set up origination, make call
