@@ -1,0 +1,49 @@
+# Setup for Twilio BYOC
+
+## create TwiML bin dial700atstage
+
+XXX in progress
+
+described in Setup for Twilio SIP registration endpoint, Programmable Voice, TwiML Bin
+
+## create credential list futelterminationcredential
+- friendly name futelterminationcredential
+- user name futelterminationcredentialauthentication
+
+## create termination sip domain futelterminationdomain.sip.twilio.com
+- friendly name futelterminationdomain
+- authentication credential list futelterminationcredential
+
+## create origination connection policy futelpolicy
+- friendly name futelpolicyfoo
+- origination target sip:futel-stage.phu73l.net
+
+## create trunk futeltrunk
+- termination sip domains futelterminationdomain
+- origination connection policy futelpolicy
+- application confguration: a call comes in: XXX was dial700atstage
+
+## register asterisk for termination
+
+sip_callcentric.conf
+[twilio-byoc-termination](+)
+defaultuser=futelterminationcredential
+remotesecret=...
+
+sip.conf
+[twilio-byoc-termination](twilio-trunk)
+host=futelterminationdomain.sip.us1.twilio.com
+; to be populated in sip_callcentric.conf                                 
+defaultuser=
+remotesecret=
+
+XXX dup for prod
+XXX want one bin for all exts
+XXX what next?
+
+
+
+register client
+
+receive call
+set up origination, make call
