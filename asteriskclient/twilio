@@ -30,13 +30,23 @@ body:
   </Dial>
   </Response>
 
-## add TwiML bin dial700attwilio
+## add TwiML bin dial700stageattwilio
 
 body:
 <?xml version="1.0" encoding="UTF-8"?>
     <Response>
         <Dial answerOnBridge="true">
             <Sip>700@700.stage.futel.sip.us1.twilio.com</Sip>
+        </Dial>
+</Response>
+
+## add TwiML bin dial700prodattwilio
+
+body:
+<?xml version="1.0" encoding="UTF-8"?>
+    <Response>
+        <Dial answerOnBridge="true">
+            <Sip>700@700.prod.futel.sip.us1.twilio.com</Sip>
         </Dial>
 </Response>
 
@@ -60,53 +70,40 @@ SIP Registration Authentication: credential lists: 700
 
 ## set up SIP domain termination.stage.futel.sip.twilio.com
 
-Friendly name: termination.stage.futel
+Friendly name: termination.stage
 SIP URI: termination.stage.futel (.sip.twilio.com)
 Call control configuration: TwiML Bin: dial700stageattwilio
 Voice authentication: credential lists: 700
 SIP registration: disabled
 
-XXX same for prod
+## set up SIP domain termination.prod.futel.sip.twilio.com
+
+Friendly name: termination.prod
+SIP URI: termination.prod.futel (.sip.twilio.com)
+Call control configuration: TwiML Bin: dial700prodattwilio
+Voice authentication: credential lists: 700
+SIP registration: disabled
 
 ## set up client
 
-XXX this should be 700.stage.futel.us1.sip.twilio.com?
 register to 700@700.stage.futel.sip.us1.twilio.com
 register to 700@700.prod.futel.sip.us1.twilio.com
-password is for credential list for 700
+password is as for credential list for 700
 
 ## test
 
-register 700@700.stage.futel.sip.us1.twilio.com
-dial any number, get server context configured for incoming call from ext 700
-
-# TODO
-
-incoming?
-XXX dial from linphone? no
-dial SIP url 700@700.stage.futel.sip.us1.twilio.com, call client
-dial SIP url 700@700.prod.futel.sip.us1.twilio.com, call client
-dial from asterisk? 
-same => n,Dial(SIP/700@700.stage.futel.sip.us1.twilio.com)
-same => n,Dial(SIP/700:<pass>@700.stage.futel.sip.us1.twilio.com)
-no,
-[May 19 22:10:56] VERBOSE[30123][C-00000000] app_dial.c: Called SIP/700@700.stage.futel.sip.us1.twilio.com
-[May 19 22:10:56] NOTICE[30062][C-00000000] chan_sip.c: Failed to authenticate on INVITE to '"700" <sip:+15034681337@198.199.98.162>;tag=as3cefb3c0'
-[May 19 22:10:56] VERBOSE[30123][C-00000000] app_dial.c: SIP/700.stage.futel.sip.us1.twilio.com-00000001 is circuit-busy
-
-just have one SIP domain per group, for example year of creation
-use registered extension to send to analog of outgoing-by-calling-extension
-or can we find the calling extension and send to context on server for 999?
-try BYOC trunk
+register
+dial any number, get outgoing-by-calling-extension context for 700
+call SIP/700@twilio-pv-termination, registered client gets call
 
 
 # Setup for Twilio BYOC
 
 ## create TwiML bin dial700atstage
 
-as described in Setup for Twilio SIP registration endpoint, Programmable Voice, TwiML Bin
-
 XXX in progress
+
+described in Setup for Twilio SIP registration endpoint, Programmable Voice, TwiML Bin
 
 ## create credential list futelterminationcredential
 - friendly name futelterminationcredential
