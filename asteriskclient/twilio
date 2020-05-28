@@ -2,35 +2,46 @@
 
 ## asterisk server creds
 
-have SIP extension 700
-have SIP password PASSWORD
+have SIP extension 700, 701
+have SIP password PASSWORD (same for all extensions)
 
 ## twilio creds
 
-have credential list username 700
-have credential list password PASSWORD
+have credential list username 700, 701
+have credential list password PASSWORD (same for all extensions)
 
-## set up TwiML bin dial700atstage
+## configure twilio functions
 
+enable ACCOUNT_SID and AUTH_TOKEN
+environment variables:
+stage_uri sip:999@futel-stage.phu73l.net
+prod_uri sip:999@futel-prod.phu73l.net
+password PASSWORD
+
+## create twilio functions for termination
+
+friendly name origination-stage
+path origination-stage
 body:
-  <?xml version="1.0" encoding="UTF-8"?>
-  <Response>
-  <Dial>
-      <Sip username="700" password="PASSWORD">sip:999@futel-stage.phu73l.net</Sip>
-  </Dial>
-  </Response>
+    exports.handler = function(context, event, callback) {
+	var client = context.getTwilioClient();
+	// eg "sip:700@origination-stage.futel.sip.us1.twilio.com";
+	var from = event.From;
+        from = from.replace("sip:", "");
+        from = from.replace(/@.*/, "");
+	console.log(from);
+	let twiml = new Twilio.twiml.VoiceResponse();
+	twiml.dial().sip(
+	    {username:from, password: context.password},
+	    context.stage_uri);
+	callback(null, twiml);
+};
 
-## set up TwiML bin dial700atprod
-
-body:
-  <?xml version="1.0" encoding="UTF-8"?>
-  <Response>
-  <Dial>
-      <Sip username="700" password="PASSWORD">sip:999@futel-prod.phu73l.net</Sip>
-  </Dial>
-  </Response>
+XXX same for prod
 
 ## add TwiML bin dial700stageattwilio
+
+XXX replace with function
 
 body:
 <?xml version="1.0" encoding="UTF-8"?>
@@ -50,7 +61,18 @@ body:
         </Dial>
 </Response>
 
+## set up SIP domain for origination
+
+Friendly name: origination-stage
+SIP URI: origination-stage.futel (.sip.twilio.com)
+Call control configuration: function: origination-stage
+Voice authentication: credential lists: 700, 701
+SIP registration: enabled
+SIP Registration Authentication: credential lists: 700, 701
+
 ## set up SIP domain 700.stage.futel.sip.twilio.com
+
+XXX remove after termination is updated
 
 Friendly name: 700.stage
 SIP URI: 700.stage.futel (.sip.twilio.com)
@@ -61,6 +83,8 @@ SIP Registration Authentication: credential lists: 700
 
 ## set up SIP domain 700.prod.futel.sip.twilio.com:
 
+XXX remove after termination is updated
+
 Friendly name: 700.prod
 SIP URI: 700.prod.futel (.sip.twilio.com)
 Call control configuration: TwiML Bin: dial700atprod
@@ -70,6 +94,8 @@ SIP Registration Authentication: credential lists: 700
 
 ## set up SIP domain termination.stage.futel.sip.twilio.com
 
+XXX update with termination-stage pointing to function, only works for 700
+
 Friendly name: termination.stage
 SIP URI: termination.stage.futel (.sip.twilio.com)
 Call control configuration: TwiML Bin: dial700stageattwilio
@@ -77,6 +103,8 @@ Voice authentication: credential lists: 700
 SIP registration: disabled
 
 ## set up SIP domain termination.prod.futel.sip.twilio.com
+
+XXX update with termination-prod pointing to function, only works for 700
 
 Friendly name: termination.prod
 SIP URI: termination.prod.futel (.sip.twilio.com)
@@ -86,6 +114,10 @@ SIP registration: disabled
 
 ## set up client
 
+register to sip:700@origination-stage.futel.sip.us1.twilio.com)
+XXX update for prod
+register to sip:700@origination-prod.futel.sip.us1.twilio.com)
+XXX remove when termination is updated
 register to 700@700.stage.futel.sip.us1.twilio.com
 register to 700@700.prod.futel.sip.us1.twilio.com
 password is as for credential list for 700
@@ -94,4 +126,4 @@ password is as for credential list for 700
 
 register
 dial any number, get outgoing-by-calling-extension context for 700
-call SIP/700@twilio-pv-termination, registered client gets call
+have server Dial(SIP/700@twilio-pv-termination), registered client gets call

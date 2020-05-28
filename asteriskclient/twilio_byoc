@@ -1,8 +1,9 @@
 # Setup for Twilio BYOC
 
-## create TwiML bin dial700atstage
-
 XXX in progress
+https://www.twilio.com/docs/voice/bring-your-own-carrier-byoc
+
+## create TwiML bin dial700atstage
 
 described in Setup for Twilio SIP registration endpoint, Programmable Voice, TwiML Bin
 
