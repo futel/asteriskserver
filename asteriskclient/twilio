@@ -23,18 +23,24 @@ password PASSWORD
 friendly name origination-stage
 path origination-stage
 body:
-    exports.handler = function(context, event, callback) {
-	var client = context.getTwilioClient();
-	// eg "sip:700@origination-stage.futel.sip.us1.twilio.com";
-	var from = event.From;
-        from = from.replace("sip:", "");
-        from = from.replace(/@.*/, "");
-	console.log(from);
-	let twiml = new Twilio.twiml.VoiceResponse();
-	twiml.dial().sip(
-	    {username:from, password: context.password},
-	    context.stage_uri);
-	callback(null, twiml);
+
+usernameFromSip = function(sipAddress) {
+    // eg "sip:+15035551212@foobar.sip.us1.twilio.com";
+    sipAddress = sipAddress.replace("sip:", "");
+    sipAddress = sipAddress.replace(/@.*/, "");
+    return sipAddress;
+};
+
+exports.handler = function(context, event, callback) {
+    var sipUri = context.stage_uri;
+    var client = context.getTwilioClient();
+    var username = event.From;
+    username = usernameFromSip(username);
+    let twiml = new Twilio.twiml.VoiceResponse();
+    twiml.dial().sip(
+        {username:username, password: context.password},
+        sipUri);
+    callback(null, twiml);
 };
 
 XXX same for prod
