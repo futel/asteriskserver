@@ -7,16 +7,17 @@ have SIP password PASSWORD (same for all extensions)
 
 ## twilio creds
 
-have credential list username 700, 701
-have credential list password PASSWORD (same for all extensions)
+have credential termination:PASSWORD
+have extension credential list usernames 700:PASSWORD, 701:PASSWORD, ...
 
 ## configure twilio functions
 
 enable ACCOUNT_SID and AUTH_TOKEN
 environment variables:
-stage_uri sip:999@futel-stage.phu73l.net
-prod_uri sip:999@futel-prod.phu73l.net
-password PASSWORD
+stage_termination_uri sip:999@futel-stage.phu73l.net
+stage_origination_host origination-stage.futel.sip.us1.twilio.com
+prod_termination_uri sip:999@futel-prod.phu73l.net
+password PASSWORD (asterisk sip extension common password)
 
 ## create twilio functions for origination
 
@@ -32,7 +33,7 @@ usernameFromSip = function(sipAddress) {
 };
 
 exports.handler = function(context, event, callback) {
-    var sipUri = context.stage_uri;
+    var sipUri = context.stage_termination_uri;
     var client = context.getTwilioClient();
     var username = event.From;
     username = usernameFromSip(username);
@@ -59,13 +60,12 @@ usernameFromSip = function(sipAddress) {
 };
 
 exports.handler = function(context, event, callback) {
-    var sipUri = context.stage_uri;
+    var sipHost = context.stage_origination_host;
     var client = context.getTwilioClient();
     var username = event.To;
     username = usernameFromSip(username);
-    console.log(username)
     let twiml = new Twilio.twiml.VoiceResponse();
-    twiml.dial().sip(username + "@origination-stage.futel.sip.us1.twilio.com");
+    twiml.dial().sip(username + "@" + sipHost);
     callback(null, twiml);
 };
 
@@ -77,7 +77,7 @@ Friendly name: origination-stage
 SIP URI: origination-stage.futel (.sip.twilio.com)
 Call control configuration: function: origination-stage
 Voice authentication: credential lists: 700, 701
-SIP registration: enabled
+SIP registration: enabled        
 SIP Registration Authentication: credential lists: 700, 701
 
 XXX same for prod
@@ -87,7 +87,7 @@ XXX same for prod
 Friendly name: termination-stage
 SIP URI: termination-stage.futel (.sip.twilio.com)
 Call control configuration: function: termination-stage
-Voice authentication: credential lists: 700,  701
+Voice authentication: credential lists: termination
 SIP registration: disabled
 
 XXX same for prod
@@ -106,4 +106,4 @@ dial any number, get outgoing-by-calling-extension context for 700
 have server Dial(SIP/700@twilio-pv-termination), registered client gets call
 
 XXX todo
-foo and bar termination creds for termination context? Or one cred?
+test having multiple termination clients same creds - stage and prod
