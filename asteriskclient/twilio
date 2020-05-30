@@ -44,7 +44,28 @@ exports.handler = function(context, event, callback) {
     callback(null, twiml);
 };
 
-XXX same for prod
+friendly name origination-prod
+path origination-prod
+body:
+
+usernameFromSip = function(sipAddress) {
+    // eg "sip:+15035551212@foobar.sip.us1.twilio.com";
+    sipAddress = sipAddress.replace("sip:", "");
+    sipAddress = sipAddress.replace(/@.*/, "");
+    return sipAddress;
+};
+
+exports.handler = function(context, event, callback) {
+    var sipUri = context.prod_termination_uri;
+    var client = context.getTwilioClient();
+    var username = event.From;
+    username = usernameFromSip(username);
+    let twiml = new Twilio.twiml.VoiceResponse();
+    twiml.dial().sip(
+        {username:username, password: context.password},
+        sipUri);
+    callback(null, twiml);
+};
 
 ## create twilio functions for termination
 
@@ -69,9 +90,28 @@ exports.handler = function(context, event, callback) {
     callback(null, twiml);
 };
 
-XXX same for prod
+friendly name termination-prod
+path termination-prod
+body:
 
-## set up SIP domain for origination
+usernameFromSip = function(sipAddress) {
+    // eg "sip:+15035551212@foobar.sip.us1.twilio.com";
+    sipAddress = sipAddress.replace("sip:", "");
+    sipAddress = sipAddress.replace(/@.*/, "");
+    return sipAddress;
+};
+
+exports.handler = function(context, event, callback) {
+    var sipHost = context.prod_origination_host;
+    var client = context.getTwilioClient();
+    var username = event.To;
+    username = usernameFromSip(username);
+    let twiml = new Twilio.twiml.VoiceResponse();
+    twiml.dial().sip(username + "@" + sipHost);
+    callback(null, twiml);
+};
+
+## set up SIP domains for origination
 
 Friendly name: origination-stage
 SIP URI: origination-stage.futel (.sip.twilio.com)
@@ -80,9 +120,14 @@ Voice authentication: credential lists: 700, 701
 SIP registration: enabled        
 SIP Registration Authentication: credential lists: 700, 701
 
-XXX same for prod
+Friendly name: origination-prod
+SIP URI: origination-prod.futel (.sip.twilio.com)
+Call control configuration: function: origination-prod
+Voice authentication: credential lists: 700, 701
+SIP registration: enabled        
+SIP Registration Authentication: credential lists: 700, 701
 
-## set up SIP domain for termination
+## set up SIP domains for termination
 
 Friendly name: termination-stage
 SIP URI: termination-stage.futel (.sip.twilio.com)
@@ -90,7 +135,11 @@ Call control configuration: function: termination-stage
 Voice authentication: credential lists: termination
 SIP registration: disabled
 
-XXX same for prod
+Friendly name: termination-prod
+SIP URI: termination-prod.futel (.sip.twilio.com)
+Call control configuration: function: termination-prod
+Voice authentication: credential lists: termination
+SIP registration: disabled
 
 ## set up client
 
@@ -107,3 +156,10 @@ have server Dial(SIP/700@twilio-pv-termination), registered client gets call
 
 XXX todo
 test having multiple termination clients same creds - stage and prod
+
+# Adding new extensions
+
+Add extension to asterisk with same password as exisiting extensions
+Add cred to credential list with extension as name and unique password
+Add credential to voice and SIP for origination-stage, origination-prod SIP domains
+
