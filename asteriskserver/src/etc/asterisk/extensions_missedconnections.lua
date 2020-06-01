@@ -96,8 +96,7 @@ end
 function menu_message_one_play(context, extension)
     app.Background("/opt/asterisk/var/lib/asterisk/sounds/futel/missed-connections/1577674262094")
     return menu(
-        {"message-one-info",
-         "to-respond-to-this-message-with-a-recording",
+        {"to-respond-to-this-message-with-a-recording",
          "press-one",
          -- "to-play-responses-to-this-message",
          -- "press-two"
@@ -110,8 +109,7 @@ end
 function menu_message_two_play(context, extension)
     app.Background("/opt/asterisk/var/lib/asterisk/sounds/futel/missed-connections/1578094859777")
     return menu(
-        {"message-two-info",
-         "to-respond-to-this-message-with-a-recording",
+        {"to-respond-to-this-message-with-a-recording",
          "press-one",
          -- "to-play-responses-to-this-message",
          -- "press-two"
@@ -124,8 +122,7 @@ end
 function menu_message_three_play(context, extension)
     app.Background("/opt/asterisk/var/lib/asterisk/sounds/futel/missed-connections/1578329858737")
     return menu(
-        {"message-three-info",
-         "to-respond-to-this-message-with-a-recording",
+        {"to-respond-to-this-message-with-a-recording",
          "press-one",
          -- "to-play-responses-to-this-message",
          -- "press-two"
