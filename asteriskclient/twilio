@@ -143,8 +143,8 @@ SIP registration: disabled
 
 ## set up client
 
-register to sip:700@origination-stage.futel.sip.us1.twilio.com)
-register to sip:700@origination-prod.futel.sip.us1.twilio.com)
+register to sip:700@origination-stage.futel.sip.us1.twilio.com
+register to sip:700@origination-prod.futel.sip.us1.twilio.com
 same for 701
 password is as for credential list for 700, 701
 
