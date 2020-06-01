@@ -6,6 +6,17 @@ ext 997 starts gallery/demo destination
 ext 998 starts admin menu
 ext 1000 starts dialtone
 ext 1001 starts incoming menu
+
+can register extension 500 using twilio programmable voice password
+ext 999 starts default menu from extension 500
+any call starts default menu when registered to sip:500@origination-stage.futel.sip.us1.twilio.com
+can register extension 500 using twilio programmable voice password
+ext 999 starts default menu from extension 675
+any call starts default menu when registered to sip:675@origination-stage.futel.sip.us1.twilio.com
+can register extension 500 using twilio programmable voice password
+ext 999 starts default menu from extension 700
+any call starts default menu when registered to sip:700@origination-stage.futel.sip.us1.twilio.com
+
 ext 999 starts dialtone from extension 610
 ext 999 starts default menu from extension 615
 ext 999 starts souwester menu from extension 620
@@ -25,11 +36,6 @@ ext 999 starts default menu from extension 680
 ext 999 starts detroit menu from extension 685
 ext 999 starts detroit menu from extension 690
 ext 999 starts default menu from extension 695
-ext 999 starts default menu from extension 700
-ext 999 starts default menu from extension 701
-ext 999 starts default menu from extension 702
-ext 999 starts default menu from extension 703
-ext 999 starts default menu from extension 704
 
 outgoing menu performs friction action when configured for extension and time
 outgoing menu does not perform friction action when configured for extension and time
@@ -40,6 +46,8 @@ outgoing menu ypsi performs, metrics context_restricted_dialtone when configured
 
 outgoing dialtone:
 
+outgoing call indicates no 911 when calling 933 from 500
+outgoing call sends incoming id from 500
 outgoing call indicates 911 when calling 933 from 610
 outgoing call sends crossclinton id from 610
 outgoing call indicates 911 when calling 933 from 615
@@ -70,6 +78,8 @@ outgoing call indicates no 911 when calling 933 from 669
 outgoing call sends incoming id from 669
 outgoing call indicates 911 when calling 933 from 670
 outgoing call sends r2d2 id from 670
+outgoing call indicates no 911 when calling 933 from 675
+outgoing call sends incoming id from 675
 outgoing call indicates 911 when calling 933 from 680
 outgoing call sends xnor id from 680
 outgoing call indicates 911 when calling 933 from 685
@@ -80,14 +90,6 @@ outgoing call indicates 911 when calling 933 from 695
 outgoing call sends hoyt id from 695
 outgoing call indicates no 911 when calling 933 from 700
 outgoing call sends incoming id from 700
-outgoing call indicates no 911 when calling 933 from 701
-outgoing call sends incoming id from 701
-outgoing call indicates no 911 when calling 933 from 702
-outgoing call sends incoming id from 702
-outgoing call indicates no 911 when calling 933 from 703
-outgoing call sends incoming id from 703
-outgoing call indicates no 911 when calling 933 from 704
-outgoing call sends incoming id from 704
 
 outgoing can call NANPA number without prefix (11 digit NANPA)
 outgoing can call NANPA number with 1 prefix
