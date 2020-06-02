@@ -10,10 +10,10 @@ ext 1001 starts incoming menu
 can register extension 500 using twilio programmable voice password
 ext 999 starts default menu from extension 500
 any call starts default menu when registered to sip:500@origination-stage.futel.sip.us1.twilio.com
-can register extension 500 using twilio programmable voice password
+can register extension 675 using twilio programmable voice password
 ext 999 starts default menu from extension 675
 any call starts default menu when registered to sip:675@origination-stage.futel.sip.us1.twilio.com
-can register extension 500 using twilio programmable voice password
+can register extension 700 using twilio programmable voice password
 ext 999 starts default menu from extension 700
 any call starts default menu when registered to sip:700@origination-stage.futel.sip.us1.twilio.com
 
