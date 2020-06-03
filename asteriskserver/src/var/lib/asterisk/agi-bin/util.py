@@ -48,6 +48,9 @@ def sound_path(sound_name, preferred_subs=None):
     Return full path without extension for file for sound_name, or None.
     If preferred_subs is given, prefer a path with any of them as a substring.
     """
+    if sound_name.startswith('/'):
+        # absolute path
+        return sound_name
     paths = []
     if not preferred_subs:
         preferred_subs = []
