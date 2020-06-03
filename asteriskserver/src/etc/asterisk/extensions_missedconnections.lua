@@ -77,13 +77,13 @@ end
 
 function menu_missed_connections_listen(context, extension)
     menu(
-        {"message-one-preview-content",
+        {"/opt/asterisk/var/lib/asterisk/sounds/futel/missed-connections/clip_12_29_19",
          "to-hear-more-and-reply",
          "press-one",
-         "message-two-preview-content",
+         "/opt/asterisk/var/lib/asterisk/sounds/futel/missed-connections/clip_01_03_20",
          "to-hear-more-and-reply",
          "press-two",
-         "message-three-preview-content",
+         "/opt/asterisk/var/lib/asterisk/sounds/futel/missed-connections/clip_01_06_20",
          "to-hear-more-and-reply",
          "press-three",
          "to-record-a-missed-connection",             
