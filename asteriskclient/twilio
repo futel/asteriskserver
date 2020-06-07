@@ -17,6 +17,7 @@ environment variables:
 stage_termination_uri sip:999@futel-stage.phu73l.net
 stage_origination_host origination-stage.futel.sip.us1.twilio.com
 prod_termination_uri sip:999@futel-prod.phu73l.net
+stage_origination_host origination-prod.futel.sip.us1.twilio.com
 password PASSWORD (asterisk sip extension common password)
 
 ## create twilio functions for origination
