@@ -78,6 +78,10 @@ def sound_path(sound_name, preferred_subs=None):
     path = "/tmp/%s" % sound_name
     os.system("echo {} | text2wave -o {}.ulaw -otype ulaw".format(
         sound_name, path))
+    # flite version
+    # os.system('echo {} | /bin/flite  -o {}.wav'.format(sound_name, path))
+    # os.system('echo {} | /bin/flite_cmu_us_awb -o {}.wav'.format(sound_n\
+
     return path
 
 def say(agi_o, filename, preferred_subs=None, escape=False):
