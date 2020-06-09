@@ -41,7 +41,34 @@ end
 
 -- execute goto to destination_context
 function goto_context(destination_context, context, exten)
+    -- Push parent context. Our stack is limited to one value!
+    push_parent_context(context)
     return app.Goto(destination_context, "s", 1)
+end
+
+-- Push parent context stored in channel variable.
+function push_parent_context(context)
+    -- Push parent context. Our stack is limited to one value!
+    channel.parent_context = context
+end
+
+-- Pop and return parent context stored in channel variable.
+function pop_parent_context()
+    -- Pop parent context. Our stack is limited to one value!
+    ret = channel.parent_context:get()
+    channel.parent_context = ""  -- can't set to nil
+    return ret
+end
+
+-- Pop parent context and goto it. We do this becuase we can't gosub in lua.
+function goto_parent_context(menu_function, context, exten)
+    parent_context = pop_parent_context()
+    if parent_context then
+      return app.Goto(parent_context, "s", 1)
+    else
+      -- no parent_context, replay menu_function.
+      return menu_function(context, extension)
+    end
 end
 
 -- return context structure
@@ -50,7 +77,7 @@ function context(menu_function, parent_context, destinations)
     context_array.s = menu_function
     context_array.i = menu_function
     context_array["#"] = function(context, exten)
-        goto_context(parent_context, context, exten)
+        goto_parent_context(menu_function, context, exten)
     end
     for key, value in ipairs(destinations) do
         context_array[key] = function(context, exten)
