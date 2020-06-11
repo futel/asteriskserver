@@ -157,6 +157,11 @@ have server Dial(SIP/700@twilio-pv-termination), registered client gets call
 
 XXX todo
 test having multiple termination clients same creds - stage and prod
+sketch how to have multiple prod asterisk servers
+- origination and termination
+- map extensions to server
+- switch batches of extensions over by updating map
+
 
 # Adding new extensions
 
