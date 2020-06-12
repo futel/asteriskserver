@@ -13,5 +13,7 @@ add 1337 voicemailbox to demo box
 edit /opt/asterisk/etc/asterisk/vm_futel_users to add 1337
 cp /opt/asterisk/var/spool/asterisk/voicemail/default/1234 cp /opt/asterisk/var/spool/asterisk/voicemail/default/1337
 
+XXX challenge file /opt/asterisk/etc/asterisk/challenge.csv
+
 ssh root@<ip> reboot
 ssh root@<ip> 'service iptables stop'

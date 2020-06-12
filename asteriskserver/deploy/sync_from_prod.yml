@@ -23,6 +23,11 @@
     src: /opt/asterisk/var/spool/asterisk/voicemail/default
     dest: tmp/stage
     delete: yes
+- name: copy challenge file from prod
+  synchronize:
+    mode: pull
+    src: /opt/asterisk/etc/asterisk/challenge.csv
+    dest: tmp/stage
 - name: copy logs from prod
   synchronize:
     mode: pull

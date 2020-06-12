@@ -21,6 +21,16 @@
     owner: asterisk
     group: asterisk
     recurse: yes
+- name: copy challenge file to stage
+  synchronize:
+    mode: push
+    src: tmp/stage/challenge.csv
+    dest: /opt/asterisk/etc/asterisk/challenge.csv
+- name: set ownership of challenge file on stage
+  file:
+    path: /opt/asterisk/etc/asterisk/challenge.csv
+    owner: asterisk
+    group: asterisk
 - name: copy logs to stage
   synchronize:
     mode: push
