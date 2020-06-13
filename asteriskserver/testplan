@@ -52,6 +52,8 @@ outgoing dialtone:
 
 outgoing call indicates no 911 when calling 933 from 500
 outgoing call sends incoming id from 500
+outgoing call indicates 911 when calling 933 from 505
+outgoing call sends taylor id from 505
 outgoing call indicates 911 when calling 933 from 515
 outgoing call sends taylor id from 515
 outgoing call indicates 911 when calling 933 from 610
