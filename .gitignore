@@ -3,3 +3,4 @@ vpnbox/conf
 *.box
 asteriskserver/.vagrant
 vpnbox/.vagrant
+asteriskserver/src/var/lib/asterisk/sounds
