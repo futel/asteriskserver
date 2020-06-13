@@ -214,6 +214,7 @@ statement_groups = [
          'for-the-collectors-net-inbound-portal',
          'for-the-mojave-phone-booth-conference-line',
          'for-the-payphone-radio-network',
+         'for-the-shadytel-voice-bbs',
          'press-zero',
          'press-one',
          'press-two',
