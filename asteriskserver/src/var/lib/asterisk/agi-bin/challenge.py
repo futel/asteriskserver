@@ -25,5 +25,11 @@ def get_challenge_values(key):
     Return list of values for key in challege file.
     """
     with open(filename, 'r') as f:
-        pairs = (line.split(',') for line in f.readlines())
+	pairs = (line.strip().split(',') for line in f)
         return [v for (k, v) in pairs if k == key]
+
+def has_challenge_value(key, value):
+    """
+    Return True if key has value in challege file.
+    """
+    return value in get_challenge_values(key)
