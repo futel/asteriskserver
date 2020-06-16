@@ -142,6 +142,10 @@ Call control configuration: function: termination-prod
 Voice authentication: credential lists: termination
 SIP registration: disabled
 
+## set up incoming numbers
+XXX friendly name stage tester
+XXX call comes in: function: origination-stage
+
 ## set up client
 
 register to sip:700@origination-stage.futel.sip.us1.twilio.com
