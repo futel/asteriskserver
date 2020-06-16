@@ -482,6 +482,22 @@ statement_groups = [
          'to-decrease-talking-volume',
          'to-toggle-mute',
          'to-add-a-user-to-the-conference']},
+    {'name': 'challenge',
+     'statements': [
+         "authenticate-with-your-voice-mail-box-to-continue",
+         "access-granted",
+         "access-denied",
+         "warning-access-already-granted",
+         "record-your-name-in-your-voicemail-account-for-access",
+         'enter-move',
+         "you-are-a-member-of-the-last-human-family",
+         "you-are-in-the-middle-of-the-city-and-need-to-get-to-safety",
+         "avoid-the-robotrons-and-get-home",
+         "use-the-keypad-to-move-around",
+         "do-not-get-progged-by-a-robotron",
+         "you-got-progged",
+         "restarting-from-the-beginning",
+         "the-ninth-position-is-futile"]},
     {'name': 'for-communication-with-those-beyond', # oracle-dead
      'statements': [
          'thank-you',
