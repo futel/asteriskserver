@@ -1,3 +1,11 @@
+"""
+Tools to read and write challenge attributes.
+Attributes are key-values.
+SQLite would be easier, but this is a text file.
+"""
+
+import collections
+
 import ratelimiter
 
 filename = "/opt/asterisk/etc/asterisk/challenge.csv"
@@ -33,3 +41,22 @@ def has_challenge_value(key, value):
     Return True if key has value in challege file.
     """
     return value in get_challenge_values(key)
+
+# def get_challenge_keys_values():
+#     """
+#     Return map of lists of all values for all keys in challenge file.
+#     """
+#     out = collections.defaultdict(list)
+
+#     with open(filename, 'r') as f:
+# 	pairs = (line.strip().split(',') for line in f)
+#         for (k,v) in pairs:
+#             out[k].append(v)
+#         return out
+
+# def get_challenge_leaderboard():
+#     """
+#     Return list of (key, score) pairs from challenge file, sorted by score.
+#     """
+#     scores = [(key, len(value)) for (key, value) in get_challenge_keys_values()]
+#     return(sorted(scores, key = lambda x: x[1]))
