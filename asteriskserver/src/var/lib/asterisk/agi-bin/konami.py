@@ -7,17 +7,17 @@ STEP = 'ding'
 DONE = 'konami-code-accepted'
 
 STATES = [
-    { 'file': PROMPT, 'next': ord('2') },
-    { 'file': STEP,   'next': ord('2') },
-    { 'file': STEP,   'next': ord('8') },
-    { 'file': STEP,   'next': ord('8') },
-    { 'file': STEP,   'next': ord('4') },
-    { 'file': STEP,   'next': ord('6') },
-    { 'file': STEP,   'next': ord('4') },
-    { 'file': STEP,   'next': ord('6') },
-    { 'file': STEP,   'next': ord('B') },
-    { 'file': STEP,   'next': ord('A') },
-    { 'file': STEP,   'next': ord('#') },
+    { 'file': PROMPT, 'next': '2' },
+    { 'file': STEP,   'next': '2' },
+    { 'file': STEP,   'next': '8' },
+    { 'file': STEP,   'next': '8' },
+    { 'file': STEP,   'next': '4' },
+    { 'file': STEP,   'next': '6' },
+    { 'file': STEP,   'next': '4' },
+    { 'file': STEP,   'next': '6' },
+    { 'file': STEP,   'next': 'B' },
+    { 'file': STEP,   'next': 'A' },
+    { 'file': STEP,   'next': '#' },
     { 'file': DONE,   'next': None },
 ]
 
