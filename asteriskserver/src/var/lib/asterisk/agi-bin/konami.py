@@ -7,17 +7,17 @@ STEP = 'ding'
 DONE = 'konami-code-accepted'
 
 STATES = [
-    { 'file': PROMPT, 'next': '2' },
-    { 'file': STEP,   'next': '2' },
-    { 'file': STEP,   'next': '8' },
-    { 'file': STEP,   'next': '8' },
-    { 'file': STEP,   'next': '4' },
-    { 'file': STEP,   'next': '6' },
-    { 'file': STEP,   'next': '4' },
-    { 'file': STEP,   'next': '6' },
-    { 'file': STEP,   'next': 'B' },
-    { 'file': STEP,   'next': 'A' },
-    { 'file': STEP,   'next': '#' },
+    { 'file': PROMPT, 'next': ord('2') },
+    { 'file': STEP,   'next': ord('2') },
+    { 'file': STEP,   'next': ord('8') },
+    { 'file': STEP,   'next': ord('8') },
+    { 'file': STEP,   'next': ord('4') },
+    { 'file': STEP,   'next': ord('6') },
+    { 'file': STEP,   'next': ord('4') },
+    { 'file': STEP,   'next': ord('6') },
+    { 'file': STEP,   'next': ord('B') },
+    { 'file': STEP,   'next': ord('A') },
+    { 'file': STEP,   'next': ord('#') },
     { 'file': DONE,   'next': None },
 ]
 
@@ -35,19 +35,18 @@ class Konami:
     def _do_state(self):
         current_state = STATES[self.current]
         file = current_state['file']
-        key = this._say(file)
+        key = self._say(file)
 
         if current_state['next'] is None:
             return 1
-
-        if key is '':
+        if key <= 0:
             key = self.agi_o.wait_for_digit(timeout=1000)
         if key == current_state['next']:
             self.current = self.current + 1
         else:
             self._say(FAIL)
-
-        self.current = 0
+            self.current = 0
+        return 0
 
     def _say(self, file):
         path = util.sound_path(file, ['challenge'])
