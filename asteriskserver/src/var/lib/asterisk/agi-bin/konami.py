@@ -35,7 +35,7 @@ class Konami:
     def _do_state(self):
         current_state = STATES[self.current]
         file = current_state['file']
-        key = util.say(self.agi_o, file, preferred_subs=['challenge'], escape=True)
+        key = this._say(file)
 
         if current_state['next'] is None:
             return 1
@@ -45,9 +45,15 @@ class Konami:
         if key == current_state['next']:
             self.current = self.current + 1
         else:
-            util.say(self.agi_o, FAIL, preferred_subs=['challenge'], escape=True)
+            self._say(FAIL)
 
         self.current = 0
+
+    def _say(self, file):
+        path = util.sound_path(file, ['challenge'])
+        if path:
+            return self.agi_o.stream_file(path, escape_digits='0123456789*#ABCD')
+
 
 def konami(agi_o):
     return Konami(agi_o).run()
