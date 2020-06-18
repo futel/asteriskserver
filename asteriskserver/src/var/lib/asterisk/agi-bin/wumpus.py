@@ -114,6 +114,17 @@ class Wumpus:
                 util.say(agi_o, s)
             sys.exit(1)
 
+    def collect_digits(self, agi_o):
+        """ wrapper script to accept 1 or 2 digits """
+        max_digits = 2
+        digits = []
+        # relying on timeout to get a single digit... sigh
+        # wait_for_digit will return an empty string if no digit pressed
+        while max_digits > 0:
+            digits.append(agi_o.wait_for_digit(timeout=1500))
+            max_digits -= 1
+        return ''.join(digits)
+
     def hunt(self, agi_o):
         """ main game logic """
         self.populate_cave()
@@ -140,18 +151,14 @@ class Wumpus:
             action = agi_o.wait_for_digit(timeout=-1)
 
             while True:
-                # TODO: need to capture 1-2 digits
-                # get_data may work
-                # if not, possibly mapping tunnels to direction
-                # left, forward, right
                 if action == '1':
                     util.say(agi_o, 'where-to')
-                    room = int(agi_o.wait_for_digit(timeout=-1))
+                    room = int(self.collect_digits(agi_o))
                     self.shoot_arrow(room, agi_o)
                     break
                 elif action == '2':
                     util.say(agi_o, 'where-to')
-                    room = int(agi_o.wait_for_digit(timeout=-1))
+                    room = int(self.collect_digits(agi_o))
                     self.location = room
                     break
                 else:
