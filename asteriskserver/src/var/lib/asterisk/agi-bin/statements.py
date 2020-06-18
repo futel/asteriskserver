@@ -498,6 +498,10 @@ statement_groups = [
          "you-got-progged",
          "restarting-from-the-beginning",
          "the-ninth-position-is-futile",
+         'please-enter-konami-cheat-code',
+         'buzz',
+         'ding',
+         'konami-code-accepted',
          'press-zero',
          'press-one',
          'press-two',
@@ -563,4 +567,3 @@ statement_groups = [
          'for-one-ex-ex-codes-part-two',
          'for-greeville-long-distance',
          'select-a-phonetrips-recording-to-enjoy']}]
-
