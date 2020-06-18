@@ -22,6 +22,7 @@ SLN_EXT = {
   8_000 => "sln",
   12_000 => "sln12",
   16_000 => "sln16",
+  22_050 => "sln16",            # XXX will this just sound bad?
   24_000 => "sln24",
   32_000 => "sln32",
   44_100 => "sln44",
