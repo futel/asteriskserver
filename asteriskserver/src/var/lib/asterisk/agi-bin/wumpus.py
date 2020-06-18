@@ -125,6 +125,17 @@ class Wumpus:
             max_digits -= 1
         return ''.join(digits)
 
+    def validate_choice(self, agi_o):
+        """ validate legal shoot or move """
+        while True:
+            util.say(agi_o, 'where-to')
+            room = int(self.collect_digits(agi_o))
+            if room not in self.cave[self.location]:
+                util.say(agi_o, 'huh')
+                continue
+            else:
+                return room
+
     def hunt(self, agi_o):
         """ main game logic """
         self.populate_cave()
@@ -152,13 +163,11 @@ class Wumpus:
 
             while True:
                 if action == '1':
-                    util.say(agi_o, 'where-to')
-                    room = int(self.collect_digits(agi_o))
+                    room = self.validate_choice(agi_o)
                     self.shoot_arrow(room, agi_o)
                     break
                 elif action == '2':
-                    util.say(agi_o, 'where-to')
-                    room = int(self.collect_digits(agi_o))
+                    room = self.validate_choice(agi_o)
                     self.location = room
                     break
                 else:
