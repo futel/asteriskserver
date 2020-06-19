@@ -130,8 +130,8 @@ class Wumpus:
         while True:
             self.say(agi_o, 'where-to')
             room = self.collect_digits(agi_o)
-            # check that user actually entered input
-            if not room:
+            # check for invalid entries
+            if room in ['', '*', '#']:
                 continue
             elif int(room) not in self.cave[self.location]:
                 self.say(agi_o, 'huh')
