@@ -26,7 +26,8 @@ preferred_statement_dirs = [
     'statements/peoples-homes/',
     'statements/conversations/',
     'statements/missed-connections/',
-    'statements/challenge/']
+    'statements/challenge/',
+    'statements/anzie-wumpus/']
 
 metric_filename = '/opt/asterisk/var/log/asterisk/metrics'
 
