@@ -129,12 +129,15 @@ class Wumpus:
         """ validate legal shoot or move """
         while True:
             self.say(agi_o, 'where-to')
-            room = int(self.collect_digits(agi_o))
-            if room not in self.cave[self.location]:
+            room = self.collect_digits(agi_o)
+            # check that user actually entered input
+            if not room:
+                continue
+            elif int(room) not in self.cave[self.location]:
                 self.say(agi_o, 'huh')
                 continue
             else:
-                return room
+                return int(room)
 
     def say(self, agi_o, statement):
         """ too lazy to add preferred_subs everywhere """
