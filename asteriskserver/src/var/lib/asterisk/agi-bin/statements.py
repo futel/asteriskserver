@@ -484,6 +484,8 @@ statement_groups = [
          'to-add-a-user-to-the-conference']},
     {'name': 'challenge',
      'statements': [
+         "please-enter-konami-cheat-code",
+         "konami-code-accepted",
          "access-denied",
          "access-granted",
          "access-is-granted-as-challenges-are-successfully-completed",
