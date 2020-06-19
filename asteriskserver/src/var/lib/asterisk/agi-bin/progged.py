@@ -49,11 +49,13 @@ def number_to_word_string(number):
 
 def progged(agi_o):
   game_state = create_game_state(5)
-  while game_state["state"] != GAME_WON:
-    move = play_list_and_get_input(agi_o, communicate_game_state(game_state))
+  while True:
+    files_to_play = communicate_game_state(game_state)
+    if files_to_play == ["you-win"]:
+        util.say(agi_o, "you-win", preferred_subs=['challenge'], escape=True)
+        return 0
+    move = play_list_and_get_input(agi_o, files_to_play)
     game_state = update_game_state(game_state, MOVES[int(move)-1])
-  # player won, return
-  play_list_and_get_input(agi_o, communicate_game_state(game_state))
 
 def create_game_state(field_size):
   def rand():
@@ -92,7 +94,6 @@ def update_game_state(game_state, move):
   return { "state": new_game_state, "player_position": player_position, "goal": game_state["goal"], "bots": game_state["bots"], "field_size": game_state["field_size"], "last_move": move }
 
 def communicate_game_state(game_state):
-  ret = []
   if game_state["state"] == GAME_WON:
     return ["you-win"]
   ret = []
@@ -133,8 +134,6 @@ def play_list_and_get_input(agi_o, files):
         agi_o, file, preferred_subs=['challenge'], escape=True)
     if digit is not '':
       return digit
-    #print(PROMPTS[file])
-    #os.system("play " + file)
   digit = util.say(
       agi_o, "enter-move", preferred_subs=['challenge'], escape=True)
   if digit is not '':
