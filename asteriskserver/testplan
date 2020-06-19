@@ -7,7 +7,6 @@ ext 998 starts admin menu
 ext 1000 starts dialtone
 ext 1001 starts incoming menu
 
-
 can register extension 500 using twilio programmable voice password
 ext 999 starts default menu from extension 500
 any call starts default menu when registered to sip:500@origination-stage.futel.sip.us1.twilio.com
@@ -17,7 +16,6 @@ any call starts default menu when registered to sip505@origination-stage.futel.s
 can register extension 515 using twilio programmable voice password
 ext 999 starts default menu from extension 515
 any call starts default menu when registered to sip:515@origination-stage.futel.sip.us1.twilio.com
-
 can register extension 700 using twilio programmable voice password
 ext 999 starts default menu from extension 700
 any call starts default menu when registered to sip:700@origination-stage.futel.sip.us1.twilio.com
@@ -30,6 +28,7 @@ ext 999 starts ypsi menu from extension 630
 ext 999 starts default menu from extension 635
 ext 999 starts default menu from extension 640
 ext 999 starts default menu from extension 645
+ext 999 starts default menu from extension 655
 ext 999 starts open signal menu from extension 660
 ext 999 starts default menu from extension 665
 ext 999 starts default menu from extension 667
@@ -72,6 +71,8 @@ outgoing call indicates 911 when calling 933 from 640
 outgoing call sends mykle id from 640
 outgoing call indicates 911 when calling 933 from 645
 outgoing call sends paz id from 645
+outgoing call indicates 911 when calling 933 from 655
+outgoing call sends taylor id from 655
 outgoing call indicates 911 when calling 933 from 660
 outgoing call sends open signal id from 660
 outgoing call indicates no 911 when calling 933 from 665

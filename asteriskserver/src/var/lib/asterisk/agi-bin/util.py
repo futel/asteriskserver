@@ -25,7 +25,8 @@ preferred_statement_dirs = [
     'statements/karl-wildcard-line/',
     'statements/peoples-homes/',
     'statements/conversations/',
-    'statements/missed-connections/']
+    'statements/missed-connections/',
+    'statements/challenge/']
 
 metric_filename = '/opt/asterisk/var/log/asterisk/metrics'
 

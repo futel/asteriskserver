@@ -57,6 +57,12 @@
     group: asterisk
 - name: copy asterisk statement sounds
   copy:
+    src: src/var/lib/asterisk/sounds/en/statements/challenge
+    dest: /opt/asterisk/var/lib/asterisk/sounds/en/statements
+    owner: asterisk
+    group: asterisk
+- name: copy asterisk statement sounds
+  copy:
     src: src/var/lib/asterisk/sounds/en/statements/conversations
     dest: /opt/asterisk/var/lib/asterisk/sounds/en/statements
     owner: asterisk
