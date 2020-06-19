@@ -45,11 +45,11 @@ class Wumpus:
     def hazard_warning(self, hazard, agi_o):
         """ play hazard warnings """
         if hazard == 'bat':
-            util.say(agi_o, 'bats-nearby')
+            self.say(agi_o, 'bats-nearby')
         elif hazard == 'pit':
-            util.say(agi_o, 'i-feel-a-draft')
+            self.say(agi_o, 'i-feel-a-draft')
         elif hazard == 'wumpus':
-            util.say(agi_o, 'i-smell-a-wumpus')
+            self.say(agi_o, 'i-smell-a-wumpus')
 
     def empty_room(self):
         """ return a random empty room """
@@ -66,14 +66,14 @@ class Wumpus:
         # check for instant death
         if self.hazards.get(room) == 'wumpus':
             for s in ['tsk-tsk-wumpus-got-you', 'ha-ha-ha-you-lose']:
-                util.say(agi_o, s)
+                self.say(agi_o, s)
             sys.exit(1)
         elif self.hazards.get(room) == 'pit':
             for s in ['yie-fell-in-a-pit', 'ha-ha-ha-you-lose']:
-                util.say(agi_o, s)
+                self.say(agi_o, s)
             sys.exit(1)
         elif self.hazards.get(room) == 'bat':
-            util.say(agi_o, 'zap-super-bat-snatch-elsewhere-for-you')
+            self.say(agi_o, 'zap-super-bat-snatch-elsewhere-for-you')
             self.location = random.randint(1, 20)
 
         # check connecting rooms
@@ -85,13 +85,13 @@ class Wumpus:
         self.arrows -= 1
         hazard = self.hazards.get(room)
         if hazard == 'bat':
-            util.say(agi_o, 'got-a-bat')
+            self.say(agi_o, 'got-a-bat')
             del self.hazards[room]
         elif hazard in ['pit', None]:
-            util.say(agi_o, 'you-missed')
+            self.say(agi_o, 'you-missed')
         elif hazard == 'wumpus':
             for s in ['aha-you-got-the-wumpus', 'he-he-he-the-wumpus-will-get-you-next-time']:
-                util.say(agi_o, s)
+                self.say(agi_o, s)
             sys.exit(0)
 
         # wumpus wake, maybe move
@@ -105,13 +105,13 @@ class Wumpus:
             # if wumpus lands on you, you die
             if self.location == new_loc:
                 for s in ['wumpus-enters-the-room-and-eats-you', 'ha-ha-ha-you-lose']:
-                    util.say(agi_o, s)
+                    self.say(agi_o, s)
                 sys.exit(1)
 
         # no arrows, game over man
         if self.arrows == 0:
             for s in ['you-wasted-all-of-your-arrows', 'ha-ha-ha-you-lose']:
-                util.say(agi_o, s)
+                self.say(agi_o, s)
             sys.exit(1)
 
     def collect_digits(self, agi_o):
@@ -128,13 +128,17 @@ class Wumpus:
     def validate_choice(self, agi_o):
         """ validate legal shoot or move """
         while True:
-            util.say(agi_o, 'where-to')
+            self.say(agi_o, 'where-to')
             room = int(self.collect_digits(agi_o))
             if room not in self.cave[self.location]:
-                util.say(agi_o, 'huh')
+                self.say(agi_o, 'huh')
                 continue
             else:
                 return room
+
+    def say(self, agi_o, statement):
+        """ too lazy to add preferred_subs everywhere """
+        util.say(agi_o, statement, preferred_subs=['anzie-wumpus'])
 
     def hunt(self, agi_o):
         """ main game logic """
@@ -147,18 +151,18 @@ class Wumpus:
                   'press-one',
                   'to-move',
                   'press-two']:
-            util.say(agi_o, s)
+            self.say(agi_o, s)
 
         while True:
             self.check_room(self.location, agi_o)
             str_loc = self.num_to_word(self.location)
-            util.say(agi_o, 'you-are-in-room')
-            util.say(agi_o, str_loc)
-            util.say(agi_o, 'tunnels-lead-to')
+            self.say(agi_o, 'you-are-in-room')
+            self.say(agi_o, str_loc)
+            self.say(agi_o, 'tunnels-lead-to')
             for t in self.cave[self.location]:
                 str_room = self.num_to_word(t)
-                util.say(agi_o, str_room)
-            util.say(agi_o, 'shoot-or-move')
+                self.say(agi_o, str_room)
+            self.say(agi_o, 'shoot-or-move')
             action = agi_o.wait_for_digit(timeout=-1)
 
             while True:
@@ -171,6 +175,6 @@ class Wumpus:
                     self.location = room
                     break
                 else:
-                    util.say(agi_o, 'what-now')
+                    self.say(agi_o, 'what-now')
                     action = agi_o.wait_for_digit(timeout=-1)
 
