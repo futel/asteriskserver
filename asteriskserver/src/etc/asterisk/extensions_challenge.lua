@@ -43,7 +43,12 @@ end
 
 function challenge_progged(mailbox)
     app.AGI("progged.agi")
-    -- XXX if we get here we won?
+    -- if we get here we won
+end
+
+function challenge_wumpus(mailbox)
+    app.AGI("wumpus.agi")
+    -- if we get here we won
 end
 
 function goto_main()
@@ -66,6 +71,10 @@ end
 
 function menu_challenge_progged(context, extension)
     do_challenge("achievement-mailbox", "achievement-progged", challenge_progged)
+end
+
+function menu_challenge_wumpus(context, extension)
+    do_challenge("achievement-mailbox", "achievement-wumpus", challenge_wumpus)
 end
 
 function menu_challenge_main(context, extension)
@@ -94,7 +103,9 @@ function menu_challenge_list(context, extension)
         {"for-challenge-mailbox",
 	"press-one",
 	"for-challenge-progged",
-	"press-two"},
+	"press-two",
+	"for-challenge-hunt-the-wumpus",
+	"press-three"},
         "challenge",
         context,
         extension)
@@ -143,7 +154,9 @@ extensions_challenge = {
         menu_challenge_list,
         "challenge_main",
         {"challenge_mailbox",
-         "challenge_progged"});
+         "challenge_progged",
+         "challenge_wumpus"});
     challenge_mailbox = context(menu_challenge_mailbox, "challenge_main", {});
     challenge_progged = context(menu_challenge_progged, "challenge_main", {});
+    challenge_wumpus = context(menu_challenge_wumpus, "challenge_main", {});    
 }
