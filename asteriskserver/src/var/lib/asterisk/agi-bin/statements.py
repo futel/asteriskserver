@@ -511,6 +511,10 @@ statement_groups = [
          "record-your-name-in-your-voicemail-account-for-access",
          "restarting-from-the-beginning",
          "the-ninth-position-is-futile",
+         'please-enter-konami-cheat-code',
+         'buzz',
+         'ding',
+         'konami-code-accepted',
          "to-perform-the-challenges",
          "use-the-keypad-to-move-around",
          "warning-access-already-granted",
@@ -632,4 +636,3 @@ statement_groups = [
           'eighteen',
           'nineteen',
           'twenty']}]
-
