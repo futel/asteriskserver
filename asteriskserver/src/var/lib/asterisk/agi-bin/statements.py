@@ -540,6 +540,7 @@ statement_groups = [
           'he-he-he-the-wumpus-will-get-you-next-time',
           'you-wasted-all-of-your-arrows',
           'tsk-tsk-wumpus-got-you',
+          'wumpus-enters-the-room-and-eats-you',
           'huh',
           'you-missed',
           'what-now',
