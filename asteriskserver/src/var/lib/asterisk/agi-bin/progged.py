@@ -55,7 +55,8 @@ def progged(agi_o):
         util.say(agi_o, "you-win", preferred_subs=['challenge'], escape=True)
         return 0
     move = play_list_and_get_input(agi_o, files_to_play)
-    game_state = update_game_state(game_state, MOVES[int(move)-1])
+    if move in set('0123456789'):
+        game_state = update_game_state(game_state, MOVES[int(move)-1])
 
 def create_game_state(field_size):
   def rand():
