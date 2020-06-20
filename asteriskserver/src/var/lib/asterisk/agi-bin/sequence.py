@@ -4,8 +4,6 @@ Sequence challenge.
 """
 
 
-SEQUENCES = [["1","1","1","1","1","1"],
-             ["2","2","2","2","2","2"]]
 PREFIX_LEN = 3
 #DIGIT_PAUSE = 0.1
 #ELEMENT_PAUSE = 0.25
@@ -60,5 +58,5 @@ def test_sequences(agi_o, sequences, prefix_len):
         test_sequence(agi_o, sequence, prefix_len)
         play_sound(agi_o, "sequence-sequences-correct")
 
-def main(agi_o):
-    test_sequences(agi_o, SEQUENCES, PREFIX_LEN)
+def main(agi_o, sequences):
+    test_sequences(agi_o, PREFIX_LEN)
