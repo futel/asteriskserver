@@ -128,6 +128,15 @@ Voice authentication: credential lists: 700, 701
 SIP registration: enabled        
 SIP Registration Authentication: credential lists: 700, 701
 
+note demo domain goes to prod, but could change
+Friendly name: origination-demo
+SIP URI: origination-demo.futel (.sip.twilio.com)
+Call control configuration: function: origination-prod
+Voice authentication: credential lists: 700, 701
+SIP registration: enabled
+SIP Registration Authentication: credential lists: 700, 701
+
+
 ## set up SIP domains for termination
 
 Friendly name: termination-stage
@@ -148,6 +157,7 @@ XXX call comes in: function: origination-stage
 
 ## set up client
 
+register to sip:700@origination-demo.futel.sip.us1.twilio.com
 register to sip:700@origination-stage.futel.sip.us1.twilio.com
 register to sip:700@origination-prod.futel.sip.us1.twilio.com
 same for 701
