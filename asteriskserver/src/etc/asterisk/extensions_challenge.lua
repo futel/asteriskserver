@@ -147,7 +147,31 @@ function menu_challenge_main(context, extension)
          "for-the-leaderboard",
          "press-five",
          "for-the-fewtel-community",
-         "press-six"},
+         "press-six",
+         "for-more-information-about-the-fewtel-remote-testing-facility",
+         "press-seven"},
+        "challenge",
+        context,
+        extension)
+end
+
+function menu_challenge_info(context, extension)
+    return menu(
+        {"the-fewtel-remote-testing-facility",
+         "a-facility-for-the-remote-testing-of-users-of-fewtel",
+         "with-contributions-from",
+         "oscule",
+         "tishbite",
+         "breedx",
+         "bzztbomb",
+         "jmej",
+         "anzie",
+         "xnor",
+         "earfeast",         
+         "thanks-to-our-volunteers-sponsors-and-toorcamp",
+         "all-must-be-tested",
+         "all-must-be-tested",
+         "all-must-be-tested"},
         "challenge",
         context,
         extension)
@@ -178,7 +202,7 @@ function menu_challenge_list(context, extension)
         extension)
 end
 
-function menu_challenge_information(context, extension)
+function menu_challenge_instructions(context, extension)
     return menu(
         {"welcome-to-the-fewtel-remote-testing-facility",
          "access-is-granted-as-challenges-are-successfully-completed",
@@ -209,14 +233,16 @@ extensions_challenge = {
         {"challenge_list",
          "outgoing-voicemail",  -- extensions.conf
          "futel-conf",  -- extensions.conf         
-         "challenge_information",
+         "challenge_instructions",
          "challenge_leaderboard",
          "community-outgoing", -- extensions.conf
+         "challenge_info"
          });
-    challenge_information = context(
-        menu_challenge_information, "challenge_main", {});
+    challenge_instructions = context(
+        menu_challenge_instructions, "challenge_main", {});
     challenge_leaderboard = context(
         menu_challenge_leaderboard, "challenge_main", {});
+    challenge_info = context(menu_challenge_info, "challenge_main", {});
     challenge_list = context(
         menu_challenge_list,
         "challenge_main",
