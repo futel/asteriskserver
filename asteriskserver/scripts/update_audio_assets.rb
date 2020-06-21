@@ -83,31 +83,16 @@ Find.find(SRC_DIR).each do |f|
   #report
   puts "#{src} -> #{dst}"
 
-  #convert to wav if we haven't already
-  if wav.nil?
-    wav = base + "-tmp.wav"
-    raise "cannot create tmp wav from #{out_ext}" unless system("sox", src, wav)
-    cleanup << wav
-    src = wav
-    info = Sndfile::File.info(src)    
-  end
-
-  #make mono
-  if info.channels != 1
-    mono = base + "-tmp-mono.wav"
-    raise "failed to make a mono file of #{src}" unless system("sndfile-mix-to-mono", src, mono)
-    cleanup << mono
-    src = mono
-  end
-
-  #compress
-  compressed = base + "-tmp-compressed.wav"
-  raise "failed to apply dynamic range compression" unless system("sox #{src} -b 16 -c 1 #{compressed} #{SOX_COMPAND}")
-  cleanup << compressed
-  src = compressed
-
-  #normalize the wav
-  raise "failed to normalize" unless system("normalize-audio", "--quiet", "--peak", src)
+  # Combined signal chain (order is important):
+  # * Convert to single channel (monophonic)
+  # * Apply band filter from 300 Hz to 3.4kHz
+  # * Normalize amplitude to -12dB RMS (with limiting to not clip)
+  # * Convert sample rate to 8kHz
+  # * Dynamic range compression
+  processed = base + "-tmp-processed.wav"
+  raise "failed to filter audio" unless system("sox #{src} #{processed} channels 1 sinc 300-3700 gain -n -b -12 rate 8000 #{SOX_COMPAND} :")
+  cleanup << processed
+  src = processed
 
   #remove header if it is raw
   if is_raw
