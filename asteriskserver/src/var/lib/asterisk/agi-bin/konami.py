@@ -49,9 +49,7 @@ class Konami:
         return 0
 
     def _say(self, file):
-        path = util.sound_path(file, ['challenge'])
-        if path:
-            satan = self.agi_o.stream_file(path, escape_digits='0123456789*#ABCD')
+        return util.say(self.agi_o, file, ['konami'])
 
 
 def konami(agi_o):
