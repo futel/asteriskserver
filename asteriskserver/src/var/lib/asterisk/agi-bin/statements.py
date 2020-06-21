@@ -607,6 +607,7 @@ statement_groups = [
           'yie-fell-in-a-pit',
           'zap-super-bat-snatch-elsewhere-for-you',
           'ha-ha-ha-you-lose',
+          'let-me-find-a-new-cave-for-you',
           'aha-you-got-the-wumpus',
           'he-he-he-the-wumpus-will-get-you-next-time',
           'you-wasted-all-of-your-arrows',
