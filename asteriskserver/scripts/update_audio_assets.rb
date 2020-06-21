@@ -79,7 +79,6 @@ Find.find(SRC_DIR).each do |f|
   #ditch if the file exists and the dest is newer
   next if File.exist?(dst) and File.mtime(dst) > File.mtime(src) and File.mtime(dst) > script_mtime
 
-
   #report
   puts "#{src} -> #{dst}"
 
@@ -100,6 +99,18 @@ Find.find(SRC_DIR).each do |f|
     src = mono
   end
 
+  #band filter and sample rate change, before compression
+  filtered = base + "-tmp-filtered.wav"
+  raise "failed to filter audio" unless system("sox #{src} #{filtered} highpass 400 lowpass 3500 rate 8000 :")
+  cleanup << filtered
+  src = filtered
+
+  # GROSS HACK, this shouldn't need to be done twice. Refactoring is needed.
+  # Sample rate may have changed. Update info and extension (which is dependent on info.samplerate).
+  info = Sndfile::File.info(src)
+  out_ext = get_extension(info)
+  dst = base + "." + out_ext
+  
   #compress
   compressed = base + "-tmp-compressed.wav"
   raise "failed to apply dynamic range compression" unless system("sox #{src} -b 16 -c 1 #{compressed} #{SOX_COMPAND}")
@@ -107,7 +118,7 @@ Find.find(SRC_DIR).each do |f|
   src = compressed
 
   #normalize the wav
-  raise "failed to normalize" unless system("normalize-audio", "--quiet", "--peak", src)
+  raise "failed to normalize" unless system("normalize-audio", "--quiet", src)
 
   #remove header if it is raw
   if is_raw
