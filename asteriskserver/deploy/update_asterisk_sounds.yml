@@ -87,6 +87,12 @@
     group: asterisk
 - name: copy asterisk statement sounds
   copy:
+    src: src/var/lib/asterisk/sounds/en/statements/konami
+    dest: /opt/asterisk/var/lib/asterisk/sounds/en/statements
+    owner: asterisk
+    group: asterisk
+- name: copy asterisk statement sounds
+  copy:
     src: src/var/lib/asterisk/sounds/en/statements/karl-robotron
     dest: /opt/asterisk/var/lib/asterisk/sounds/en/statements
     owner: asterisk
