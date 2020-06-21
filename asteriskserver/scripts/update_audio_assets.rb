@@ -18,31 +18,12 @@ DEST_DIR = ARGV[0]
 
 puts "updating #{DEST_DIR} with audio from #{SRC_DIR}"
 
-SLN_EXT = {
-  8_000 => "sln",
-  12_000 => "sln12",
-  16_000 => "sln16",
-  22_050 => "sln16",            # XXX will this just sound bad?
-  24_000 => "sln24",
-  32_000 => "sln32",
-  44_100 => "sln44",
-  48_000 => "sln48",
-  96_000 => "sln96",
-  192_000 =>"sln192"
-}
-
-known_ext = SLN_EXT.values + ["mp3", "gsm"]
-
 script_mtime = File.mtime(__FILE__)
 
-def get_extension(info) 
-  out_ext = SLN_EXT[info.samplerate]
-  raise "#{src} has an unsuppored sampling rate of #{info.samplerate}" unless out_ext
-  return out_ext
-end
-
 Find.find(SRC_DIR).each do |f|
-  is_raw = false
+  is_raw = true
+  out_ext = 'sln'
+
   cleanup = []
   next if File.directory?(f)
 
@@ -61,18 +42,8 @@ Find.find(SRC_DIR).each do |f|
   if src_ext == ".mp3"
     if OUTPUT_MP3
       out_ext = 'mp3'
-    else
-      wav = base + "-tmp.wav"
-      raise "MP3 cannot create tmp wav from #{out_ext}" unless system("sox", src, wav)
-      cleanup << wav
-      src = wav
+      is_raw = false
     end
-  end
-
-  unless OUTPUT_MP3 and src_ext == ".mp3"
-    info = Sndfile::File.info(src)
-    out_ext = get_extension(info)
-    is_raw = true
   end
 
   dst = base + "." + out_ext
