@@ -4,7 +4,6 @@ Sequence challenge.
 """
 
 
-#PREFIX_LEN = 3
 #DIGIT_PAUSE = 0.1
 #ELEMENT_PAUSE = 0.25
 
@@ -15,22 +14,24 @@ def play_sound(agi_o, name):
     return util.say(agi_o, name)
 
 def play_element(agi_o, elt):
+    #play_sound(agi_o, "element-separator")
     agi_o.appexec("SendDTMF", elt)
     #agi_o.Wait(ELEMENT_PAUSE)
 
 def play_sequence_prefix(agi_o, sequence, prefix_len):
-    play_sound(agi_o, "sequence-sequence-prefix-follows")
+    play_sound(agi_o, "sequence-prefix-follows")
     for elt in sequence[0:prefix_len]:
         play_element(agi_o, elt)
 
 def accept_next_sequence_element(agi_o, expected):
     """Accept keypresses, return True if they match element."""
-    play_sound(agi_o, "sequence-enter-next-element")
+    play_sound(agi_o, "enter-next-element")
+    #play_sound(agi_o, "element-separator")
     digit = str(agi_o.wait_for_digit(timeout=-1))
     if digit == expected:
-        play_sound(agi_o, "sequence-element-correct")
+        play_sound(agi_o, "element-correct")
         return True
-    play_sound(agi_o, "sequence-element-incorrect")
+    play_sound(agi_o, "element-incorrect")
     return False
 
 def test_sequence_remainder(agi_o, sequence, prefix_len):
@@ -45,18 +46,18 @@ def test_sequence_remainder(agi_o, sequence, prefix_len):
 
 def test_sequence(agi_o, sequence, prefix_len):
     """Test each sequence until it is passed."""
-    play_sound(agi_o, "sequence-sequence-follows")
+    play_sound(agi_o, "sequence-follows")
     passing = False
     while not passing:
         play_sequence_prefix(agi_o, sequence, prefix_len)
         passing = test_sequence_remainder(agi_o, sequence, prefix_len)
-    play_sound(agi_o, "sequence-sequence-correct")
+    play_sound(agi_o, "sequence-correct")
 
 def test_sequences(agi_o, sequences, prefix_len):
     """Test each sequence."""
     for sequence in sequences:
         test_sequence(agi_o, sequence, prefix_len)
-    play_sound(agi_o, "sequence-sequences-correct")
+    play_sound(agi_o, "sequences-correct")
 
 def main(agi_o, sequences, prefix_len):
     test_sequences(agi_o, sequences, prefix_len)
