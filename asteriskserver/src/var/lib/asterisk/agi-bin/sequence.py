@@ -4,7 +4,7 @@ Sequence challenge.
 """
 
 
-PREFIX_LEN = 3
+#PREFIX_LEN = 3
 #DIGIT_PAUSE = 0.1
 #ELEMENT_PAUSE = 0.25
 
@@ -56,7 +56,7 @@ def test_sequences(agi_o, sequences, prefix_len):
     """Test each sequence."""
     for sequence in sequences:
         test_sequence(agi_o, sequence, prefix_len)
-        play_sound(agi_o, "sequence-sequences-correct")
+    play_sound(agi_o, "sequence-sequences-correct")
 
-def main(agi_o, sequences):
-    test_sequences(agi_o, PREFIX_LEN)
+def main(agi_o, sequences, prefix_len):
+    test_sequences(agi_o, sequences, prefix_len)

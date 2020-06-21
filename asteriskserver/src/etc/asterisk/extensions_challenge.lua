@@ -61,6 +61,21 @@ function challenge_sequence_one(mailbox)
     -- if we get here we won
 end
 
+function challenge_sequence_two(mailbox)
+    app.AGI("sequence_two.agi")
+    -- if we get here we won
+end
+
+function challenge_sequence_three(mailbox)
+    app.AGI("sequence_three.agi")
+    -- if we get here we won
+end
+
+function challenge_sequence_four(mailbox)
+    app.AGI("sequence_four.agi")
+    -- if we get here we won
+end
+
 function goto_main()
     return app.Goto("challenge_main", "s", 1)
 end
@@ -98,6 +113,27 @@ function menu_challenge_sequence_one(context, extension)
         challenge_sequence_one)
 end
 
+function menu_challenge_sequence_two(context, extension)
+    do_challenge(
+        "achievement-sequence-one",
+        "achievement-sequence-two",
+        challenge_sequence_two)
+end
+
+function menu_challenge_sequence_three(context, extension)
+    do_challenge(
+        "achievement-sequence-two",
+        "achievement-sequence-three",
+        challenge_sequence_three)
+end
+
+function menu_challenge_sequence_four(context, extension)
+    do_challenge(
+        "achievement-sequence-three",
+        "achievement-sequence-four",
+        challenge_sequence_four)
+end
+
 function menu_challenge_main(context, extension)
     return menu(
         {"to-perform-the-challenges",
@@ -130,7 +166,13 @@ function menu_challenge_list(context, extension)
 	"for-challenge-konami",
 	"press-four",
         "for-challenge-sequence-one",
-        "press-five"},
+        "press-five",
+        "for-challenge-sequence-two",
+        "press-six",
+        "for-challenge-sequence-three",
+        "press-seven",
+        "for-challenge-sequence-four",
+        "press-eight"},
         "challenge",
         context,
         extension)
@@ -182,11 +224,20 @@ extensions_challenge = {
          "challenge_progged",
          "challenge_wumpus",
          "challenge_konami",
-         "challenge_sequence_one"});
+         "challenge_sequence_one",
+         "challenge_sequence_two",
+         "challenge_sequence_three",
+         "challenge_sequence_four"});
     challenge_mailbox = context(menu_challenge_mailbox, "challenge_main", {});
     challenge_progged = context(menu_challenge_progged, "challenge_main", {});
     challenge_wumpus = context(menu_challenge_wumpus, "challenge_main", {});
     challenge_konami = context(menu_challenge_konami, "challenge_main", {});
     challenge_sequence_one = context(
         menu_challenge_sequence_one, "challenge_main", {});    
+    challenge_sequence_two = context(
+        menu_challenge_sequence_two, "challenge_main", {});    
+    challenge_sequence_three = context(
+        menu_challenge_sequence_three, "challenge_main", {});    
+    challenge_sequence_four = context(
+        menu_challenge_sequence_four, "challenge_main", {});    
 }
