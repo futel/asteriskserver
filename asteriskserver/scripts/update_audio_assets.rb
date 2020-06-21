@@ -11,7 +11,7 @@ require 'fileutils'
 require 'sndfile'
 
 OUTPUT_MP3 = false #make true if we want to re-encode mp3s as mp3 for the output
-SOX_COMPAND = "compand 0.14,1 6:-70,-24,-4.8 -8 -90 0.2"
+SOX_COMPAND = "compand 0.001,0.3 6:-30,-3 -6 -12 0.002"
 
 SRC_DIR = ARGV[1]
 DEST_DIR = ARGV[0]
