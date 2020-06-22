@@ -32,8 +32,11 @@ def accept_next_sequence_element(agi_o, expected):
     # XXX enter-next-element?
     play_sound(agi_o, "enter-first-element")
     #play_sound(agi_o, "element-separator")
-    digit = str(agi_o.wait_for_digit(timeout=-1))
-    if digit == expected:
+    received = ""
+    for character in expected:
+        digit = str(agi_o.wait_for_digit(timeout=-1))
+        received = received + digit
+    if received == expected:
         play_sound(agi_o, "element-correct")
         return True
     play_sound(agi_o, "element-incorrect")
