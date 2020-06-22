@@ -168,6 +168,7 @@
     - conversations
     - longmont
     - missed-connections
+    - sequence-challenge
 - name: copy asterisk confbridge menu sounds
   copy:
     src: "{{ asterisk_sound_directory }}/en/futelconf"

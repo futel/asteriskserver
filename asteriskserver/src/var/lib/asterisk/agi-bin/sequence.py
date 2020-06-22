@@ -3,15 +3,19 @@
 Sequence challenge.
 """
 
+# these are unused
+# seperator.wav
+# start-of-sequence.wav
+
+# this was called enter-next-element in my plan
+# enter-first-element.wav
 
 #DIGIT_PAUSE = 0.1
 #ELEMENT_PAUSE = 0.25
 
 def play_sound(agi_o, name):
-    #return agi_o.background(name)
-    # XXX testing
-    import util
-    return util.say(agi_o, name)
+    name = "/opt/asterisk/var/lib/asterisk/sounds/futel/sequence-challenge/" + name
+    return agi_o.appexec("background", name)
 
 def play_element(agi_o, elt):
     #play_sound(agi_o, "element-separator")
@@ -25,7 +29,8 @@ def play_sequence_prefix(agi_o, sequence, prefix_len):
 
 def accept_next_sequence_element(agi_o, expected):
     """Accept keypresses, return True if they match element."""
-    play_sound(agi_o, "enter-next-element")
+    # XXX enter-next-element?
+    play_sound(agi_o, "enter-first-element")
     #play_sound(agi_o, "element-separator")
     digit = str(agi_o.wait_for_digit(timeout=-1))
     if digit == expected:
