@@ -18,7 +18,7 @@ def play_sound(agi_o, name):
     return agi_o.appexec("background", name)
 
 def play_element(agi_o, elt):
-    #play_sound(agi_o, "element-separator")
+    play_sound(agi_o, "seperator")
     agi_o.appexec("SendDTMF", elt)
     #agi_o.Wait(ELEMENT_PAUSE)
 
@@ -29,9 +29,8 @@ def play_sequence_prefix(agi_o, sequence, prefix_len):
 
 def accept_next_sequence_element(agi_o, expected):
     """Accept keypresses, return True if they match element."""
-    # XXX enter-next-element?
     play_sound(agi_o, "enter-first-element")
-    #play_sound(agi_o, "element-separator")
+    play_sound(agi_o, "seperator")
     received = ""
     for character in expected:
         digit = str(agi_o.wait_for_digit(timeout=-1))
