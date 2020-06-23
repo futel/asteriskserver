@@ -108,7 +108,7 @@ end
 
 function menu_challenge_sequence_one(context, extension)
     do_challenge(
-        "achievement-mailbox-xxx-dummy",
+        "achievement-mailbox",
         "achievement-sequence-one",
         challenge_sequence_one)
 end
