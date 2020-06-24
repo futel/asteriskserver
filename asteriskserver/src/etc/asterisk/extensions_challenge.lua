@@ -209,16 +209,26 @@ function menu_challenge_list(context, extension)
 	"press-three",
 	"for-challenge-konami",
 	"press-four",
-        "for-challenge-sequence-one",
+        "for-challenge-sequence",
         "press-five",
-        "for-challenge-sequence-two",
-        "press-six",
-        "for-challenge-sequence-three",
-        "press-seven",
-        "for-challenge-sequence-four",
-        "press-eight",
         "for-challenge-shadytel",
-        "press-nine"},
+        "press-six"},
+        "challenge",
+        context,
+        extension)
+end
+
+function menu_challenge_sequence_list(context, extension)
+    -- XXX hide items when requirements not met
+    return menu(
+        {"for-challenge-sequence-one",
+	"press-one",
+        "for-challenge-sequence-two",
+	"press-two",
+        "for-challenge-sequence-three",
+	"press-three",
+        "for-challenge-sequence-four",
+	"press-four"},
         "challenge",
         context,
         extension)
@@ -274,11 +284,15 @@ extensions_challenge = {
          "challenge_progged",
          "challenge_wumpus",
          "challenge_konami",
-         "challenge_sequence_one",
+         "challenge_sequence_list",
+         "challenge_shadytel"});
+    challenge_sequence_list = context(
+        menu_challenge_sequence_list,
+        "challenge_list",
+        {"challenge_sequence_one",
          "challenge_sequence_two",
          "challenge_sequence_three",
-         "challenge_sequence_four",
-         "challenge_shadytel"});
+         "challenge_sequence_four"});
     challenge_mailbox = context(menu_challenge_mailbox, "challenge_main", {});
     challenge_progged = context(menu_challenge_progged, "challenge_main", {});
     challenge_wumpus = context(menu_challenge_wumpus, "challenge_main", {});

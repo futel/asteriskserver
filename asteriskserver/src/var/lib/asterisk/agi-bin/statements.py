@@ -510,6 +510,7 @@ statement_groups = [
          "for-challenge-mailbox",
          "for-challenge-mailbox",
          "for-challenge-progged",
+         "for-challenge-sequence",
          "for-challenge-sequence-four",
          "for-challenge-sequence-one",
          "for-challenge-sequence-three",
