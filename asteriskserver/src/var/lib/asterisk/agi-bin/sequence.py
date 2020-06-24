@@ -9,7 +9,9 @@ sound_dirname = "/opt/asterisk/var/lib/asterisk/sounds/futel/sequence-challenge/
 
 def play_sound(agi_o, name):
     name = sound_dirname + name
-    return agi_o.appexec("background", name)
+    agi_o.appexec("background", name)
+    # pause after every sound
+    agi_o.wait_for_digit(750)
 
 def play_element(agi_o, elt):
     play_sound(agi_o, "seperator")
