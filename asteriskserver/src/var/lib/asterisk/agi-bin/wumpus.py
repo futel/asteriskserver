@@ -183,5 +183,5 @@ class Wumpus:
                     break
                 else:
                     self.say('what-now')
-                    action = agi_o.wait_for_digit(timeout=-1)
+                    action = self.agi_o.wait_for_digit(timeout=-1)
 
