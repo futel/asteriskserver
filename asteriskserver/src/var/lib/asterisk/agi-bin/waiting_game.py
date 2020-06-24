@@ -58,7 +58,7 @@ class Waiting:
 
     def start_waiting(self):
         """ main game """
-        self.wait_time = random.randint(5, 20)
+        self.wait_time = random.randint(5, 10)
         util.say(self.agi_o, 'please-hold', preferred_subs='tishbite_wait')
 
         while True:
