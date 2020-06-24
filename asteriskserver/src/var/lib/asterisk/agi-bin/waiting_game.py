@@ -4,6 +4,7 @@ please hold for the next available game...
 """
 import random
 import util
+import sys
 from time import sleep
 
 class Waiting:
@@ -40,29 +41,32 @@ class Waiting:
         """ wait for given time while playing good music """
         str_wait_time = self.num_to_word(time)
         for t in ['your-expected-wait-time-is', str_wait_time, 'minutes']:
-            util.say(agi_o, t)
-        # MW test... this subject to change
+            util.say(self.agi_o, t, preferred_subs='tishbite_wait')
+        # MW test... the greatest music
         self.agi_o.appexec('Playtones', '1004/1000')
         sleep(120)
 
     def end_game(self):
         """ prompt for any key in 10 seconds """
-        util.say(self.agi_o, 'press-any-key')
-        key = self.wait_for_digit(timeout=10000)
+        util.say(self.agi_o, 'press-any-key', preferred_subs='tishbite_wait')
+        key = self.agi_o.wait_for_digit(timeout=10000)
         if not key:
             self.agi_o.appexec('Busy')
         else:
-            util.say(agi_o, 'thank-you-come-again')
+            util.say(self.agi_o, 'please-call-back-during-business-hours', preferred_subs='tishbite_wait')
             sys.exit(0)
 
     def start_waiting(self):
         """ main game """
-        self.wait_time = random.randint(1, 3)
-        util.say(self.agi_o, 'please-hold')
+        self.wait_time = random.randint(5, 20)
+        util.say(self.agi_o, 'please-hold', preferred_subs='tishbite_wait')
 
         while True:
+            self.wait_time = self.wait_time - 2 + random.randint(0, 1)
+            if self.wait_time < 0:
+                self.wait_time = 0
+
             if self.wait_time > 0:
-                self.wait_time = self.wait_time - 2 + random.randint(0, 1)
                 self.wait_with_music(self.wait_time)
             elif self.wait_time == 0:
                 self.end_game()
