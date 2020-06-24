@@ -6,6 +6,7 @@ import wumpus
 agi = agi.AGI()
 
 def main():
+    util.say(agi, 'intro-statement')
     w = wumpus.Wumpus(agi)
     w.hunt()
 
