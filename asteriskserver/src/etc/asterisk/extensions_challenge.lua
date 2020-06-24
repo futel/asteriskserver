@@ -2,7 +2,7 @@ function vmauthenticate()
     if channel.AUTH_MAILBOX:get() then
         return channel.AUTH_MAILBOX:get()
     end
-    say("authenticate-with-your-voice-mail-box-to-continue")
+    say("authenticate-with-your-voice-mail-box-to-continue", "challenge")
     app.VMAuthenticate()
     return channel.AUTH_MAILBOX:get()
 end
@@ -17,17 +17,17 @@ end
 function check_access(mailbox, requirement, achievement)
     if not mailbox then
         -- cheap way to get around user skipping authentication
-        say("access-denied")            
+        say("access-denied", "challenge")            
         return goto_main()
     end
     if requirement ~= nil then
         if not challenge_has_value(mailbox, requirement) then
-            say("access-denied")
+            say("access-denied", "challenge")
             return goto_main()
         end
     end
     if challenge_has_value(mailbox, achievement) then
-        say("warning-access-already-granted")
+        say("warning-access-already-granted", "challenge")
     end
 end
 
@@ -35,7 +35,8 @@ function challenge_mailbox(mailbox)
     filename = "/opt/asterisk/var/spool/asterisk/voicemail/default/" .. mailbox .. "/greet.wav"
     if not io.open(filename, "r") then
         for i=1,10 do
-            say("record-your-name-in-your-voicemail-account-for-access")
+            say("record-your-name-in-your-voicemail-account-for-access",
+                "challenge")
         end
         app.Hangup() 
     end    
@@ -80,7 +81,7 @@ function challenge_shadytel(mailbox)
     from_shadytel = channel.from_shadytel:get()
     if from_shadytel ~= "True" then
         for i=1,10 do
-            say("visit-this-destination-from-shadytel-for-access")
+            say("visit-this-destination-from-shadytel-for-access", "challenge")
         end
         app.Hangup()
     end
@@ -102,7 +103,7 @@ function do_challenge(requirement, achievement, challenge_call)
     check_access(mailbox, requirement, achievement)
     challenge_call(mailbox)
     app.AGI("challenge_write.agi", mailbox, achievement)    
-    say("access-granted")
+    say("access-granted", "challenge")
     return goto_main()
 end
 
@@ -264,11 +265,11 @@ function menu_challenge_instructions(context, extension)
 end
 
 function menu_challenge_leaderboard(context, extension)
-        say("access-denied")
-        say("access-denied")
-        say("access-denied")
-        say("access-denied")
-        say("access-denied")
+        say("access-denied", "challenge")
+        say("access-denied", "challenge")
+        say("access-denied", "challenge")
+        say("access-denied", "challenge")
+        say("access-denied", "challenge")
         return goto_main()
 end
 
