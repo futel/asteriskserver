@@ -76,6 +76,17 @@ function challenge_sequence_four(mailbox)
     -- if we get here we won
 end
 
+function challenge_shadytel(mailbox)
+    from_shadytel = channel.from_shadytel:get()
+    if from_shadytel ~= "True" then
+        for i=1,10 do
+            say("visit-this-destination-from-shadytel-for-access")
+        end
+        app.Hangup()
+    end
+    -- if we get here we won
+end
+
 function goto_main()
     return app.Goto("challenge_main", "s", 1)
 end
@@ -134,6 +145,10 @@ function menu_challenge_sequence_four(context, extension)
         challenge_sequence_four)
 end
 
+function menu_challenge_shadytel(context, extension)
+    do_challenge("achievement-mailbox", "achievement-shadytel", challenge_shadytel)
+end
+
 function menu_challenge_main(context, extension)
     return menu(
         {"to-perform-the-challenges",
@@ -153,6 +168,11 @@ function menu_challenge_main(context, extension)
         "challenge",
         context,
         extension)
+end
+
+function menu_challenge_shadytel_main(context, extension)
+    channel.from_shadytel = "True"
+    return goto_main()
 end
 
 function menu_challenge_info(context, extension)
@@ -196,7 +216,9 @@ function menu_challenge_list(context, extension)
         "for-challenge-sequence-three",
         "press-seven",
         "for-challenge-sequence-four",
-        "press-eight"},
+        "press-eight",
+        "for-challenge-shadytel",
+        "press-nine"},
         "challenge",
         context,
         extension)
@@ -238,6 +260,8 @@ extensions_challenge = {
          "community-outgoing", -- extensions.conf
          "challenge_info"
          });
+    challenge_shadytel_main = context(
+        menu_challenge_shadytel_main, "challenge_main", {});
     challenge_instructions = context(
         menu_challenge_instructions, "challenge_main", {});
     challenge_leaderboard = context(
@@ -253,7 +277,8 @@ extensions_challenge = {
          "challenge_sequence_one",
          "challenge_sequence_two",
          "challenge_sequence_three",
-         "challenge_sequence_four"});
+         "challenge_sequence_four",
+         "challenge_shadytel"});
     challenge_mailbox = context(menu_challenge_mailbox, "challenge_main", {});
     challenge_progged = context(menu_challenge_progged, "challenge_main", {});
     challenge_wumpus = context(menu_challenge_wumpus, "challenge_main", {});
@@ -265,5 +290,7 @@ extensions_challenge = {
     challenge_sequence_three = context(
         menu_challenge_sequence_three, "challenge_main", {});    
     challenge_sequence_four = context(
-        menu_challenge_sequence_four, "challenge_main", {});    
+        menu_challenge_sequence_four, "challenge_main", {});
+    challenge_shadytel = context(
+        menu_challenge_shadytel, "challenge_main", {});    
 }
