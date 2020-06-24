@@ -6,8 +6,8 @@ import wumpus
 agi = agi.AGI()
 
 def main():
-    w = wumpus.Wumpus()
-    w.hunt(agi)
+    w = wumpus.Wumpus(agi)
+    w.hunt()
 
 agi.answer()
 util.agi_tracebacker(agi, main)

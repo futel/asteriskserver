@@ -11,38 +11,19 @@ require 'fileutils'
 require 'sndfile'
 
 OUTPUT_MP3 = false #make true if we want to re-encode mp3s as mp3 for the output
-SOX_COMPAND = "compand 0.14,1 6:-70,-24,-4.8 -8 -90 0.2"
+SOX_COMPAND = "compand 0.001,0.3 6:-30,-3 -6 -12 0.002"
 
 SRC_DIR = ARGV[1]
 DEST_DIR = ARGV[0]
 
 puts "updating #{DEST_DIR} with audio from #{SRC_DIR}"
 
-SLN_EXT = {
-  8_000 => "sln",
-  12_000 => "sln12",
-  16_000 => "sln16",
-  22_050 => "sln16",            # XXX will this just sound bad?
-  24_000 => "sln24",
-  32_000 => "sln32",
-  44_100 => "sln44",
-  48_000 => "sln48",
-  96_000 => "sln96",
-  192_000 =>"sln192"
-}
-
-known_ext = SLN_EXT.values + ["mp3", "gsm"]
-
 script_mtime = File.mtime(__FILE__)
 
-def get_extension(info) 
-  out_ext = SLN_EXT[info.samplerate]
-  raise "#{src} has an unsuppored sampling rate of #{info.samplerate}" unless out_ext
-  return out_ext
-end
-
 Find.find(SRC_DIR).each do |f|
-  is_raw = false
+  is_raw = true
+  out_ext = 'sln'
+
   cleanup = []
   next if File.directory?(f)
 
@@ -61,18 +42,8 @@ Find.find(SRC_DIR).each do |f|
   if src_ext == ".mp3"
     if OUTPUT_MP3
       out_ext = 'mp3'
-    else
-      wav = base + "-tmp.wav"
-      raise "MP3 cannot create tmp wav from #{out_ext}" unless system("sox", src, wav)
-      cleanup << wav
-      src = wav
+      is_raw = false
     end
-  end
-
-  unless OUTPUT_MP3 and src_ext == ".mp3"
-    info = Sndfile::File.info(src)
-    out_ext = get_extension(info)
-    is_raw = true
   end
 
   dst = base + "." + out_ext
@@ -83,31 +54,16 @@ Find.find(SRC_DIR).each do |f|
   #report
   puts "#{src} -> #{dst}"
 
-  #convert to wav if we haven't already
-  if wav.nil?
-    wav = base + "-tmp.wav"
-    raise "cannot create tmp wav from #{out_ext}" unless system("sox", src, wav)
-    cleanup << wav
-    src = wav
-    info = Sndfile::File.info(src)    
-  end
-
-  #make mono
-  if info.channels != 1
-    mono = base + "-tmp-mono.wav"
-    raise "failed to make a mono file of #{src}" unless system("sndfile-mix-to-mono", src, mono)
-    cleanup << mono
-    src = mono
-  end
-
-  #compress
-  compressed = base + "-tmp-compressed.wav"
-  raise "failed to apply dynamic range compression" unless system("sox #{src} -b 16 -c 1 #{compressed} #{SOX_COMPAND}")
-  cleanup << compressed
-  src = compressed
-
-  #normalize the wav
-  raise "failed to normalize" unless system("normalize-audio", "--quiet", "--peak", src)
+  # Combined signal chain (order is important):
+  # * Convert to single channel (monophonic)
+  # * Apply band filter from 300 Hz to 3.4kHz
+  # * Normalize amplitude to -12dB RMS (with limiting to not clip)
+  # * Convert sample rate to 8kHz
+  # * Dynamic range compression
+  processed = base + "-tmp-processed.wav"
+  raise "failed to filter audio" unless system("sox #{src} #{processed} channels 1 sinc 300-3700 gain -n -b -12 rate 8000 #{SOX_COMPAND} :")
+  cleanup << processed
+  src = processed
 
   #remove header if it is raw
   if is_raw

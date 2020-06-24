@@ -88,7 +88,7 @@ def sound_path(sound_name, preferred_subs=None):
 
 def say(agi_o, filename, preferred_subs=None, escape=False):
     if escape:
-        escape_digits = '0123456789#*'
+        escape_digits = '0123456789*#ABCD*'
     else:
         escape_digits = ''
     path = sound_path(filename, preferred_subs)

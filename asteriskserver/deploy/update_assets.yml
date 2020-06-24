@@ -19,7 +19,8 @@
     - futel/oracle-dead-interstitial-long
     - futel/oracle-dead-interstitial-short
     - futel/oracle-dead-oracle
-    - futel/peoples-homes    
+    - futel/peoples-homes
+    - futel/sequence-challenge
     - futel/wildcard-line
     - futel/williams-long
     - futel/williams-short
@@ -31,6 +32,7 @@
     - en/statements/karl-robotron
     - en/statements/karl-voicemail-ivr
     - en/statements/karl-wildcard-line
+    - en/statements/konami
     - en/statements/missed-connections
     - en/statements/peoples-homes
     - en/statements/sailor
