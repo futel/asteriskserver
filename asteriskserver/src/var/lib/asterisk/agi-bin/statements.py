@@ -505,6 +505,7 @@ statement_groups = [
          "earfeast",
          "enter-move",
          "error",
+         "for-challenge-hold",
          "for-challenge-hunt-the-wumpus",
          "for-challenge-konami",
          "for-challenge-mailbox",

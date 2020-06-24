@@ -87,6 +87,11 @@ function challenge_shadytel(mailbox)
     -- if we get here we won
 end
 
+function challenge_hold(mailbox)
+    app.AGI("waiting_game.agi")
+    -- if we get here we won
+end
+
 function goto_main()
     return app.Goto("challenge_main", "s", 1)
 end
@@ -147,6 +152,13 @@ end
 
 function menu_challenge_shadytel(context, extension)
     do_challenge("achievement-mailbox", "achievement-shadytel", challenge_shadytel)
+end
+
+function menu_challenge_hold(context, extension)
+    do_challenge(
+        "achievement-mailbox",
+        "achievement-hold",
+        challenge_hold)
 end
 
 function menu_challenge_main(context, extension)
@@ -212,7 +224,9 @@ function menu_challenge_list(context, extension)
         "for-challenge-sequence",
         "press-five",
         "for-challenge-shadytel",
-        "press-six"},
+        "press-six",
+        "for-challenge-hold",
+        "press-seven"},
         "challenge",
         context,
         extension)
@@ -285,7 +299,9 @@ extensions_challenge = {
          "challenge_wumpus",
          "challenge_konami",
          "challenge_sequence_list",
-         "challenge_shadytel"});
+         "challenge_shadytel",
+         "challenge_hold",
+         });
     challenge_sequence_list = context(
         menu_challenge_sequence_list,
         "challenge_list",
@@ -306,5 +322,8 @@ extensions_challenge = {
     challenge_sequence_four = context(
         menu_challenge_sequence_four, "challenge_main", {});
     challenge_shadytel = context(
-        menu_challenge_shadytel, "challenge_main", {});    
+        menu_challenge_shadytel, "challenge_main", {});
+    challenge_hold = context(
+        menu_challenge_hold, "challenge_main", {});        
+        
 }
