@@ -3,33 +3,28 @@
 Sequence challenge.
 """
 
-# these are unused
-# seperator.wav
-# start-of-sequence.wav
-
-# this was called enter-next-element in my plan
-# enter-first-element.wav
-
 #DIGIT_PAUSE = 0.1
 #ELEMENT_PAUSE = 0.25
+sound_dirname = "/opt/asterisk/var/lib/asterisk/sounds/futel/sequence-challenge/"
 
 def play_sound(agi_o, name):
-    name = "/opt/asterisk/var/lib/asterisk/sounds/futel/sequence-challenge/" + name
+    name = sound_dirname + name
     return agi_o.appexec("background", name)
 
 def play_element(agi_o, elt):
     play_sound(agi_o, "seperator")
-    agi_o.appexec("SendDTMF", elt)
+    play_sound(agi_o, "dtmf" + elt)
+    #agi_o.appexec("SendDTMF", elt)
     #agi_o.Wait(ELEMENT_PAUSE)
 
 def play_sequence_prefix(agi_o, sequence, prefix_len):
     play_sound(agi_o, "sequence-prefix-follows")
+    play_sound(agi_o, "start-of-sequence")
     for elt in sequence[0:prefix_len]:
         play_element(agi_o, elt)
 
 def accept_next_sequence_element(agi_o, expected):
     """Accept keypresses, return True if they match element."""
-    play_sound(agi_o, "enter-first-element")
     play_sound(agi_o, "seperator")
     received = ""
     for character in expected:
@@ -57,6 +52,7 @@ def test_sequence(agi_o, sequence, prefix_len):
     passing = False
     while not passing:
         play_sequence_prefix(agi_o, sequence, prefix_len)
+        play_sound(agi_o, "start-of-sequence")
         passing = test_sequence_remainder(agi_o, sequence, prefix_len)
     play_sound(agi_o, "sequence-correct")
 
