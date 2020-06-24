@@ -1,0 +1,13 @@
+#!/usr/bin/env python
+from asterisk import *
+import util
+import waiting_game
+
+agi = agi.AGI()
+
+def main():
+    w = waiting_game.Waiting(agi)
+    w.start_waiting()
+
+agi.answer()
+util.agi_tracebacker(agi, main)
