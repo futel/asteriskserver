@@ -27,7 +27,8 @@ preferred_statement_dirs = [
     'statements/conversations/',
     'statements/missed-connections/',
     'statements/challenge/',
-    'statements/anzie-wumpus/']
+    'statements/anzie-wumpus/',
+    'statements/konami/']
 
 metric_filename = '/opt/asterisk/var/log/asterisk/metrics'
 
