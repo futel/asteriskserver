@@ -7,11 +7,11 @@ Sequence challenge.
 #ELEMENT_PAUSE = 0.25
 sound_dirname = "/opt/asterisk/var/lib/asterisk/sounds/futel/sequence-challenge/"
 
-def play_sound(agi_o, name):
+def play_sound(agi_o, name, pause=750):
     name = sound_dirname + name
     agi_o.appexec("background", name)
-    # pause after every sound
-    agi_o.wait_for_digit(750)
+    if pause:
+        agi_o.wait_for_digit(pause)
 
 def play_element(agi_o, elt):
     play_sound(agi_o, "seperator")
@@ -27,7 +27,7 @@ def play_sequence_prefix(agi_o, sequence, prefix_len):
 
 def accept_next_sequence_element(agi_o, expected):
     """Accept keypresses, return True if they match element."""
-    play_sound(agi_o, "seperator")
+    play_sound(agi_o, "seperator", pause=None)
     received = ""
     for character in expected:
         digit = str(agi_o.wait_for_digit(timeout=-1))
