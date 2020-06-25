@@ -187,3 +187,9 @@
     dest: /opt/asterisk/var/lib/asterisk/moh/operator
     owner: asterisk
     group: asterisk
+- name: copy midi hold music
+  copy:
+    src: src/var/lib/asterisk/moh/midi
+    dest: /opt/asterisk/var/lib/asterisk/moh/midi
+    owner: asterisk
+    group: asterisk
