@@ -5,7 +5,6 @@ please hold for the next available game...
 import random
 import util
 import sys
-from time import sleep
 
 class Waiting:
     def __init__(self, agi_o):
@@ -37,29 +36,38 @@ class Waiting:
             19: "nineteen",
             20: "twenty"}[number]
 
+    def say(self, statement):
+        """ util.say wrapper """
+        util.say(self.agi_o, statement, preferred_subs=['tishbite_wait'])
+
     def wait_with_music(self, time):
         """ wait for given time while playing good music """
         str_wait_time = self.num_to_word(time)
+        reminders = [
+                'we-appreciate-your-patience',
+                'your-call-is-very-important-to-us',
+                'calls-will-be-answered-in-the-order-recieved']
+        nag = random.choice(reminders)
+        self.say(nag)
         for t in ['your-expected-wait-time-is', str_wait_time, 'minutes']:
-            util.say(self.agi_o, t, preferred_subs='tishbite_wait')
-        # MW test... the greatest music
-        self.agi_o.appexec('Playtones', '1004/1000')
-        sleep(120)
+            self.say(t)
+        # music on hold for 2 minutes
+        self.agi_o.appexec('MusicOnHold', 'midi, 120')
 
     def end_game(self):
         """ prompt for any key in 10 seconds """
-        util.say(self.agi_o, 'press-any-key', preferred_subs='tishbite_wait')
+        self.say('press-any-key')
         key = self.agi_o.wait_for_digit(timeout=10000)
         if not key:
             self.agi_o.appexec('Busy')
         else:
-            util.say(self.agi_o, 'please-call-back-during-business-hours', preferred_subs='tishbite_wait')
+            self.say('please-call-back-during-business-hours')
             sys.exit(0)
 
     def start_waiting(self):
         """ main game """
         self.wait_time = random.randint(5, 10)
-        util.say(self.agi_o, 'please-hold', preferred_subs='tishbite_wait')
+        self.say('please-hold')
 
         while True:
             self.wait_time = self.wait_time - 2 + random.randint(0, 1)
