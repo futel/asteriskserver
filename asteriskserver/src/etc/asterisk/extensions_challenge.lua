@@ -213,6 +213,7 @@ end
 
 function menu_challenge_list(context, extension)
     mailbox = vmauthenticate()
+    app.AGI("challenge_leaderboard_position.agi", mailbox)
     -- XXX hide items when requirements not met
     return menu(
         {"for-challenge-mailbox",
