@@ -81,7 +81,8 @@ function challenge_shadytel(mailbox)
     from_shadytel = channel.from_shadytel:get()
     if from_shadytel ~= "True" then
         for i=1,10 do
-            say("visit-this-destination-from-shadytel-for-access", "challenge")
+            say("visit-this-destination-via-shadytel-extension-3003-for-access",
+                "challenge")
         end
         app.Hangup()
     end

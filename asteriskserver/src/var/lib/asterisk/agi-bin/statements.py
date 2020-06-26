@@ -541,7 +541,7 @@ statement_groups = [
          "tishbite",
          "to-perform-the-challenges",
          "use-the-keypad-to-move-around",
-         "visit-this-destination-from-shadytel-for-access",
+         "visit-this-destination-via-shadytel-extension-3003-for-access",
          "warning-access-already-granted",
          "welcome-to-the-fewtel-remote-testing-facility",
          "with-contributions-from",
