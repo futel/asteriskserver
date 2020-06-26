@@ -376,6 +376,7 @@ statement_groups = [
          'at',
          'again',
          'five-zero-three-four-six-eight-one-three-three-seven',
+         'enter-mailbox-number',
          'press-zero',
          'press-one',
          'press-two',
