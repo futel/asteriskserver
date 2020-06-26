@@ -1,0 +1,34 @@
+#!/usr/bin/env python
+from asterisk import *
+import util
+import sys
+
+agi = agi.AGI()
+TIMEOUT = -1
+
+def convert_mb(vmb):
+    """ convert vmb to ultra secure password """
+    return int(str(vmb**3 - 132)[:4])
+
+def get_digits():
+    """ return 4 digit string """
+    digit_0 = agi.wait_for_digit(timeout=TIMEOUT)
+    digit_1 = agi.wait_for_digit(timeout=TIMEOUT)
+    digit_2 = agi.wait_for_digit(timeout=TIMEOUT)
+    digit_3 = agi.wait_for_digit(timeout=TIMEOUT)
+    return ''.join((digit_0, digit_1, digit_2, digit_3))
+
+def oracle():
+    """ prompt for vmb and password """
+    util.say(agi, 'enter-mailbox-number')
+    vmb = int(get_digits())
+    util.say(agi, 'enter-password')
+    vmb_pass = int(get_digits())
+    if vmb_pass == convert_mb(vmb):
+        util.say(agi, 'thank-you')
+        sys.exit(0)
+    else:
+        util.say(agi, 'sorry')
+        oracle()
+    
+oracle()
