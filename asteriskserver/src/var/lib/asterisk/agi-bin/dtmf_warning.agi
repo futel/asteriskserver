@@ -1,0 +1,31 @@
+#!/usr/bin/env python
+from asterisk import *
+import util
+import sys
+
+agi = agi.AGI()
+
+sound_dirname = "/opt/asterisk/var/lib/asterisk/sounds/futel/sequence-challenge/"
+
+def play_sound(agi_o, name):
+    name = sound_dirname + name
+    agi_o.appexec("background", name)
+
+def main():
+    #util.say(agi,
+    #         "you-will-need-to-be-able-to-hear-dtmf-tones",
+    #         preferred_subs=['challenge'])
+    #util.say(agi, "to-complete-this-challenge", preferred_subs=['challenge'])
+    util.say(agi, "can-you-hear-this", preferred_subs=['challenge'])
+    agi.wait_for_digit(500)
+    play_sound(agi, "dtmf4")
+    play_sound(agi, "dtmf3")
+    agi.wait_for_digit(500)
+    util.say(agi, "if-not", preferred_subs=['challenge'])
+    util.say(agi, "get-a-real-phone", preferred_subs=['challenge'])
+
+
+agi.answer()
+util.agi_tracebacker(agi, main)
+
+
