@@ -486,6 +486,11 @@ statement_groups = [
     {'name': 'challenge',
      'statements': [
          "a-facility-for-the-remote-testing-of-users-of-fewtel",
+         "you-will-need-to-be-able-to-hear-dtmf-tones",
+         "to-complete-this-challenge",
+         "can-you-hear-this",
+         "if-not",
+         "get-a-real-phone",
          "access-denied",
          "access-granted",
          "access-is-granted-as-challenges-are-successfully-completed",
