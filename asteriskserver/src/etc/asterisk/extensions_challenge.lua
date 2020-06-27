@@ -250,6 +250,7 @@ function menu_challenge_list(context, extension)
 end
 
 function menu_challenge_sequence_list(context, extension)
+    app.AGI("dtmf_warning.agi")
     -- XXX hide items when requirements not met
     return menu(
         {"for-challenge-sequence-one",
