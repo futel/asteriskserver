@@ -21,14 +21,16 @@ def get_digits():
 def oracle():
     """ prompt for vmb and password """
     while True:
-	util.say(agi, 'enter-mailbox-number')
-	vmb = int(get_digits())
-	util.say(agi, 'enter-password')
-	vmb_pass = int(get_digits())
-	if vmb_pass == convert_mb(vmb):
-            util.say(agi, 'thank-you')
-            sys.exit(0)
-	else:
-            util.say(agi, 'sorry')
+        util.say(agi, 'enter-mailbox-number')
+        try:
+            vmb = int(get_digits())
+            util.say(agi, 'enter-password')
+            vmb_pass = int(get_digits())
+            if vmb_pass == convert_mb(vmb):
+		util.say(agi, 'thank-you')
+                sys.exit(0)
+        except Exception:
+            pass
+        util.say(agi, 'sorry')
 
 oracle()
