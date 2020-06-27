@@ -511,6 +511,7 @@ statement_groups = [
          "for-challenge-konami",
          "for-challenge-mailbox",
          "for-challenge-mailbox",
+         "for-challenge-oracle",
          "for-challenge-progged",
          "for-challenge-sequence",
          "for-challenge-sequence-four",

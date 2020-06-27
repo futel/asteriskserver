@@ -94,6 +94,11 @@ function challenge_hold(mailbox)
     -- if we get here we won
 end
 
+function challenge_conference(mailbox)
+    app.AGI("vmb_oracle.agi")
+    -- if we get here we won
+end
+
 function goto_main()
     return app.Goto("challenge_main", "s", 1)
 end
@@ -163,6 +168,13 @@ function menu_challenge_hold(context, extension)
         challenge_hold)
 end
 
+function menu_challenge_conference(context, extension)
+    do_challenge(
+        "achievement-mailbox",
+        "achievement-conference",
+        challenge_conference)
+end
+
 function menu_challenge_main(context, extension)
     return menu(
         {"to-perform-the-challenges",
@@ -229,7 +241,9 @@ function menu_challenge_list(context, extension)
         "for-challenge-shadytel",
         "press-six",
         "for-challenge-hold",
-        "press-seven"},
+        "press-seven",
+        "for-challenge-oracle",
+        "press-eight"},
         "challenge",
         context,
         extension)
@@ -304,6 +318,7 @@ extensions_challenge = {
          "challenge_sequence_list",
          "challenge_shadytel",
          "challenge_hold",
+         "challenge_conference",
          });
     challenge_sequence_list = context(
         menu_challenge_sequence_list,
@@ -328,5 +343,6 @@ extensions_challenge = {
         menu_challenge_shadytel, "challenge_main", {});
     challenge_hold = context(
         menu_challenge_hold, "challenge_main", {});        
-        
+    challenge_conference = context(
+        menu_challenge_conference, "challenge_main", {});
 }
