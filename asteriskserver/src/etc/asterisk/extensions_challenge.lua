@@ -95,7 +95,7 @@ function challenge_hold(mailbox)
 end
 
 function challenge_conference(mailbox)
-    app.AGI("vmb_oracle.agi")
+    app.AGI("vmb_oracle.agi", mailbox)
     -- if we get here we won
 end
 

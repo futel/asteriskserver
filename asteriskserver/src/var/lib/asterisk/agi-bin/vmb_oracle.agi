@@ -18,12 +18,11 @@ def get_digits():
     digit_3 = agi.wait_for_digit(timeout=TIMEOUT)
     return ''.join((digit_0, digit_1, digit_2, digit_3))
 
-def oracle():
+def oracle(mailbox):
     """ prompt for vmb and password """
     while True:
-        util.say(agi, 'enter-mailbox-number')
         try:
-            vmb = int(get_digits())
+            vmb = int(mailbox)
             util.say(agi, 'enter-password')
             vmb_pass = int(get_digits())
             if vmb_pass == convert_mb(vmb):
@@ -33,4 +32,11 @@ def oracle():
             pass
         util.say(agi, 'sorry')
 
-oracle()
+def main():
+    mailbox = sys.argv[1]
+    oracle(mailbox)
+
+agi.answer()
+util.agi_tracebacker(agi, main)
+
+
