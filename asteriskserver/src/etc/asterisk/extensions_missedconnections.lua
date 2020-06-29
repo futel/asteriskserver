@@ -163,25 +163,25 @@ function menu_message_three_response_play(context, extension)
 end
 
 function menu_message_one_response_record(context, extension)
-    say("your-recording-can-last-up-to-two-minutes", "missed-connections")
-    say("the-first-ten-seconds-will-play-on-the-missed-connections-list", "missed-connections")
-    say("and-the-rest-will-play-if-the-listener-selects-it", "missed-connections")
+    say("your-response-can-last-up-to-2-minutes", "missed-connections")
+    say("any-listener-can-hear-responses-to-this-missed-connection", "missed-connections")
+    say("record-your-message-after-the-tone", "missed-connections")        
     app.VoiceMail(MAILBOX_ONE, "s")
     app.Hangup()
 end
 
 function menu_message_two_response_record(context, extension)
-    say("your-recording-can-last-up-to-two-minutes", "missed-connections")
-    say("the-first-ten-seconds-will-play-on-the-missed-connections-list", "missed-connections")
-    say("and-the-rest-will-play-if-the-listener-selects-it", "missed-connections")
+    say("your-response-can-last-up-to-2-minutes", "missed-connections")
+    say("any-listener-can-hear-responses-to-this-missed-connection", "missed-connections")
+    say("record-your-message-after-the-tone", "missed-connections")        
     app.VoiceMail(MAILBOX_TWO, "s")
     app.Hangup()
 end
 
 function menu_message_three_response_record(context, extension)
-    say("your-recording-can-last-up-to-two-minutes", "missed-connections")
-    say("the-first-ten-seconds-will-play-on-the-missed-connections-list", "missed-connections")
-    say("and-the-rest-will-play-if-the-listener-selects-it", "missed-connections")
+    say("your-response-can-last-up-to-2-minutes", "missed-connections")
+    say("any-listener-can-hear-responses-to-this-missed-connection", "missed-connections")
+    say("record-your-message-after-the-tone", "missed-connections")        
     app.VoiceMail(MAILBOX_THREE, "s")
     app.Hangup()
 end
