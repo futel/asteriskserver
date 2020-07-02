@@ -46,8 +46,8 @@ rename futel-stage.phu73l.net droplet to futel-prod.phu73l.net
   ansible-playbook -i deploy/hosts sync_playbook.yml
 If sync_playbook failed, preserve any recordings downloaded to tmp/stage/recordings
   ansible-playbook -i deploy/hosts post_sync_playbook.yml
-change A record for futel-prod.phu73l.net to point to new futel-prod.phu73l.net
 remove A record for futel-stage.phu73l.net (in own DO domain interface)
+change A record for futel-prod.phu73l.net to point to new futel-prod.phu73l.net
 point all callcentric DID forwarding rules to extensions corresponding to new conf_version on futel-prod.phu73l.net
   futel-r2d2 user to foo|bar
 point all voip.ms DID forwarding rules to subaccounts corresponding to new conf_version on futel-prod.phu73l.net
