@@ -14,9 +14,9 @@ have extension credential list usernames 700:PASSWORD, 701:PASSWORD, ...
 
 enable ACCOUNT_SID and AUTH_TOKEN
 environment variables:
-stage_termination_uri sip:999@futel-stage.phu73l.net
+stage_termination_uri sip:999@futel-stage.phu73l.net;region=us2
 stage_origination_host origination-stage.futel.sip.us1.twilio.com
-prod_termination_uri sip:999@futel-prod.phu73l.net
+prod_termination_uri sip:999@futel-prod.phu73l.net;region=us2
 prod_origination_host origination-prod.futel.sip.us1.twilio.com
 password PASSWORD (asterisk sip extension common password)
 
