@@ -16,6 +16,7 @@ statement_dirs = [
     'statements/karl_quuux/',
     'statements/tishbite/',
     'statements/sailor/',
+    'statements/sofia-general/',
     '']
 # preferred submenu directories for sound files, in order of preference
 preferred_statement_dirs = [
@@ -29,7 +30,16 @@ preferred_statement_dirs = [
     'statements/challenge/',
     'statements/anzie-wumpus/',
     'statements/konami/',
-    'statements/tishbite-wait/']
+    'statements/tishbite-wait/',
+    'statements/sofia-community/',
+    'statements/sofia-community-service/',
+    'statements/sofia-directory/',
+    'statements/sofia-incoming/',
+    'statements/sofia-information/',
+    'statements/sofia-network/',
+    'statements/sofia-outgoing/',
+    'statements/sofia-utilities/',
+    'statements/sofia-voicemail/']
 
 metric_filename = '/opt/asterisk/var/log/asterisk/metrics'
 
