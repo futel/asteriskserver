@@ -55,108 +55,36 @@
     state: directory
     owner: asterisk
     group: asterisk
-- name: copy asterisk statement sounds
+- name: copy en statement sounds
   copy:
-    src: src/var/lib/asterisk/sounds/en/statements/anzie-wumpus
+    src: src/var/lib/asterisk/sounds/en/statements/{{ item }}
     dest: /opt/asterisk/var/lib/asterisk/sounds/en/statements
     owner: asterisk
     group: asterisk
-- name: copy asterisk statement sounds
+  with_items:
+    - anzie-wumpus
+    - challenge
+    - conversations
+    - karl-oracle-dead
+    - karl_quuux
+    - konami
+    - karl-robotron
+    - karl-voicemail-ivr
+    - karl-wildcard-line
+    - missed-connections
+    - peoples-homes
+    - sailor
+    - tishbite
+    - tishbite-wait
+- name: copy es statement sounds
   copy:
-    src: src/var/lib/asterisk/sounds/en/statements/challenge
-    dest: /opt/asterisk/var/lib/asterisk/sounds/en/statements
-    owner: asterisk
-    group: asterisk
-- name: copy asterisk statement sounds
-  copy:
-    src: src/var/lib/asterisk/sounds/en/statements/conversations
-    dest: /opt/asterisk/var/lib/asterisk/sounds/en/statements
-    owner: asterisk
-    group: asterisk
-- name: copy asterisk statement sounds
-  copy:
-    src: src/var/lib/asterisk/sounds/en/statements/karl-oracle-dead
-    dest: /opt/asterisk/var/lib/asterisk/sounds/en/statements
-    owner: asterisk
-    group: asterisk
-- name: copy asterisk statement sounds
-  copy:
-    src: src/var/lib/asterisk/sounds/en/statements/karl_quuux
-    dest: /opt/asterisk/var/lib/asterisk/sounds/en/statements
-    owner: asterisk
-    group: asterisk
-- name: copy asterisk statement sounds
-  copy:
-    src: src/var/lib/asterisk/sounds/en/statements/konami
-    dest: /opt/asterisk/var/lib/asterisk/sounds/en/statements
-    owner: asterisk
-    group: asterisk
-- name: copy asterisk statement sounds
-  copy:
-    src: src/var/lib/asterisk/sounds/en/statements/karl-robotron
-    dest: /opt/asterisk/var/lib/asterisk/sounds/en/statements
-    owner: asterisk
-    group: asterisk
-- name: copy asterisk statement sounds
-  copy:
-    src: src/var/lib/asterisk/sounds/en/statements/karl-voicemail-ivr
-    dest: /opt/asterisk/var/lib/asterisk/sounds/en/statements
-    owner: asterisk
-    group: asterisk
-- name: copy asterisk statement sounds
-  copy:
-    src: src/var/lib/asterisk/sounds/en/statements/karl-wildcard-line
-    dest: /opt/asterisk/var/lib/asterisk/sounds/en/statements
-    owner: asterisk
-    group: asterisk
-- name: copy asterisk statement sounds
-  copy:
-    src: src/var/lib/asterisk/sounds/en/statements/missed-connections
-    dest: /opt/asterisk/var/lib/asterisk/sounds/en/statements
-    owner: asterisk
-    group: asterisk
-- name: copy asterisk statement sounds
-  copy:
-    src: src/var/lib/asterisk/sounds/en/statements/peoples-homes
-    dest: /opt/asterisk/var/lib/asterisk/sounds/en/statements
-    owner: asterisk
-    group: asterisk
-- name: copy asterisk statement sounds
-  copy:
-    src: src/var/lib/asterisk/sounds/en/statements/sailor
-    dest: /opt/asterisk/var/lib/asterisk/sounds/en/statements
-    owner: asterisk
-    group: asterisk
-- name: copy asterisk statement sounds
-  copy:
-    src: src/var/lib/asterisk/sounds/en/statements/tishbite
-    dest: /opt/asterisk/var/lib/asterisk/sounds/en/statements
-    owner: asterisk
-    group: asterisk
-- name: copy asterisk statement sounds
-  copy:
-    src: src/var/lib/asterisk/sounds/en/statements/tishbite-wait
-    dest: /opt/asterisk/var/lib/asterisk/sounds/en/statements
-    owner: asterisk
-    group: asterisk
-- name: copy asterisk statement sounds
-  copy:
-    src: src/var/lib/asterisk/sounds/en/statements/anzie-wumpus
-    dest: /opt/asterisk/var/lib/asterisk/sounds/en/statements
-    owner: asterisk
-    group: asterisk
-- name: copy asterisk es statement sounds
-  copy:
-    src: src/var/lib/asterisk/sounds/es/statements/missed-connections
+    src: src/var/lib/asterisk/sounds/es/statements/{{ item }}
     dest: /opt/asterisk/var/lib/asterisk/sounds/es/statements
     owner: asterisk
     group: asterisk
-- name: copy asterisk es statement sounds
-  copy:
-    src: src/var/lib/asterisk/sounds/es/statements/sailor
-    dest: /opt/asterisk/var/lib/asterisk/sounds/es/statements
-    owner: asterisk
-    group: asterisk
+  with_items:
+    - missed-connections
+    - sailor      
 - name: copy asterisk wildcard line sounds
   copy:
     src: src/var/lib/asterisk/sounds/futel/wildcard-line
