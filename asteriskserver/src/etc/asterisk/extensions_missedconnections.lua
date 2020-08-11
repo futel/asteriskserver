@@ -37,14 +37,15 @@ function menu_hold_the_phone_incoming_missedconnections(context, extension)
         extension)
 end
 
+-- Call the language macro and replay the menu.
 -- the only way this seems workable from lua is to call a conf macro
 -- exten => s,1,Set(CHANNEL(language)=es)
 -- channel.LANGUAGE = "es"
 -- channel.LANGUAGE:set("es")
 -- channel.LANGUAGE():set("es")
-function set_language_es(context, extension)
+function set_language_es(menu_function, context, extension)
     app.Macro("languagees")     -- extensions.conf
-    return app.Goto("hold_the_phone_main_missedconnections", "s", 1)
+    return menu_function(context, extension)    
 end
 
 function menu_hold_the_phone_info_missedconnections(context, extension)
@@ -212,7 +213,9 @@ end
 -- return context array with an es localization option on star
 function main_context_en(menu_function, parent_context, destinations)
     context_array = context(menu_function, parent_context, destinations)
-    context_array["*"] = set_language_es
+    context_array["*"] = function(context, exten)
+        set_language_es(menu_function, context, exten)
+    end
     return context_array
 end
 
