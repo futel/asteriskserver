@@ -41,7 +41,6 @@ end
 
 -- execute goto to destination_context
 function goto_context(destination_context, context, exten)
-    -- Push parent context. Our stack is limited to one value!
     push_parent_context(context)
     return app.Goto(destination_context, "s", 1)
 end
