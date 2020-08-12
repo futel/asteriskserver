@@ -12,9 +12,12 @@ agi = agi.AGI()
 def main():
     # first argument is name of statement file
     statement = sys.argv[1]
-    # rest of args are preferred subdirs
-    preferred_subs = [arg for arg in sys.argv[2:] if arg]
-    sound_path = util.sound_path(statement, preferred_subs)
+    # optional second argument is preferred subdir
+    try:
+        preferred_sub = sys.argv[2]
+    except IndexError:
+        preferred_sub = None
+    sound_path = util.sound_path(statement, [preferred_sub])
     agi.set_variable('agi_out', sound_path)
 
 agi.answer()
