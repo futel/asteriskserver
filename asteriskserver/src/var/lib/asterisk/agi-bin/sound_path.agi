@@ -17,7 +17,7 @@ def main():
         preferred_sub = sys.argv[2]
     except IndexError:
         preferred_sub = None
-    sound_path = util.sound_path(statement, [preferred_sub])
+    sound_path = util.sound_path(statement, preferred_sub)
     agi.set_variable('agi_out', sound_path)
 
 agi.answer()

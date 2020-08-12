@@ -13,7 +13,7 @@ def main():
     key = sys.argv[1]
     line = challenge.get_challenge_leaderboard_line(key)
     if line:
-        util.say(agi, line, preferred_subs=['challenge'])
+        util.say(agi, line, preferred_sub='challenge')
 
 agi.answer()
 util.agi_tracebacker(agi, main)

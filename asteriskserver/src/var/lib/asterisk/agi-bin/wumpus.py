@@ -137,8 +137,8 @@ class Wumpus:
                 return int(room)
 
     def say(self, statement):
-        """ too lazy to add preferred_subs everywhere """
-        util.say(self.agi_o, statement, preferred_subs=['anzie-wumpus'])
+        """ too lazy to add preferred_sub everywhere """
+        util.say(self.agi_o, statement, preferred_sub='anzie-wumpus')
 
     def warn_and_reset(self):
         """ restart game on loss """

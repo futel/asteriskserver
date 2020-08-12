@@ -52,7 +52,7 @@ def progged(agi_o):
   while True:
     files_to_play = communicate_game_state(game_state)
     if files_to_play == ["you-win"]:
-        util.say(agi_o, "you-win", preferred_subs=['challenge'], escape=True)
+        util.say(agi_o, "you-win", preferred_sub='challenge', escape=True)
         return 0
     move = play_list_and_get_input(agi_o, files_to_play)
     if move in set('0123456789'):
@@ -132,11 +132,11 @@ def play_list_and_get_input(agi_o, files):
   # print(files)
   for file in files:
     digit = util.say(
-        agi_o, file, preferred_subs=['challenge'], escape=True)
+        agi_o, file, preferred_sub='challenge', escape=True)
     if digit is not '':
       return digit
   digit = util.say(
-      agi_o, "enter-move", preferred_subs=['challenge'], escape=True)
+      agi_o, "enter-move", preferred_sub='challenge', escape=True)
   if digit is not '':
     return digit
   return agi_o.wait_for_digit(timeout=-1)

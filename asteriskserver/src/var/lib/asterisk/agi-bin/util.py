@@ -57,22 +57,19 @@ def agi_tracebacker(agi_o, func, *args, **kwargs):
             agi_o.verbose(line)
         raise
 
-def sound_path(sound_name, preferred_subs=None, language='en'):
+def sound_path(sound_name, preferred_sub=None, language='en'):
     """
     Return partial path for file for sound_name, or None.
     Path does not include extension.
-    If preferred_subs is given, prefer a path with any of them as a substring.
+    If preferred_sub is given, prefer a path with it as a substring.
     """
     if sound_name.startswith('/'):
         # absolute path
         return sound_name
     paths = []
-    if not preferred_subs:
-        preferred_subs = []
-    # add preferred_statement_dirs directory paths that include preferred_subs
-    for preferred_sub in preferred_subs:
-        paths.extend(
-            [d for d in preferred_statement_dirs if preferred_sub in d])
+    if preferred_sub:
+        # add preferred_statement_dirs directory paths that include preferred_sub
+        paths.extend([d for d in preferred_statement_dirs if preferred_sub in d])
     # add all statement_dirs directory paths
     paths.extend(statement_dirs)
     paths = [p + sound_name for p in paths]
@@ -97,12 +94,12 @@ def sound_path(sound_name, preferred_subs=None, language='en'):
 
     return path
 
-def say(agi_o, filename, preferred_subs=None, escape=False):
+def say(agi_o, filename, preferred_sub=None, escape=False):
     if escape:
         escape_digits = '0123456789*#ABCD*'
     else:
         escape_digits = ''
-    path = sound_path(filename, preferred_subs)
+    path = sound_path(filename, preferred_sub)
     if path:
         return agi_o.stream_file(path, escape_digits=escape_digits)
 

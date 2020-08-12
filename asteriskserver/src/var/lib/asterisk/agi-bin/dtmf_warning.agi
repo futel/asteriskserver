@@ -14,15 +14,15 @@ def play_sound(agi_o, name):
 def main():
     #util.say(agi,
     #         "you-will-need-to-be-able-to-hear-dtmf-tones",
-    #         preferred_subs=['challenge'])
-    #util.say(agi, "to-complete-this-challenge", preferred_subs=['challenge'])
-    util.say(agi, "can-you-hear-this", preferred_subs=['challenge'])
+    #         preferred_sub='challenge')
+    #util.say(agi, "to-complete-this-challenge", preferred_sub='challenge')
+    util.say(agi, "can-you-hear-this", preferred_sub='challenge')
     agi.wait_for_digit(500)
     play_sound(agi, "dtmf4")
     play_sound(agi, "dtmf3")
     agi.wait_for_digit(500)
-    util.say(agi, "if-not", preferred_subs=['challenge'])
-    util.say(agi, "get-a-real-phone", preferred_subs=['challenge'])
+    util.say(agi, "if-not", preferred_sub='challenge')
+    util.say(agi, "get-a-real-phone", preferred_sub='challenge')
 
 
 agi.answer()

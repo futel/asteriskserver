@@ -63,20 +63,20 @@ def say_pw(digits):
 def say_vmbox(digits):
     """ Say the voice mail box. """
     util.say(agi, 'your-voicemail-box-is')
-    agi.say_digits(digits)    
+    agi.say_digits(digits)
     util.say(agi, 'again')
     util.say(agi, 'your-voicemail-box-is')
     agi.say_digits(digits)
 
 def say_next():
     util.say(agi, 'you-will-now-experience-the-voicemail-menu')
-        
+
 def main():
     password = get_pw()
     say_pw(password)
     vmbox = next_vm()
     agi.set_variable("vmbox", int(vmbox))
-    say_vmbox(vmbox)    
+    say_vmbox(vmbox)
     write_vm(vmbox, password)
     say_next()
 

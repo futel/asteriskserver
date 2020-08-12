@@ -38,7 +38,7 @@ class Waiting:
 
     def say(self, statement):
         """ util.say wrapper """
-        util.say(self.agi_o, statement, preferred_subs=['tishbite-wait'])
+        util.say(self.agi_o, statement, preferred_sub='tishbite-wait')
 
     def wait_with_music(self, time):
         """ wait for given time while playing good music """

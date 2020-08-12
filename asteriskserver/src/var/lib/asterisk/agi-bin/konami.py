@@ -49,7 +49,7 @@ class Konami:
         return 0
 
     def _say(self, file):
-        util.say(self.agi_o, file, ['konami'])
+        util.say(self.agi_o, file, 'konami')
 
 
 def konami(agi_o):
