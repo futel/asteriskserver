@@ -9,8 +9,8 @@ asterisk_etc_dir = '/opt/asterisk/etc/asterisk'
 # filename suffixes to consider for sound files
 soundfile_suffixes = [
     '.gsm', '.sl44', '.sln', '.sln16', '.sln44', '.sln48', '.wav']
-# localization superdirectories for sound files
-superdirectories = ['/opt/asterisk/var/lib/asterisk/sounds/en/']
+# superdirectory for sound files
+superdirectory = '/opt/asterisk/var/lib/asterisk/sounds/'
 # general directories for sound files, in order of preference
 statement_dirs = [
     'statements/karl_quuux/',
@@ -57,9 +57,10 @@ def agi_tracebacker(agi_o, func, *args, **kwargs):
             agi_o.verbose(line)
         raise
 
-def sound_path(sound_name, preferred_subs=None):
+def sound_path(sound_name, preferred_subs=None, language='en'):
     """
-    Return full path without extension for file for sound_name, or None.
+    Return partial path for file for sound_name, or None.
+    Path does not include extension.
     If preferred_subs is given, prefer a path with any of them as a substring.
     """
     if sound_name.startswith('/'):
@@ -75,17 +76,15 @@ def sound_path(sound_name, preferred_subs=None):
     # add all statement_dirs directory paths
     paths.extend(statement_dirs)
     paths = [p + sound_name for p in paths]
+    superdirectories = [superdirectory + language + '/']
     for path in paths:
-        for superdirectory in superdirectories:
+        for sd in superdirectories:
             # Look for path with all eligible extensions.
             for suffix in soundfile_suffixes:
-                if os.path.isfile(superdirectory + path + suffix):
+                if os.path.isfile(sd + path + suffix):
                     # A playable file exists at the path. Return it without the
-                    # localization superdirectory or suffix. Note that we are
-                    # ignoring localization, we assume that if it exists in any
-                    # localization superdirectory we found it in, it will exist
-                    # in the localization directory we will be looking it up in.
-                    return path
+                    # suffix.
+                    return sd + path
     # We didn't find a path, create and return an absolute path without suffix.
     # This ignores localization in a bad way, always returning the language of the
     # sound_name.
