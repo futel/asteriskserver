@@ -10,6 +10,7 @@ import util
 agi = agi.AGI()
 
 def main():
+    language = agi.env.get('agi_language')
     # first argument is name of statement file
     statement = sys.argv[1]
     # optional second argument is preferred subdir
@@ -17,7 +18,7 @@ def main():
         preferred_sub = sys.argv[2]
     except IndexError:
         preferred_sub = None
-    sound_path = util.sound_path(statement, preferred_sub)
+    sound_path = util.sound_path(statement, preferred_sub, language)
     agi.set_variable('agi_out', sound_path)
 
 agi.answer()
