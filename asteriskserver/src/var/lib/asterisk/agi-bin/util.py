@@ -73,9 +73,13 @@ def sound_path(sound_name, preferred_sub=None, language='en'):
     # add all statement_dirs directory paths
     paths.extend(statement_dirs)
     paths = [p + sound_name for p in paths]
+    # add localization directories
     superdirectories = [superdirectory + language + '/']
-    for path in paths:
-        for sd in superdirectories:
+    if language != 'en':
+        # add fallback to en
+        superdirectories.append(superdirectory + 'en' + '/')
+    for sd in superdirectories:
+        for path in paths:
             # Look for path with all eligible extensions.
             for suffix in soundfile_suffixes:
                 if os.path.isfile(sd + path + suffix):
