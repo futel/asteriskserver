@@ -99,11 +99,12 @@ def sound_path(sound_name, preferred_sub=None, language='en'):
     return path
 
 def say(agi_o, filename, preferred_sub=None, escape=False):
+    language = agi_o.env.get('agi_language')
     if escape:
         escape_digits = '0123456789*#ABCD*'
     else:
         escape_digits = ''
-    path = sound_path(filename, preferred_sub)
+    path = sound_path(filename, preferred_sub, language)
     if path:
         return agi_o.stream_file(path, escape_digits=escape_digits)
 
