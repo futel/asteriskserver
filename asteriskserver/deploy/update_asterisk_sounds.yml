@@ -84,7 +84,17 @@
     group: asterisk
   with_items:
     - missed-connections
-    - sailor      
+    - sailor
+    - sofia-community
+    - sofia-community-service
+    - sofia-directory
+    - sofia-general
+    - sofia-incoming
+    - sofia-information
+    - sofia-network
+    - sofia-outgoing
+    - sofia-utilities
+    - sofia-voicemail
 - name: copy asterisk wildcard line sounds
   copy:
     src: src/var/lib/asterisk/sounds/futel/wildcard-line
