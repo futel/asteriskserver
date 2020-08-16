@@ -261,14 +261,14 @@ function menu_content_nine_selected(context, extension)
 end
 
 extensions_conversations = {
-    hold_the_phone_main = context(
+    hold_the_phone_main_conversations = context(
         menu_hold_the_phone_main_conversations,
-        "hold_the_phone_main",
+        "hold_the_phone_main_conversations",
         {"conversations",
          "outgoing-ivr",	-- extensions.conf
          "conversations_info",
          "hold_the_phone_info"});
-    hold_the_phone_incoming = context(
+    hold_the_phone_incoming_conversations = context(
         menu_hold_the_phone_incoming_conversations,
         "hold_the_phone_incoming",
         {"conversations",

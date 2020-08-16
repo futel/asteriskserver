@@ -220,16 +220,16 @@ function main_context_en(menu_function, parent_context, destinations)
 end
 
 extensions_missedconnections = {
-    hold_the_phone_main_missedconnections = main_context_en(
+    hold_the_phone_main = main_context_en(
         menu_hold_the_phone_main_missedconnections,
-        "hold_the_phone_main_missedconnections",
+        "hold_the_phone_main",
         {"missed_connections",
          "outgoing-ivr",	-- extensions.conf
          "missed_connections_info",
          "hold_the_phone_info_missedconnections"});
-    hold_the_phone_incoming_missedconnections = main_context_en(
+    hold_the_phone_incoming = main_context_en(
         menu_hold_the_phone_incoming_missedconnections,
-        "hold_the_phone_incoming_missedconnections",
+        "hold_the_phone_incoming",
         {"missed_connections",
          "missed_connections_info",
          "hold_the_phone_info_missedconnections"});
