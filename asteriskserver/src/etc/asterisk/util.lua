@@ -78,6 +78,9 @@ function context(menu_function, parent_context, destinations)
     context_array["#"] = function(context, exten)
         goto_parent_context(menu_function, context, exten)
     end
+    context_array["*"] = function(context, exten)
+        set_language_es(menu_function, context, exten)
+    end
     for key, value in ipairs(destinations) do
         context_array[key] = function(context, exten)
             goto_context(value, context, exten)

@@ -210,24 +210,15 @@ function menu_message_record(context, extension)
     app.Hangup()
 end
 
--- return context array with an es localization option on star
-function main_context_en(menu_function, parent_context, destinations)
-    context_array = context(menu_function, parent_context, destinations)
-    context_array["*"] = function(context, exten)
-        set_language_es(menu_function, context, exten)
-    end
-    return context_array
-end
-
 extensions_missedconnections = {
-    hold_the_phone_main = main_context_en(
+    hold_the_phone_main = context(
         menu_hold_the_phone_main_missedconnections,
         "hold_the_phone_main",
         {"missed_connections",
          "outgoing-ivr",	-- extensions.conf
          "missed_connections_info",
          "hold_the_phone_info_missedconnections"});
-    hold_the_phone_incoming = main_context_en(
+    hold_the_phone_incoming = context(
         menu_hold_the_phone_incoming_missedconnections,
         "hold_the_phone_incoming",
         {"missed_connections",
