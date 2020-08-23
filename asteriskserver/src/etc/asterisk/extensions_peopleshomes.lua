@@ -96,47 +96,38 @@ end
 extensions_peopleshomes = {
     hold_the_phone_main_peopleshomes = util.context(
         menu_hold_the_phone_main,
-        "hold_the_phone_main_peopleshomes", -- same context to avoid access from incoming
         {"peoples_homes",
          "outgoing-ivr",	-- extensions.conf
          "hold_the_phone_info"});
     hold_the_phone_incoming_peopleshomes = util.context(
         menu_hold_the_phone_incoming,
-        "hold_the_phone_incoming_peopleshomes", -- same context to avoid access from incoming
         {"peoples_homes",
          "hold_the_phone_info"});
     hold_the_phone_info_peopleshomes = util.context(
         menu_hold_the_phone_info,
-        "hold_the_phone_info_peopleshomes",  -- same context to avoid access from incoming
         {});
     peoples_homes = util.context(
         menu_peoples_homes,
-        "peoples_homes",  -- same context to avoid access from incoming
         {"paul_knauls",
          "sharon-helgerson",	-- extensions.conf
          "norman-sylvester",	-- extensions.conf
          "peoples-homes-info-content"}); -- extensions.conf
     paul_knauls = util.context(
         menu_paul_knauls,
-        "peoples_homes",
         {"paul_knauls_content_one",
          "paul_knauls_content_two",
          "paul_knauls_content_three",
          "paul_knauls_message"});
     paul_knauls_content_one = util.context(
         menu_paul_knauls_content_one,
-        "paul_knauls",
         {});
     paul_knauls_content_two = util.context(
         menu_paul_knauls_content_two,
-        "paul_knauls",
         {});
     paul_knauls_content_three = util.context(
         menu_paul_knauls_content_three,
-        "paul_knauls",
         {});
-    paul_knauls_message = util.context(
-        menu_paul_knauls_message, "paul_knauls", {});
+    paul_knauls_message = util.context(menu_paul_knauls_message, {});
     -- sharon_helgerson = util.context(menu_peoples_homes, {});
     -- norman_sylvester = util.context(menu_peoples_homes, {});
     -- peoples_homes_info_content = util.context(menu_peoples_homes, {});

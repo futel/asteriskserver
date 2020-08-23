@@ -295,7 +295,6 @@ end
 extensions_challenge = {
     challenge_main = util.context(
         menu_challenge_main,
-        "challenge_main",
         {"challenge_list",
          "outgoing-voicemail",  -- extensions.conf
          "futel-conf",  -- extensions.conf         
@@ -305,15 +304,14 @@ extensions_challenge = {
          "challenge_info"
          });
     challenge_shadytel_main = util.context(
-        menu_challenge_shadytel_main, "challenge_main", {});
+        menu_challenge_shadytel_main, {});
     challenge_instructions = util.context(
-        menu_challenge_instructions, "challenge_main", {});
+        menu_challenge_instructions, {});
     challenge_leaderboard = util.context(
-        menu_challenge_leaderboard, "challenge_main", {});
-    challenge_info = util.context(menu_challenge_info, "challenge_main", {});
+        menu_challenge_leaderboard, {});
+    challenge_info = util.context(menu_challenge_info, {});
     challenge_list = util.context(
         menu_challenge_list,
-        "challenge_main",
         {"challenge_mailbox",
          "challenge_progged",
          "challenge_wumpus",
@@ -325,27 +323,26 @@ extensions_challenge = {
          });
     challenge_sequence_list = util.context(
         menu_challenge_sequence_list,
-        "challenge_list",
         {"challenge_sequence_one",
          "challenge_sequence_two",
          "challenge_sequence_three",
          "challenge_sequence_four"});
-    challenge_mailbox = util.context(menu_challenge_mailbox, "challenge_main", {});
-    challenge_progged = util.context(menu_challenge_progged, "challenge_main", {});
-    challenge_wumpus = util.context(menu_challenge_wumpus, "challenge_main", {});
-    challenge_konami = util.context(menu_challenge_konami, "challenge_main", {});
+    challenge_mailbox = util.context(menu_challenge_mailbox, {});
+    challenge_progged = util.context(menu_challenge_progged, {});
+    challenge_wumpus = util.context(menu_challenge_wumpus, {});
+    challenge_konami = util.context(menu_challenge_konami, {});
     challenge_sequence_one = util.context(
-        menu_challenge_sequence_one, "challenge_main", {});    
+        menu_challenge_sequence_one, {});    
     challenge_sequence_two = util.context(
-        menu_challenge_sequence_two, "challenge_main", {});    
+        menu_challenge_sequence_two, {});    
     challenge_sequence_three = util.context(
-        menu_challenge_sequence_three, "challenge_main", {});    
+        menu_challenge_sequence_three, {});    
     challenge_sequence_four = util.context(
-        menu_challenge_sequence_four, "challenge_main", {});
+        menu_challenge_sequence_four, {});
     challenge_shadytel = util.context(
-        menu_challenge_shadytel, "challenge_main", {});
+        menu_challenge_shadytel, {});
     challenge_hold = util.context(
-        menu_challenge_hold, "challenge_main", {});        
+        menu_challenge_hold, {});        
     challenge_conference = util.context(
-        menu_challenge_conference, "challenge_main", {});
+        menu_challenge_conference, {});
 }

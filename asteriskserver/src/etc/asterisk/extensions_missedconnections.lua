@@ -215,33 +215,27 @@ end
 extensions_missedconnections = {
     hold_the_phone_main = util.context(
         menu_hold_the_phone_main_missedconnections,
-        "hold_the_phone_main",
         {"missed_connections",
          "outgoing-ivr",	-- extensions.conf
          "missed_connections_info",
          "hold_the_phone_info_missedconnections"});
     hold_the_phone_incoming = util.context(
         menu_hold_the_phone_incoming_missedconnections,
-        "hold_the_phone_incoming",
         {"missed_connections",
          "missed_connections_info",
          "hold_the_phone_info_missedconnections"});
     hold_the_phone_info_missedconnections = util.context(
         menu_hold_the_phone_info_missedconnections,
-        "hold_the_phone_info_missedconnections", -- same context to avoid access from incoming
         {});
     missed_connections_info = util.context(
         menu_missed_connections_info,
-        "missed_connections_info", -- same context to avoid access from incoming
         {});
     missed_connections = util.context(
         menu_missed_connections,
-        "missed_conections",    -- same context to avoid access from incoming
         {"missed_connections_listen",
          "message_record"});
     missed_connections_listen = util.context(
         menu_missed_connections_listen,
-        "missed_connections_listen", -- same context to avoid access from incoming
         {"message_one_play",
          "message_two_play",
          "message_three_play",         
@@ -253,45 +247,35 @@ extensions_missedconnections = {
          "message_record"});
     message_record = util.context(
         menu_message_record,
-        "missed_connections",
         {});
     message_one_play = util.context(
         menu_message_one_play,
-        "missed_connections_listen",
         {"message_one_response_record",
          "message_one_response_play"});
     message_one_response_record = util.context(
         menu_message_one_response_record,
-        "message_one_play",
         {});
     -- message_one_response_play = util.context(
     --     menu_message_one_response_play,
-    --     "message_one_play",
     --     {"message_one_response_record"});
     message_two_play = util.context(
         menu_message_two_play,    
-        "missed_connections_listen",
         {"message_two_response_record",
          "message_two_response_play"});
     message_two_response_record = util.context(
         menu_message_two_response_record,    
-        "message_two_play",
         {});
     -- message_two_response_play = util.context(
     --     menu_message_two_response_play,    
-    --     "message_two_play",
     --     {"message_two_response_record"});
     message_three_play = util.context(
         menu_message_three_play,
-        "missed_connections_listen",
         {"message_three_response_record",
          "message_three_response_play"});
     message_three_response_record = util.context(
         menu_message_three_response_record,
-        "message_three_play",
         {});
     -- message_three_response_play = util.context(
     --     menu_message_three_response_play,
-    --     "message_three_play",
     --     {"message_three_response_record"});
 }

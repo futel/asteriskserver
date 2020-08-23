@@ -71,7 +71,7 @@ function goto_parent_context(menu_function, context, exten)
 end
 
 -- return context structure
-function context(menu_function, parent_context, destinations)
+function context(menu_function, destinations)
     context_array = {}
     context_array.s = menu_function
     context_array.i = menu_function

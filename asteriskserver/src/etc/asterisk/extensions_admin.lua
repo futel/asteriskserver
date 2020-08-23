@@ -42,7 +42,6 @@ end
 extensions_admin = {
     admin_main = util.context(
         menu_admin_main,
-        "admin_main",
         {"futel-conf",
          "outgoing-chooser",
          "internal-dialtone-wrapper",
@@ -50,7 +49,6 @@ extensions_admin = {
          "operator"});
     member_main = util.context(
         menu_member_main,
-        "member_main",
         {"futel-conf",
          "internal-dialtone-wrapper",
          "record",
