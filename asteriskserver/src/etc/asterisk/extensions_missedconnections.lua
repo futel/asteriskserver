@@ -39,17 +39,6 @@ function menu_hold_the_phone_incoming_missedconnections(context, extension)
         extension)
 end
 
--- Call the language macro and replay the menu.
--- the only way this seems workable from lua is to call a conf macro
--- exten => s,1,Set(CHANNEL(language)=es)
--- channel.LANGUAGE = "es"
--- channel.LANGUAGE:set("es")
--- channel.LANGUAGE():set("es")
-function set_language_es(menu_function, context, extension)
-    app.Macro("languagees")     -- extensions.conf
-    return menu_function(context, extension)    
-end
-
 function menu_hold_the_phone_info_missedconnections(context, extension)
     return util.menu(
         {"hold-the-phone-info-content"},
