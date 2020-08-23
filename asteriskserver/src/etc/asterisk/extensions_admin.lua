@@ -1,3 +1,5 @@
+require("util")
+
 function menu_admin_main(context, extension)
     return menu(
         {"fewtel",

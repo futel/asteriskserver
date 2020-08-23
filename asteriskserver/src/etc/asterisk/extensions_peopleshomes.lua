@@ -1,3 +1,5 @@
+require("util")
+
 function menu_hold_the_phone_main(context, extension)
     return menu(
         {"welcome-to-hold-the-phone",

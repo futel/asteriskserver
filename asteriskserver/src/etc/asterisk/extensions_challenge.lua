@@ -1,3 +1,5 @@
+require("util")
+
 function vmauthenticate()
     if channel.AUTH_MAILBOX:get() then
         return channel.AUTH_MAILBOX:get()
