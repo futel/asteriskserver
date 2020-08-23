@@ -88,3 +88,14 @@ function context(menu_function, parent_context, destinations)
     end
     return context_array
 end
+
+local util = {
+    say = say,
+    menu = menu,
+    play = play,
+    record = record,
+    goto_context = goto_context,
+    context = context,
+    }
+
+return util

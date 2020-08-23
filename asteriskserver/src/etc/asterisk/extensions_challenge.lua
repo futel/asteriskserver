@@ -1,10 +1,10 @@
-require("util")
+util = require("util")
 
 function vmauthenticate()
     if channel.AUTH_MAILBOX:get() then
         return channel.AUTH_MAILBOX:get()
     end
-    say("authenticate-with-your-voice-mail-box-to-continue", "challenge")
+    util.say("authenticate-with-your-voice-mail-box-to-continue", "challenge")
     app.VMAuthenticate()
     return channel.AUTH_MAILBOX:get()
 end
@@ -19,17 +19,17 @@ end
 function check_access(mailbox, requirement, achievement)
     if not mailbox then
         -- cheap way to get around user skipping authentication
-        say("access-denied", "challenge")            
+        util.say("access-denied", "challenge")            
         return goto_main()
     end
     if requirement ~= nil then
         if not challenge_has_value(mailbox, requirement) then
-            say("access-denied", "challenge")
+            util.say("access-denied", "challenge")
             return goto_main()
         end
     end
     if challenge_has_value(mailbox, achievement) then
-        say("warning-access-already-granted", "challenge")
+        util.say("warning-access-already-granted", "challenge")
     end
 end
 
@@ -37,7 +37,7 @@ function challenge_mailbox(mailbox)
     filename = "/opt/asterisk/var/spool/asterisk/voicemail/default/" .. mailbox .. "/greet.wav"
     if not io.open(filename, "r") then
         for i=1,10 do
-            say("record-your-name-in-your-voicemail-account-for-access",
+            util.say("record-your-name-in-your-voicemail-account-for-access",
                 "challenge")
         end
         app.Hangup() 
@@ -83,7 +83,7 @@ function challenge_shadytel(mailbox)
     from_shadytel = channel.from_shadytel:get()
     if from_shadytel ~= "True" then
         for i=1,10 do
-            say("visit-this-destination-via-shadytel-extension-3003-for-access",
+            util.say("visit-this-destination-via-shadytel-extension-3003-for-access",
                 "challenge")
         end
         app.Hangup()
@@ -111,7 +111,7 @@ function do_challenge(requirement, achievement, challenge_call)
     check_access(mailbox, requirement, achievement)
     challenge_call(mailbox)
     app.AGI("challenge_write.agi", mailbox, achievement)    
-    say("access-granted", "challenge")
+    util.say("access-granted", "challenge")
     return goto_main()
 end
 
@@ -178,7 +178,7 @@ function menu_challenge_conference(context, extension)
 end
 
 function menu_challenge_main(context, extension)
-    return menu(
+    return util.menu(
         {"to-perform-the-challenges",
          "press-one",
          "for-voicemail",
@@ -204,7 +204,7 @@ function menu_challenge_shadytel_main(context, extension)
 end
 
 function menu_challenge_info(context, extension)
-    return menu(
+    return util.menu(
         {"the-fewtel-remote-testing-facility",
          "a-facility-for-the-remote-testing-of-users-of-fewtel",
          "with-contributions-from",
@@ -229,7 +229,7 @@ function menu_challenge_list(context, extension)
     mailbox = vmauthenticate()
     app.AGI("challenge_leaderboard_position.agi", mailbox)
     -- XXX hide items when requirements not met
-    return menu(
+    return util.menu(
         {"for-challenge-mailbox",
 	"press-one",
 	"for-challenge-progged",
@@ -254,7 +254,7 @@ end
 function menu_challenge_sequence_list(context, extension)
     app.AGI("dtmf_warning.agi")
     -- XXX hide items when requirements not met
-    return menu(
+    return util.menu(
         {"for-challenge-sequence-one",
 	"press-one",
         "for-challenge-sequence-two",
@@ -269,7 +269,7 @@ function menu_challenge_sequence_list(context, extension)
 end
 
 function menu_challenge_instructions(context, extension)
-    return menu(
+    return util.menu(
         {"welcome-to-the-fewtel-remote-testing-facility",
          "access-is-granted-as-challenges-are-successfully-completed",
          "complete-all-challenges-to-qualify",
@@ -284,16 +284,16 @@ function menu_challenge_instructions(context, extension)
 end
 
 function menu_challenge_leaderboard(context, extension)
-        say("access-denied", "challenge")
-        say("access-denied", "challenge")
-        say("access-denied", "challenge")
-        say("access-denied", "challenge")
-        say("access-denied", "challenge")
+        util.say("access-denied", "challenge")
+        util.say("access-denied", "challenge")
+        util.say("access-denied", "challenge")
+        util.say("access-denied", "challenge")
+        util.say("access-denied", "challenge")
         return goto_main()
 end
 
 extensions_challenge = {
-    challenge_main = context(
+    challenge_main = util.context(
         menu_challenge_main,
         "challenge_main",
         {"challenge_list",
@@ -304,14 +304,14 @@ extensions_challenge = {
          "community-outgoing", -- extensions.conf
          "challenge_info"
          });
-    challenge_shadytel_main = context(
+    challenge_shadytel_main = util.context(
         menu_challenge_shadytel_main, "challenge_main", {});
-    challenge_instructions = context(
+    challenge_instructions = util.context(
         menu_challenge_instructions, "challenge_main", {});
-    challenge_leaderboard = context(
+    challenge_leaderboard = util.context(
         menu_challenge_leaderboard, "challenge_main", {});
-    challenge_info = context(menu_challenge_info, "challenge_main", {});
-    challenge_list = context(
+    challenge_info = util.context(menu_challenge_info, "challenge_main", {});
+    challenge_list = util.context(
         menu_challenge_list,
         "challenge_main",
         {"challenge_mailbox",
@@ -323,29 +323,29 @@ extensions_challenge = {
          "challenge_hold",
          "challenge_conference",
          });
-    challenge_sequence_list = context(
+    challenge_sequence_list = util.context(
         menu_challenge_sequence_list,
         "challenge_list",
         {"challenge_sequence_one",
          "challenge_sequence_two",
          "challenge_sequence_three",
          "challenge_sequence_four"});
-    challenge_mailbox = context(menu_challenge_mailbox, "challenge_main", {});
-    challenge_progged = context(menu_challenge_progged, "challenge_main", {});
-    challenge_wumpus = context(menu_challenge_wumpus, "challenge_main", {});
-    challenge_konami = context(menu_challenge_konami, "challenge_main", {});
-    challenge_sequence_one = context(
+    challenge_mailbox = util.context(menu_challenge_mailbox, "challenge_main", {});
+    challenge_progged = util.context(menu_challenge_progged, "challenge_main", {});
+    challenge_wumpus = util.context(menu_challenge_wumpus, "challenge_main", {});
+    challenge_konami = util.context(menu_challenge_konami, "challenge_main", {});
+    challenge_sequence_one = util.context(
         menu_challenge_sequence_one, "challenge_main", {});    
-    challenge_sequence_two = context(
+    challenge_sequence_two = util.context(
         menu_challenge_sequence_two, "challenge_main", {});    
-    challenge_sequence_three = context(
+    challenge_sequence_three = util.context(
         menu_challenge_sequence_three, "challenge_main", {});    
-    challenge_sequence_four = context(
+    challenge_sequence_four = util.context(
         menu_challenge_sequence_four, "challenge_main", {});
-    challenge_shadytel = context(
+    challenge_shadytel = util.context(
         menu_challenge_shadytel, "challenge_main", {});
-    challenge_hold = context(
+    challenge_hold = util.context(
         menu_challenge_hold, "challenge_main", {});        
-    challenge_conference = context(
+    challenge_conference = util.context(
         menu_challenge_conference, "challenge_main", {});
 }

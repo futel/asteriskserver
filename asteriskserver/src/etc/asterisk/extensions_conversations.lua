@@ -1,4 +1,4 @@
-require("util")
+util = require("util")
 
 -- execute background playing of content
 -- if no selection, go to conversations menu main
@@ -11,7 +11,7 @@ function play_content(contents, context, exten)
 end
 
 function menu_hold_the_phone_main_conversations(context, extension)
-    return menu(
+    return util.menu(
         {"welcome-to-hold-the-phone",
 	"for-conversations",
 	"press-one",
@@ -27,7 +27,7 @@ function menu_hold_the_phone_main_conversations(context, extension)
 end
 
 function menu_hold_the_phone_incoming_conversations(context, extension)
-    return menu(
+    return util.menu(
         {"welcome-to-hold-the-phone",
 	"for-conversations",
 	"press-one",
@@ -41,7 +41,7 @@ function menu_hold_the_phone_incoming_conversations(context, extension)
 end
 
 function menu_hold_the_phone_info_conversations(context, extension)
-    return menu(
+    return util.menu(
         {"hold-the-phone-info-content"},
          "conversations",
          context,
@@ -49,7 +49,7 @@ function menu_hold_the_phone_info_conversations(context, extension)
 end
 
 function menu_conversations_info(context, extension)
-    return menu(
+    return util.menu(
         {"conversations-info-content"},
          "conversations",
          context,
@@ -57,7 +57,7 @@ function menu_conversations_info(context, extension)
 end
 
 function menu_conversations(context, extension)
-    return menu(
+    return util.menu(
         {"conversations-prompt-main"},
         "conversations",
         context,
@@ -263,28 +263,28 @@ function menu_content_nine_selected(context, extension)
 end
 
 extensions_conversations = {
-    hold_the_phone_main_conversations = context(
+    hold_the_phone_main_conversations = util.context(
         menu_hold_the_phone_main_conversations,
         "hold_the_phone_main_conversations",
         {"conversations",
          "outgoing-ivr",	-- extensions.conf
          "conversations_info",
          "hold_the_phone_info"});
-    hold_the_phone_incoming_conversations = context(
+    hold_the_phone_incoming_conversations = util.context(
         menu_hold_the_phone_incoming_conversations,
         "hold_the_phone_incoming",
         {"conversations",
          "conversations_info",
          "hold_the_phone_info"});
-    hold_the_phone_info = context(
+    hold_the_phone_info = util.context(
         menu_hold_the_phone_info_conversations,
         "hold_the_phone_info",  -- same context to avoid access from incoming
         {});
-    conversations_info = context(
+    conversations_info = util.context(
         menu_conversations_info,
         "conversations_info",  -- same context to avoid access from incoming
         {});
-    conversations = context(
+    conversations = util.context(
         menu_conversations,
         "conversations",  -- same context to avoid access from incoming
         {"content_one",
@@ -297,7 +297,7 @@ extensions_conversations = {
          "content_eight",
          "content_nine",         
          });
-    content_one = context(
+    content_one = util.context(
         menu_content_one,
         "conversations",
         {"content_one_selected",
@@ -309,7 +309,7 @@ extensions_conversations = {
          "content_seven_selected",
          "content_eight_selected",         
          "content_nine_selected"});
-    content_one_selected = context(
+    content_one_selected = util.context(
         menu_content_one_selected,
         "conversations",
         {"content_one_selected",
@@ -321,7 +321,7 @@ extensions_conversations = {
          "content_seven_selected",
          "content_eight_selected",         
          "content_nine_selected"});
-    content_two = context(
+    content_two = util.context(
         menu_content_two,
         "conversations",
         {"content_one_selected",
@@ -333,7 +333,7 @@ extensions_conversations = {
          "content_seven_selected",
          "content_eight_selected",         
          "content_nine_selected"});
-    content_two_selected = context(
+    content_two_selected = util.context(
         menu_content_two_selected,
         "conversations",
         {"content_one_selected",
@@ -345,7 +345,7 @@ extensions_conversations = {
          "content_seven_selected",
          "content_eight_selected",         
          "content_nine_selected"});
-    content_three = context(
+    content_three = util.context(
         menu_content_three,
         "conversations",
         {"content_one_selected",
@@ -357,7 +357,7 @@ extensions_conversations = {
          "content_seven_selected",
          "content_eight_selected",         
          "content_nine_selected"});
-    content_three_selected = context(
+    content_three_selected = util.context(
         menu_content_three_selected,
         "conversations",
         {"content_one_selected",
@@ -369,7 +369,7 @@ extensions_conversations = {
          "content_seven_selected",
          "content_eight_selected",         
          "content_nine_selected"});
-    content_four = context(
+    content_four = util.context(
         menu_content_four,
         "conversations",
         {"content_one_selected",
@@ -381,7 +381,7 @@ extensions_conversations = {
          "content_seven_selected",
          "content_eight_selected",         
          "content_nine_selected"});
-    content_four_selected = context(
+    content_four_selected = util.context(
         menu_content_four_selected,
         "conversations",
         {"content_one_selected",
@@ -393,7 +393,7 @@ extensions_conversations = {
          "content_seven_selected",
          "content_eight_selected",         
          "content_nine_selected"});
-    content_five = context(
+    content_five = util.context(
         menu_content_five,
         "conversations",
         {"content_one_selected",
@@ -405,7 +405,7 @@ extensions_conversations = {
          "content_seven_selected",
          "content_eight_selected",         
          "content_nine_selected"});
-    content_five_selected = context(
+    content_five_selected = util.context(
         menu_content_five_selected,
         "conversations",
         {"content_one_selected",
@@ -417,7 +417,7 @@ extensions_conversations = {
          "content_seven_selected",
          "content_eight_selected",         
          "content_nine_selected"});
-    content_six = context(
+    content_six = util.context(
         menu_content_six,
         "conversations",
         {"content_one_selected",
@@ -429,7 +429,7 @@ extensions_conversations = {
          "content_seven_selected",
          "content_eight_selected",         
          "content_nine_selected"});
-    content_six_selected = context(
+    content_six_selected = util.context(
         menu_content_six_selected,
         "conversations",
         {"content_one_selected",
@@ -441,7 +441,7 @@ extensions_conversations = {
          "content_seven_selected",
          "content_eight_selected",         
          "content_nine_selected"});
-    content_seven = context(
+    content_seven = util.context(
         menu_content_seven,
         "conversations",
         {"content_one_selected",
@@ -453,7 +453,7 @@ extensions_conversations = {
          "content_seven_selected",
          "content_eight_selected",         
          "content_nine_selected"});
-    content_seven_selected = context(
+    content_seven_selected = util.context(
         menu_content_seven_selected,
         "conversations",
         {"content_one_selected",
@@ -465,7 +465,7 @@ extensions_conversations = {
          "content_seven_selected",
          "content_eight_selected",         
          "content_nine_selected"});
-    content_eight = context(
+    content_eight = util.context(
         menu_content_eight,
         "conversations",
         {"content_one_selected",
@@ -477,7 +477,7 @@ extensions_conversations = {
          "content_seven_selected",
          "content_eight_selected",         
          "content_nine_selected"});
-    content_eight_selected = context(
+    content_eight_selected = util.context(
         menu_content_eight_selected,
         "conversations",
         {"content_one_selected",
@@ -489,7 +489,7 @@ extensions_conversations = {
          "content_seven_selected",
          "content_eight_selected",         
          "content_nine_selected"});
-    content_nine = context(
+    content_nine = util.context(
         menu_content_nine,
         "conversations",
         {"content_one_selected",
@@ -501,7 +501,7 @@ extensions_conversations = {
          "content_seven_selected",
          "content_eight_selected",         
          "content_nine_selected"});
-    content_nine_selected = context(
+    content_nine_selected = util.context(
         menu_content_nine_selected,
         "conversations",
         {"content_one_selected",
@@ -513,7 +513,7 @@ extensions_conversations = {
          "content_seven_selected",
          "content_eight_selected",         
          "content_nine_selected"});
-    content_ten = context(
+    content_ten = util.context(
         menu_content_ten,
         "conversations",
         {"content_one_selected",
@@ -525,7 +525,7 @@ extensions_conversations = {
          "content_seven_selected",
          "content_eight_selected",         
          "content_nine_selected"});
-    content_ten_selected = context(
+    content_ten_selected = util.context(
         menu_content_ten_selected,
         "conversations",
         {"content_one_selected",

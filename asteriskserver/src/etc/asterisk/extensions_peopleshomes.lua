@@ -1,7 +1,7 @@
-require("util")
+util = require("util")
 
 function menu_hold_the_phone_main(context, extension)
-    return menu(
+    return util.menu(
         {"welcome-to-hold-the-phone",
 	"for-peoples-homes",
 	"press-one",
@@ -15,7 +15,7 @@ function menu_hold_the_phone_main(context, extension)
 end
 
 function menu_hold_the_phone_incoming(context, extension)
-    return menu(
+    return util.menu(
         {"welcome-to-hold-the-phone",
 	"for-peoples-homes",
 	"press-one",
@@ -28,7 +28,7 @@ end
 
 -- execute menu for peoples_homes context
 function menu_peoples_homes(context, exten)
-    return menu(
+    return util.menu(
         {"to-hear-from-paul-knauls",
         "press-one",
         "to-hear-from-sharon-helgerson",
@@ -43,7 +43,7 @@ function menu_peoples_homes(context, exten)
 end
 
 function menu_hold_the_phone_info(context, extension)
-    return menu(
+    return util.menu(
         {"hold-the-phone-info-content"},
          "peoples-homes",
          context,
@@ -52,7 +52,7 @@ end
 
 -- execute menu for paul_knauls context
 function menu_paul_knauls(context, exten)
-    return menu(
+    return util.menu(
         {"to-hear-paul-talk-about-owning-portlands-historic-cotton-club",
 	 "press-one",
 	 "to-hear-paul-talk-about-gentrification-and-how-portland-has-changed",
@@ -67,77 +67,77 @@ function menu_paul_knauls(context, exten)
 end
 
 function menu_paul_knauls_content_one(context, extension)
-    return play(
+    return util.play(
         {"/opt/asterisk/var/lib/asterisk/sounds/futel/peoples-homes/paul_knauls_cotton_club"},
          context,
          extension)
 end
 
 function menu_paul_knauls_content_two(context, extension)
-    return play(
+    return util.play(
         {"/opt/asterisk/var/lib/asterisk/sounds/futel/peoples-homes/paul_knauls_gentrification"},
          context,
          extension)
 end
 
 function menu_paul_knauls_content_three(context, extension)
-    return play(
+    return util.play(
         {"/opt/asterisk/var/lib/asterisk/sounds/futel/peoples-homes/paul_knauls_work_aging"},
          context,
          extension)
 end
 
 function menu_paul_knauls_message(context, extension)
-    return record(
+    return util.record(
         "leave-a-message-for-paul-or-share-a-story-about-portlands-history-after-the-tone,peoples-homes",
         "paul-knauls-message")
 end
 
 extensions_peopleshomes = {
-    hold_the_phone_main_peopleshomes = context(
+    hold_the_phone_main_peopleshomes = util.context(
         menu_hold_the_phone_main,
         "hold_the_phone_main_peopleshomes", -- same context to avoid access from incoming
         {"peoples_homes",
          "outgoing-ivr",	-- extensions.conf
          "hold_the_phone_info"});
-    hold_the_phone_incoming_peopleshomes = context(
+    hold_the_phone_incoming_peopleshomes = util.context(
         menu_hold_the_phone_incoming,
         "hold_the_phone_incoming_peopleshomes", -- same context to avoid access from incoming
         {"peoples_homes",
          "hold_the_phone_info"});
-    hold_the_phone_info_peopleshomes = context(
+    hold_the_phone_info_peopleshomes = util.context(
         menu_hold_the_phone_info,
         "hold_the_phone_info_peopleshomes",  -- same context to avoid access from incoming
         {});
-    peoples_homes = context(
+    peoples_homes = util.context(
         menu_peoples_homes,
         "peoples_homes",  -- same context to avoid access from incoming
         {"paul_knauls",
          "sharon-helgerson",	-- extensions.conf
          "norman-sylvester",	-- extensions.conf
          "peoples-homes-info-content"}); -- extensions.conf
-    paul_knauls = context(
+    paul_knauls = util.context(
         menu_paul_knauls,
         "peoples_homes",
         {"paul_knauls_content_one",
          "paul_knauls_content_two",
          "paul_knauls_content_three",
          "paul_knauls_message"});
-    paul_knauls_content_one = context(
+    paul_knauls_content_one = util.context(
         menu_paul_knauls_content_one,
         "paul_knauls",
         {});
-    paul_knauls_content_two = context(
+    paul_knauls_content_two = util.context(
         menu_paul_knauls_content_two,
         "paul_knauls",
         {});
-    paul_knauls_content_three = context(
+    paul_knauls_content_three = util.context(
         menu_paul_knauls_content_three,
         "paul_knauls",
         {});
-    paul_knauls_message = context(
+    paul_knauls_message = util.context(
         menu_paul_knauls_message, "paul_knauls", {});
-    -- sharon_helgerson = context(menu_peoples_homes, {});
-    -- norman_sylvester = context(menu_peoples_homes, {});
-    -- peoples_homes_info_content = context(menu_peoples_homes, {});
+    -- sharon_helgerson = util.context(menu_peoples_homes, {});
+    -- norman_sylvester = util.context(menu_peoples_homes, {});
+    -- peoples_homes_info_content = util.context(menu_peoples_homes, {});
 }

@@ -1,7 +1,7 @@
-require("util")
+util = require("util")
 
 function menu_admin_main(context, extension)
-    return menu(
+    return util.menu(
         {"fewtel",
         "for-the-fewtel-voice-conference",
         "press-one",
@@ -22,7 +22,7 @@ function menu_admin_main(context, extension)
 end
 
 function menu_member_main(context, extension)
-    return menu(
+    return util.menu(
         {"fewtel",
         "for-the-fewtel-voice-conference",
         "press-one",
@@ -40,7 +40,7 @@ function menu_member_main(context, extension)
 end
 
 extensions_admin = {
-    admin_main = context(
+    admin_main = util.context(
         menu_admin_main,
         "admin_main",
         {"futel-conf",
@@ -48,7 +48,7 @@ extensions_admin = {
          "internal-dialtone-wrapper",
          "record",
          "operator"});
-    member_main = context(
+    member_main = util.context(
         menu_member_main,
         "member_main",
         {"futel-conf",
