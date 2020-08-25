@@ -2,14 +2,13 @@ util = require("util")
 
 function menu_hold_the_phone_main(context, extension)
     return util.menu(
-        {},
-        {"welcome-to-hold-the-phone",
-	"for-peoples-homes",
-	"press-one",
-	"for-the-futel-menu",
-	"press-two",
-	"for-more-information-about-hold-the-phone",
-	"press-three"},
+        {"welcome-to-hold-the-phone"},
+        {"for-peoples-homes",
+         "press-one",
+	 "for-the-futel-menu",
+	 "press-two",
+	 "for-more-information-about-hold-the-phone",
+	 "press-three"},
         "peoples-homes",
         context,
         extension)
@@ -17,9 +16,8 @@ end
 
 function menu_hold_the_phone_incoming(context, extension)
     return util.menu(
-        {},
-        {"welcome-to-hold-the-phone",
-	"for-peoples-homes",
+        {"welcome-to-hold-the-phone"},
+        {"for-peoples-homes",
 	"press-one",
 	"for-more-information-about-hold-the-phone",
 	"press-two"},
@@ -47,11 +45,11 @@ end
 
 function menu_hold_the_phone_info(context, extension)
     return util.menu(
-        {},
         {"hold-the-phone-info-content"},
-         "peoples-homes",
-         context,
-         extension)
+        {},
+        "peoples-homes",
+        context,
+        extension)
 end
 
 -- execute menu for paul_knauls context

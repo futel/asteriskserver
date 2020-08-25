@@ -206,7 +206,6 @@ end
 
 function menu_challenge_info(context, extension)
     return util.menu(
-        {},
         {"the-fewtel-remote-testing-facility",
          "a-facility-for-the-remote-testing-of-users-of-fewtel",
          "with-contributions-from",
@@ -222,6 +221,7 @@ function menu_challenge_info(context, extension)
          "all-must-be-tested",
          "all-must-be-tested",
          "all-must-be-tested"},
+        {},
         "challenge",
         context,
         extension)
@@ -274,7 +274,6 @@ end
 
 function menu_challenge_instructions(context, extension)
     return util.menu(
-        {},
         {"welcome-to-the-fewtel-remote-testing-facility",
          "access-is-granted-as-challenges-are-successfully-completed",
          "complete-all-challenges-to-qualify",
@@ -283,6 +282,7 @@ function menu_challenge_instructions(context, extension)
          "all-must-be-tested",         
          "all-must-be-tested",
          "all-must-be-tested"},
+        {},
         "challenge",
         context,
         extension)
