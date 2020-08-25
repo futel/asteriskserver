@@ -179,6 +179,7 @@ end
 
 function menu_challenge_main(context, extension)
     return util.menu(
+        {},
         {"to-perform-the-challenges",
          "press-one",
          "for-voicemail",
@@ -205,6 +206,7 @@ end
 
 function menu_challenge_info(context, extension)
     return util.menu(
+        {},
         {"the-fewtel-remote-testing-facility",
          "a-facility-for-the-remote-testing-of-users-of-fewtel",
          "with-contributions-from",
@@ -230,6 +232,7 @@ function menu_challenge_list(context, extension)
     app.AGI("challenge_leaderboard_position.agi", mailbox)
     -- XXX hide items when requirements not met
     return util.menu(
+        {},
         {"for-challenge-mailbox",
 	"press-one",
 	"for-challenge-progged",
@@ -255,6 +258,7 @@ function menu_challenge_sequence_list(context, extension)
     app.AGI("dtmf_warning.agi")
     -- XXX hide items when requirements not met
     return util.menu(
+        {},
         {"for-challenge-sequence-one",
 	"press-one",
         "for-challenge-sequence-two",
@@ -270,6 +274,7 @@ end
 
 function menu_challenge_instructions(context, extension)
     return util.menu(
+        {},
         {"welcome-to-the-fewtel-remote-testing-facility",
          "access-is-granted-as-challenges-are-successfully-completed",
          "complete-all-challenges-to-qualify",

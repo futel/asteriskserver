@@ -7,27 +7,19 @@ function say(filename, context, preferred_subdirs)
 end
 
 -- execute menu of statements
-function menu(statements, statement_dir, context, exten)
+function menu(intro_statements, loop_statements, statement_dir, context, exten)
     app.AGI("metric.agi", context)
+    for _, statement in ipairs(intro_statements) do
+        say(statement, statement_dir)
+    end
+    -- XXX don't loop if empty
     for i = 1,max_iterations do
-        for _, statement in ipairs(statements) do
+        for _, statement in ipairs(loop_statements) do
             say(statement, statement_dir)
         end
         app.Background("silence/1")
     end
     say("goodbye")
-    app.Hangup()
-end
-
--- execute background playing of content
-function play(contents, context, exten)
-    app.AGI("metric.agi", context)
-    for i = 1,max_iterations do
-        for _, content in ipairs(contents) do
-            app.Background(content)
-        end
-        app.Background("silence/1")
-    end
     app.Hangup()
 end
 
@@ -81,7 +73,8 @@ function set_language_es(menu_function, context, extension)
     return menu_function(context, extension)    
 end
 
--- return context structure
+-- return context array with standard keys added
+-- keys: selections values: destinations
 function context(menu_function, destinations)
     context_array = {}
     context_array.s = menu_function
@@ -103,7 +96,6 @@ end
 local util = {
     say = say,
     menu = menu,
-    play = play,
     record = record,
     goto_context = goto_context,
     context = context,

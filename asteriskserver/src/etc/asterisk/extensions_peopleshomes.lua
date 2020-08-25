@@ -2,6 +2,7 @@ util = require("util")
 
 function menu_hold_the_phone_main(context, extension)
     return util.menu(
+        {},
         {"welcome-to-hold-the-phone",
 	"for-peoples-homes",
 	"press-one",
@@ -16,6 +17,7 @@ end
 
 function menu_hold_the_phone_incoming(context, extension)
     return util.menu(
+        {},
         {"welcome-to-hold-the-phone",
 	"for-peoples-homes",
 	"press-one",
@@ -29,6 +31,7 @@ end
 -- execute menu for peoples_homes context
 function menu_peoples_homes(context, exten)
     return util.menu(
+        {},
         {"to-hear-from-paul-knauls",
         "press-one",
         "to-hear-from-sharon-helgerson",
@@ -44,6 +47,7 @@ end
 
 function menu_hold_the_phone_info(context, extension)
     return util.menu(
+        {},
         {"hold-the-phone-info-content"},
          "peoples-homes",
          context,
@@ -53,6 +57,7 @@ end
 -- execute menu for paul_knauls context
 function menu_paul_knauls(context, exten)
     return util.menu(
+        {},
         {"to-hear-paul-talk-about-owning-portlands-historic-cotton-club",
 	 "press-one",
 	 "to-hear-paul-talk-about-gentrification-and-how-portland-has-changed",
@@ -67,24 +72,30 @@ function menu_paul_knauls(context, exten)
 end
 
 function menu_paul_knauls_content_one(context, extension)
-    return util.play(
+    return util.menu(
         {"/opt/asterisk/var/lib/asterisk/sounds/futel/peoples-homes/paul_knauls_cotton_club"},
-         context,
-         extension)
+        {},
+        nil,
+        context,
+        extension)
 end
 
 function menu_paul_knauls_content_two(context, extension)
-    return util.play(
+    return util.menu(
         {"/opt/asterisk/var/lib/asterisk/sounds/futel/peoples-homes/paul_knauls_gentrification"},
-         context,
-         extension)
+        {},
+        nil,
+        context,
+        extension)
 end
 
 function menu_paul_knauls_content_three(context, extension)
-    return util.play(
+    return util.menu(
         {"/opt/asterisk/var/lib/asterisk/sounds/futel/peoples-homes/paul_knauls_work_aging"},
-         context,
-         extension)
+        {},
+        nil,
+        context,
+        extension)
 end
 
 function menu_paul_knauls_message(context, extension)

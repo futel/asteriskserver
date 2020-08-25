@@ -7,6 +7,7 @@ MAILBOX_THREE=1503  -- maibox to record a response to content 3
 
 function menu_hold_the_phone_main_missedconnections(context, extension)
     return util.menu(
+        {},
         {"welcome-to-hold-the-phone",
         "para-espanol",
         "oprima-estrella",
@@ -25,6 +26,7 @@ end
 
 function menu_hold_the_phone_incoming_missedconnections(context, extension)
     return util.menu(
+        {},
         {"welcome-to-hold-the-phone",
         "para-espanol",
         "oprima-estrella",
@@ -41,6 +43,7 @@ end
 
 function menu_hold_the_phone_info_missedconnections(context, extension)
     return util.menu(
+        {},
         {"hold-the-phone-info-content"},
         "missed-connections",
         context,
@@ -49,6 +52,7 @@ end
 
 function menu_missed_connections_info(context, extension)
     return util.menu(
+        {},
         {"missed-connections-info-content"},
          "missed-connections",
          context,
@@ -57,6 +61,7 @@ end
 
 function menu_missed_connections(context, extension)
     return util.menu(
+        {},
         {"missed-connections-intro-content",
          "to-listen-to-missed-connections",
          "press-one",
@@ -68,7 +73,8 @@ function menu_missed_connections(context, extension)
 end
 
 function menu_missed_connections_listen(context, extension)
-    util.menu(
+    return util.menu(
+        {},
         {"/opt/asterisk/var/lib/asterisk/sounds/futel/missed-connections/clip_12_29_19",
          "to-hear-more-and-reply",
          "press-one",
@@ -86,8 +92,8 @@ function menu_missed_connections_listen(context, extension)
 end
 
 function menu_message_one_play(context, extension)
-    app.Background("/opt/asterisk/var/lib/asterisk/sounds/futel/missed-connections/1577674262094")
     return util.menu(
+        {"/opt/asterisk/var/lib/asterisk/sounds/futel/missed-connections/1577674262094"},
         {"to-respond-to-this-message-with-a-recording",
          "press-one",
          -- "to-play-responses-to-this-message",
@@ -99,8 +105,8 @@ function menu_message_one_play(context, extension)
 end
 
 function menu_message_two_play(context, extension)
-    app.Background("/opt/asterisk/var/lib/asterisk/sounds/futel/missed-connections/1578094859777")
     return util.menu(
+        {"/opt/asterisk/var/lib/asterisk/sounds/futel/missed-connections/1578094859777"},
         {"to-respond-to-this-message-with-a-recording",
          "press-one",
          -- "to-play-responses-to-this-message",
@@ -112,8 +118,8 @@ function menu_message_two_play(context, extension)
 end
 
 function menu_message_three_play(context, extension)
-    app.Background("/opt/asterisk/var/lib/asterisk/sounds/futel/missed-connections/1578329858737")
     return util.menu(
+        {"/opt/asterisk/var/lib/asterisk/sounds/futel/missed-connections/1578329858737"},
         {"to-respond-to-this-message-with-a-recording",
          "press-one",
          -- "to-play-responses-to-this-message",
@@ -126,6 +132,7 @@ end
 
 function menu_message_one_response_play(context, extension)
     return util.menu(
+        {},
         {"message-one-response-content",
          "to-respond-to-this-message-with-a-recording",
          "press-one"},
@@ -136,6 +143,7 @@ end
 
 function menu_message_two_response_play(context, extension)
     return util.menu(
+        {},
         {"message-two-response-content",
          "to-respond-to-this-message-with-a-recording",
          "press-one"},
@@ -146,6 +154,7 @@ end
 
 function menu_message_three_response_play(context, extension)
     return util.menu(
+        {},
         {"message-three-response-content",
          "to-respond-to-this-message-with-a-recording",
          "press-one"},
@@ -180,6 +189,7 @@ end
 
 function menu_message_listen(context, extension)
     return util.menu(
+        {},
         {"message-one-preview",
          "to-hear-more-and-reply",
          "press-one",

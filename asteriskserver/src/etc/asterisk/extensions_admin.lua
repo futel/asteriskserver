@@ -2,6 +2,7 @@ util = require("util")
 
 function menu_admin_main(context, extension)
     return util.menu(
+        {},
         {"fewtel",
         "for-the-fewtel-voice-conference",
         "press-one",
@@ -23,6 +24,7 @@ end
 
 function menu_member_main(context, extension)
     return util.menu(
+        {},
         {"fewtel",
         "for-the-fewtel-voice-conference",
         "press-one",
