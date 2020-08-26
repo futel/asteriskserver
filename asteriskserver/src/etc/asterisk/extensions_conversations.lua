@@ -14,13 +14,9 @@ function menu_hold_the_phone_main_conversations(context, extension)
     return util.menu(
         {"welcome-to-hold-the-phone"},
         {"for-conversations",
-         "press-one",
          "for-the-futel-menu",
-         "press-two",
          "for-more-information-about-conversations",
-         "press-three",
-         "for-more-information-about-hold-the-phone",
-         "press-four"},
+         "for-more-information-about-hold-the-phone"},
          "conversations",
         context,
         extension)
@@ -30,11 +26,8 @@ function menu_hold_the_phone_incoming_conversations(context, extension)
     return util.menu(
         {"welcome-to-hold-the-phone"},
         {"for-conversations",
-         "press-one",
          "for-more-information-about-conversations",
- 	 "press-two",
-	 "for-more-information-about-hold-the-phone",
-	 "press-three"},
+	 "for-more-information-about-hold-the-phone"},
          "conversations",
         context,
         extension)

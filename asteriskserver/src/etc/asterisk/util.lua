@@ -1,5 +1,18 @@
 max_iterations = 10
 
+position_statements = {}
+position_statements[1] = "press-one"
+position_statements[2] = "press-two"
+position_statements[3] = "press-three"
+position_statements[4] = "press-four"
+position_statements[5] = "press-five"
+position_statements[6] = "press-six"
+position_statements[7] = "press-seven"
+position_statements[8] = "press-eight"
+position_statements[9] = "press-nine"
+position_statements[0] = "press-zero"       
+
+
 -- return iterator over table
 function iter(t)
     local i = 0
@@ -16,18 +29,35 @@ function say(filename, context, preferred_subdirs)
     app.Background(channel.agi_out:get())
 end
 
--- execute menu of statements
+-- execute menu of statements by saying them
+-- intro statements is sequence of strings
+-- loop_statements is sequence of strings, sequences, or nils
 function menu(intro_statements, loop_statements, statement_dir, context, exten)
     app.AGI("metric.agi", context)
     for statement in iter(intro_statements) do
         say(statement, statement_dir)
     end
-    -- XXX don't loop if empty
-    for i = 1,max_iterations do
-        for statement in iter(loop_statements) do
-            say(statement, statement_dir)
+    if #loop_statements > 0 then
+        for i = 1,max_iterations do
+            -- XXX ipairs means can't be sparse or have 0
+            for key, statements in ipairs(loop_statements) do
+                -- loop_statements can be string or sequences, convert to sequence
+                if type(statements) == type("") then
+                    statements = {statements}
+                end
+                -- say the statements and position statement iff we have both
+                if statements and #statements > 0 then
+                    position_statement = position_statements[key]
+                    if position_statement then
+                        for statement in iter(statements) do
+                            say(statement, statement_dir)
+                        end
+                        say(position_statement, statement_dir)
+                    end
+                end
+            end
+            app.Background("silence/1")
         end
-        app.Background("silence/1")
     end
     say("goodbye")
     app.Hangup()
