@@ -4,7 +4,7 @@ util = require("util")
 -- if no selection, go to conversations menu main
 function play_content(contents, context, exten)
     app.AGI("metric.agi", context)
-    for _, content in ipairs(contents) do
+    for content in util.iter(contents) do
         app.Background(content)
     end
     goto_context("conversations", context, exten)

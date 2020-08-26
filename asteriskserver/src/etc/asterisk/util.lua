@@ -1,5 +1,15 @@
 max_iterations = 10
 
+-- return iterator over table
+function iter(t)
+    local i = 0
+    local n = #t
+    return function ()
+        i = i + 1
+        if i <= n then return t[i] end
+    end
+end
+
 -- execuate background statement using sound_path
 function say(filename, context, preferred_subdirs)
     app.AGI("sound_path.agi", filename, context, preferred_subdirs)
@@ -9,12 +19,12 @@ end
 -- execute menu of statements
 function menu(intro_statements, loop_statements, statement_dir, context, exten)
     app.AGI("metric.agi", context)
-    for _, statement in ipairs(intro_statements) do
+    for statement in iter(intro_statements) do
         say(statement, statement_dir)
     end
     -- XXX don't loop if empty
     for i = 1,max_iterations do
-        for _, statement in ipairs(loop_statements) do
+        for statement in iter(loop_statements) do
             say(statement, statement_dir)
         end
         app.Background("silence/1")
@@ -94,6 +104,7 @@ function context(menu_function, destinations)
 end
 
 local util = {
+    iter = iter,
     say = say,
     menu = menu,
     record = record,
