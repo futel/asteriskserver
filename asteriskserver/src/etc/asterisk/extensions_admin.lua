@@ -3,14 +3,14 @@ util = require("util")
 function menu_admin_main(context, extension)
     return util.menu(
         {"fewtel"},
-        {"for-the-fewtel-voice-conference",
-         {"for",
+        {[1]="for-the-fewtel-voice-conference",
+         [2]={"for",
           "the",
           "outgoing",
           "menus"},
-         "for-an-internal-dialtone",
-         "to-record-a-menu",
-         "for-the-operator"}, -- XXX zero
+         [3]="for-an-internal-dialtone",
+         [4]="to-record-a-menu",
+         [0]="for-the-operator"},
         "",
         context,
         extension)
@@ -19,11 +19,11 @@ end
 function menu_member_main(context, extension)
     return util.menu(
         {"fewtel"},
-        {"for-the-fewtel-voice-conference",
-         "for-an-internal-dialtone",
-         "to-record-a-menu",
-         "for-the-wildcard-line",
-         "for-the-operator"},
+        {[1]="for-the-fewtel-voice-conference",
+         [2]="for-an-internal-dialtone",
+         [3]="to-record-a-menu",
+         [4]="for-the-wildcard-line",
+         [0]="for-the-operator"},
     "",
     context,
     extension)
@@ -32,17 +32,17 @@ end
 extensions_admin = {
     admin_main = util.context(
         menu_admin_main,
-        {"futel-conf",
-         "outgoing-chooser",
-         "internal-dialtone-wrapper",
-         "record",
-         "operator"});
+        {[1]="futel-conf",
+         [2]="outgoing-chooser",
+         [3]="internal-dialtone-wrapper",
+         [4]="record",
+         [0]="operator"});
     member_main = util.context(
         menu_member_main,
-        {"futel-conf",
-         "internal-dialtone-wrapper",
-         "record",
-         "wildcard-line-outgoing",
-         "operator"});
+        {[0]="futel-conf",
+         [1]="internal-dialtone-wrapper",
+         [2]="record",
+         [3]="wildcard-line-outgoing",
+         [0]="operator"});
          
 }

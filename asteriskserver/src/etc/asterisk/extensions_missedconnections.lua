@@ -63,16 +63,14 @@ end
 function menu_missed_connections_listen(context, extension)
     return util.menu(
         {},
-        {{"/opt/asterisk/var/lib/asterisk/sounds/futel/missed-connections/clip_12_29_19",
+        {[1]={"/opt/asterisk/var/lib/asterisk/sounds/futel/missed-connections/clip_12_29_19",
           "to-hear-more-and-reply"},
-         {"/opt/asterisk/var/lib/asterisk/sounds/futel/missed-connections/clip_01_03_20",
+         [2]={"/opt/asterisk/var/lib/asterisk/sounds/futel/missed-connections/clip_01_03_20",
           "to-hear-more-and-reply"},
 
-         {"/opt/asterisk/var/lib/asterisk/sounds/futel/missed-connections/clip_01_06_20",
+         [3]={"/opt/asterisk/var/lib/asterisk/sounds/futel/missed-connections/clip_01_06_20",
          "to-hear-more-and-reply"},
-
-         "to-record-a-missed-connection", -- XXX 9
-},
+         [9]="to-record-a-missed-connection"},
         "missed-connections",
         context,
         extension)
@@ -192,15 +190,10 @@ extensions_missedconnections = {
          "message_record"});
     missed_connections_listen = util.context(
         menu_missed_connections_listen,
-        {"message_one_play",
-         "message_two_play",
-         "message_three_play",         
-         "missed_connections_listen", -- placeholder
-         "missed_connections_listen", -- placeholder
-         "missed_connections_listen", -- placeholder
-         "missed_connections_listen", -- placeholder
-         "missed_connections_listen", -- placeholder         
-         "message_record"});
+        {[1]="message_one_play",
+         [2]="message_two_play",
+         [3]="message_three_play",         
+         [9]="message_record"});
     message_record = util.context(
         menu_message_record,
         {});

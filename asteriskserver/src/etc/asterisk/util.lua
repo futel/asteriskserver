@@ -1,5 +1,6 @@
 max_iterations = 10
 
+-- statements for positions that can be named in a menu
 position_statements = {}
 position_statements[1] = "press-one"
 position_statements[2] = "press-two"
@@ -12,8 +13,10 @@ position_statements[8] = "press-eight"
 position_statements[9] = "press-nine"
 position_statements[0] = "press-zero"       
 
+-- positions that can be named in a menu
+positions = {1, 2, 3, 4, 5, 6, 7, 8, 9, 0}
 
--- return iterator over table
+-- return iterator over sequence
 function iter(t)
     local i = 0
     local n = #t
@@ -39,8 +42,8 @@ function menu(intro_statements, loop_statements, statement_dir, context, exten)
     end
     if #loop_statements > 0 then
         for i = 1,max_iterations do
-            -- XXX ipairs means can't be sparse or have 0
-            for key, statements in ipairs(loop_statements) do
+            for key in iter(positions) do
+                statements = loop_statements[key]
                 -- loop_statements can be string or sequences, convert to sequence
                 if type(statements) == type("") then
                     statements = {statements}
@@ -117,6 +120,7 @@ end
 -- keys: selections values: destinations
 function context(menu_function, destinations)
     context_array = {}
+    # add standard/default/necessary keys
     context_array.s = menu_function
     context_array.i = menu_function
     context_array["#"] = function(context, exten)
@@ -125,9 +129,12 @@ function context(menu_function, destinations)
     context_array["*"] = function(context, exten)
         set_language_es(menu_function, context, exten)
     end
-    for key, value in ipairs(destinations) do
-        context_array[key] = function(context, exten)
-            goto_context(value, context, exten)
+    # add keys specific to this context definition
+    for key in iter(positions) do
+        if destinations[key] then
+              context_array[key] = function(context, exten)
+                  goto_context(destinations[key], context, exten)
+              end
         end
     end
     return context_array
