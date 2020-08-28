@@ -182,37 +182,10 @@ function menu_challenge_shadytel_main(context, extension)
     return goto_main()
 end
 
-function menu_challenge_list(context, extension)
+function menu_authenticate(context, extension)
     mailbox = vmauthenticate()
     app.AGI("challenge_leaderboard_position.agi", mailbox)
-    -- XXX hide items when requirements not met
-    return util.menu(
-        {},
-        {"for-challenge-mailbox",
-	"for-challenge-progged",
-	"for-challenge-hunt-the-wumpus",
-	"for-challenge-konami",
-        "for-challenge-sequence",
-        "for-challenge-shadytel",
-        "for-challenge-hold",
-        "for-challenge-oracle"},
-        "challenge",
-        context,
-        extension)
-end
-
-function menu_challenge_sequence_list(context, extension)
-    app.AGI("dtmf_warning.agi")
-    -- XXX hide items when requirements not met
-    return util.menu(
-        {},
-        {"for-challenge-sequence-one",
-        "for-challenge-sequence-two",
-        "for-challenge-sequence-three",
-        "for-challenge-sequence-four"},
-        "challenge",
-        context,
-        extension)
+    return app.Goto("challenge_list", "s", 1)
 end
 
 function menu_challenge_leaderboard(context, extension)
@@ -237,7 +210,7 @@ extensions_challenge = {
              "for-more-information-about-the-fewtel-remote-testing-facility"},
          statement_dir="challenge",
          destinations={
-             "challenge_list",
+             "challenge_authenticate",
              "outgoing-voicemail",  -- extensions.conf
              "futel-conf",  -- extensions.conf         
              "challenge_instructions",
@@ -245,7 +218,7 @@ extensions_challenge = {
              "community-outgoing", -- extensions.conf
              "challenge_info"}}),
     challenge_shadytel_main = util.context_array(
-        menu_challenge_shadytel_main, {});
+        menu_challenge_shadytel_main, {}),
     challenge_instructions = util.context(
         {intro_statements={
              "welcome-to-the-fewtel-remote-testing-facility",
@@ -281,39 +254,56 @@ extensions_challenge = {
          loop_statements={},
          statement_dir="challenge",
          destinations={}}),
-    challenge_list = util.context_array(
-        menu_challenge_list,
-        {"challenge_mailbox",
-         "challenge_progged",
-         "challenge_wumpus",
-         "challenge_konami",
-         "challenge_sequence_list",
-         "challenge_shadytel",
-         "challenge_hold",
-         "challenge_conference",
-         });
-    challenge_sequence_list = util.context_array(
-        menu_challenge_sequence_list,
-        {"challenge_sequence_one",
-         "challenge_sequence_two",
-         "challenge_sequence_three",
-         "challenge_sequence_four"});
-    challenge_mailbox = util.context_array(menu_challenge_mailbox, {});
-    challenge_progged = util.context_array(menu_challenge_progged, {});
-    challenge_wumpus = util.context_array(menu_challenge_wumpus, {});
-    challenge_konami = util.context_array(menu_challenge_konami, {});
+    challenge_list = util.context(
+        {intro_statements={},
+         loop_statements={
+             "for-challenge-mailbox",
+             "for-challenge-progged",
+             "for-challenge-hunt-the-wumpus",
+             "for-challenge-konami",
+             "for-challenge-sequence",
+             "for-challenge-shadytel",
+             "for-challenge-hold",
+             "for-challenge-oracle"},
+         statement_dir="challenge",
+         destinations={
+             "challenge_mailbox",
+             "challenge_progged",
+             "challenge_wumpus",
+             "challenge_konami",
+             "challenge_sequence_list",
+             "challenge_shadytel",
+             "challenge_hold",
+             "challenge_conference"}}),
+    challenge_sequence_list = util.context(
+        {intro_statements={},
+         loop_statements={
+             "for-challenge-sequence-one",
+             "for-challenge-sequence-two",
+             "for-challenge-sequence-three",
+             "for-challenge-sequence-four"},
+         statement_dir="challenge",
+         destinations={
+             "challenge_sequence_one",
+             "challenge_sequence_two",
+             "challenge_sequence_three",
+             "challenge_sequence_four"}}),
+    challenge_mailbox = util.context_array(menu_challenge_mailbox, {}),
+    challenge_progged = util.context_array(menu_challenge_progged, {}),
+    challenge_wumpus = util.context_array(menu_challenge_wumpus, {}),
+    challenge_konami = util.context_array(menu_challenge_konami, {}),
     challenge_sequence_one = util.context_array(
-        menu_challenge_sequence_one, {});    
+        menu_challenge_sequence_one, {}),    
     challenge_sequence_two = util.context_array(
-        menu_challenge_sequence_two, {});    
+        menu_challenge_sequence_two, {}),    
     challenge_sequence_three = util.context_array(
-        menu_challenge_sequence_three, {});    
+        menu_challenge_sequence_three, {}),    
     challenge_sequence_four = util.context_array(
-        menu_challenge_sequence_four, {});
+        menu_challenge_sequence_four, {}),
     challenge_shadytel = util.context_array(
-        menu_challenge_shadytel, {});
+        menu_challenge_shadytel, {}),
     challenge_hold = util.context_array(
-        menu_challenge_hold, {});        
+        menu_challenge_hold, {}),        
     challenge_conference = util.context_array(
-        menu_challenge_conference, {});
+        menu_challenge_conference, {})
 }
