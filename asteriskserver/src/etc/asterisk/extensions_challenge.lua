@@ -177,47 +177,9 @@ function menu_challenge_conference(context, extension)
         challenge_conference)
 end
 
-function menu_challenge_main(context, extension)
-    return util.menu(
-        {},
-        {"to-perform-the-challenges",
-         "for-voicemail",
-         "for-the-fewtel-voice-conference",
-         "for-instructions",
-         "for-the-leaderboard",
-         "for-the-fewtel-community",
-         "for-more-information-about-the-fewtel-remote-testing-facility"},
-        "challenge",
-        context,
-        extension)
-end
-
 function menu_challenge_shadytel_main(context, extension)
     channel.from_shadytel = "True"
     return goto_main()
-end
-
-function menu_challenge_info(context, extension)
-    return util.menu(
-        {"the-fewtel-remote-testing-facility",
-         "a-facility-for-the-remote-testing-of-users-of-fewtel",
-         "with-contributions-from",
-         "anzee",
-         "breed-x",
-         "bizzt-bomb",
-         "ear-feast",
-         "jay-mej",
-         "oscule",
-         "tishbite",
-         "x-nor",
-         "thanks-to-our-volunteers-sponsors-and-toorcamp",
-         "all-must-be-tested",
-         "all-must-be-tested",
-         "all-must-be-tested"},
-        {},
-        "challenge",
-        context,
-        extension)
 end
 
 function menu_challenge_list(context, extension)
@@ -253,22 +215,6 @@ function menu_challenge_sequence_list(context, extension)
         extension)
 end
 
-function menu_challenge_instructions(context, extension)
-    return util.menu(
-        {"welcome-to-the-fewtel-remote-testing-facility",
-         "access-is-granted-as-challenges-are-successfully-completed",
-         "complete-all-challenges-to-qualify",
-         "for-more-information-contact-the-operator-from-any-fewtel-phone-or-visit-our-website-at-fewtel-dot-net",
-         "good-luck",
-         "all-must-be-tested",         
-         "all-must-be-tested",
-         "all-must-be-tested"},
-        {},
-        "challenge",
-        context,
-        extension)
-end
-
 function menu_challenge_leaderboard(context, extension)
         util.say("access-denied", "challenge")
         util.say("access-denied", "challenge")
@@ -280,23 +226,62 @@ end
 
 extensions_challenge = {
     challenge_main = util.context(
-        menu_challenge_main,
-        {"challenge_list",
-         "outgoing-voicemail",  -- extensions.conf
-         "futel-conf",  -- extensions.conf         
-         "challenge_instructions",
-         "challenge_leaderboard",
-         "community-outgoing", -- extensions.conf
-         "challenge_info"
-         });
-    challenge_shadytel_main = util.context(
+        {intro_statements={},
+         loop_statements={
+             "to-perform-the-challenges",
+             "for-voicemail",
+             "for-the-fewtel-voice-conference",
+             "for-instructions",
+             "for-the-leaderboard",
+             "for-the-fewtel-community",
+             "for-more-information-about-the-fewtel-remote-testing-facility"},
+         statement_dir="challenge",
+         destinations={
+             "challenge_list",
+             "outgoing-voicemail",  -- extensions.conf
+             "futel-conf",  -- extensions.conf         
+             "challenge_instructions",
+             "challenge_leaderboard",
+             "community-outgoing", -- extensions.conf
+             "challenge_info"}}),
+    challenge_shadytel_main = util.context_array(
         menu_challenge_shadytel_main, {});
     challenge_instructions = util.context(
-        menu_challenge_instructions, {});
-    challenge_leaderboard = util.context(
-        menu_challenge_leaderboard, {});
-    challenge_info = util.context(menu_challenge_info, {});
-    challenge_list = util.context(
+        {intro_statements={
+             "welcome-to-the-fewtel-remote-testing-facility",
+             "access-is-granted-as-challenges-are-successfully-completed",
+             "complete-all-challenges-to-qualify",
+             "for-more-information-contact-the-operator-from-any-fewtel-phone-or-visit-our-website-at-fewtel-dot-net",
+             "good-luck",
+             "all-must-be-tested",         
+             "all-must-be-tested",
+             "all-must-be-tested"},
+         loop_statements={},
+         statement_dir="challenge",
+         destinations={}}),
+    challenge_leaderboard = util.context_array(
+        menu_challenge_leaderboard, {}),
+    challenge_info = util.context(
+        {intro_statements={
+             "the-fewtel-remote-testing-facility",
+             "a-facility-for-the-remote-testing-of-users-of-fewtel",
+             "with-contributions-from",
+             "anzee",
+             "breed-x",
+             "bizzt-bomb",
+             "ear-feast",
+             "jay-mej",
+             "oscule",
+             "tishbite",
+             "x-nor",
+             "thanks-to-our-volunteers-sponsors-and-toorcamp",
+             "all-must-be-tested",
+             "all-must-be-tested",
+             "all-must-be-tested"},
+         loop_statements={},
+         statement_dir="challenge",
+         destinations={}}),
+    challenge_list = util.context_array(
         menu_challenge_list,
         {"challenge_mailbox",
          "challenge_progged",
@@ -307,28 +292,28 @@ extensions_challenge = {
          "challenge_hold",
          "challenge_conference",
          });
-    challenge_sequence_list = util.context(
+    challenge_sequence_list = util.context_array(
         menu_challenge_sequence_list,
         {"challenge_sequence_one",
          "challenge_sequence_two",
          "challenge_sequence_three",
          "challenge_sequence_four"});
-    challenge_mailbox = util.context(menu_challenge_mailbox, {});
-    challenge_progged = util.context(menu_challenge_progged, {});
-    challenge_wumpus = util.context(menu_challenge_wumpus, {});
-    challenge_konami = util.context(menu_challenge_konami, {});
-    challenge_sequence_one = util.context(
+    challenge_mailbox = util.context_array(menu_challenge_mailbox, {});
+    challenge_progged = util.context_array(menu_challenge_progged, {});
+    challenge_wumpus = util.context_array(menu_challenge_wumpus, {});
+    challenge_konami = util.context_array(menu_challenge_konami, {});
+    challenge_sequence_one = util.context_array(
         menu_challenge_sequence_one, {});    
-    challenge_sequence_two = util.context(
+    challenge_sequence_two = util.context_array(
         menu_challenge_sequence_two, {});    
-    challenge_sequence_three = util.context(
+    challenge_sequence_three = util.context_array(
         menu_challenge_sequence_three, {});    
-    challenge_sequence_four = util.context(
+    challenge_sequence_four = util.context_array(
         menu_challenge_sequence_four, {});
-    challenge_shadytel = util.context(
+    challenge_shadytel = util.context_array(
         menu_challenge_shadytel, {});
-    challenge_hold = util.context(
+    challenge_hold = util.context_array(
         menu_challenge_hold, {});        
-    challenge_conference = util.context(
+    challenge_conference = util.context_array(
         menu_challenge_conference, {});
 }

@@ -43,7 +43,7 @@ function menu(intro_statements, loop_statements, statement_dir, context, exten)
     if #loop_statements > 0 then
         for i = 1,max_iterations do
             for key in iter(positions) do
-                statements = loop_statements[key]
+                local statements = loop_statements[key]
                 -- loop_statements can be string or sequences, convert to sequence
                 if type(statements) == type("") then
                     statements = {statements}
@@ -89,14 +89,14 @@ end
 -- Pop and return parent context stored in channel variable.
 function pop_parent_context()
     -- Pop parent context. Our stack is limited to one value!
-    ret = channel.parent_context:get()
+    local ret = channel.parent_context:get()
     channel.parent_context = ""  -- can't set to nil
     return ret
 end
 
 -- Pop parent context and goto it. We do this becuase we can't gosub in lua.
 function goto_parent_context(menu_function, context, exten)
-    parent_context = pop_parent_context()
+    local parent_context = pop_parent_context()
     if parent_context then
       return app.Goto(parent_context, "s", 1)
     else
@@ -118,9 +118,9 @@ end
 
 -- return context array with standard keys added
 -- keys: selections values: destinations
-function context(menu_function, destinations)
-    context_array = {}
-    # add standard/default/necessary keys
+function context_array(menu_function, destinations)
+    local context_array = {}
+    -- add standard/default/necessary keys
     context_array.s = menu_function
     context_array.i = menu_function
     context_array["#"] = function(context, exten)
@@ -129,7 +129,7 @@ function context(menu_function, destinations)
     context_array["*"] = function(context, exten)
         set_language_es(menu_function, context, exten)
     end
-    # add keys specific to this context definition
+    -- add keys specific to this context definition
     for key in iter(positions) do
         if destinations[key] then
               context_array[key] = function(context, exten)
@@ -140,13 +140,31 @@ function context(menu_function, destinations)
     return context_array
 end
 
+-- return context array with a menu and standard keys added
+function context(arg)
+    local intro_statements = arg.intro_statements
+    local loop_statements = arg.loop_statements
+    local statement_dir = arg.statement_dir
+    local destinations = arg.destinations
+    -- curry a menu function that receives the context variables
+    local menu_function = function(context, exten)
+        return menu(
+            intro_statements,
+            loop_statements,
+            statement_dir,
+            context,
+            exten)
+    end
+    return context_array(menu_function, destinations)
+end
+
 local util = {
     iter = iter,
     say = say,
     menu = menu,
     record = record,
-    goto_context = goto_context,
     context = context,
+    context_array = context_array,
     }
 
 return util
