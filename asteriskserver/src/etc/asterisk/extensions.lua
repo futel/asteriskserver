@@ -1,10 +1,9 @@
 package.path = package.path .. ';/opt/asterisk/etc/asterisk/?.lua'
-require("util")
-require("extensions_admin")
-require("extensions_challenge")
-require("extensions_conversations")
-require("extensions_missedconnections")
-require("extensions_peopleshomes")
+extensions_admin = require("extensions_admin")
+extensions_challenge = require("extensions_challenge")
+extensions_conversations = require("extensions_conversations")
+extensions_missedconnections = require("extensions_missedconnections")
+extensions_peopleshomes = require("extensions_peopleshomes")
 
 extensions = {
     default = {

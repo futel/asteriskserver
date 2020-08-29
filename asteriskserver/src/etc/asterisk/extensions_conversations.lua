@@ -208,7 +208,7 @@ function menu_content_nine_selected(context, extension)
         extension)
 end
 
-extensions_conversations = {
+extensions = {
     hold_the_phone_main_conversations = util.context(
         {intro_statements={"welcome-to-hold-the-phone"},
          menu_entries={
@@ -465,3 +465,5 @@ extensions_conversations = {
          "content_seven_selected",
          "content_eight_selected",         
          "content_nine_selected"})}
+
+return extensions

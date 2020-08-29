@@ -1,6 +1,6 @@
 util = require("util")
 
-extensions_admin = {
+local extensions = {
     admin_main = util.context(
         {intro_statements={"fewtel"},
          menu_entries={
@@ -19,3 +19,5 @@ extensions_admin = {
              [4]={"for-the-wildcard-line", "wildcard-line-outgoing"},
              [0]={"for-the-operator", "operator"}},
          statement_dir=""})}
+
+return extensions

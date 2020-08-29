@@ -37,7 +37,7 @@ function menu_message_three_response_record(context, extension)
     app.Hangup()
 end
 
-extensions_missedconnections = {
+extensions = {
     hold_the_phone_main = util.context(
         {intro_statements={
              "welcome-to-hold-the-phone",
@@ -130,3 +130,5 @@ extensions_missedconnections = {
     --      menu_entries={{"to-respond-to-this-message-with-a-recording", "message_one_response_record"})
     --    statement_dir="missed-connections",
 }
+
+return extensions

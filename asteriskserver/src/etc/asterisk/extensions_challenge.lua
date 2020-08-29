@@ -197,7 +197,7 @@ function menu_challenge_leaderboard(context, extension)
         return goto_main()
 end
 
-extensions_challenge = {
+extensions = {
     challenge_main = util.context(
         {intro_statements={},
          menu_entries={
@@ -284,3 +284,5 @@ extensions_challenge = {
     challenge_conference = util.context_array(
         menu_challenge_conference, {})
 }
+
+return extensions

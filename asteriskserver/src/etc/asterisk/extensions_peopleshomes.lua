@@ -6,7 +6,7 @@ function menu_paul_knauls_message(context, extension)
         "paul-knauls-message")
 end
 
-extensions_peopleshomes = {
+extensions = {
     hold_the_phone_main_peopleshomes = util.context(
         {intro_statements={"welcome-to-hold-the-phone"},
          menu_entries={
@@ -65,3 +65,5 @@ extensions_peopleshomes = {
     -- norman_sylvester = util.context(menu_peoples_homes, {});
     -- peoples_homes_info_content = util.context(menu_peoples_homes, {});
 }
+
+return extensions
