@@ -9,72 +9,57 @@ end
 extensions_peopleshomes = {
     hold_the_phone_main_peopleshomes = util.context(
         {intro_statements={"welcome-to-hold-the-phone"},
-         loop_statements={
-             "for-peoples-homes",
-             "for-the-futel-menu",
-             "for-more-information-about-hold-the-phone"},
-         statement_dir="peoples-homes",
-         destinations={
-             "peoples_homes",
-             "outgoing-ivr",	-- extensions.conf
-             "hold_the_phone_info"}}),
+         menu_entries={
+             {"for-peoples-homes", "peoples_homes"},
+             {"for-the-futel-menu", "outgoing-ivr"},
+             {"for-more-information-about-hold-the-phone", "hold_the_phone_info"}},
+         statement_dir="peoples-homes"}),
     hold_the_phone_incoming_peopleshomes = util.context(
         {intro_statements={"welcome-to-hold-the-phone"},
-         loop_statements={
-             "for-peoples-homes",
-             "for-more-information-about-hold-the-phone"},
-         statement_dir="peoples-homes",
-         destinations={
-             "peoples_homes",
-             "hold_the_phone_info"}}),
+         menu_entries={
+             {"for-peoples-homes", "peoples_homes"},
+             {"for-more-information-about-hold-the-phone", "hold_the_phone_info"}},
+         statement_dir="peoples-homes"}),
     hold_the_phone_info_peopleshomes = util.context(
         {intro_statements={"hold-the-phone-info-content"},
-         loop_statements={},
-         statement_dir="peoples-homes",
-         destinations={}}),
+         menu_entries={},
+         statement_dir="peoples-homes"}),
     peoples_homes = util.context(
         {intro_statements={},
-         loop_statements={
-             "to-hear-from-paul-knauls",
-             "to-hear-from-sharon-helgerson",
-             "to-hear-from-norman-sylvester",
-             "for-more-information-about-peoples-homes"},
-         statement_dir="peoples-homes",
-         destinations={"paul_knauls",
-          "sharon-helgerson",	-- extensions.conf
-          "norman-sylvester",	-- extensions.conf
-          "peoples-homes-info-content"}}); -- extensions.conf
+         menu_entries={
+             {"to-hear-from-paul-knauls", "paul_knauls"},
+             {"to-hear-from-sharon-helgerson", "sharon-helgerson"},
+             {"to-hear-from-norman-sylvester", "norman-sylvester"},
+             {"for-more-information-about-peoples-homes",
+              "peoples-homes-info-content"}},
+         statement_dir="peoples-homes"}),
     paul_knauls = util.context(
         {intro_statements={},
-         loop_statements={
-             "to-hear-paul-talk-about-owning-portlands-historic-cotton-club",
-             "to-hear-paul-talk-about-gentrification-and-how-portland-has-changed",
-             "to-hear-paul-talk-about-work-and-aging",
-             "to-leave-a-message-for-paul-or-to-share-a-story-about-portlands-history"},             
-         statement_dir="peoples-homes",
-         destinations={
-             "paul_knauls_content_one",
-             "paul_knauls_content_two",
-             "paul_knauls_content_three",
-             "paul_knauls_message"}}),
+         menu_entries={
+             {"to-hear-paul-talk-about-owning-portlands-historic-cotton-club",
+              "paul_knauls_content_one"},
+             {"to-hear-paul-talk-about-gentrification-and-how-portland-has-changed",
+              "paul_knauls_content_two"},
+             {"to-hear-paul-talk-about-work-and-aging",
+              "paul_knauls_content_three"},
+             {"to-leave-a-message-for-paul-or-to-share-a-story-about-portlands-history",
+              "paul_knauls_message"}},
+         statement_dir="peoples-homes"}),
     paul_knauls_content_one = util.context(
         {intro_statements={
              "/opt/asterisk/var/lib/asterisk/sounds/futel/peoples-homes/paul_knauls_cotton_club"},
-         loop_statements={},
-         statement_dir=nil,
-         destinations={}}),
+         menu_entries={},
+         statement_dir=nil}),
     paul_knauls_content_two = util.context(
         {intro_statements={
              "/opt/asterisk/var/lib/asterisk/sounds/futel/peoples-homes/paul_knauls_gentrification"},
-         loop_statements={},
-         statement_dir=nil,
-         destinations={}}),
+         menu_entries={},
+         statement_dir=nil}),
     paul_knauls_content_three = util.context(
         {intro_statements={
              "/opt/asterisk/var/lib/asterisk/sounds/futel/peoples-homes/paul_knauls_work_aging"},
-         loop_statements={},
-         statement_dir=nil,
-         destinations={}}),
+         menu_entries={},
+         statement_dir=nil}),
     paul_knauls_message = util.context_array(menu_paul_knauls_message, {});
     -- sharon_helgerson = util.context(menu_peoples_homes, {});
     -- norman_sylvester = util.context(menu_peoples_homes, {});

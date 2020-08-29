@@ -26,6 +26,15 @@ function iter(t)
     end
 end
 
+-- return table from t with map_function applied to values
+function map(t, map_function)
+    out = {}
+    for k,v in pairs(t) do
+        out[k] = map_function(t[k])
+    end
+    return out
+end
+
 -- execuate background statement using sound_path
 function say(filename, context, preferred_subdirs)
     app.AGI("sound_path.agi", filename, context, preferred_subdirs)
@@ -34,17 +43,18 @@ end
 
 -- execute menu of statements by saying them
 -- intro statements is sequence of strings
--- loop_statements is sequence of strings, sequences, or nils
-function menu(intro_statements, loop_statements, statement_dir, context, exten)
+-- menu_statements is sequence of strings, sequences, or nils
+function menu(intro_statements, menu_statements, statement_dir, context, exten)
     app.AGI("metric.agi", context)
     for statement in iter(intro_statements) do
         say(statement, statement_dir)
     end
-    if #loop_statements > 0 then
+    if #menu_statements > 0 then
         for i = 1,max_iterations do
+            -- say statements in menu order by iterating over ordered keys
             for key in iter(positions) do
-                local statements = loop_statements[key]
-                -- loop_statements can be string or sequences, convert to sequence
+                local statements = menu_statements[key]
+                -- menu_statements can be string or sequences, convert to sequence
                 if type(statements) == type("") then
                     statements = {statements}
                 end
@@ -143,19 +153,21 @@ end
 -- return context array with a menu and standard keys added
 function context(arg)
     local intro_statements = arg.intro_statements
-    local loop_statements = arg.loop_statements
+    local menu_entries = arg.menu_entries
     local statement_dir = arg.statement_dir
-    local destinations = arg.destinations
+    local menu_statements = map(menu_entries, function(v) return v[1] end) 
+    local menu_destinations = map(menu_entries, function(v) return v[2] end)   
+    
     -- curry a menu function that receives the context variables
     local menu_function = function(context, exten)
         return menu(
             intro_statements,
-            loop_statements,
+            menu_statements,
             statement_dir,
             context,
             exten)
     end
-    return context_array(menu_function, destinations)
+    return context_array(menu_function, menu_destinations)
 end
 
 local util = {

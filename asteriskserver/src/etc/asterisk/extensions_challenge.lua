@@ -200,23 +200,16 @@ end
 extensions_challenge = {
     challenge_main = util.context(
         {intro_statements={},
-         loop_statements={
-             "to-perform-the-challenges",
-             "for-voicemail",
-             "for-the-fewtel-voice-conference",
-             "for-instructions",
-             "for-the-leaderboard",
-             "for-the-fewtel-community",
-             "for-more-information-about-the-fewtel-remote-testing-facility"},
-         statement_dir="challenge",
-         destinations={
-             "challenge_authenticate",
-             "outgoing-voicemail",  -- extensions.conf
-             "futel-conf",  -- extensions.conf         
-             "challenge_instructions",
-             "challenge_leaderboard",
-             "community-outgoing", -- extensions.conf
-             "challenge_info"}}),
+         menu_entries={
+             {"to-perform-the-challenges", "challenge_authenticate"},
+             {"for-voicemail", "outgoing-voicemail"},
+             {"for-the-fewtel-voice-conference", "futel-conf"},
+             {"for-instructions", "challenge_instructions"},
+             {"for-the-leaderboard", "challenge_leaderboard"},
+             {"for-the-fewtel-community", "community-outgoing"},
+             {"for-more-information-about-the-fewtel-remote-testing-facility",
+              "challenge_info"}},
+         statement_dir="challenge"}),
     challenge_shadytel_main = util.context_array(
         menu_challenge_shadytel_main, {}),
     challenge_instructions = util.context(
@@ -229,9 +222,8 @@ extensions_challenge = {
              "all-must-be-tested",         
              "all-must-be-tested",
              "all-must-be-tested"},
-         loop_statements={},
-         statement_dir="challenge",
-         destinations={}}),
+         menu_entries={},
+         statement_dir="challenge"}),
     challenge_leaderboard = util.context_array(
         menu_challenge_leaderboard, {}),
     challenge_info = util.context(
@@ -251,43 +243,28 @@ extensions_challenge = {
              "all-must-be-tested",
              "all-must-be-tested",
              "all-must-be-tested"},
-         loop_statements={},
-         statement_dir="challenge",
-         destinations={}}),
+         menu_entries={},
+         statement_dir="challenge"}),
     challenge_list = util.context(
         {intro_statements={},
-         loop_statements={
-             "for-challenge-mailbox",
-             "for-challenge-progged",
-             "for-challenge-hunt-the-wumpus",
-             "for-challenge-konami",
-             "for-challenge-sequence",
-             "for-challenge-shadytel",
-             "for-challenge-hold",
-             "for-challenge-oracle"},
-         statement_dir="challenge",
-         destinations={
-             "challenge_mailbox",
-             "challenge_progged",
-             "challenge_wumpus",
-             "challenge_konami",
-             "challenge_sequence_list",
-             "challenge_shadytel",
-             "challenge_hold",
-             "challenge_conference"}}),
+         menu_entries={
+             {"for-challenge-mailbox", "challenge_mailbox"},
+             {"for-challenge-progged", "challenge_progged"},
+             {"for-challenge-hunt-the-wumpus", "challenge_wumpus"},
+             {"for-challenge-konami", "challenge_konami"},
+             {"for-challenge-sequence", "challenge_sequence_list"},
+             {"for-challenge-shadytel", "challenge_shadytel"},
+             {"for-challenge-hold", "challenge_hold"},
+             {"for-challenge-oracle", "challenge_conference"},},
+         statement_dir="challenge"}),
     challenge_sequence_list = util.context(
         {intro_statements={},
-         loop_statements={
-             "for-challenge-sequence-one",
-             "for-challenge-sequence-two",
-             "for-challenge-sequence-three",
-             "for-challenge-sequence-four"},
-         statement_dir="challenge",
-         destinations={
-             "challenge_sequence_one",
-             "challenge_sequence_two",
-             "challenge_sequence_three",
-             "challenge_sequence_four"}}),
+         menu_entries={
+             {"for-challenge-sequence-one", "challenge_sequence_one"},
+             {"for-challenge-sequence-two", "challenge_sequence_two"},
+             {"for-challenge-sequence-three", "challenge_sequence_three"},
+             {"for-challenge-sequence-four", "challenge_sequence_four"}},
+         statement_dir="challenge"}),
     challenge_mailbox = util.context_array(menu_challenge_mailbox, {}),
     challenge_progged = util.context_array(menu_challenge_progged, {}),
     challenge_wumpus = util.context_array(menu_challenge_wumpus, {}),
