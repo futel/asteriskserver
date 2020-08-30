@@ -213,7 +213,7 @@ extensions = {
         {intro_statements={"welcome-to-hold-the-phone"},
          menu_entries={
              {"for-conversations", "conversations"},
-             {"for-the-futel-menu", "outgoing-ivr"},
+             {"for-the-futel-menu", "outgoing_portland"},
              {"for-more-information-about-conversations", "conversations_info"},
              {"for-more-information-about-hold-the-phone", "hold_the_phone_info"}},
          statement_dir="conversations"}),

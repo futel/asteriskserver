@@ -11,7 +11,7 @@ extensions = {
         {intro_statements={"welcome-to-hold-the-phone"},
          menu_entries={
              {"for-peoples-homes", "peoples_homes"},
-             {"for-the-futel-menu", "outgoing-ivr"},
+             {"for-the-futel-menu", "outgoing_portland"},
              {"for-more-information-about-hold-the-phone", "hold_the_phone_info"}},
          statement_dir="peoples-homes"}),
     hold_the_phone_incoming_peopleshomes = util.context(

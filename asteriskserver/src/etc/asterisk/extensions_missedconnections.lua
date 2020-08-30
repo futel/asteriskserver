@@ -45,7 +45,7 @@ extensions = {
              "oprima-estrella"},
          menu_entries={
              {"for-missed-connections", "missed_connections"},
-             {"for-the-futel-menu", "outgoing-ivr"},
+             {"for-the-futel-menu", "outgoing_portland"},
              {"for-more-information-about-missed-connections",
               "missed_connections_info"},
              {"for-more-information-about-hold-the-phone",

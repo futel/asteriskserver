@@ -35,6 +35,18 @@ function map(t, map_function)
     return out
 end
 
+-- execute callable, then go to destination context
+function bounce_context(callable, destination)
+    callable()
+    return app.Goto(destination, "s", 1)
+end
+
+-- play sound file from dirname in foreground
+function play_random_foreground(dirname)
+    app.AGI("random_file_strip.agi", dirname)
+    app.Playback(channel.agi_out:get())
+end
+
 -- execuate background statement using sound_path
 function say(filename, context, preferred_subdirs)
     app.AGI("sound_path.agi", filename, context, preferred_subdirs)
@@ -171,12 +183,13 @@ function context(arg)
 end
 
 local util = {
-    iter = iter,
-    say = say,
-    menu = menu,
-    record = record,
+    bounce_context = bounce_context,
     context = context,
     context_array = context_array,
-    }
+    iter = iter,
+    menu = menu,
+    play_random_foreground = play_random_foreground,
+    record = record,
+    say = say}
 
 return util
