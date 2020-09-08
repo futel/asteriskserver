@@ -12,7 +12,7 @@ ext 999 starts default menu from extension 500
 any call starts default menu when registered to sip:500@origination-stage.futel.sip.us1.twilio.com
 can register extension 505 using twilio programmable voice password
 ext 999 starts default menu from extension 505
-any call starts default menu when registered to sip505@origination-stage.futel.sip.us1.twilio.com
+any call starts default menu when registered to sip:505@origination-stage.futel.sip.us1.twilio.com
 can register extension 515 using twilio programmable voice password
 ext 999 starts default menu from extension 515
 any call starts default menu when registered to sip:515@origination-stage.futel.sip.us1.twilio.com
@@ -25,15 +25,11 @@ ext 999 starts default menu from extension 615
 ext 999 starts souwester menu from extension 620
 ext 999 starts default menu from extension 625
 ext 999 starts ypsi menu from extension 630
-ext 999 starts default menu from extension 635
 ext 999 starts default menu from extension 640
 ext 999 starts default menu from extension 645
 ext 999 starts default menu from extension 655
 ext 999 starts open signal menu from extension 660
-ext 999 starts default menu from extension 665
-ext 999 starts default menu from extension 667
 ext 999 starts default menu from extension 668
-ext 999 starts default menu from extension 669
 ext 999 starts dialtone from extension 670
 ext 999 starts default menu from extension 680
 ext 999 starts detroit menu from extension 685
