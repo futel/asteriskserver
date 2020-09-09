@@ -6,6 +6,7 @@ extensions_conversations = require("extensions_conversations")
 extensions_missedconnections = require("extensions_missedconnections")
 extensions_outgoing = require("extensions_outgoing")
 extensions_peopleshomes = require("extensions_peopleshomes")
+extensions_wildcard_line = require("extensions_wildcard_line")
 
 extensions = {
     default = {
@@ -19,3 +20,4 @@ for k,v in pairs(extensions_conversations) do extensions[k] = v end
 for k,v in pairs(extensions_missedconnections) do extensions[k] = v end
 for k,v in pairs(extensions_outgoing) do extensions[k] = v end
 for k,v in pairs(extensions_peopleshomes) do extensions[k] = v end
+for k,v in pairs(extensions_wildcard_line) do extensions[k] = v end
