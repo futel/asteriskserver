@@ -2,6 +2,7 @@ import datetime
 import sys, os, traceback
 import logging
 import random
+import uuid
 import yaml
 
 asterisk_etc_dir = '/opt/asterisk/etc/asterisk'
@@ -206,3 +207,6 @@ def random_file(dirpath, do_strip):
     if do_strip:
         path = path.split('.').pop(0)
     return path
+
+def get_username():
+    return str(uuid.uuid4())

@@ -5,15 +5,11 @@ Prompt for and collect recordings.
 
 from itertools import cycle
 import os, errno
-import uuid
 import util
 import statements
 
 
 RECORDING_DIR = '/opt/asterisk/var/lib/asterisk/sounds/futel/recordings'
-
-def get_username():
-    return str(uuid.uuid4())
 
 def mkdir(path):
     """Make directory and parents, silently ignoring existing directories."""
@@ -120,7 +116,7 @@ def record_feature(agi_o, dirname):
     """Top function to record one recording to unique wav file."""
     path = os.path.join(RECORDING_DIR, dirname)
     mkdir(path)
-    username = get_username()
+    username = util.get_username()
     path = os.path.join(path, username)
     path_in = path  + ':wav'
     options = ','.join([path_in, ',,ky'])
@@ -128,7 +124,7 @@ def record_feature(agi_o, dirname):
 
 def record_statements(agi_o):
     """Top function to prompt, select, and record statements."""
-    username = get_username()
+    username = util.get_username()
     util.say(agi_o, 'hello')
 
     statement_keys = [group['name'] for group in statements.statement_groups]
