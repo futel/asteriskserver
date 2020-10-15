@@ -9,7 +9,7 @@ import util
 agi = agi.AGI()
 
 def main():
-    out = util.get_username()
+    out = util.get_filename(agi)
     agi.set_variable('agi_out', out)
 
 agi.answer()

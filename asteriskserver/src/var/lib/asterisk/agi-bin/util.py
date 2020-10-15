@@ -210,3 +210,7 @@ def random_file(dirpath, do_strip):
 
 def get_username():
     return str(uuid.uuid4())
+
+def get_filename(agi_o):
+    """Return unique string suitable for a filename."""
+    return get_username() + agi_o.get_variable('CALLERID(number)')
