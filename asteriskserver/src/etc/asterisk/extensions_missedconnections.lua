@@ -203,10 +203,19 @@ extensions = {
              "/opt/asterisk/var/lib/asterisk/sounds/futel/missed-connections/msg0001"},
          menu_entries={
              {"to-respond-to-this-message-with-a-recording",
-              "message_five_response_record"}},
+              "message_five_response_record"},
+             {"to-play-responses-to-this-message", "message_five_response_play"}},
          statement_dir="missed-connections"}),
     message_five_response_record = util.context_array(
         menu_message_five_response_record, {}),
+    message_five_response_play = util.context(
+        {intro_statements={
+             "/opt/asterisk/var/lib/asterisk/sounds/futel/missed-connections/msg0001-reply"},
+         menu_entries={
+             {"to-respond-to-this-message-with-a-recording",
+              "message_five_response_record"},
+             {"to-play-responses-to-this-message", "message_five_response_play"}},
+         statement_dir="missed-connections"}),
     message_six_play = util.context(
         {intro_statements={
              "/opt/asterisk/var/lib/asterisk/sounds/futel/missed-connections/msg0002"},
