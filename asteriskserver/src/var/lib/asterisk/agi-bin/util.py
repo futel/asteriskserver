@@ -122,6 +122,7 @@ def metric(agi_o, name):
     # writer is responsible for adding timestamp
     metric_agilog(agi_o, **items)
     metric_metriclog(**items)
+    agi_o.appexec("UserEvent", name)
 
 def metric_agilog(agi_o, **kwargs):
     """ Log a formatted line to the asterisk log. """
