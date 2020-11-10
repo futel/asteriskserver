@@ -39,8 +39,8 @@ def handle_interesting_event(event, manager, snsclient):
         TopicArn=eventlistenerconf.aws_arn, Message=message)
 
 def handle_misc_event(event, manager, snsclient):
-    if event.headers.get('AppData') in ('OperatorAttempt', 'OperatorNoPickup'):
-        return handle_interesting_event(event, manager, snsclient)
+    #if event.headers.get('AppData') in ('OperatorAttempt', 'OperatorNoPickup'):
+    #    return handle_interesting_event(event, manager, snsclient)
     logging.info('not publishing %s' % event.headers)
 
 def get_manager():
@@ -62,6 +62,7 @@ def get_manager():
     amanager.register_event('Registry', event_handler)
     amanager.register_event('ConfbridgeJoin', event_handler)
     amanager.register_event('ConfbridgeLeave', event_handler)
+    amanager.register_event('UserEvent', event_handler)
     amanager.register_event('*', misc_event_handler)
 
     return amanager
