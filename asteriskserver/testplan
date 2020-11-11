@@ -155,20 +155,13 @@ simultaneous incoming calls do the right thing
 internal dialtone:
 can call one extension from another using internal dialtone
 
-outgoing menu:
-can hear, choose each option
-
-outgoing menu ypsi:
-can hear, choose each option
-
-outgoing menu souwester:
-can hear, choose each option
-
-outgoing menu admin:
-can hear, choose each option
-
-outgoing menu members:
-can hear, choose each option
+outgoing menus:
+can hear, choose each option in outgoing menu portland
+can hear, choose each option in outgoing menu ypsi
+can hear, choose each option in outgoing menu detroit
+can hear, choose each option in outgoing menu souwester
+can hear, choose each option in outgoing menu admin
+can hear, choose each option in outgoing menu members
 
 outgoing operator:
 calling operator plays intro, then music while operators are called
