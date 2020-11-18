@@ -62,6 +62,9 @@ def get_manager():
     amanager.register_event('Registry', event_handler)
     amanager.register_event('ConfbridgeJoin', event_handler)
     amanager.register_event('ConfbridgeLeave', event_handler)
+    amanager.register_event('HangupRequest', event_handler)
+    amanager.register_event('SoftHangupRequest', event_handler)
+    amanager.register_event('Hangup', event_handler)
     amanager.register_event('UserEvent', event_handler)
     amanager.register_event('*', misc_event_handler)
 
