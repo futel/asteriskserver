@@ -142,12 +142,16 @@ end
 -- keys: selections values: destinations
 function context_array(menu_function, destinations)
     local context_array = {}
-    -- add standard/default/necessary keys
+    -- add standard/default/necessary keys and destinations
+    -- s is the defualt destination and is automagically selected on enter
     context_array.s = menu_function
+    -- i is the default invalid entry destination
     context_array.i = menu_function
+    -- # is our default key for parent menu destination
     context_array["#"] = function(context, exten)
         goto_parent_context(menu_function, context, exten)
     end
+    -- * is our default key for localization
     context_array["*"] = function(context, exten)
         set_language_es(menu_function, context, exten)
     end
