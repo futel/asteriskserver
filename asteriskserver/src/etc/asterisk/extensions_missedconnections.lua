@@ -139,14 +139,11 @@ extensions = {
     missed_connections = util.context(
         {intro_statements={"missed-connections-intro-content"},
          menu_entries={
-             {"to-listen-to-missed-connections", "missed_connections_listen"},
-             {"to-record-a-missed-connection", "message_record"}},
+             {"to-listen-to-missed-connections", "missed_connections_listen"}},
          statement_dir="missed-connections"}),
     missed_connections_listen = util.context(
         {intro_statements={},
          menu_entries={
-             -- [1]={{"/opt/asterisk/var/lib/asterisk/sounds/futel/missed-connections/clip_12_29_19", "to-hear-more-and-reply"}, "message_one_play"},
-             -- [1]={{"/opt/asterisk/var/lib/asterisk/sounds/futel/missed-connections/clip_01_03_20", "to-hear-more-and-reply"}, "message_two_play"},
              [1]={{"/opt/asterisk/var/lib/asterisk/sounds/futel/missed-connections/clip_01_06_20", "to-hear-more-and-reply"}, "message_three_play"},
              [2]={{"/opt/asterisk/var/lib/asterisk/sounds/futel/missed-connections/msg0000-clip", "to-hear-more-and-reply"}, "message_four_play"},
              [3]={{"/opt/asterisk/var/lib/asterisk/sounds/futel/missed-connections/msg0001-clip", "to-hear-more-and-reply"}, "message_five_play"},
@@ -154,123 +151,48 @@ extensions = {
              [5]={{"/opt/asterisk/var/lib/asterisk/sounds/futel/missed-connections/msg0003-clip", "to-hear-more-and-reply"}, "message_seven_play"},
              [6]={{"/opt/asterisk/var/lib/asterisk/sounds/futel/missed-connections/msg0004-clip", "to-hear-more-and-reply"}, "message_eight_play"},
              [7]={{"/opt/asterisk/var/lib/asterisk/sounds/futel/missed-connections/msg0007-clip", "to-hear-more-and-reply"}, "message_nine_play"},
-             [8]={{"/opt/asterisk/var/lib/asterisk/sounds/futel/missed-connections/msg0008-clip", "to-hear-more-and-reply"}, "message_ten_play"},
-             [9]={"to-record-a-missed-connection", "message_record"}},
+             [8]={{"/opt/asterisk/var/lib/asterisk/sounds/futel/missed-connections/msg0008-clip", "to-hear-more-and-reply"}, "message_ten_play"}},
          statement_dir="missed-connections"}),
-    message_record = util.context_array(menu_message_record, {}),
-    -- message_one_play = util.context(
-    --     {intro_statements={
-    --          "/opt/asterisk/var/lib/asterisk/sounds/futel/missed-connections/1577674262094"},
-    --      menu_entries={
-    --          {"to-respond-to-this-message-with-a-recording",
-    --           "message_one_response_record"}},
-    --      -- {"to-play-responses-to-this-message", "message_one_response_play"},
-    --      statement_dir="missed-connections"}),
-    -- message_one_response_record = util.context_array(
-    --     menu_message_one_response_record, {}),
-    -- -- message_one_response_play = util.context(
-    -- --     {intro_statements={"message-one-response-content"},
-    -- --      menu_entries={{"to-respond-to-this-message-with-a-recording",
-    -- --      "message_one_response_record"},},
-    -- --    statement_dir="missed-connections");
-    -- message_two_play = util.context(
-    --     {intro_statements={
-    --          "/opt/asterisk/var/lib/asterisk/sounds/futel/missed-connections/1578094859777"},
-    --      menu_entries={{"to-respond-to-this-message-with-a-recording",
-    --                     "message_two_response_record"}},
-    --      -- {"to-play-responses-to-this-message", "message_two_response_play"}
-    --      statement_dir="missed-connections"}),
-    -- message_two_response_record = util.context_array(
-    --     menu_message_two_response_record, {}),
-    -- message_two_response_play = util.context(
-    --     {intro_statements={"message-two-response-content"},
-    --      menu_entries={"to-respond-to-this-message-with-a-recording", "message_two_response_record"},
-    --    statement_dir="missed-connections",
     message_three_play = util.context(
         {intro_statements={
              "/opt/asterisk/var/lib/asterisk/sounds/futel/missed-connections/1578329858737"},
-         menu_entries={{"to-respond-to-this-message-with-a-recording",
-                        "message_three_response_record"}},
-         -- "to-play-responses-to-this-message", "message_three_response_play"
          statement_dir="missed-connections"}),
-    message_three_response_record = util.context_array(
-        menu_message_three_response_record, {}),
-    -- message_three_response_play = util.context(
-    --     {intro_statements={"message-three-response-content"},
-    --      menu_entries={{"to-respond-to-this-message-with-a-recording", "message_three_response_record"})
-    --    statement_dir="missed-connections",
     message_four_play = util.context(
         {intro_statements={
              "/opt/asterisk/var/lib/asterisk/sounds/futel/missed-connections/msg0000"},
-         menu_entries={
-             {"to-respond-to-this-message-with-a-recording",
-              "message_four_response_record"}},
          statement_dir="missed-connections"}),
-    message_four_response_record = util.context_array(
-        menu_message_four_response_record, {}),
     message_five_play = util.context(
         {intro_statements={
              "/opt/asterisk/var/lib/asterisk/sounds/futel/missed-connections/msg0001"},
          menu_entries={
-             {"to-respond-to-this-message-with-a-recording",
-              "message_five_response_record"},
              {"to-play-responses-to-this-message", "message_five_response_play"}},
          statement_dir="missed-connections"}),
-    message_five_response_record = util.context_array(
-        menu_message_five_response_record, {}),
     message_five_response_play = util.context(
         {intro_statements={
              "/opt/asterisk/var/lib/asterisk/sounds/futel/missed-connections/msg0001-reply"},
          menu_entries={
-             {"to-respond-to-this-message-with-a-recording",
-              "message_five_response_record"},
              {"to-play-responses-to-this-message", "message_five_response_play"}},
          statement_dir="missed-connections"}),
     message_six_play = util.context(
         {intro_statements={
              "/opt/asterisk/var/lib/asterisk/sounds/futel/missed-connections/msg0002"},
-         menu_entries={
-             {"to-respond-to-this-message-with-a-recording",
-              "message_six_response_record"}},
          statement_dir="missed-connections"}),
-    message_six_response_record = util.context_array(
-        menu_message_six_response_record, {}),
     message_seven_play = util.context(
         {intro_statements={
              "/opt/asterisk/var/lib/asterisk/sounds/futel/missed-connections/msg0003"},
-         menu_entries={
-             {"to-respond-to-this-message-with-a-recording",
-              "message_seven_response_record"}},
          statement_dir="missed-connections"}),
-    message_seven_response_record = util.context_array(
-        menu_message_seven_response_record, {}),
     message_eight_play = util.context(
         {intro_statements={
              "/opt/asterisk/var/lib/asterisk/sounds/futel/missed-connections/msg0004"},
-         menu_entries={
-             {"to-respond-to-this-message-with-a-recording",
-              "message_eight_response_record"}},
          statement_dir="missed-connections"}),
-    message_eight_response_record = util.context_array(
-        menu_message_eight_response_record, {}),
     message_nine_play = util.context(
         {intro_statements={
              "/opt/asterisk/var/lib/asterisk/sounds/futel/missed-connections/msg0007"},
-         menu_entries={
-             {"to-respond-to-this-message-with-a-recording",
-              "message_nine_response_record"}},
          statement_dir="missed-connections"}),
-    message_nine_response_record = util.context_array(
-        menu_message_nine_response_record, {}),
     message_ten_play = util.context(
         {intro_statements={
              "/opt/asterisk/var/lib/asterisk/sounds/futel/missed-connections/msg0008"},
-         menu_entries={
-             {"to-respond-to-this-message-with-a-recording",
-              "message_ten_response_record"}},
          statement_dir="missed-connections"}),
-    message_ten_response_record = util.context_array(
-        menu_message_ten_response_record, {}),
 }
 
 return extensions
