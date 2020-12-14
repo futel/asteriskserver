@@ -2,11 +2,11 @@ util = require("util")
 
 -- peoples homes
 
-function menu_paul_knauls_message(context, extension)
-    return util.record(
-        "leave-a-message-for-paul-or-share-a-story-about-portlands-history-after-the-tone,peoples-homes",
-        "paul-knauls-message")
-end
+-- function menu_paul_knauls_message(context, extension)
+--     return util.record(
+--         "leave-a-message-for-paul-or-share-a-story-about-portlands-history-after-the-tone,peoples-homes",
+--         "paul-knauls-message")
+-- end
 
 -- conversations
 
@@ -232,13 +232,13 @@ MAILBOX_EIGHT=1508  -- maibox to record a response to content 3
 MAILBOX_NINE=1509  -- maibox to record a response to content 3
 MAILBOX_TEN=1510  -- maibox to record a response to content 3
 
-function menu_message_record(context, extension)
-    util.say("your-recording-can-last-up-to-two-minutes", "missed-connections")
-    util.say("the-first-ten-seconds-will-play-on-the-missed-connections-list", "missed-connections")
-    util.say("and-the-rest-will-play-if-the-listener-selects-it", "missed-connections")
-    app.VoiceMail(MAILBOX_MAIN, "s")
-    app.Hangup()
-end
+-- function menu_message_record(context, extension)
+--     util.say("your-recording-can-last-up-to-two-minutes", "missed-connections")
+--     util.say("the-first-ten-seconds-will-play-on-the-missed-connections-list", "missed-connections")
+--     util.say("and-the-rest-will-play-if-the-listener-selects-it", "missed-connections")
+--     app.VoiceMail(MAILBOX_MAIN, "s")
+--     app.Hangup()
+-- end
 
 -- function menu_message_one_response_record(context, extension)
 --     util.say("your-response-can-last-up-to-2-minutes", "missed-connections")
@@ -248,77 +248,77 @@ end
 --     app.Hangup()
 -- end
 
-function menu_message_two_response_record(context, extension)
-    util.say("your-response-can-last-up-to-2-minutes", "missed-connections")
-    util.say("any-listener-can-hear-responses-to-this-missed-connection", "missed-connections")
-    util.say("record-your-message-after-the-tone", "missed-connections")        
-    app.VoiceMail(MAILBOX_TWO, "s")
-    app.Hangup()
-end
+-- function menu_message_two_response_record(context, extension)
+--     util.say("your-response-can-last-up-to-2-minutes", "missed-connections")
+--     util.say("any-listener-can-hear-responses-to-this-missed-connection", "missed-connections")
+--     util.say("record-your-message-after-the-tone", "missed-connections")        
+--     app.VoiceMail(MAILBOX_TWO, "s")
+--     app.Hangup()
+-- end
 
-function menu_message_three_response_record(context, extension)
-    util.say("your-response-can-last-up-to-2-minutes", "missed-connections")
-    util.say("any-listener-can-hear-responses-to-this-missed-connection", "missed-connections")
-    util.say("record-your-message-after-the-tone", "missed-connections")        
-    app.VoiceMail(MAILBOX_THREE, "s")
-    app.Hangup()
-end
+-- function menu_message_three_response_record(context, extension)
+--     util.say("your-response-can-last-up-to-2-minutes", "missed-connections")
+--     util.say("any-listener-can-hear-responses-to-this-missed-connection", "missed-connections")
+--     util.say("record-your-message-after-the-tone", "missed-connections")        
+--     app.VoiceMail(MAILBOX_THREE, "s")
+--     app.Hangup()
+-- end
 
-function menu_message_four_response_record(context, extension)
-    util.say("your-response-can-last-up-to-2-minutes", "missed-connections")
-    util.say("any-listener-can-hear-responses-to-this-missed-connection", "missed-connections")
-    util.say("record-your-message-after-the-tone", "missed-connections")        
-    app.VoiceMail(MAILBOX_FOUR, "s")
-    app.Hangup()
-end
+-- function menu_message_four_response_record(context, extension)
+--     util.say("your-response-can-last-up-to-2-minutes", "missed-connections")
+--     util.say("any-listener-can-hear-responses-to-this-missed-connection", "missed-connections")
+--     util.say("record-your-message-after-the-tone", "missed-connections")        
+--     app.VoiceMail(MAILBOX_FOUR, "s")
+--     app.Hangup()
+-- end
 
-function menu_message_five_response_record(context, extension)
-    util.say("your-response-can-last-up-to-2-minutes", "missed-connections")
-    util.say("any-listener-can-hear-responses-to-this-missed-connection", "missed-connections")
-    util.say("record-your-message-after-the-tone", "missed-connections")        
-    app.VoiceMail(MAILBOX_FIVE, "s")
-    app.Hangup()
-end
+-- function menu_message_five_response_record(context, extension)
+--     util.say("your-response-can-last-up-to-2-minutes", "missed-connections")
+--     util.say("any-listener-can-hear-responses-to-this-missed-connection", "missed-connections")
+--     util.say("record-your-message-after-the-tone", "missed-connections")        
+--     app.VoiceMail(MAILBOX_FIVE, "s")
+--     app.Hangup()
+-- end
 
-function menu_message_six_response_record(context, extension)
-    util.say("your-response-can-last-up-to-2-minutes", "missed-connections")
-    util.say("any-listener-can-hear-responses-to-this-missed-connection", "missed-connections")
-    util.say("record-your-message-after-the-tone", "missed-connections")        
-    app.VoiceMail(MAILBOX_SIX, "s")
-    app.Hangup()
-end
+-- function menu_message_six_response_record(context, extension)
+--     util.say("your-response-can-last-up-to-2-minutes", "missed-connections")
+--     util.say("any-listener-can-hear-responses-to-this-missed-connection", "missed-connections")
+--     util.say("record-your-message-after-the-tone", "missed-connections")        
+--     app.VoiceMail(MAILBOX_SIX, "s")
+--     app.Hangup()
+-- end
 
-function menu_message_seven_response_record(context, extension)
-    util.say("your-response-can-last-up-to-2-minutes", "missed-connections")
-    util.say("any-listener-can-hear-responses-to-this-missed-connection", "missed-connections")
-    util.say("record-your-message-after-the-tone", "missed-connections")        
-    app.VoiceMail(MAILBOX_SEVEN, "s")
-    app.Hangup()
-end
+-- function menu_message_seven_response_record(context, extension)
+--     util.say("your-response-can-last-up-to-2-minutes", "missed-connections")
+--     util.say("any-listener-can-hear-responses-to-this-missed-connection", "missed-connections")
+--     util.say("record-your-message-after-the-tone", "missed-connections")        
+--     app.VoiceMail(MAILBOX_SEVEN, "s")
+--     app.Hangup()
+-- end
 
-function menu_message_eight_response_record(context, extension)
-    util.say("your-response-can-last-up-to-2-minutes", "missed-connections")
-    util.say("any-listener-can-hear-responses-to-this-missed-connection", "missed-connections")
-    util.say("record-your-message-after-the-tone", "missed-connections")        
-    app.VoiceMail(MAILBOX_EIGHT, "s")
-    app.Hangup()
-end
+-- function menu_message_eight_response_record(context, extension)
+--     util.say("your-response-can-last-up-to-2-minutes", "missed-connections")
+--     util.say("any-listener-can-hear-responses-to-this-missed-connection", "missed-connections")
+--     util.say("record-your-message-after-the-tone", "missed-connections")        
+--     app.VoiceMail(MAILBOX_EIGHT, "s")
+--     app.Hangup()
+-- end
 
-function menu_message_nine_response_record(context, extension)
-    util.say("your-response-can-last-up-to-2-minutes", "missed-connections")
-    util.say("any-listener-can-hear-responses-to-this-missed-connection", "missed-connections")
-    util.say("record-your-message-after-the-tone", "missed-connections")        
-    app.VoiceMail(MAILBOX_NINE, "s")
-    app.Hangup()
-end
+-- function menu_message_nine_response_record(context, extension)
+--     util.say("your-response-can-last-up-to-2-minutes", "missed-connections")
+--     util.say("any-listener-can-hear-responses-to-this-missed-connection", "missed-connections")
+--     util.say("record-your-message-after-the-tone", "missed-connections")        
+--     app.VoiceMail(MAILBOX_NINE, "s")
+--     app.Hangup()
+-- end
 
-function menu_message_ten_response_record(context, extension)
-    util.say("your-response-can-last-up-to-2-minutes", "missed-connections")
-    util.say("any-listener-can-hear-responses-to-this-missed-connection", "missed-connections")
-    util.say("record-your-message-after-the-tone", "missed-connections")        
-    app.VoiceMail(MAILBOX_TEN, "s")
-    app.Hangup()
-end
+-- function menu_message_ten_response_record(context, extension)
+--     util.say("your-response-can-last-up-to-2-minutes", "missed-connections")
+--     util.say("any-listener-can-hear-responses-to-this-missed-connection", "missed-connections")
+--     util.say("record-your-message-after-the-tone", "missed-connections")        
+--     app.VoiceMail(MAILBOX_TEN, "s")
+--     app.Hangup()
+-- end
 
 extensions = {
     hold_the_phone_main = util.context(
@@ -373,9 +373,10 @@ extensions = {
              {"to-hear-paul-talk-about-gentrification-and-how-portland-has-changed",
               "paul_knauls_content_two"},
              {"to-hear-paul-talk-about-work-and-aging",
-              "paul_knauls_content_three"},
-             {"to-leave-a-message-for-paul-or-to-share-a-story-about-portlands-history",
-              "paul_knauls_message"}},
+              "paul_knauls_content_three"}
+             --{"to-leave-a-message-for-paul-or-to-share-a-story-about-portlands-history",
+             --"paul_knauls_message"}
+         },
          statement_dir="peoples-homes"}),
     paul_knauls_content_one = util.context(
         {intro_statements={
@@ -392,7 +393,7 @@ extensions = {
              "/opt/asterisk/var/lib/asterisk/sounds/futel/peoples-homes/paul_knauls_work_aging"},
          menu_entries={},
          statement_dir=nil}),
-    paul_knauls_message = util.context_array(menu_paul_knauls_message, {}),
+    -- paul_knauls_message = util.context_array(menu_paul_knauls_message, {}),
     -- sharon_helgerson = util.context(menu_peoples_homes, {});
     -- norman_sylvester = util.context(menu_peoples_homes, {});
     -- peoples_homes_info_content = util.context(menu_peoples_homes, {});
