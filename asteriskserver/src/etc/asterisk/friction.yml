@@ -1,3 +1,6 @@
+# Do not put any blocking actions that ignore or delay 911 digits
+# on outgoing menus.
+
 - extensions:
     - 668
   context: filterdial
