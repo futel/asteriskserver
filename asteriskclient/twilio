@@ -9,6 +9,7 @@ have SIP password PASSWORD (same for all extensions)
 
 have credential termination:PASSWORD
 have extension credential list usernames 700:PASSWORD, 701:PASSWORD, ...
+(programmable voice/sip domains/credential lists)
 
 ## configure twilio functions
 
