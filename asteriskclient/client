@@ -1,8 +1,8 @@
 # set up sip client
 
 requirements
-<extension>
-<secret>
+<extension> from sip.conf etc
+<secret> from sip_secret.conf.j2 and update_asterisk_secrets_generic.yml
 <server> futel-prod.phu73l.net or origination-prod.futel.sip.us1.twilio.com
 
 ## set up a spa-1001 linksysPAP etc
