@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 """
 Hunt the wumpus! On the phone!
 https://www.filfre.net/2011/05/hunt-the-wumpus-part-2/

@@ -91,7 +91,7 @@ def sound_path(sound_name, preferred_sub=None, language='en'):
     # This ignores localization in a bad way, always returning the language of the
     # sound_name.
     path = "/tmp/%s" % sound_name
-    os.system("echo {} | text2wave -o {}.ulaw -otype ulaw".format(
+    os.system("echo {} | espeak-ng -w {}.wav".format(
         sound_name, path))
     # flite version
     # os.system('echo {} | /bin/flite  -o {}.wav'.format(sound_name, path))
@@ -136,7 +136,7 @@ def metric_metriclog(**kwargs):
     logger.setLevel(logging.DEBUG)
     ch = logging.FileHandler(metric_filename)
     # write a line of comma separated key=value, should quote them!
-    logline = ', '.join("%s=%s" % (k, v) for (k, v) in kwargs.iteritems())
+    logline = ', '.join("%s=%s" % (k, v) for (k, v) in kwargs.items())
     logline = ' '.join(('%(asctime)s', logline))
     formatter = logging.Formatter(logline)
     ch.setFormatter(formatter)
@@ -200,9 +200,9 @@ def relevant_config(config, extension, now, context=None):
 def random_file(dirpath, do_strip):
     """Return full path for random file chosen from given directory"""
     # find files
-    paths = filter(
+    paths = list(filter(
         os.path.isfile,
-        (os.path.join(dirpath, f) for f in os.listdir(dirpath)))
+        (os.path.join(dirpath, f) for f in os.listdir(dirpath))))
     # choose file
     path = random.choice(paths)
     if do_strip:

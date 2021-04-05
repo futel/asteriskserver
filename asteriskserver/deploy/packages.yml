@@ -2,38 +2,34 @@
 # distro package setup and installation
 - name: install selinux bindings, required since we start with selinux
   yum:
-    name: libselinux-python
+    name: python3-libselinux
     state: present 
 - name: remove yum packages
   yum:
     name:
-      #- "@FCoE Storage Client"
-      #- "@iSCSI Storage Client"
-      #- "2Network file system client"
-      #- "@Storage Availability Tools"
       - audit
       - rpcbind
       - selinux-policy
       - selinux-policy-targeted
+      - sendmail
     state: absent
+- name: install epel yum package
+  yum:
+    name:
+      - epel-release
 - name: update yum
   yum:
     name: "*"
     state: latest
-- name: copy epel rpm
-  copy:
-    src: src/epel-release-latest-7.noarch.rpm 
-    dest: /tmp/epel-release-latest-7.noarch.rpm 
-- name: install epel rpm
-  yum:
-    name: /tmp/epel-release-latest-7.noarch.rpm
-    state: present
+# should be replaced with "enablerepo: powertools" when installing packages?
+- name: enable CentOS PowerTools repository for epel
+  command: dnf config-manager --set-enabled powertools
 - name: install yum packages
   yum:
     name:
       - iptables-services
       - firewalld
-      - ntp
+      - chrony
       - man
       - vim-enhanced
       - gcc
@@ -44,10 +40,6 @@
       - libtool
       - autoconf
       - mlocate
-      - lynx
-      - cvs
-      - git
-      - subversion
       - strace
       - ltrace
       - wget
@@ -64,14 +56,15 @@
       - kernel-devel
       - sqlite-devel
       - libuuid-devel
-      - festival
       - supervisor
       - logwatch
       - cyrus-sasl-plain
-      - python-yaml
-      - python-pip
+      - python3-yaml
+      - python3-pip
+      - postfix
       - redis
       - jansson-devel
+      - espeak-ng
     state: present
 - name: update pip
   pip:
@@ -82,5 +75,6 @@
     name:
       - boto3
       - redis
+      - pyst
     state: present
 

@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 """
 Block until ratelimiter at key is available, then consume rate and return.
 """

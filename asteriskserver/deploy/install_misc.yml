@@ -1,17 +1,4 @@
 ---
-- name: unpack pyst
-  unarchive:
-    src: src/pyst-0.6.50.tar.gz
-    dest: /tmp
-- name: install pyst
-  command: python setup.py install --prefix=/usr/local
-  args:
-    chdir: /tmp/pyst-0.6.50
-- name: link pyst
-  file:
-    src: /usr/local/lib/python2.7/site-packages/asterisk/
-    dest: /usr/lib/python2.7/site-packages/asterisk
-    state: link
 # docs claim this is not needed but yet to see it work without
 - name: unpack mpg123
   unarchive:

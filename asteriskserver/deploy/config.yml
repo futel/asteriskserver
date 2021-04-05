@@ -23,13 +23,13 @@
     src: src/clock
     dest: /etc/sysconfig/clock
     force: yes
-- name: start ntpd
+- name: start chronyd
   service:
-    name: ntpd
+    name: chronyd
     state: started
-- name: enable ntpd service
+- name: enable chronyd service
   service:
-    name: ntpd
+    name: chronyd
     enabled: yes
 - name: enable and start redis service
   service:
