@@ -28,7 +28,7 @@
     api_token: "{{ deploy_access_token }}"
     size_id: s-1vcpu-1gb
     region_id: sfo1
-    image_id: centos-7-x64
+    image_id: centos-8-x64
     ssh_key_ids: "{{ ssh_key.ssh_key.id }}"
   register: droplet
 - debug: msg="IP is {{ droplet.droplet.ip_address }}"
