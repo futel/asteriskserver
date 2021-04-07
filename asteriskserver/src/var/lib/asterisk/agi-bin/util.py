@@ -46,7 +46,7 @@ metric_filename = '/opt/asterisk/var/log/asterisk/metrics'
 
 def read_config(config_filename):
     yfile = '/'.join((asterisk_etc_dir, config_filename))
-    return yaml.load(file(yfile, 'r'))
+    return yaml.load(open(yfile))
 
 def agi_tracebacker(agi_o, func, *args, **kwargs):
     try:
