@@ -1,66 +1,82 @@
 ---
-- name: copy voicemail to stage
+# XXX Some kind of interpreter discovery issue with ansible 2.9.19?
+#     This causes issues when the stage and prod guests use different
+#     python versions? Should stop when stage and prod are both centos 8?
+#     Workaround is clear_facts before every task.
+# https://github.com/ansible/ansible/issues/63180#issuecomment-578450760
+- meta: clear_facts 
+- name: copy voicemail conf to stage
   synchronize:
     mode: push
     src: tmp/stage/vm_futel_users.inc
     dest: /opt/asterisk/etc/asterisk/vm_futel_users.inc
-- name: set ownership of voicemail on stage
+- meta: clear_facts
+- name: set ownership of voicemail conf on stage
   file:
     path: /opt/asterisk/etc/asterisk/vm_futel_users.inc
     owner: asterisk
     group: asterisk
-- name: copy voicemail to stage
+- meta: clear_facts    
+- name: copy voicemail data to stage
   synchronize:
     mode: push
     src: tmp/stage/default
     dest: /opt/asterisk/var/spool/asterisk/voicemail
     delete: yes
-- name: set ownership of voicemail on stage
+- meta: clear_facts
+- name: set ownership of voicemail data on stage
   file:
     path: /opt/asterisk/var/spool/asterisk/voicemail/default
     owner: asterisk
     group: asterisk
     recurse: yes
+- meta: clear_facts
 - name: copy challenge file to stage
   synchronize:
     mode: push
     src: tmp/stage/challenge.csv
     dest: /opt/asterisk/etc/asterisk/challenge.csv
+- meta: clear_facts
 - name: set ownership of challenge file on stage
   file:
     path: /opt/asterisk/etc/asterisk/challenge.csv
     owner: asterisk
     group: asterisk
+- meta: clear_facts
 - name: copy logs to stage
   synchronize:
     mode: push
     src: tmp/stage/messages
     dest: /opt/asterisk/var/log/asterisk/messages
+- meta: clear_facts
 - name: set ownership of logs on stage
   file:
     path: /opt/asterisk/var/log/asterisk/messages
     owner: asterisk
     group: asterisk
+- meta: clear_facts
 - name: copy logs to stage
   synchronize:
     mode: push
     src: tmp/stage/metrics
     dest: /opt/asterisk/var/log/asterisk/metrics
+- meta: clear_facts
 - name: set ownership of logs on stage
   file:
     path: /opt/asterisk/var/log/asterisk/metrics
     owner: asterisk
     group: asterisk
+- meta: clear_facts
 - name: copy logs to stage
   synchronize:
     mode: push
     src: tmp/stage/old
     dest: /opt/asterisk/var/log/asterisk
     delete: yes
+- meta: clear_facts
 - name: set ownership of logs on stage
   file:
     path: /opt/asterisk/var/log/asterisk/old
     owner: asterisk
     group: asterisk
     recurse: yes
-
