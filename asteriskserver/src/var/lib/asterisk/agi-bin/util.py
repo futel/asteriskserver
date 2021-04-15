@@ -18,6 +18,8 @@ statement_dirs = [
     'statements/tishbite/',
     'statements/sailor/',
     'statements/sofia-general/',
+    'statements/rose-foo/',
+    'statements/rose-bar/',
     '']
 # preferred submenu directories for sound files, in order of preference
 preferred_statement_dirs = [
