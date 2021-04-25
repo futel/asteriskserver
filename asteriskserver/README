@@ -8,7 +8,7 @@ ansible-playbook -K -i deploy/hosts requirements_packages_generic_playbook.yml
 ## Test
 
 cd src/var/lib/asterisk/agi-bin
-python -m unittest discover test
+python3 -m unittest discover test
 
 ## Deploy stage asteriskbox to digital ocean manually
 
@@ -52,7 +52,7 @@ point all callcentric DID forwarding rules to extensions corresponding to new co
   futel-r2d2 user to foo|bar
 point all voip.ms DID forwarding rules to subaccounts corresponding to new conf_version on futel-prod.phu73l.net
   185060_prod-foo|bar subaccount
-wait for DNS to propagate
+wait for DNS to propagate with "nslookup futel-prod.phu73l.net"
 make a snapshot of futel-prod-back
 
 ansible-playbook -i deploy/hosts post_promote_playbook.yml --vault-password-file=conf/vault_pass_digitalocean.txt
