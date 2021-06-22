@@ -6,7 +6,7 @@
       - ruby-dev
       - normalize-audio
       - sndfile-programs
-      - python-pip
+      - python3-pip
       - libsox-fmt-mp3
       - sox
       - lame
