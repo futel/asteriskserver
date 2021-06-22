@@ -2,42 +2,38 @@
 - name: load secrets
   include_vars: "deploy/deploy_digitalocean_secrets_digitalocean.yml"
   no_log: true
-# - name: assert ssh key is present
-#   digital_ocean:
-#     state: present
-#     command: ssh
-#     name: karl@tehom
-#     ssh_pub_key: ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQClAEwrF0VCIKwRHdbjxEFCtGDaFvWoGAc7FOAEG3aaBD1qdvP8wh2DvgITUj5zekYOo1vhnFdFJidxxMGZKALyiNffDRIrCdB7VPhxM/9ursFy/rdCYuwUdr8PjCatFbf+gyKFtf2hjVgnzKY7+ob0NZnH7IIlSFZP7mMCJeiOcC2cPDJBRgmQjY8+aCJV1XvNzD7OeYSof/lJRQ03jj4EQmr4TkY8nfDV9Joi/embE4S+oTCsinQeDfIg/7fQ+HUl4FWDifFwJq/RP2OjnOKd8ZUWiEbTB+InfmCdAf0PFuM1tJb9wsXC8Cn178LwZvo3YKdkdssYsJ37ir/Metpn karl@tehom
-#     api_token: "{{ deploy_access_token }}"
-#   register: ssh_key
 - name: assert ssh key is present
-  digital_ocean:
+  digital_ocean_sshkey:
     state: present
-    command: ssh
     name: karl@dispater
     ssh_pub_key: ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDLA29JYoC7OscF5RFJ96YTV3e7Mk3FjC29o9IfThEa4zTnQLlCqbaMbxtAgEiPimjPMPnEvnB7ZIz7JJ8ammh6H9+RuFDTAwXWgOOccSMNQidKvL4+IZFPeezb4UELAoAT7lWD2X6JttfrALgIzFUYlVgWHux0gNFOFiCb8h1Y2prVT1FqSS1gTQ5cyo9IIxoQzqeKCxEyqjBKN4LO3wqNsQzZ4EGHsD/U7HibucAE4u8jqlkd6lWtYyWH0/XyALzjlk1YHMgwIPHZw/DRWAINiRNe9t/NgzkW5DnIKTAJfKNJ2154SeMlPg6EaWuasnQ9VxpI+898Oz8v6Z6z1Qq7 karl@dispater
-    api_token: "{{ deploy_access_token }}"
+    oauth_token: "{{ deploy_access_token }}"
   register: ssh_key
-- debug: msg="ssh_key_id {{ ssh_key.ssh_key.id }}"
+#- debug: msg="ssh key {{ ssh_key.data.ssh_key.fingerprint }}"
 - name: create stage droplet
-  digital_ocean:
+  digital_ocean_droplet:
     state: present
-    command: droplet
     name: futel-stage.phu73l.net
     unique_name: yes
-    api_token: "{{ deploy_access_token }}"
-    size_id: s-1vcpu-1gb
-    region_id: sfo1
-    image_id: centos-8-x64
-    ssh_key_ids: "{{ ssh_key.ssh_key.id }}"
+    oauth_token: "{{ deploy_access_token }}"
+    size: s-1vcpu-1gb
+    region: sfo1
+    image: centos-8-x64
+    ssh_keys: ["{{ ssh_key.data.ssh_key.fingerprint }}"]
   register: droplet
-- debug: msg="IP is {{ droplet.droplet.ip_address }}"
-#- debug: msg="ID is {{ droplet.droplet.id }}"
-#- debug: msg="name is {{ droplet.droplet.name }}"
-# XXX this fails if domain name already exists?
+# - debug: msg="droplet.id {{ droplet.data.droplet.id }}"
+# XXX we don't get droplet.droplet.ip_address? So we need to query
+- name: gather information about stage droplet
+  community.digitalocean.digital_ocean_droplet_info:
+    oauth_token: "{{ deploy_access_token }}"  
+    id: "{{ droplet.data.droplet.id }}"
+  register: droplet
+# XXX this assumes that the 2nd network is the public one, we should
+#     instead be filtering on dict attributes
+- debug: msg="droplet IP address {{ droplet.data[0].networks.v4[1].ip_address }}"
 - name: point name to droplet
   digital_ocean_domain:
     state: present
-    name: "{{ droplet.droplet.name }}"
-    ip: "{{ droplet.droplet.ip_address }}"
+    name: "{{ droplet.data[0].name }}"
+    ip: "{{ droplet.data[0].networks.v4[1].ip_address }}"
     oauth_token: "{{ deploy_access_token }}"
