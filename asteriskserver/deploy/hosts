@@ -5,7 +5,7 @@ futel-stage.phu73l.net
 futel-prod.phu73l.net
 
 [digitalocean]
-localhost ansible_connection=local
+localhost ansible_connection=local ansible_python_interpreter=auto
 
 [localhost]
-localhost
+localhost ansible_python_interpreter=auto
