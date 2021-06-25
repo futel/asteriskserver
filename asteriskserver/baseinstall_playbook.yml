@@ -1,6 +1,8 @@
 ---
 - hosts: baseinstall
   become: true
+  vars:
+    src: "src"
   tasks:
     - include: deploy/packages.yml
     - include: deploy/users.yml

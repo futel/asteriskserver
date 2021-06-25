@@ -7,7 +7,7 @@
     group: asterisk
 - name: unpack asterisk
   unarchive:
-    src: src/asterisk-13-current.tar.gz
+    src: "{{ src }}/asterisk-13-current.tar.gz"
     dest: /tmp
     owner: asterisk
     group: asterisk
@@ -55,7 +55,7 @@
 # this adds ASTARGS="-U asterisk"
 - name: copy our safe_asterisk
   copy:
-    src: src/safe_asterisk
+    src: "{{ src }}/safe_asterisk"
     dest: /opt/asterisk/sbin
 - name: make asterisk log archive directory
   file:

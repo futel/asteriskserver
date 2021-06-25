@@ -2,7 +2,7 @@
 # misc config of distro packages
 - name: write postfix config
   copy:
-    src: src/postfix/main.cf
+    src: "{{ src }}/postfix/main.cf"
     dest: /etc/postfix/main.cf
 - name: restart postfix
   service:
@@ -16,7 +16,7 @@
     force: yes
 - name: set timezone with clock config
   copy:
-    src: src/clock
+    src: "{{ src }}/clock"
     dest: /etc/sysconfig/clock
     force: yes
 - name: start chronyd
