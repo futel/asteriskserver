@@ -1,9 +1,11 @@
 ---
 # docs claim this is not needed but yet to see it work without
-- name: unpack mpg123
-  unarchive:
-    src: "{{ src }}/mpg123-1.22.2.tar"
+- name: copy mpg123
+  synchronize:
+    src: "{{ src }}/mpg123-1.22.2"
     dest: /tmp
+    delete: yes
+    recursive: yes
 - name: configure mpg123
   command: ./configure
   args:

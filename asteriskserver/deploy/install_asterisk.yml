@@ -5,13 +5,18 @@
     state: directory
     owner: asterisk
     group: asterisk
-- name: unpack asterisk
-  unarchive:
-    src: "{{ src }}/asterisk-13-current.tar.gz"
+- name: copy asterisk
+  synchronize:
+    src: "{{ src }}/asterisk-13.25.0"
     dest: /tmp
+    delete: yes
+    recursive: yes
+- name: set asterisk source owner and group
+  file:
+    dest: /tmp/asterisk-13.25.0
     owner: asterisk
     group: asterisk
-    creates: /tmp/asterisk-13.25.0
+    recurse: yes
 - name: configure asterisk
   command: sudo -u asterisk ./configure --libdir=/opt/asterisk/lib64 --prefix=/opt/asterisk --exec_prefix=/opt/asterisk
   args:
