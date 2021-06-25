@@ -6,26 +6,6 @@
   copy:
     src: src/logrotate/logrotate.d/asterisk
     dest: /etc/logrotate.d/asterisk
-- name: delete logwatch conf
-  file:
-    path: /etc/logwatch/conf
-    state: absent
-- name: copy logwatch conf
-  copy:
-    src: src/logwatch/conf
-    dest: /etc/logwatch
-- name: delete logwatch scripts
-  file:
-    path: /etc/logwatch/scripts
-    state: absent
-- name: copy logwatch scripts
-  copy:
-    src: src/logwatch/scripts
-    dest: /etc/logwatch
-- name: copy logwatch conf which is local or has secrets
-  template:
-    src: src/logwatch.conf.j2
-    dest: /etc/logwatch/conf/logwatch.conf
 - name: make futel directory
   file:
     path: /opt/futel

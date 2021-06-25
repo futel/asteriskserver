@@ -8,10 +8,6 @@
   service:
     name: postfix
     state: restarted
-- name: replace crontab
-  copy:
-    src: src/crontab
-    dest: /etc/crontab
 - name: set timezone with zoneinfo
   file:
     src: /usr/share/zoneinfo/US/Pacific
