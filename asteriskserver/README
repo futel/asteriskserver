@@ -16,7 +16,7 @@ create or check out release branch
 
 create droplet and subdomain:
 
-  ansible-playbook -i deploy/hosts deploy_digitalocean_playbook.yml  --vault-password-file=conf/vault_pass_digitalocean.txt
+  ansible-playbook -i deploy/hosts deploy_digitalocean_playbook.yml --vault-password-file=conf/vault_pass_digitalocean.txt
 
 note IP address printed
 note stage conf version printed
