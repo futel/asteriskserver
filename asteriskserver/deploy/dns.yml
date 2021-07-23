@@ -1,0 +1,18 @@
+---
+- name: load secrets
+  include_vars: "deploy_digitalocean_secrets_digitalocean.yml"
+  no_log: true
+- name: gather information about stage droplet
+  community.digitalocean.digital_ocean_droplet_info:
+    oauth_token: "{{ deploy_access_token }}"  
+    name: futel-stage.phu73l.net
+  register: droplet
+# XXX this assumes that the 2nd network is the public one, we should
+#     instead be filtering on dict attributes
+- debug: msg="droplet IP address {{ droplet.data[0].networks.v4[1].ip_address }}"
+- name: point name to droplet
+  digital_ocean_domain:
+    state: present
+    name: "{{ droplet.data[0].name }}"
+    ip: "{{ droplet.data[0].networks.v4[1].ip_address }}"
+    oauth_token: "{{ deploy_access_token }}"

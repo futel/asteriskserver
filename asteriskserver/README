@@ -1,31 +1,37 @@
 ## Deploy an asterisk server to Digital Ocean
 
-## Require or install requirements
+## Requirements and test
 
-ansible-playbook -i deploy/hosts requirements_conf_prod_playbook.yml
-ansible-playbook -K -i deploy/hosts requirements_packages_generic_playbook.yml
+Have no droplets named futel-stage.phu73l.net.
+Have no images named baseinstall.
+Create or check out release branch.
 
-## Test
+  ansible-playbook -i deploy/hosts requirements_conf_prod_playbook.yml
+  ansible-playbook -K -i deploy/hosts requirements_packages_generic_playbook.yml
+  packer validate -var-file=conf/variables.pkr.hcl deploy/template.pkr.hcl
 
-cd src/var/lib/asterisk/agi-bin
-python3 -m unittest discover test
+  cd src/var/lib/asterisk/agi-bin
+  python3 -m unittest discover test
 
-## Deploy stage asteriskbox to digital ocean manually
+## Create baseinstall image
 
-create or check out release branch
+  packer build -var-file=conf/variables.pkr.hcl deploy/template.pkr.hcl
 
-create droplet and subdomain:
+## Build droplet from baseinstall image
 
-  ansible-playbook -i deploy/hosts deploy_digitalocean_playbook.yml --vault-password-file=conf/vault_pass_digitalocean.txt
+  ansible-playbook -i deploy/hosts deploy/update_assets_playbook.yml
+  ansible-playbook -i deploy/hosts deploy/find_stage_conf_playbook.yml
 
-note IP address printed
-note stage conf version printed
-wait for DNS to propagate with "nslookup futel-stage.phu73l.net"
+Note stage conf version printed.
 
-deploy stage:
+XXX we should yum update here
 
-  ansible-playbook -i deploy/hosts update_assets_playbook.yml    
-  ansible-playbook -i deploy/hosts baseinstall_playbook.yml --vault-password-file=conf/vault_pass_prod.txt --extra-vars conf_version=<stage conf version>
+  ansible-playbook -i deploy/hosts deploy/stage_from_snapshot_playbook.yml --vault-password-file=conf/vault_pass_digitalocean.txt
+
+Note IP address printed.
+Wait for DNS to match IP address with "nslookup futel-stage.phu73l.net".
+
+  ansible-playbook -i deploy/hosts deploy/install_asterisk_helpers_playbook.yml --vault-password-file=conf/vault_pass_prod.txt --extra-vars conf_version=<stage conf version>
   ansible-playbook -i deploy/hosts update_asterisk_playbook.yml --vault-password-file=conf/vault_pass_generic.txt
   ansible-playbook -i deploy/hosts update_asterisk_sip_playbook.yml --vault-password-file=conf/vault_pass_prod.txt --extra-vars conf_version=<stage conf version>  
   ansible-playbook -i deploy/hosts secure_playbook.yml

@@ -1,0 +1,7 @@
+---
+- hosts: baseinstall
+  become: true
+  vars:
+    src: "../src"
+  tasks:
+    - include: install_asterisk_helpers.yml version={{ conf_version }}
