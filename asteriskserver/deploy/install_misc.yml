@@ -1,23 +1,4 @@
 ---
-# docs claim this is not needed but yet to see it work without
-- name: copy mpg123
-  synchronize:
-    src: "{{ src }}/mpg123-1.22.2"
-    dest: /tmp
-    delete: yes
-    recursive: yes
-- name: configure mpg123
-  command: ./configure
-  args:
-    chdir: /tmp/mpg123-1.22.2
-- name: make mpg123
-  command: make
-  args:
-    chdir: /tmp/mpg123-1.22.2
-- name: install mpg123
-  command: make install
-  args:
-    chdir: /tmp/mpg123-1.22.2
 - name: make ld.so.conf see locally installed libs
   lineinfile:
     dest: /etc/ld.so.conf.d/usr_local.conf
