@@ -1,10 +1,10 @@
 ---
 - name: load secrets
-  include_vars: "deploy/install_asterisk_helpers_secrets_{{ version }}.yml"
+  include_vars: "install_asterisk_helpers_secrets_{{ version }}.yml"
   no_log: true
 - name: add logrotate job
   copy:
-    src: src/logrotate/logrotate.d/asterisk
+    src: ../src/logrotate/logrotate.d/asterisk
     dest: /etc/logrotate.d/asterisk
 - name: make futel directory
   file:
@@ -20,20 +20,20 @@
     group: asterisk
 - name: install event listener
   copy:
-    src: src/eventlistener.py
+    src: ../src/eventlistener.py
     dest: /opt/futel/src
     owner: asterisk
     group: asterisk
     mode: "a+x"    
 - name: install event listener conf which is local or has secrets
   template:
-    src: src/eventlistenerconf.py.j2
+    src: ../src/eventlistenerconf.py.j2
     dest: /opt/futel/src/eventlistenerconf.py
     owner: asterisk
     group: asterisk
 - name: set up supervisord conf
   copy:
-    src: src/supervisord.conf
+    src: ../src/supervisord.conf
     dest: /etc/supervisord.conf
     owner: root
     group: root

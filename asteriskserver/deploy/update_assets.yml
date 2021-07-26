@@ -1,6 +1,6 @@
 ---
 - name: load conf
-  include_vars: "deploy/conf.yml"
+  include_vars: "conf.yml"
 - name: clean sounds directories
   file:
     path: "{{ asterisk_sound_directory }}"
