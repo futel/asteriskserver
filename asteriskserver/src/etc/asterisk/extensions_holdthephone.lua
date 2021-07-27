@@ -322,18 +322,6 @@ MAILBOX_TEN=1510  -- maibox to record a response to content 3
 
 extensions = {
     hold_the_phone_main = util.context(
-        {intro_statements={
-             "welcome-to-hold-the-phone",
-             "para-espanol",
-             "oprima-estrella"},
-         menu_entries={
-             {"for-the-futel-menu", "outgoing_portland"},
-             {"for-peoples-homes", "peoples_homes"},
-             {"for-conversations", "conversations"},
-             {"for-missed-connections", "missed_connections"},
-             {"for-more-information-about-hold-the-phone", "hold_the_phone_info_intro"}},
-         statement_dir="conversations"}),
-    hold_the_phone_incoming = util.context(
         {intro_statements={"welcome-to-hold-the-phone"},
          menu_entries={
              {"for-peoples-homes", "peoples_homes"},
