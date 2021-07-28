@@ -57,7 +57,9 @@ end
 -- intro statements is sequence of strings
 -- menu_statements is sequence of strings, sequences, or nils
 function menu(intro_statements, menu_statements, statement_dir, context, exten)
+
     app.AGI("metric.agi", context)
+    
     for statement in iter(intro_statements) do
         say(statement, statement_dir)
     end
