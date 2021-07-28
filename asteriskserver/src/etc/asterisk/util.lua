@@ -35,12 +35,6 @@ function map(t, map_function)
     return out
 end
 
--- execute callable, then go to destination context
-function bounce_context(callable, destination)
-    callable()
-    return app.Goto(destination, "s", 1)
-end
-
 -- play sound file from dirname in foreground
 function play_random_foreground(dirname)
     app.AGI("random_file_strip.agi", dirname)
@@ -56,9 +50,10 @@ end
 -- execute menu of statements by saying them
 -- intro statements is sequence of strings
 -- menu_statements is sequence of strings, sequences, or nils
-function menu(intro_statements, menu_statements, statement_dir, context, exten)
-
+function menu(pre_callable, intro_statements, menu_statements, statement_dir, context, exten)
+    
     app.AGI("metric.agi", context)
+    pre_callable()
     
     for statement in iter(intro_statements) do
         say(statement, statement_dir)
@@ -86,6 +81,7 @@ function menu(intro_statements, menu_statements, statement_dir, context, exten)
             app.Background("silence/1")
         end
     end
+    
     say("goodbye")
     app.Hangup()
 end
@@ -170,21 +166,25 @@ end
 
 -- return context array with a menu and standard keys added
 function context(arg)
+    local pre_callable = arg.pre_callable
     local intro_statements = arg.intro_statements
     local menu_entries = arg.menu_entries
     local statement_dir = arg.statement_dir
+
     local menu_statements = map(menu_entries, function(v) return v[1] end) 
     local menu_destinations = map(menu_entries, function(v) return v[2] end)   
     
     -- curry a menu function that receives the context variables
     local menu_function = function(context, exten)
         return menu(
+            pre_callable,
             intro_statements,
             menu_statements,
             statement_dir,
             context,
             exten)
     end
+
     return context_array(menu_function, menu_destinations)
 end
 
