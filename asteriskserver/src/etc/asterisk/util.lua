@@ -35,10 +35,10 @@ function map(t, map_function)
     return out
 end
 
--- play sound file from dirname in foreground
-function play_random_foreground(dirname)
+-- play sound file from dirname in background
+function play_random_background(dirname)
     app.AGI("random_file_strip.agi", dirname)
-    app.Playback(channel.agi_out:get())
+    app.Background(channel.agi_out:get())
 end
 
 -- execuate background statement using sound_path
@@ -194,7 +194,7 @@ local util = {
     context_array = context_array,
     iter = iter,
     menu = menu,
-    play_random_foreground = play_random_foreground,
+    play_random_background = play_random_background,
     record = record,
     say = say}
 

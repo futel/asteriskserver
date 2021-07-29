@@ -1,13 +1,12 @@
 util = require("util")
 
 function outgoing_pre_menu(context_name)
-    -- XXX this ignores possible 911 digits
-    util.play_random_foreground(
-        "/opt/asterisk/var/lib/asterisk/sounds/futel/williams-short")
     -- Note that this is the first interaction on handset pickup, so
     -- friction should not be configured to block or ignore possible
     -- 911 digits.
     app.AGI("friction.agi", context_name)
+    util.play_random_background(
+        "/opt/asterisk/var/lib/asterisk/sounds/futel/williams-short")
 end
 
 function outgoing_portland_pre_bounce()
