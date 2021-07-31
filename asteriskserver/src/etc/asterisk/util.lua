@@ -53,7 +53,10 @@ end
 function menu(pre_callable, intro_statements, menu_statements, statement_dir, context, exten)
     
     app.AGI("metric.agi", context)
-    pre_callable()
+
+    if pre_callable then
+        pre_callable()
+    end
     
     for statement in iter(intro_statements) do
         say(statement, statement_dir)
