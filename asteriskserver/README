@@ -2,16 +2,25 @@
 
 ## Requirements and test
 
-Have no droplets named futel-stage.phu73l.net.
-Have no images named baseinstall.
+Have no Digital Ocean droplets or domains named futel-stage.phu73l.net.
+Have no Digital Ocean images named baseinstall.
 Create or check out release branch.
+
+Run unit tests locally
+
+  cd src/var/lib/asterisk/agi-bin
+  python3 -m unittest discover test
+
+Run integration tests on virtualbox
+
+  cd /opt/asterisk/itest
+  sudo -u asterisk ./itest.sh
+
+Validate requirements and configuration locally
 
   ansible-playbook -i deploy/hosts requirements_conf_prod_playbook.yml
   ansible-playbook -K -i deploy/hosts requirements_packages_generic_playbook.yml
   packer validate -var-file=conf/variables.pkr.hcl deploy/template.pkr.hcl
-
-  cd src/var/lib/asterisk/agi-bin
-  python3 -m unittest discover test
 
 ## Create baseinstall image
 

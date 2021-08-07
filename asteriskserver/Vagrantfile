@@ -77,6 +77,15 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     # uncomment for verbose output
     # ansible.raw_arguments = ["-v"]
   end    
+
+  config.vm.provision "update_asterisk_itests", type: "ansible" do |ansible|
+    ansible.playbook = "update_asterisk_itests_playbook.yml"
+    
+    # default vm gets baseinstall ansible inventory group
+    ansible.groups = {
+      "baseinstall" => ["default"]
+    }
+  end    
   
   # use this environment variable to build with production ssh port/user
   if ENV['vagrantbox'] == 'centos6_32_baseconfig'

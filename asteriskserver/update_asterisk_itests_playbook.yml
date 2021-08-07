@@ -1,0 +1,6 @@
+---
+- hosts: baseinstall
+  become: true
+  tasks:
+    - include: deploy/update_asterisk_itests.yml
+

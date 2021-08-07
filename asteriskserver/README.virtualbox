@@ -17,3 +17,7 @@ vagrant up
 # this assumes everything you want to do is in update_asterisk.yml and update_asterisk_sip.yml
 vagrant provision --provision-with update_asterisk
 vagrant provision --provision-with update_asterisk_sip
+
+## Deploy itests to VM
+
+vagrant provision --provision-with update_asterisk_itests
