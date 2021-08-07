@@ -254,6 +254,7 @@ extensions = {
              "all-must-be-tested"},
          menu_entries={},
          statement_dir="challenge"}),
+    challenge_authenticate = util.context_array(menu_authenticate, {}),
     challenge_list = util.context(
         {intro_statements={},
          menu_entries={
