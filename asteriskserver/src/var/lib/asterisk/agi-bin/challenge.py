@@ -30,7 +30,7 @@ def set_challenge_value(key, value):
 
 def get_challenge_pairs():
     with open(filename, 'r') as f:
-	return [line.strip().split(',') for line in f]
+        return [line.strip().split(',') for line in f]
 
 def get_challenge_values(key):
     """
@@ -73,7 +73,7 @@ def get_challenge_leaderboard_positions():
     """
     leaderboard = get_challenge_leaderboard()
     leaderboard = reversed(
-        sorted(leaderboard.items(), key = lambda (k,v): k))
+        sorted(leaderboard.items(), key = lambda item: item[0]))
     leaderboard = list(leaderboard)
     leaderboard = leaderboard[0:3]
     return leaderboard
