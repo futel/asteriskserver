@@ -79,27 +79,27 @@ function challenge_sequence_four(mailbox)
     -- if we get here we won
 end
 
-function challenge_shadytel(mailbox)
-    from_shadytel = channel.from_shadytel:get()
-    if from_shadytel ~= "True" then
-        for i=1,10 do
-            util.say("visit-this-destination-via-shadytel-extension-3003-for-access",
-                "challenge")
-        end
-        app.Hangup()
-    end
-    -- if we get here we won
-end
+-- function challenge_shadytel(mailbox)
+--     from_shadytel = channel.from_shadytel:get()
+--     if from_shadytel ~= "True" then
+--         for i=1,10 do
+--             util.say("visit-this-destination-via-shadytel-extension-3003-for-access",
+--                 "challenge")
+--         end
+--         app.Hangup()
+--     end
+--     -- if we get here we won
+-- end
 
 function challenge_hold(mailbox)
     app.AGI("waiting_game.agi")
     -- if we get here we won
 end
 
-function challenge_conference(mailbox)
-    app.AGI("vmb_oracle.agi", mailbox)
-    -- if we get here we won
-end
+-- function challenge_conference(mailbox)
+--     app.AGI("vmb_oracle.agi", mailbox)
+--     -- if we get here we won
+-- end
 
 function goto_main()
     return app.Goto("challenge_main", "s", 1)
@@ -159,9 +159,9 @@ function menu_challenge_sequence_four(context, extension)
         challenge_sequence_four)
 end
 
-function menu_challenge_shadytel(context, extension)
-    do_challenge("achievement-mailbox", "achievement-shadytel", challenge_shadytel)
-end
+-- function menu_challenge_shadytel(context, extension)
+--     do_challenge("achievement-mailbox", "achievement-shadytel", challenge_shadytel)
+-- end
 
 function menu_challenge_hold(context, extension)
     do_challenge(
@@ -170,17 +170,17 @@ function menu_challenge_hold(context, extension)
         challenge_hold)
 end
 
-function menu_challenge_conference(context, extension)
-    do_challenge(
-        "achievement-mailbox",
-        "achievement-conference",
-        challenge_conference)
-end
+-- function menu_challenge_conference(context, extension)
+--     do_challenge(
+--         "achievement-mailbox",
+--         "achievement-conference",
+--         challenge_conference)
+-- end
 
-function menu_challenge_shadytel_main(context, extension)
-    channel.from_shadytel = "True"
-    return goto_main()
-end
+-- function menu_challenge_shadytel_main(context, extension)
+--     channel.from_shadytel = "True"
+--     return goto_main()
+-- end
 
 function menu_authenticate(context, extension)
     mailbox = vmauthenticate()
@@ -219,8 +219,8 @@ extensions = {
              {"for-more-information-about-the-fewtel-remote-testing-facility",
               "challenge_info"}},
          statement_dir="challenge"}),
-    challenge_shadytel_main = util.context_array(
-        menu_challenge_shadytel_main, {}),
+    -- challenge_shadytel_main = util.context_array(
+    --     menu_challenge_shadytel_main, {}),
     challenge_instructions = util.context(
         {intro_statements={
              "welcome-to-the-fewtel-remote-testing-facility",
@@ -263,9 +263,10 @@ extensions = {
              {"for-challenge-hunt-the-wumpus", "challenge_wumpus"},
              {"for-challenge-konami", "challenge_konami"},
              {"for-challenge-sequence", "challenge_sequence_list"},
-             {"for-challenge-shadytel", "challenge_shadytel"},
-             {"for-challenge-hold", "challenge_hold"},
-             {"for-challenge-oracle", "challenge_conference"},},
+             -- {"for-challenge-shadytel", "challenge_shadytel"},
+             {"for-challenge-hold", "challenge_hold"}
+             -- {"for-challenge-oracle", "challenge_conference"},
+         },
          statement_dir="challenge"}),
     challenge_sequence_list = util.context(
         {intro_statements={},
@@ -287,12 +288,12 @@ extensions = {
         menu_challenge_sequence_three, {}),    
     challenge_sequence_four = util.context_array(
         menu_challenge_sequence_four, {}),
-    challenge_shadytel = util.context_array(
-        menu_challenge_shadytel, {}),
+    -- challenge_shadytel = util.context_array(
+    --     menu_challenge_shadytel, {}),
     challenge_hold = util.context_array(
         menu_challenge_hold, {}),        
-    challenge_conference = util.context_array(
-        menu_challenge_conference, {})
+    -- challenge_conference = util.context_array(
+    --     menu_challenge_conference, {})
 }
 
 return extensions
