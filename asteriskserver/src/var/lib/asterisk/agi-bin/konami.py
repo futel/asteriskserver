@@ -35,12 +35,11 @@ class Konami:
     def _do_state(self):
         current_state = STATES[self.current]
         file = current_state['file']
-        key = self._say(file)
+        self._say(file)
 
         if current_state['next'] is None:
             return 1
-        if key <= 0:
-            key = self.agi_o.wait_for_digit(timeout=1000)
+        key = self.agi_o.wait_for_digit(timeout=1000)
         if key == current_state['next']:
             self.current = self.current + 1
         else:
