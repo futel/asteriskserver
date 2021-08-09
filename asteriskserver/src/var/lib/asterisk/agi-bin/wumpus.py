@@ -7,6 +7,17 @@ import random
 import sys
 import util
 
+
+class AgiWrapper:
+    def __init__(self, agi_o):
+        self.agi_o = agi_o
+    def say(self, statement):
+        return util.say(
+            self.agi_o, statement, preferred_sub='anzie-wumpus')
+    def wait_for_digit(self, timeout):
+        return self.agi_o.wait_for_digit(timeout=timeout)
+
+
 class Wumpus:
     def __init__(self, agi_o):
         self.location = 0
@@ -138,7 +149,7 @@ class Wumpus:
 
     def say(self, statement):
         """ too lazy to add preferred_sub everywhere """
-        util.say(self.agi_o, statement, preferred_sub='anzie-wumpus')
+        self.agi_o.say(statement)
 
     def warn_and_reset(self):
         """ restart game on loss """
@@ -185,3 +196,9 @@ class Wumpus:
                     self.say('what-now')
                     action = self.agi_o.wait_for_digit(timeout=-1)
 
+
+def main(agi_o):
+    agi_o = AgiWrapper(agi_o)
+    w = Wumpus(agi_o)
+    w.say('intro-statement')
+    w.hunt()
