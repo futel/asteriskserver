@@ -23,6 +23,9 @@ build {
     provisioner "ansible" {
         groups = ["baseinstall"]
         playbook_file = "deploy/baseinstall_playbook.yml"
-        #extra_arguments = ["--vault-password-file=conf/vault_pass_prod.txt"]
+        }
+    provisioner "ansible" {
+        groups = ["baseinstall"]
+        playbook_file = "deploy/install_asterisk_helpers_playbook.yml"
         }
 }
