@@ -1,5 +1,5 @@
 ---
-- hosts: baseinstall
+- hosts: baseinstall:virtualbox
   become: true
   vars:
     src: "../src"

@@ -1,6 +1,9 @@
 [baseinstall]
 futel-stage.phu73l.net ansible_python_interpreter=auto
 
+[virtualbox]
+dummy ansible_python_interpreter=auto
+
 [prod]
 futel-prod.phu73l.net ansible_python_interpreter=/usr/bin/python3
 
