@@ -61,7 +61,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   end    
   
   config.vm.provision "post_sync", type: "ansible" do |ansible|
-    ansible.playbook = "post_sync_playbook_virtualbox.yml"
+    ansible.playbook = "post_sync_playbook.yml"
     ansible.vault_password_file = "conf/vault_pass_virtualbox.txt"    
     
     # default vm gets virtualbox ansible inventory group

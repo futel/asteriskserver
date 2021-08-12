@@ -1,5 +1,0 @@
----
-- hosts: virtualbox
-  become: true
-  tasks:
-    - include: deploy/post_sync.yml
