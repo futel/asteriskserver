@@ -40,9 +40,9 @@ XXX we should yum update here
 Note IP address printed.
 Wait for DNS to match IP address with "nslookup futel-stage.phu73l.net".
 
-  ansible-playbook -i deploy/hosts update_asterisk_playbook.yml --vault-password-file=conf/vault_pass_generic.txt
-  ansible-playbook -i deploy/hosts update_asterisk_sip_playbook.yml --vault-password-file=conf/vault_pass_prod.txt --extra-vars conf_version=<stage conf version>
-  ansible-playbook -i deploy/hosts deploy/update_secrets_playbook.yml --vault-password-file=conf/vault_pass_prod.txt --extra-vars conf_version=<stage conf version>  
+  ansible-playbook -i deploy/hosts update_asterisk_playbook.yml --limit baseinstall --vault-password-file=conf/vault_pass_generic.txt
+  ansible-playbook -i deploy/hosts update_asterisk_sip_playbook.yml --limit baseinstall --vault-password-file=conf/vault_pass_prod.txt --extra-vars conf_version=<stage conf version>
+  ansible-playbook -i deploy/hosts deploy/update_secrets_playbook.yml --limit baseinstall --vault-password-file=conf/vault_pass_prod.txt --extra-vars conf_version=<stage conf version>  
   ansible-playbook -i deploy/hosts secure_playbook.yml
   ansible-playbook -i deploy/hosts sync_playbook.yml
 If sync_playbook failed, preserve any recordings downloaded to tmp/stage/recordings
