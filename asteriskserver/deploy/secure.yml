@@ -6,7 +6,7 @@
     enabled: no
 - name: write sshd config
   copy:
-    src: src/sshd_config
+    src: ../src/sshd_config
     dest: /etc/ssh/sshd_config
 - name: restart sshd
   service:
@@ -21,9 +21,9 @@
     name: ip6tables
     enabled: yes
 - name: update iptables rules
-  script: src/iptables.sh
+  script: ../src/iptables.sh
 - name: update ip6tables rules
-  script: src/ip6tables.sh
+  script: ../src/ip6tables.sh
 - name: save iptables rules
   shell: iptables-save >/etc/sysconfig/iptables
 - name: save ip6tables rules

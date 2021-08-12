@@ -2,4 +2,4 @@
 - hosts: baseinstall
   become: true
   tasks:
-    - include: deploy/secure.yml
+    - include: secure.yml
