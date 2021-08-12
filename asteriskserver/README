@@ -42,7 +42,7 @@ Wait for DNS to match IP address with "nslookup futel-stage.phu73l.net".
 
   ansible-playbook -i deploy/hosts deploy/update_asterisk_playbook.yml --limit baseinstall --vault-password-file=conf/vault_pass_generic.txt
   ansible-playbook -i deploy/hosts deploy/update_secrets_playbook.yml --limit baseinstall --vault-password-file=conf/vault_pass_prod.txt --extra-vars conf_version=<stage conf version>  
-  ansible-playbook -i deploy/hosts secure_playbook.yml
+  ansible-playbook -i deploy/hosts deploy/secure_playbook.yml
   ansible-playbook -i deploy/hosts sync_playbook.yml
 If sync_playbook failed, preserve any recordings downloaded to tmp/stage/recordings
   ansible-playbook -i deploy/hosts deploy/post_sync_playbook.yml
@@ -58,7 +58,7 @@ rename futel-prod.phu73l.net droplet to futel-prod-back
 rename futel-stage.phu73l.net droplet to futel-prod.phu73l.net
   ansible-playbook -i deploy/hosts sync_playbook.yml
 If sync_playbook failed, preserve any recordings downloaded to tmp/stage/recordings
-  ansible-playbook -i deploy/hosts post_sync_playbook.yml
+  ansible-playbook -i deploy/hosts deploy/post_sync_playbook.yml
 remove A record for futel-stage.phu73l.net (in own DO domain interface)
 change A record for futel-prod.phu73l.net to point to new futel-prod.phu73l.net
 point all callcentric DID forwarding rules to extensions corresponding to new conf_version on futel-prod.phu73l.net
