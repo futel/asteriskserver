@@ -1,6 +1,6 @@
 ---
 - name: load flavored secrets
-  include_vars: "deploy/update_asterisk_secrets_generic.yml"
+  include_vars: "update_asterisk_secrets_generic.yml"
   no_log: true
 - name: delete asterisk conf
   file:
@@ -49,41 +49,41 @@
     - /opt/asterisk/etc/asterisk/xmpp.conf
 - name: copy asterisk conf
   copy:
-    src: src/etc/asterisk/
+    src: ../src/etc/asterisk/
     dest: /opt/asterisk/etc/asterisk
     owner: asterisk
     group: asterisk
 - name: copy sip conf with secrets
   template:
-    src: src/etc/asterisk/sip_secret.conf.j2
+    src: ../src/etc/asterisk/sip_secret.conf.j2
     dest: /opt/asterisk/etc/asterisk/sip_secret.conf
     owner: asterisk
     group: asterisk
 - name: copy dialplan conf with secrets
   template:
-    src: src/etc/asterisk/extensions_secret.conf.j2
+    src: ../src/etc/asterisk/extensions_secret.conf.j2
     dest: /opt/asterisk/etc/asterisk/extensions_secret.conf
     owner: asterisk
     group: asterisk
 - name: copy followme conf with secrets
   template:
-    src: src/etc/asterisk/followme_secret.conf.j2
+    src: ../src/etc/asterisk/followme_secret.conf.j2
     dest: /opt/asterisk/etc/asterisk/followme_secret.conf
     owner: asterisk
     group: asterisk
 - name: copy blocklist conf with secrets
   template:
-    src: src/etc/asterisk/blocklist.yaml.j2
+    src: ../src/etc/asterisk/blocklist.yaml.j2
     dest: /opt/asterisk/etc/asterisk/blocklist.yaml
     owner: asterisk
     group: asterisk
 - name: copy manager conf with secrets
   template:
-    src: src/manager.conf.j2
+    src: ../src/manager.conf.j2
     dest: /opt/asterisk/etc/asterisk/manager.conf
 - name: copy asterisk scripts
   copy:
-    src: src/var/lib/asterisk/agi-bin/
+    src: ../src/var/lib/asterisk/agi-bin/
     dest: /opt/asterisk/var/lib/asterisk/agi-bin
     owner: asterisk
     group: asterisk

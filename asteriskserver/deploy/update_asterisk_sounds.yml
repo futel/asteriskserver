@@ -9,37 +9,37 @@
     group: asterisk
 - name: copy asterisk williams short sounds
   copy:
-    src: src/var/lib/asterisk/sounds/futel/williams-short
+    src: ../src/var/lib/asterisk/sounds/futel/williams-short
     dest: /opt/asterisk/var/lib/asterisk/sounds/futel
     owner: asterisk
     group: asterisk
 - name: copy asterisk williams long sounds
   copy:
-    src: src/var/lib/asterisk/sounds/futel/williams-long
+    src: ../src/var/lib/asterisk/sounds/futel/williams-long
     dest: /opt/asterisk/var/lib/asterisk/sounds/futel
     owner: asterisk
     group: asterisk
 - name: copy asterisk long oracle sounds
   copy:
-    src: src/var/lib/asterisk/sounds/futel/oracle-dead-interstitial-long
+    src: ../src/var/lib/asterisk/sounds/futel/oracle-dead-interstitial-long
     dest: /opt/asterisk/var/lib/asterisk/sounds/futel
     owner: asterisk
     group: asterisk
 - name: copy asterisk short oracle sounds
   copy:
-    src: src/var/lib/asterisk/sounds/futel/oracle-dead-interstitial-short
+    src: ../src/var/lib/asterisk/sounds/futel/oracle-dead-interstitial-short
     dest: /opt/asterisk/var/lib/asterisk/sounds/futel
     owner: asterisk
     group: asterisk
 - name: copy asterisk oracle oracle sounds
   copy:
-    src: src/var/lib/asterisk/sounds/futel/oracle-dead-oracle
+    src: ../src/var/lib/asterisk/sounds/futel/oracle-dead-oracle
     dest: /opt/asterisk/var/lib/asterisk/sounds/futel
     owner: asterisk
     group: asterisk
 - name: copy asterisk peoples homes sounds
   copy:
-    src: src/var/lib/asterisk/sounds/futel/peoples-homes
+    src: ../src/var/lib/asterisk/sounds/futel/peoples-homes
     dest: /opt/asterisk/var/lib/asterisk/sounds/futel
     owner: asterisk
     group: asterisk
@@ -57,7 +57,7 @@
     group: asterisk
 - name: copy en statement sounds
   copy:
-    src: src/var/lib/asterisk/sounds/en/statements/{{ item }}
+    src: ../src/var/lib/asterisk/sounds/en/statements/{{ item }}
     dest: /opt/asterisk/var/lib/asterisk/sounds/en/statements
     owner: asterisk
     group: asterisk
@@ -80,7 +80,7 @@
     - tishbite-wait
 - name: copy es statement sounds
   copy:
-    src: src/var/lib/asterisk/sounds/es/statements/{{ item }}
+    src: ../src/var/lib/asterisk/sounds/es/statements/{{ item }}
     dest: /opt/asterisk/var/lib/asterisk/sounds/es/statements
     owner: asterisk
     group: asterisk
@@ -99,7 +99,7 @@
     - sofia-voicemail
 - name: copy asterisk wildcard line sounds
   copy:
-    src: src/var/lib/asterisk/sounds/futel/wildcard-line
+    src: ../src/var/lib/asterisk/sounds/futel/wildcard-line
     dest: /opt/asterisk/var/lib/asterisk/sounds/futel
     owner: asterisk
     group: asterisk
@@ -123,19 +123,19 @@
     group: asterisk
 - name: copy asterisk hold music
   copy:
-    src: src/var/lib/asterisk/moh/hold/
+    src: ../src/var/lib/asterisk/moh/hold/
     dest: /opt/asterisk/var/lib/asterisk/moh/hold
     owner: asterisk
     group: asterisk
 - name: copy operator hold music
   copy:
-    src: src/var/lib/asterisk/moh/operator/
+    src: ../src/var/lib/asterisk/moh/operator/
     dest: /opt/asterisk/var/lib/asterisk/moh/operator
     owner: asterisk
     group: asterisk
 - name: copy midi hold music
   copy:
-    src: src/var/lib/asterisk/moh/midi/
+    src: ../src/var/lib/asterisk/moh/midi/
     dest: /opt/asterisk/var/lib/asterisk/moh/midi
     owner: asterisk
     group: asterisk

@@ -2,9 +2,9 @@
 - hosts: baseinstall:virtualbox
   become: true
   tasks:
-    - include: deploy/update_asterisk.yml
+    - include: update_asterisk.yml
 - hosts: baseinstall:virtualbox
   become: true
   tasks:
-    - include: deploy/update_asterisk_sounds.yml
+    - include: update_asterisk_sounds.yml
 
