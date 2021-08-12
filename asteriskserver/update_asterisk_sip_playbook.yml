@@ -1,5 +1,0 @@
----
-- hosts: baseinstall:virtualbox
-  become: true
-  tasks:
-    - include: deploy/update_asterisk_sip.yml version={{ conf_version }}

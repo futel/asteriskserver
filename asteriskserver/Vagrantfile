@@ -47,21 +47,6 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     # ansible.raw_arguments = ["-v"]
   end    
 
-  config.vm.provision "update_asterisk_sip", type: "ansible" do |ansible|
-    ansible.playbook = "update_asterisk_sip_playbook.yml"
-    ansible.vault_password_file = "conf/vault_pass_virtualbox.txt"    
-    
-    # default vm gets virtualbox ansible inventory group
-    ansible.groups = {
-      "virtualbox" => ["default"]
-    }
-    ansible.extra_vars = {
-      conf_version: "virtualbox"
-    }
-    # uncomment for verbose output
-    # ansible.raw_arguments = ["-v"]
-  end    
-
   config.vm.provision "update_secrets", type: "ansible" do |ansible|
     ansible.playbook = "deploy/update_secrets_playbook.yml"
     ansible.vault_password_file = "conf/vault_pass_virtualbox.txt"
