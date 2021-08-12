@@ -45,7 +45,7 @@ Wait for DNS to match IP address with "nslookup futel-stage.phu73l.net".
   ansible-playbook -i deploy/hosts secure_playbook.yml
   ansible-playbook -i deploy/hosts sync_playbook.yml
 If sync_playbook failed, preserve any recordings downloaded to tmp/stage/recordings
-  ansible-playbook -i deploy/hosts post_sync_playbook.yml
+  ansible-playbook -i deploy/hosts deploy/post_sync_playbook.yml
 
 if testplan has changed since last release branch, update google sheet testplan,
 keeping dates of nonupdated completed tests

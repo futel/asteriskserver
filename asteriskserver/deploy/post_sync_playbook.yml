@@ -6,8 +6,8 @@
     ansible_port: 42422
     ansible_ssh_private_key_file: conf/id_rsa
   tasks:
-    - include: deploy/post_sync.yml
+    - include: post_sync.yml
 - hosts: virtualbox
   become: true
   tasks:
-    - include: deploy/post_sync.yml
+    - include: post_sync.yml
