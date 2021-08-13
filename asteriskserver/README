@@ -20,7 +20,7 @@ Validate requirements and configuration locally
 
   ansible-playbook -i deploy/hosts deploy/requirements_conf_prod_playbook.yml
   ansible-playbook -K -i deploy/hosts deploy/requirements_packages_generic_playbook.yml
-  packer validate -var-file=conf/variables.pkr.hcl deploy/template.pkr.hcl
+  packer validate -var-file=conf/variables.pkr.hcl deploy/centos_baseinstall_template.pkr.hcl
 
 ## Create baseinstall image
 
