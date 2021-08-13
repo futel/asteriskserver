@@ -10,6 +10,7 @@
     mode: push
     src: tmp/stage/vm_futel_users.inc
     dest: /opt/asterisk/etc/asterisk/vm_futel_users.inc
+    private_key: ../conf/id_rsa    
 - meta: clear_facts
 - name: set ownership of voicemail conf on stage
   file:
@@ -23,6 +24,7 @@
     src: tmp/stage/default
     dest: /opt/asterisk/var/spool/asterisk/voicemail
     delete: yes
+    private_key: ../conf/id_rsa
 - meta: clear_facts
 - name: set ownership of voicemail data on stage
   file:
@@ -36,6 +38,7 @@
     mode: push
     src: tmp/stage/challenge.csv
     dest: /opt/asterisk/etc/asterisk/challenge.csv
+    private_key: ../conf/id_rsa    
 - meta: clear_facts
 - name: set ownership of challenge file on stage
   file:
@@ -48,6 +51,7 @@
     mode: push
     src: tmp/stage/messages
     dest: /opt/asterisk/var/log/asterisk/messages
+    private_key: ../conf/id_rsa    
 - meta: clear_facts
 - name: set ownership of logs on stage
   file:
@@ -60,6 +64,7 @@
     mode: push
     src: tmp/stage/metrics
     dest: /opt/asterisk/var/log/asterisk/metrics
+    private_key: ../conf/id_rsa    
 - meta: clear_facts
 - name: set ownership of logs on stage
   file:
@@ -73,6 +78,7 @@
     src: tmp/stage/old
     dest: /opt/asterisk/var/log/asterisk
     delete: yes
+    private_key: ../conf/id_rsa    
 - meta: clear_facts
 - name: set ownership of logs on stage
   file:

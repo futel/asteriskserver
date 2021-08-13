@@ -4,6 +4,7 @@
     mode: pull
     src: /opt/asterisk/var/lib/asterisk/sounds/futel/recordings
     dest: tmp/stage
+    private_key: ../conf/id_rsa
 - name: fail if recordings exist on prod
   find:
     paths: '/opt/asterisk/var/lib/asterisk/sounds/futel/recordings'
@@ -17,30 +18,36 @@
     mode: pull
     src: /opt/asterisk/etc/asterisk/vm_futel_users.inc
     dest: tmp/stage
+    private_key: ../conf/id_rsa    
 - name: copy voicemail from prod
   synchronize:
     mode: pull
     src: /opt/asterisk/var/spool/asterisk/voicemail/default
     dest: tmp/stage
     delete: yes
+    private_key: ../conf/id_rsa    
 - name: copy challenge file from prod
   synchronize:
     mode: pull
     src: /opt/asterisk/etc/asterisk/challenge.csv
     dest: tmp/stage
+    private_key: ../conf/id_rsa    
 - name: copy logs from prod
   synchronize:
     mode: pull
     src: /opt/asterisk/var/log/asterisk/messages
     dest: tmp/stage
+    private_key: ../conf/id_rsa    
 - name: copy logs from prod
   synchronize:
     mode: pull
     src: /opt/asterisk/var/log/asterisk/metrics
     dest: tmp/stage
+    private_key: ../conf/id_rsa    
 - name: copy logs from prod
   synchronize:
     mode: pull
     src: /opt/asterisk/var/log/asterisk/old
     dest: tmp/stage
     delete: yes
+    private_key: ../conf/id_rsa

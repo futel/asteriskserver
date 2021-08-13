@@ -1,7 +1,7 @@
 ---
 - hosts: localhost
   tasks:
-    - include: deploy/pre_sync_from_prod.yml
+    - include: pre_sync_from_prod.yml
 - hosts: prod
   become: true
   vars:
@@ -9,7 +9,7 @@
     ansible_port: 42422
     ansible_ssh_private_key_file: conf/id_rsa
   tasks:
-    - include: deploy/sync_from_prod.yml
+    - include: sync_from_prod.yml
 - hosts: baseinstall
   become: true
   vars:
@@ -17,5 +17,5 @@
     ansible_port: 42422
     ansible_ssh_private_key_file: conf/id_rsa
   tasks:
-    - include: deploy/pre_sync_to_stage.yml
-    - include: deploy/sync_to_stage.yml
+    - include: pre_sync_to_stage.yml
+    - include: sync_to_stage.yml
