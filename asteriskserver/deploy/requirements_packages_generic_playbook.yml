@@ -1,0 +1,5 @@
+---
+- hosts: localhost
+  become: true
+  tasks:
+    - include: requirements_packages_generic.yml
