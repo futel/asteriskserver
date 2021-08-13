@@ -4,9 +4,9 @@ We use Vagrant and Virtualbox on an Ubuntu host.
 
 ## Require or install requirements
 
-ansible-playbook -i deploy/hosts requirements_conf_vm_playbook.yml
-ansible-playbook -K -i deploy/hosts requirements_packages_generic_playbook.yml
-ansible-playbook -K -i deploy/hosts requirements_packages_vm_playbook.yml
+ansible-playbook -i deploy/hosts deploy/requirements_conf_vm_playbook.yml
+ansible-playbook -K -i deploy/hosts deploy/requirements_packages_generic_playbook.yml
+ansible-playbook -K -i deploy/hosts deploy/requirements_packages_vm_playbook.yml
 
 ## Deploy to VM
 
