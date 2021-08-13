@@ -68,7 +68,7 @@ point all voip.ms DID forwarding rules to subaccounts corresponding to new conf_
 wait for DNS to propagate with "nslookup futel-prod.phu73l.net"
 make a snapshot of futel-prod-back
 
-ansible-playbook -i deploy/hosts post_promote_playbook.yml --vault-password-file=conf/vault_pass_digitalocean.txt
+ansible-playbook -i deploy/hosts deploy/post_promote_playbook.yml --vault-password-file=conf/vault_pass_digitalocean.txt
 
 remove snapshots of futel-prod-back except for most recent
 

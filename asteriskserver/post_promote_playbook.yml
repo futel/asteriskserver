@@ -1,4 +1,0 @@
----
-- hosts: digitalocean
-  tasks:
-    - include: deploy/post_promote.yml
