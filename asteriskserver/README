@@ -35,7 +35,7 @@ Note stage conf version printed.
 
 XXX we should yum update here
 
-  ansible-playbook -i deploy/hosts deploy/stage_from_snapshot_playbook.yml --vault-password-file=conf/vault_pass_digitalocean.txt
+  ansible-playbook -i deploy/hosts deploy/stage_from_snapshot_playbook.yml --vault-password-file=conf/vault_pass_digitalocean.txt --extra-vars snapshot=baseinstall
 
 Note IP address printed.
 Wait for DNS to match IP address with "nslookup futel-stage.phu73l.net".

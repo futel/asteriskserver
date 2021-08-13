@@ -13,12 +13,12 @@
   digital_ocean_snapshot_info:
     oauth_token: "{{ deploy_access_token }}"  
   register: resp_out
-- name: get ID of baseinstall snapshot
+- name: get ID of snapshot
   set_fact:
     snapshot_id: "{{ item.id }}"
   loop: "{{ resp_out.data | json_query(name) }}"
   vars:
-    name: "[?name=='baseinstall']"
+    name: "[?name=='{{ snapshot }}']"
 - name: create stage droplet
   digital_ocean_droplet:
     state: present
