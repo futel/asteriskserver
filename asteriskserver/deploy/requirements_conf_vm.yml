@@ -1,7 +1,7 @@
 ---
 - name: check for conf file
   stat:
-    path: conf/vault_pass_generic.txt
+    path: ../conf/vault_pass_generic.txt
   register: r
 - name: fail without conf file
   fail:
@@ -9,7 +9,7 @@
   when: not r.stat.exists
 - name: check for conf file
   stat:
-    path: conf/vault_pass_virtualbox.txt
+    path: ../conf/vault_pass_virtualbox.txt
   register: r
 - name: fail without conf file
   fail:
