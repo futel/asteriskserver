@@ -6,10 +6,14 @@
     ansible_port: 42422
     ansible_ssh_private_key_file: conf/id_rsa
   tasks:
+    # We don't know how old the image is, so update packages.
+    - include: packages.yml
     - include: update_asterisk.yml
     - include: update_asterisk_sounds.yml    
 - hosts: virtualbox
   become: true
   tasks:
+    # We don't know how old the image is, so update packages.  
+    - include: packages.yml
     - include: update_asterisk.yml
     - include: update_asterisk_sounds.yml    
