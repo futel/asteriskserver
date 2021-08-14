@@ -1,3 +1,5 @@
+# Packer template to create baseinstall image from centos image
+
 variable "deploy_access_token" {
     type = string
     default = ""
@@ -17,15 +19,19 @@ build {
     sources = ["source.digitalocean.foo"]
     provisioner "ansible" {
         groups = ["digitalocean"]
-        playbook_file = "deploy/deploy_digitalocean_playbook.yml"
-        extra_arguments = ["--vault-password-file=conf/vault_pass_digitalocean.txt"]
+            playbook_file = "deploy/deploy_digitalocean_playbook.yml"
+            extra_arguments = ["--vault-password-file=conf/vault_pass_digitalocean.txt"]
+        }
+    provisioner "ansible" {        
+        groups = ["baseinstall"]        
+            playbook_file = "deploy/baseinstall_playbook.yml"
         }
     provisioner "ansible" {
         groups = ["baseinstall"]
-        playbook_file = "deploy/baseinstall_playbook.yml"
+            playbook_file = "deploy/install_asterisk_helpers_playbook.yml"
         }
     provisioner "ansible" {
         groups = ["baseinstall"]
-        playbook_file = "deploy/install_asterisk_helpers_playbook.yml"
+            playbook_file = "deploy/secure_playbook.yml"
         }
 }
