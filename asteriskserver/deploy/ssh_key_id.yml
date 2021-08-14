@@ -1,0 +1,12 @@
+---
+- name: load secrets
+  include_vars: "deploy_digitalocean_secrets_digitalocean.yml"
+  no_log: true
+- name: assert ssh key is present and get fingerprint
+  digital_ocean_sshkey:
+    state: present
+    name: karl@dispater
+    ssh_pub_key: ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDLA29JYoC7OscF5RFJ96YTV3e7Mk3FjC29o9IfThEa4zTnQLlCqbaMbxtAgEiPimjPMPnEvnB7ZIz7JJ8ammh6H9+RuFDTAwXWgOOccSMNQidKvL4+IZFPeezb4UELAoAT7lWD2X6JttfrALgIzFUYlVgWHux0gNFOFiCb8h1Y2prVT1FqSS1gTQ5cyo9IIxoQzqeKCxEyqjBKN4LO3wqNsQzZ4EGHsD/U7HibucAE4u8jqlkd6lWtYyWH0/XyALzjlk1YHMgwIPHZw/DRWAINiRNe9t/NgzkW5DnIKTAJfKNJ2154SeMlPg6EaWuasnQ9VxpI+898Oz8v6Z6z1Qq7 karl@dispater
+    oauth_token: "{{ deploy_access_token }}"
+  register: ssh_key
+- debug: msg="SSH key id {{ ssh_key.data.ssh_key.id }}"

@@ -1,0 +1,5 @@
+---
+- hosts: digitalocean
+  tasks:
+    - include: image_id.yml snapshot={{ snapshot }}
+    - include: ssh_key_id.yml

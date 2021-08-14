@@ -1,0 +1,15 @@
+---
+- name: load secrets
+  include_vars: "deploy_digitalocean_secrets_digitalocean.yml"
+  no_log: true
+- name: get IDs of all snapshots
+  digital_ocean_snapshot_info:
+    oauth_token: "{{ deploy_access_token }}"  
+  register: resp_out
+- name: get ID of snapshot
+  set_fact:
+    snapshot_id: "{{ item.id }}"
+  loop: "{{ resp_out.data | json_query(name) }}"
+  vars:
+    name: "[?name=='{{ snapshot }}']"
+- debug: msg="image id {{ snapshot_id }}"

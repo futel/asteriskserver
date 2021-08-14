@@ -3,14 +3,15 @@
 Steps:
 - Test, validate, etc.
 - Create baseinstall image from centos image
-- Create and provision stage droplet from baseinstall image
+- Create update image from baseinstall image
+- Create stage droplet with domain name from update image
 - Test
 - Promote stage droplet to prod droplet
 
 ## Requirements and test
 
 Have no Digital Ocean droplets or domains named futel-stage.phu73l.net.
-Have no Digital Ocean images named baseinstall.
+Have no Digital Ocean images named baseinstall or update.
 Create or check out release branch.
 
 Run unit tests locally
@@ -23,29 +24,47 @@ Run integration tests on virtualbox
   cd /opt/asterisk/itest
   sudo -u asterisk ./itest.sh
 
+## Initialize packer
+
+This is probably only needed once?
+
+  packer init deploy/centos_baseinstall_template.pkr.hcl
+  packer init deploy/baseinstall_update_template.pkr.hcl
+
 Validate requirements and configuration locally
 
   ansible-playbook -i deploy/hosts deploy/requirements_conf_prod_playbook.yml
   ansible-playbook -K -i deploy/hosts deploy/requirements_packages_generic_playbook.yml
   packer validate -var-file=conf/variables.pkr.hcl deploy/centos_baseinstall_template.pkr.hcl
+  packer validate -var-file=conf/variables.pkr.hcl -var "image=dummy" -var "ssh_key_id=666" deploy/baseinstall_update_template.pkr.hcl  
 
-## Create baseinstall image from centos image.
+## Create baseinstall image from centos image
 
   packer build -var-file=conf/variables.pkr.hcl deploy/centos_baseinstall_template.pkr.hcl
 
-## Build droplet from baseinstall image
+## Create update image from baseinstall image
 
   ansible-playbook -i deploy/hosts deploy/update_assets_playbook.yml
-  ansible-playbook -i deploy/hosts deploy/find_stage_conf_playbook.yml
 
-Note stage conf version printed.
+  ansible-playbook -i deploy/hosts deploy/digitalocean_ids_playbook.yml --vault-password-file=conf/vault_pass_digitalocean.txt --extra-vars snapshot=baseinstall
+Note image id printed.
+Note SSH key id printed.
 
-  ansible-playbook -i deploy/hosts deploy/stage_from_snapshot_playbook.yml --vault-password-file=conf/vault_pass_digitalocean.txt --extra-vars snapshot=baseinstall
+  packer build -var-file=conf/variables.pkr.hcl -var "image=<image id>" -var "ssh_key_id=<SSH key id>" deploy/baseinstall_update_template.pkr.hcl
+
+## Build droplet from update image
+
+  ansible-playbook -i deploy/hosts deploy/stage_from_snapshot_playbook.yml --vault-password-file=conf/vault_pass_digitalocean.txt --extra-vars snapshot=update
 
 Note IP address printed.
 Wait for DNS to match IP address with "nslookup futel-stage.phu73l.net".
 
-  ansible-playbook -i deploy/hosts deploy/update_asterisk_playbook.yml --limit baseinstall --vault-password-file=conf/vault_pass_generic.txt
+## Update droplet
+
+  ansible-playbook -i deploy/hosts deploy/find_stage_conf_playbook.yml
+
+Note stage conf version printed.
+
   ansible-playbook -i deploy/hosts deploy/update_secrets_playbook.yml --limit baseinstall --vault-password-file=conf/vault_pass_prod.txt --extra-vars conf_version=<stage conf version>  
   ansible-playbook -i deploy/hosts deploy/sync_playbook.yml
 If sync_playbook failed, preserve any recordings downloaded to tmp/stage/recordings
@@ -88,3 +107,9 @@ test that prod incoming calls to extensions work (may take time)
 This is done after a new vpnbox is deployed.
 
   ansible-playbook -i deploy/hosts --limit baseinstall deploy/secure_playbook_prod.yml
+
+## Create droplets from images
+
+Normally we don't create droplets until after we've created the final image. A droplet can be created from any image with the stage_from_snapshot playbook. This will create the stage droplet and assign a DNS name, so there should be no futel-stage.phu73l.net droplet or domain.
+
+  ansible-playbook -i deploy/hosts deploy/stage_from_snapshot_playbook.yml --vault-password-file=conf/vault_pass_digitalocean.txt --extra-vars snapshot=<image>
