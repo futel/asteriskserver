@@ -1,5 +1,12 @@
 ## Deploy an asterisk server to Digital Ocean
 
+Steps:
+- Test, validate, etc.
+- Create baseinstall image from centos image
+- Create and provision stage droplet from baseinstall image
+- Test
+- Promote stage droplet to prod droplet
+
 ## Requirements and test
 
 Have no Digital Ocean droplets or domains named futel-stage.phu73l.net.
@@ -22,9 +29,9 @@ Validate requirements and configuration locally
   ansible-playbook -K -i deploy/hosts deploy/requirements_packages_generic_playbook.yml
   packer validate -var-file=conf/variables.pkr.hcl deploy/centos_baseinstall_template.pkr.hcl
 
-## Create baseinstall image
+## Create baseinstall image from centos image.
 
-  packer build -var-file=conf/variables.pkr.hcl deploy/template.pkr.hcl
+  packer build -var-file=conf/variables.pkr.hcl deploy/centos_baseinstall_template.pkr.hcl
 
 ## Build droplet from baseinstall image
 
@@ -32,8 +39,6 @@ Validate requirements and configuration locally
   ansible-playbook -i deploy/hosts deploy/find_stage_conf_playbook.yml
 
 Note stage conf version printed.
-
-XXX we should yum update here
 
   ansible-playbook -i deploy/hosts deploy/stage_from_snapshot_playbook.yml --vault-password-file=conf/vault_pass_digitalocean.txt --extra-vars snapshot=baseinstall
 
@@ -46,11 +51,12 @@ Wait for DNS to match IP address with "nslookup futel-stage.phu73l.net".
 If sync_playbook failed, preserve any recordings downloaded to tmp/stage/recordings
   ansible-playbook -i deploy/hosts --limit baseinstall deploy/post_sync_playbook.yml
 
-if testplan has changed since last release branch, update google sheet testplan,
-keeping dates of nonupdated completed tests
-test stage against google sheet testplan
+## Test droplet
 
-## promote stage to prod
+If testplan has changed since last release branch, update google sheet testplan, keeping dates of nonupdated completed tests.
+Test stage against google sheet testplan.
+
+## Promote stage to prod
 
   ansible-playbook -i deploy/hosts hostname_playbook.yml
 rename futel-prod.phu73l.net droplet to futel-prod-back
@@ -76,7 +82,7 @@ test that prod incoming call to incoming line works
 test that prod incoming calls to extensions work or get channel unavailable
 test that prod incoming calls to extensions work (may take time)
 
-## update iptables
+## Update iptables
 
 This is done after a new vpnbox is deployed.
 
