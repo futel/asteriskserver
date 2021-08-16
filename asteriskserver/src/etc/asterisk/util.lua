@@ -57,10 +57,13 @@ function menu(pre_callable, intro_statements, menu_statements, statement_dir, co
     if pre_callable then
         pre_callable()
     end
-    
-    for statement in iter(intro_statements) do
-        say(statement, statement_dir)
+
+    if intro_statements then
+        for statement in iter(intro_statements) do
+            say(statement, statement_dir)
+        end
     end
+    
     if #menu_statements > 0 then
         for i = 1,max_iterations do
             -- say statements in menu order by iterating over ordered keys
