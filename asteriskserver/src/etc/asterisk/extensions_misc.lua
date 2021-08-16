@@ -1,0 +1,40 @@
+local extensions = {
+    directory_portland = util.context(
+        {menu_entries={
+             [1]={"for-the-mayor", "mayor-vm"},
+             [2]={"for-a-random-concentration-camp", "random-concentrationcamp"},
+             [3]={"for-the-druid-of-sissyphus-gardens", "lance-e-pants"},
+             [4]={"for-a-random-payphone", "random-payphone"},
+             [5]={"for-the-wilamette-valley-dream-survey", "dream-survey"},
+             [6]={"for-the-office-of-night-things", "office-of-night-things"},
+             [7]={"for-beyond-the-echo", "beyond-the-echo"}},
+         statement_dir="directory"}),
+    directory_ypsi = util.context(
+        {menu_entries={
+             [1]={"for-the-mayor", "mayor-vm-ypsi"},
+             [2]={"for-a-random-concentration-camp", "random-concentrationcamp"},
+             [3]={"for-the-druid-of-sissyphus-gardens", "lance-e-pants"},
+             [4]={"for-a-random-payphone", "random-payphone"},
+             [5]={"for-the-office-of-night-things", "office-of-night-things"},
+             [6]={"for-beyond-the-echo", "beyond-the-echo"}},
+         statement_dir="directory"}),
+    directory_detroit = util.context(
+        {menu_entries={
+             [1]={"for-the-mayor", "mayor-vm-detroit"},
+             [2]={"for-a-random-concentration-camp", "random-concentrationcamp"},
+             [3]={"for-the-druid-of-sissyphus-gardens", "lance-e-pants"},
+             [4]={"for-a-random-payphone", "random-payphone"},
+             [5]={"for-the-office-of-night-things", "office-of-night-things"},
+             [6]={"for-beyond-the-echo", "beyond-the-echo"}},
+         statement_dir="directory"}),
+    directory_souwester = util.context(
+        {menu_entries={
+             [1]={"for-a-random-concentration-camp", "random-concentrationcamp"},
+             [2]={"for-the-druid-of-sissyphus-gardens", "lance-e-pants"},
+             [3]={"for-a-random-payphone", "random-payphone"},
+             [4]={"for-the-office-of-night-things", "office-of-night-things"},
+             [5]={"for-beyond-the-echo", "beyond-the-echo"}},
+         statement_dir="directory"})
+}
+
+return extensions
