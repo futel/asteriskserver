@@ -23,6 +23,21 @@ function directory_dream_survey(context, exten)
     app.Macro("dial", "+19712581465")
 end
 
+function directory_natr_xxx(context, exten)
+    app.AGI("metric.agi", context)
+    app.Macro("dial", "+18336287999")
+end
+
+function directory_utopian_hotline(context, exten)
+    app.AGI("metric.agi", context)
+    app.Macro("dial", "+15036627263")
+end
+
+function directory_nuforc(context, exten)
+    app.AGI("metric.agi", context)
+    app.Macro("dial", "+12067223000")
+end
+
 function directory_office_of_night_things(context, exten)
     app.AGI("metric.agi", context)
     app.Macro("dial", "+18003900934")
@@ -54,9 +69,12 @@ local extensions = {
              [4]={"for-a-random-payphone", "directory_random_payphone"},
              [5]={"for-the-wilamette-valley-dream-survey",
                   "directory_dream_survey"},
-             [6]={"for-the-office-of-night-things",
-                  "directory_office_of_night_things"},
-             [7]={"for-beyond-the-echo", "directory_beyond_the_echo"}},
+             [6]={"for-nature-x-x-x", "directory_natr_xxx"},
+             [7]={"for-the-utopian-hotline", "directory_utopian_hotline"},
+             [8]={"for-the-national-u-f-o-reporting-center",
+                  "directory_nuforc"},
+             [9]={"for-the-office-of-night-things",
+                  "directory_office_of_night_things"}},
          statement_dir="directory"}),
     directory_ypsi = util.context(
         {menu_entries={
@@ -66,9 +84,11 @@ local extensions = {
              [3]={"for-the-druid-of-sissyphus-gardens",
                   "directory_sissyphus"},
              [4]={"for-a-random-payphone", "directory_random_payphone"},
-             [5]={"for-the-office-of-night-things",
+             [5]={"for-1-800-nature-x-x-x", "directory_natr_xxx"},
+             [6]={"for-the-utopian-hotline", "directory_utopian_hotline"},
+             [7]={"for-the-office-of-night-things",
                   "directory_office_of_night_things"},
-             [6]={"for-beyond-the-echo", "directory_beyond_the_echo"}},
+             [8]={"for-beyond-the-echo", "directory_beyond_the_echo"}},
          statement_dir="directory"}),
     directory_detroit = util.context(
         {menu_entries={
@@ -79,9 +99,11 @@ local extensions = {
                   "directory_sissyphus"},
              [4]={"for-a-random-payphone",
                   "directory_random_payphone"},
-             [5]={"for-the-office-of-night-things",
+             [5]={"for-1-800-nature-x-x-x", "directory_natr_xxx"},
+             [6]={"for-the-utopian-hotline", "directory_utopian_hotline"},
+             [7]={"for-the-office-of-night-things",
                   "directory_office_of_night_things"},
-             [6]={"for-beyond-the-echo", "directory_beyond_the_echo"}},
+             [8]={"for-beyond-the-echo", "directory_beyond_the_echo"}},
          statement_dir="directory"}),
     directory_souwester = util.context(
         {menu_entries={
@@ -90,9 +112,11 @@ local extensions = {
              [2]={"for-the-druid-of-sissyphus-gardens",
                   "directory_sissyphus"},
              [3]={"for-a-random-payphone", "directory_random_payphone"},
-             [4]={"for-the-office-of-night-things",
+             [4]={"for-1-800-nature-x-x-x", "directory_natr_xxx"},
+             [5]={"for-the-utopian-hotline", "directory_utopian_hotline"},
+             [6]={"for-the-office-of-night-things",
                   "directory_office_of_night_things"},
-             [5]={"for-beyond-the-echo", "directory_beyond_the_echo"}},
+             [7]={"for-beyond-the-echo", "directory_beyond_the_echo"}},
          statement_dir="directory"}),
     directory_mayor_portland = util.destination_context(
         directory_mayor_portland),
@@ -104,6 +128,10 @@ local extensions = {
         directory_sissyphus),
     directory_dream_survey = util.destination_context(
         directory_dream_survey),
+    directory_natr_xxx = util.destination_context(directory_natr_xxx),
+    directory_utopian_hotline = util.destination_context(
+        directory_utopian_hotline),
+    directory_nuforc = util.destination_context(directory_nuforc),    
     directory_office_of_night_things = util.destination_context(
         directory_office_of_night_things),
     directory_beyond_the_echo = util.destination_context(
