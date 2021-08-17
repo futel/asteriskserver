@@ -142,6 +142,14 @@ function set_language_es(menu_function, context, extension)
     return menu_function(context, extension)    
 end
 
+-- return context array which immediately starts destination_function
+-- without interaction
+function destination_context(destination_function)
+    local context_array = {}
+    context_array.s = destination_function
+    return context_array
+end
+
 -- return context array with standard keys added
 -- keys: selections values: destinations
 function context_array(menu_function, destinations)
@@ -198,6 +206,7 @@ local util = {
     bounce_context = bounce_context,
     context = context,
     context_array = context_array,
+    destination_context = destination_context,
     iter = iter,
     menu = menu,
     play_random_background = play_random_background,
