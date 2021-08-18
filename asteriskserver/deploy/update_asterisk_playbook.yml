@@ -13,7 +13,5 @@
 - hosts: virtualbox
   become: true
   tasks:
-    # We don't know how old the image is, so update packages.  
-    - include: packages.yml
     - include: update_asterisk.yml
     - include: update_asterisk_sounds.yml    
