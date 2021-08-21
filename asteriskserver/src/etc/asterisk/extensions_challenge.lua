@@ -211,7 +211,7 @@ extensions = {
         {intro_statements={},
          menu_entries={
              {"to-perform-the-challenges", "challenge_authenticate"},
-             {"for-voicemail", "outgoing-voicemail"},
+             {"for-voicemail", "voicemail_outgoing"},
              {"for-the-fewtel-voice-conference", "futel-conf"},
              {"for-instructions", "challenge_instructions"},
              {"for-the-leaderboard", "challenge_leaderboard"},

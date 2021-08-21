@@ -185,8 +185,10 @@ function context(arg)
     local menu_entries = arg.menu_entries
     local statement_dir = arg.statement_dir
 
-    local menu_statements = map(menu_entries, function(v) return v[1] end) 
-    local menu_destinations = map(menu_entries, function(v) return v[2] end)   
+    local menu_statements = map(
+        menu_entries, function(v) return v[1] end) 
+    local menu_destinations = map(
+        menu_entries, function(v) return v[2] end)
     
     -- curry a menu function that receives the context variables
     local menu_function = function(context, exten)
