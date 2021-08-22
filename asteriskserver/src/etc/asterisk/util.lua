@@ -203,7 +203,6 @@ function context(arg)
 end
 
 local util = {
-    bounce_context = bounce_context,
     context = context,
     context_array = context_array,
     destination_context = destination_context,
