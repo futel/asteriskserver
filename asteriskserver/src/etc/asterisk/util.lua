@@ -16,6 +16,26 @@ position_statements[0] = "press-zero"
 -- positions that can be named in a menu
 positions = {1, 2, 3, 4, 5, 6, 7, 8, 9, 0}
 
+lockfile_name = "/opt/futel/var/run/lockfile"
+
+-- create a lockfile or fail, and don't return anything
+function lockfile_create()
+    -- we only have one lockfile
+    local f = io.open(lockfile_name, "w")
+    io.close(f)        
+end
+
+-- return True if the lockfile exists
+function lockfile_exists()
+    -- we only have one lockfile    
+   local f = io.open(lockfile_name, "r")
+   if f ~= nil then
+       io.close(f)
+       return true
+   end
+   return false
+end
+
 -- return iterator over sequence
 function iter(t)
     local i = 0
@@ -209,6 +229,8 @@ local util = {
     context_array = context_array,
     destination_context = destination_context,
     iter = iter,
+    lockfile_create = lockfile_create,
+    lockfile_exists = lockfile_exists,    
     menu = menu,
     play_random_background = play_random_background,
     record = record,

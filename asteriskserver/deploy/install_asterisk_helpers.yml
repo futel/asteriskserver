@@ -3,18 +3,43 @@
   copy:
     src: ../src/logrotate/logrotate.d/asterisk
     dest: /etc/logrotate.d/asterisk
-- name: make futel directory
+- name: make futel directories
   file:
     path: /opt/futel
     state: directory
     owner: asterisk
     group: asterisk
-- name: make source directory
+- name: make futel directories
   file:
     path: /opt/futel/src
     state: directory
     owner: asterisk
     group: asterisk
+- name: make futel directories
+  file:
+    path: /opt/futel/bin
+    state: directory
+    owner: asterisk
+    group: asterisk
+- name: make futel directories
+  file:
+    path: /opt/futel/var
+    state: directory
+    owner: asterisk
+    group: asterisk
+- name: make futel directories
+  file:
+    path: /opt/futel/var/run
+    state: directory
+    owner: asterisk
+    group: asterisk
+- name: install lock utility
+  copy:
+    src: ../src/opt/futel/bin/lock.lua
+    dest: /opt/futel/bin
+    owner: asterisk
+    group: asterisk
+    mode: "a+x"    
 - name: install event listener
   copy:
     src: ../src/eventlistener.py

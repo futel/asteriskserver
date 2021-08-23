@@ -1,11 +1,19 @@
 util = require("util")
 
+function bounce()
+    if util.lockfile_exists() then
+        app.Goto("voicemail_bounce", "s", 1)
+    end
+end
+
 function voicemail_check(context, exten)
+    bounce()
     app.AGI("metric.agi", context)
     app.VoiceMailMain()
 end
 
 function voicemail_create(context, exten)
+    bounce()
     app.AGI("metric.agi", context)    
     util.say(
         "voicemail-can-be-accessed-from-any-fewtel-phone-or-from-the-fewtel-incoming-line",
@@ -18,6 +26,7 @@ function voicemail_create(context, exten)
 end
 
 function voicemail_leave(context, exten)
+    bounce()
     app.AGI("metric.agi", context)
     app.VoiceMail()
 end
@@ -65,6 +74,12 @@ local extensions = {
              "three",
              "three",
              "seven"},
+         menu_entries={},
+         statement_dir="voicemail"}),
+    voicemail_bounce = util.context(
+        {intro_statements={
+             "this-system-is-currently-in-maintenance-mode",
+             "try-again-later"},
          menu_entries={},
          statement_dir="voicemail"}),
     voicemail_check = util.destination_context(voicemail_check),
