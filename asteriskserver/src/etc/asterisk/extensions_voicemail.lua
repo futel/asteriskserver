@@ -78,7 +78,7 @@ local extensions = {
          statement_dir="voicemail"}),
     voicemail_bounce = util.context(
         {intro_statements={
-             "this-system-is-currently-in-maintenance-mode",
+             "this-system-is-temporarily-down-for-maintenance",
              "try-again-later"},
          menu_entries={},
          statement_dir="voicemail"}),
