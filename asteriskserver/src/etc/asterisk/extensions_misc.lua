@@ -5,7 +5,7 @@ end
 
 function directory_mayor_ypsi(context, exten)
     app.AGI("metric.agi", context)
-    app.Macro("dial", "+17344831100")
+    app.Macro("dial", "+17344822017")
 end
 
 function directory_mayor_detroit(context, exten)
