@@ -50,7 +50,10 @@ end
 
 function directory_random_payphone(context, exten)
     app.AGI("metric.agi", context)
-    app.Queue("payphones", "r")
+    -- no retry, queue rings all members, long timeout
+    app.Queue("payphones", "rn")
+    -- retry, queue rings members sequentially randomly, short timeout
+    app.Queue("payphonespi", "r")
 end
 
 function directory_random_concentrationcamp(context, exten)
