@@ -2,14 +2,14 @@
 
 ## asterisk server creds
 
-have SIP extension 700, 701
+have SIP extension 700, 701, ...
 have SIP password PASSWORD (same for all extensions)
 
 ## twilio creds
 
 have credential termination:PASSWORD
 have extension credential list usernames 700:PASSWORD, 701:PASSWORD, ...
-(programmable voice/sip domains/credential lists)
+(voice/manage/credential lists)
 
 ## configure twilio functions
 
@@ -118,28 +118,29 @@ exports.handler = function(context, event, callback) {
 };
 
 ## set up SIP domains for origination
+(voice/manage/sip domains)
 
 Friendly name: origination-stage
 SIP URI: origination-stage.futel (.sip.twilio.com)
 Call control configuration: function: origination-stage
-Voice authentication: credential lists: 700, 701
+Voice authentication: credential lists: 700, 701, ...
 SIP registration: enabled        
-SIP Registration Authentication: credential lists: 700, 701
+SIP Registration Authentication: credential lists: 700, 701, ...
 
 Friendly name: origination-prod
 SIP URI: origination-prod.futel (.sip.twilio.com)
 Call control configuration: function: origination-prod
-Voice authentication: credential lists: 700, 701
+Voice authentication: credential lists: 700, 701, ...
 SIP registration: enabled        
-SIP Registration Authentication: credential lists: 700, 701
+SIP Registration Authentication: credential lists: 700, 701, ...
 
 note demo domain goes to prod, but could change
 Friendly name: origination-demo
 SIP URI: origination-demo.futel (.sip.twilio.com)
 Call control configuration: function: origination-prod
-Voice authentication: credential lists: 700, 701
+Voice authentication: credential lists: 700, 701, ...
 SIP registration: enabled
-SIP Registration Authentication: credential lists: 700, 701
+SIP Registration Authentication: credential lists: 700, 701, ...
 
 
 ## set up SIP domains for termination
@@ -165,14 +166,14 @@ XXX call comes in: function: origination-stage
 register to sip:700@origination-demo.futel.sip.us1.twilio.com
 register to sip:700@origination-stage.futel.sip.us1.twilio.com
 register to sip:700@origination-prod.futel.sip.us1.twilio.com
-same for 701
-password is as for credential list for 700, 701
+same for 701, ...
+password is as for credential list for 700, 701, ...
 
 ## test
 
 register
-dial any number, get outgoing-by-calling-extension context for 700
-have server Dial(SIP/700@twilio-pv-termination), registered client gets call
+dial any number, get outgoing-by-calling-extension context for 700, 701, ...
+have server Dial(SIP/700@twilio-pv-termination), ..., registered client gets call
 
 XXX todo
 test having multiple termination clients same creds - stage and prod
