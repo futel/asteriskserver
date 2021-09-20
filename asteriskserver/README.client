@@ -12,6 +12,7 @@ add:
 (substitute <extension> <secret>)
 sip identity: sip:<extension>@futel-stage.phu73l.net
 sip proxy address: sip:futel-stage.phu73l.net
+transport: UDP
 when prompted, enter <secret>
 
 use linphone:
