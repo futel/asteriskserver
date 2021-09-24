@@ -1,5 +1,5 @@
 ---
 - name: configure asterisk
-  command: /opt/futel/var/run/lock.lua
+  command: /opt/futel/bin/lock.lua
   args:
     creates: /opt/futel/var/run/lockfile
