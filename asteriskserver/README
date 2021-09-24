@@ -58,7 +58,7 @@ Test stage against google sheet testplan.
 
 ## Promote stage to prod
 
-  ansible-playbook -i deploy/hosts lock_playbook.yml
+  ansible-playbook -i deploy/hosts deploy/lock_playbook.yml
   ansible-playbook -i deploy/hosts hostname_playbook.yml
 rename futel-prod.phu73l.net droplet to futel-prod-back
 rename futel-stage.phu73l.net droplet to futel-prod.phu73l.net
