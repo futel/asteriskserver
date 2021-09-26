@@ -7,26 +7,26 @@
     group: asterisk
 - name: copy asterisk
   synchronize:
-    src: "{{ src }}/asterisk-13.25.0"
+    src: "{{ src }}/asterisk-13.38.3"
     dest: /tmp
     delete: yes
     recursive: yes
 - name: set asterisk source owner and group
   file:
-    dest: /tmp/asterisk-13.25.0
+    dest: /tmp/asterisk-13.38.3
     owner: asterisk
     group: asterisk
     recurse: yes
 - name: configure asterisk
   command: sudo -u asterisk ./configure --libdir=/opt/asterisk/lib64 --prefix=/opt/asterisk --exec_prefix=/opt/asterisk
   args:
-    chdir: /tmp/asterisk-13.25.0
-    creates: /tmp/asterisk-13.25.0/makeopts    
+    chdir: /tmp/asterisk-13.38.3
+    creates: /tmp/asterisk-13.38.3/makeopts    
 # what a crock!  Some of these may be superstition.    
 - name: configure asterisk menuselect things
   command: sudo -u asterisk make {{ item }}
   args:
-    chdir: /tmp/asterisk-13.25.0
+    chdir: /tmp/asterisk-13.38.3
   with_items:
     - menuselect.makeopts
 # virtualbox, digital ocean, and probably all virtual providers disbable native
@@ -34,28 +34,28 @@
 - name: run menuselect
   command: sudo -u asterisk menuselect/menuselect --disable BUILD_NATIVE menuselect.makeopts
   args:
-    chdir: /tmp/asterisk-13.25.0
+    chdir: /tmp/asterisk-13.38.3
 # XXX this creates is already there?
 # We're changed=false here and just doing this on the install?
 - name: make asterisk
   command: sudo -u asterisk make
   args:
-    chdir: /tmp/asterisk-13.25.0
-    creates: /tmp/asterisk-13.25.0/main    
+    chdir: /tmp/asterisk-13.38.3
+    creates: /tmp/asterisk-13.38.3/main    
 - name: install asterisk
   command: sudo -u asterisk make install
   args:
-    chdir: /tmp/asterisk-13.25.0
+    chdir: /tmp/asterisk-13.38.3
     creates: /opt/asterisk/sbin/asterisk
 - name: make asterisk samples
   command: sudo -u asterisk make samples
   args:
-    chdir: /tmp/asterisk-13.25.0
+    chdir: /tmp/asterisk-13.38.3
     creates: /opt/asterisk/etc/asterisk/extensions.conf
 - name: make asterisk config, as root
   command: make config
   args:
-    chdir: /tmp/asterisk-13.25.0
+    chdir: /tmp/asterisk-13.38.3
     creates: /etc/init.d/asterisk
 # this adds ASTARGS="-U asterisk"
 - name: copy our safe_asterisk
