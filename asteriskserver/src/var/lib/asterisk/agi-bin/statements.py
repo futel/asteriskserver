@@ -181,6 +181,7 @@ statement_groups = [
          'for-the-wilamette-valley-dream-survey',
          'for-the-office-of-night-things',
          'for-the-apology-service',
+         'for-they-might-be-giants-dial-a-song',
          'press-zero',
          'press-one',
          'press-two',

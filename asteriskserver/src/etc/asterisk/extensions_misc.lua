@@ -56,6 +56,11 @@ function directory_random_concentrationcamp(context, exten)
     app.Queue("concentrationcamps", "r")
 end
 
+function directory_tmbg_dial_a_song(context, exten)
+    app.AGI("metric.agi", context)
+    app.Macro("dial", "+18443876962")
+end
+
 local extensions = {
     directory_portland = util.context(
         {menu_entries={
@@ -85,7 +90,9 @@ local extensions = {
              [5]={"for-nature-x-x-x", "directory_natr_xxx"},
              [6]={"for-the-utopian-hotline", "directory_utopian_hotline"},
              [7]={"for-the-office-of-night-things",
-                  "directory_office_of_night_things"}},
+                  "directory_office_of_night_things"},
+             [8]={"for-they-might-be-giants-dial-a-song",
+                  "directory_tmbg_dial_a_song"}},
          statement_dir="directory"}),
     directory_detroit = util.context(
         {menu_entries={
@@ -99,7 +106,9 @@ local extensions = {
              [5]={"for-nature-x-x-x", "directory_natr_xxx"},
              [6]={"for-the-utopian-hotline", "directory_utopian_hotline"},
              [7]={"for-the-office-of-night-things",
-                  "directory_office_of_night_things"}},
+                  "directory_office_of_night_things"},
+             [8]={"for-they-might-be-giants-dial-a-song",
+                  "directory_tmbg_dial_a_song"}},
          statement_dir="directory"}),
     directory_souwester = util.context(
         {menu_entries={
@@ -111,7 +120,9 @@ local extensions = {
              [4]={"for-nature-x-x-x", "directory_natr_xxx"},
              [5]={"for-the-utopian-hotline", "directory_utopian_hotline"},
              [6]={"for-the-office-of-night-things",
-                  "directory_office_of_night_things"}},
+                  "directory_office_of_night_things"},
+             [7]={"for-they-might-be-giants-dial-a-song",
+                  "directory_tmbg_dial_a_song"}},
          statement_dir="directory"}),
     directory_mayor_portland = util.destination_context(
         directory_mayor_portland),
@@ -132,7 +143,9 @@ local extensions = {
     directory_random_payphone = util.destination_context(
         directory_random_payphone),
     directory_random_concentrationcamp = util.destination_context(
-        directory_random_concentrationcamp)
+        directory_random_concentrationcamp),
+    directory_tmbg_dial_a_song = util.destination_context(
+        directory_tmbg_dial_a_song)
 }
 
 return extensions
