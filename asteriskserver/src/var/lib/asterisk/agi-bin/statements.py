@@ -180,7 +180,6 @@ statement_groups = [
          'for-a-random-payphone',
          'for-the-wilamette-valley-dream-survey',
          'for-the-office-of-night-things',
-         'for-beyond-the-echo',
          'for-the-apology-service',
          'press-zero',
          'press-one',
