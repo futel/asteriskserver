@@ -76,8 +76,8 @@ local extensions = {
              [7]={"for-the-utopian-hotline", "directory_utopian_hotline"},
              [8]={"for-the-national-u-f-o-reporting-center",
                   "directory_nuforc"},
-             [9]={"for-the-office-of-night-things",
-                  "directory_office_of_night_things"}},
+             [9]={"for-they-might-be-giants-dial-a-song",
+                  "directory_tmbg_dial_a_song"}},
          statement_dir="directory"}),
     directory_ypsi = util.context(
         {menu_entries={
