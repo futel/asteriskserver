@@ -43,11 +43,6 @@ function directory_office_of_night_things(context, exten)
     app.Macro("dial", "+18003900934")
 end
 
-function directory_beyond_the_echo(context, exten)
-    app.AGI("metric.agi", context)
-    app.Macro("dial", "+12703015797)")
-end
-
 function directory_random_payphone(context, exten)
     app.AGI("metric.agi", context)
     -- no retry, queue rings all members, long timeout
@@ -59,6 +54,11 @@ end
 function directory_random_concentrationcamp(context, exten)
     app.AGI("metric.agi", context)
     app.Queue("concentrationcamps", "r")
+end
+
+function directory_tmbg_dial_a_song(context, exten)
+    app.AGI("metric.agi", context)
+    app.Macro("dial", "+18443876962")
 end
 
 local extensions = {
@@ -76,8 +76,8 @@ local extensions = {
              [7]={"for-the-utopian-hotline", "directory_utopian_hotline"},
              [8]={"for-the-national-u-f-o-reporting-center",
                   "directory_nuforc"},
-             [9]={"for-the-office-of-night-things",
-                  "directory_office_of_night_things"}},
+             [9]={"for-they-might-be-giants-dial-a-song",
+                  "directory_tmbg_dial_a_song"}},
          statement_dir="directory"}),
     directory_ypsi = util.context(
         {menu_entries={
@@ -91,7 +91,8 @@ local extensions = {
              [6]={"for-the-utopian-hotline", "directory_utopian_hotline"},
              [7]={"for-the-office-of-night-things",
                   "directory_office_of_night_things"},
-             [8]={"for-beyond-the-echo", "directory_beyond_the_echo"}},
+             [8]={"for-they-might-be-giants-dial-a-song",
+                  "directory_tmbg_dial_a_song"}},
          statement_dir="directory"}),
     directory_detroit = util.context(
         {menu_entries={
@@ -106,7 +107,8 @@ local extensions = {
              [6]={"for-the-utopian-hotline", "directory_utopian_hotline"},
              [7]={"for-the-office-of-night-things",
                   "directory_office_of_night_things"},
-             [8]={"for-beyond-the-echo", "directory_beyond_the_echo"}},
+             [8]={"for-they-might-be-giants-dial-a-song",
+                  "directory_tmbg_dial_a_song"}},
          statement_dir="directory"}),
     directory_souwester = util.context(
         {menu_entries={
@@ -119,7 +121,8 @@ local extensions = {
              [5]={"for-the-utopian-hotline", "directory_utopian_hotline"},
              [6]={"for-the-office-of-night-things",
                   "directory_office_of_night_things"},
-             [7]={"for-beyond-the-echo", "directory_beyond_the_echo"}},
+             [7]={"for-they-might-be-giants-dial-a-song",
+                  "directory_tmbg_dial_a_song"}},
          statement_dir="directory"}),
     directory_mayor_portland = util.destination_context(
         directory_mayor_portland),
@@ -137,12 +140,12 @@ local extensions = {
     directory_nuforc = util.destination_context(directory_nuforc),    
     directory_office_of_night_things = util.destination_context(
         directory_office_of_night_things),
-    directory_beyond_the_echo = util.destination_context(
-        directory_beyond_the_echo),
     directory_random_payphone = util.destination_context(
         directory_random_payphone),
     directory_random_concentrationcamp = util.destination_context(
-        directory_random_concentrationcamp)
+        directory_random_concentrationcamp),
+    directory_tmbg_dial_a_song = util.destination_context(
+        directory_tmbg_dial_a_song)
 }
 
 return extensions
