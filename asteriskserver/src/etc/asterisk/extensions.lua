@@ -7,6 +7,7 @@ extensions_misc = require("extensions_misc")
 extensions_outgoing = require("extensions_outgoing")
 extensions_voicemail = require("extensions_voicemail")
 extensions_wildcard_line = require("extensions_wildcard_line")
+extensions_911 = require("extensions_911")
 
 -- create the base dialplan data structure which asterisk wants
 extensions = {
@@ -23,3 +24,4 @@ for k,v in pairs(extensions_misc) do extensions[k] = v end
 for k,v in pairs(extensions_outgoing) do extensions[k] = v end
 for k,v in pairs(extensions_voicemail) do extensions[k] = v end
 for k,v in pairs(extensions_wildcard_line) do extensions[k] = v end
+for k,v in pairs(extensions_911) do extensions[k] = v end
