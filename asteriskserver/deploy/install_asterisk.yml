@@ -37,6 +37,7 @@
     --disable-category MENUSELECT_EXTRA_SOUNDS \
     --disable chan_mobile \
     --disable chan_ooh323 \
+    --disable app_amd \    
     --disable app_mysql \
     --disable cdr_mysql \
     --disable res_ari \
