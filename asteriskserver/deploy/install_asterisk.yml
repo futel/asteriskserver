@@ -37,10 +37,11 @@
     --disable-category MENUSELECT_EXTRA_SOUNDS \
     --disable chan_mobile \
     --disable chan_ooh323 \
-    --disable res_config_mysql \
     --disable app_mysql \
     --disable cdr_mysql \
     --disable res_ari \
+    --disable res_config_mysql \
+    --disable res_phoneprov
     menuselect.makeopts
   args:
     chdir: /tmp/asterisk-13.38.3
