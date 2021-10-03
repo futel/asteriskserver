@@ -39,7 +39,8 @@
     --disable chan_ooh323 \
     --disable res_config_mysql \
     --disable app_mysql \
-    --disable cdr_mysql
+    --disable cdr_mysql \
+    --disable res_ari \
     menuselect.makeopts
   args:
     chdir: /tmp/asterisk-13.38.3
