@@ -22,17 +22,25 @@
   args:
     chdir: /tmp/asterisk-13.38.3
     creates: /tmp/asterisk-13.38.3/makeopts    
-# what a crock!  Some of these may be superstition.    
-- name: configure asterisk menuselect things
+- name: create asterisk menuselect config file
   command: sudo -u asterisk make {{ item }}
   args:
     chdir: /tmp/asterisk-13.38.3
   with_items:
     - menuselect.makeopts
-# virtualbox, digital ocean, and probably all virtual providers disbable native
-# optimizations
 - name: run menuselect
-  command: sudo -u asterisk menuselect/menuselect --disable BUILD_NATIVE menuselect.makeopts
+  command: \
+    sudo -u asterisk menuselect/menuselect \
+    --disable-category MENUSELECT_TESTS \
+    --disable-category MENUSELECT_CFLAGS \
+    --disable-category MENUSELECT_AGIS \
+    --disable-category MENUSELECT_EXTRA_SOUNDS \
+    --disable chan_mobile \
+    --disable chan_ooh323 \
+    --disable res_config_mysql \
+    --disable app_mysql \
+    --disable cdr_mysql
+    menuselect.makeopts
   args:
     chdir: /tmp/asterisk-13.38.3
 # XXX this creates is already there?
