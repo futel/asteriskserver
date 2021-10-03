@@ -1,1 +1,0 @@
-this is /opt/asterisk/etc/asterisk
