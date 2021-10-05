@@ -1,9 +1,26 @@
 util = require("util")
 
+voipms_leet_incoming = "+15034681337"
+
+-- return true if the calling extension should be allowed to call 911
+function is_911_enabled()
+    callerid = channel.callerid:get()
+    if callerid == voipms_leet_incoming then
+        return false
+    end
+    -- assume our callerid is a valid outgoing number
+    -- assume any valid outgoing number has 911 provisioned
+    return true
+end
+
 function call_911(context, extension)
-    app.AGI("metric.agi", context)    
-    util.say("dialing-nine-one-one")
-    app.Macro("dial", "911")
+    app.AGI("metric.agi", context)
+    if is_911_enabled() then
+        util.say("dialing-nine-one-one")
+        app.Macro("dial", "911")
+    else
+        app.Busy()
+    end
 end
 
 -- busy on anything but next 911 digit
