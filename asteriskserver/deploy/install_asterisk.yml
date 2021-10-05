@@ -35,13 +35,16 @@
     --disable-category MENUSELECT_CFLAGS \
     --disable-category MENUSELECT_AGIS \
     --disable-category MENUSELECT_EXTRA_SOUNDS \
+    --disable chan_mgcp \
     --disable chan_mobile \
     --disable chan_ooh323 \
-    --disable app_amd \    
-    --disable app_mysql \
+    --disable app_amd \
+    --disable app_mysql \    
+    --disable cdr_manager \    
     --disable cdr_mysql \
     --disable res_ari \
     --disable res_config_mysql \
+    --disable res_hep_rtcp \
     --disable res_phoneprov
     menuselect.makeopts
   args:
