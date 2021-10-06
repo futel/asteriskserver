@@ -23,22 +23,16 @@
   file:
     src: /vagrant/src/var/lib/asterisk/moh/hold
     dest: /opt/asterisk/var/lib/asterisk/moh/hold
-    owner: asterisk
-    group: asterisk
     state: link
 - name: operator hold music link
   file:
     src: /vagrant/src/var/lib/asterisk/moh/operator
     dest: /opt/asterisk/var/lib/asterisk/moh/operator
-    owner: asterisk
-    group: asterisk
     state: link
 - name: midi hold music link
   file:
     src: /vagrant/src/var/lib/asterisk/moh/midi
     dest: /opt/asterisk/var/lib/asterisk/moh/midi
-    owner: asterisk
-    group: asterisk
     state: link
 - name: make recordings directory                                        
   file:                                                                  
