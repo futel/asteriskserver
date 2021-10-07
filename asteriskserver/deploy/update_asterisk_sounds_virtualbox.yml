@@ -1,0 +1,42 @@
+---
+- name: link es statements
+  file:
+    src: /vagrant/src/var/lib/asterisk/sounds/es
+    dest: /opt/asterisk/var/lib/asterisk/sounds/es
+    state: link
+- name: link en futelconf
+  file:
+    src: /vagrant/src/var/lib/asterisk/sounds/en/futelconf
+    dest: /opt/asterisk/var/lib/asterisk/sounds/en/futelconf
+    state: link
+- name: link en statements
+  file:
+    src: /vagrant/src/var/lib/asterisk/sounds/en/statements
+    dest: /opt/asterisk/var/lib/asterisk/sounds/en/statements
+    state: link
+- name: link futel sounds
+  file:
+    src: /vagrant/src/var/lib/asterisk/sounds/futel
+    dest: /opt/asterisk/var/lib/asterisk/sounds/futel
+    state: link
+- name: asterisk hold music link
+  file:
+    src: /vagrant/src/var/lib/asterisk/moh/hold
+    dest: /opt/asterisk/var/lib/asterisk/moh/hold
+    state: link
+- name: operator hold music link
+  file:
+    src: /vagrant/src/var/lib/asterisk/moh/operator
+    dest: /opt/asterisk/var/lib/asterisk/moh/operator
+    state: link
+- name: midi hold music link
+  file:
+    src: /vagrant/src/var/lib/asterisk/moh/midi
+    dest: /opt/asterisk/var/lib/asterisk/moh/midi
+    state: link
+- name: make recordings directory                                        
+  file:                                                                  
+    path: /opt/asterisk/var/lib/asterisk/sounds/futel/recordings         
+    state: directory                                                     
+    owner: asterisk                                                      
+    group: asterisk
