@@ -36,13 +36,10 @@ ext 999 starts souwester menu from extension 620
 ext 999 starts default menu from extension 625
 ext 999 starts ypsi menu from extension 630
 ext 999 starts default menu from extension 640
-ext 999 starts default menu from extension 645
 ext 999 starts default menu from extension 655
 ext 999 starts open signal menu from extension 660
-ext 999 starts default menu from extension 668
 ext 999 starts dialtone from extension 670
 ext 999 starts default menu from extension 680
-ext 999 starts detroit menu from extension 685
 ext 999 starts detroit menu from extension 690
 ext 999 starts default menu from extension 695
 
@@ -82,28 +79,16 @@ outgoing call indicates no 911 when calling 933 from 635
 outgoing call sends incoming id from 635
 outgoing call indicates 911 when calling 933 from 640
 outgoing call sends mykle id from 640
-outgoing call indicates 911 when calling 933 from 645
-outgoing call sends paz id from 645
 outgoing call indicates 911 when calling 933 from 655
 outgoing call sends taylor id from 655
 outgoing call indicates 911 when calling 933 from 660
 outgoing call sends open signal id from 660
-outgoing call indicates no 911 when calling 933 from 665
-outgoing call sends incoming id from 665
-outgoing call indicates no 911 when calling 933 from 667
-outgoing call sends incoming id from 667
-outgoing call indicates 911 when calling 933 from 668
-outgoing call sends oskar id from 668
-outgoing call indicates no 911 when calling 933 from 669
-outgoing call sends incoming id from 669
 outgoing call indicates 911 when calling 933 from 670
 outgoing call sends r2d2 id from 670
 outgoing call indicates no 911 when calling 933 from 675
 outgoing call sends incoming id from 675
 outgoing call indicates 911 when calling 933 from 680
 outgoing call sends xnor id from 680
-outgoing call indicates 911 when calling 933 from 685
-outgoing call sends breckenridgest id from 685
 outgoing call indicates 911 when calling 933 from 690
 outgoing call sends detroitbusco id from 690
 outgoing call indicates 911 when calling 933 from 695
