@@ -1,0 +1,17 @@
+---
+- name: check for conf file
+  stat:
+    path: ../conf/vault_pass_digitalocean.txt
+  register: r
+- name: fail without conf file
+  fail:
+    msg: "conf/vault_pass_digitalocean is required"
+  when: not r.stat.exists
+- name: check for conf file
+  stat:
+    path: ../conf/variables.pkr.hcl
+  register: r
+- name: fail without conf file
+  fail:
+    msg: "conf/variables.pkr.hcl is required"
+  when: not r.stat.exists

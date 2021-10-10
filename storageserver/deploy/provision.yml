@@ -1,0 +1,21 @@
+---
+# see also https://gist.github.com/charignon/72871fe890f4482ccd5bb9d6fd9afcdf
+- name: create filesystem on volume
+  community.general.filesystem:
+    fstype: ext4
+    dev: /dev/disk/by-id/scsi-0DO_Volume_assetsbuild
+- name: create mount point for volume
+  file:
+    path: /mnt/assetsbuild
+    state: directory
+- name: mount volume
+  ansible.posix.mount:
+    path: /mnt/assetsbuild
+    src: /dev/disk/by-id/scsi-0DO_Volume_assetsbuild
+    fstype: ext4
+    opts: discard,defaults,noatime
+    state: present
+- name: copy XXX demo
+  copy:
+    src: ../assets/README.md
+    dest: /mnt/assetsbuild

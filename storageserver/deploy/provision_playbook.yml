@@ -1,0 +1,5 @@
+---
+- hosts: baseinstall
+  become: true
+  tasks:
+    - include: provision.yml  

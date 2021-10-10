@@ -1,0 +1,4 @@
+---
+- hosts: localhost
+  tasks:
+    - include: requirements_conf_prod.yml
