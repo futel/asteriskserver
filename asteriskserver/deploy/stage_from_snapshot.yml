@@ -26,6 +26,6 @@
     unique_name: yes
     oauth_token: "{{ deploy_access_token }}"
     size: s-1vcpu-1gb
-    region: sfo1
+    region: sfo3
     image: "{{ snapshot_id }}"
     ssh_keys: ["{{ ssh_key.data.ssh_key.fingerprint }}" ]   

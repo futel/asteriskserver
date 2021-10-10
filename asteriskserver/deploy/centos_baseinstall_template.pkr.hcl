@@ -9,7 +9,7 @@ source "digitalocean" "foo" {
     api_token    = "${var.deploy_access_token}"
     droplet_name = "futel-stage.phu73l.net"
     image        = "centos-8-x64"
-    region       = "sfo1"
+    region       = "sfo3"
     size         = "s-1vcpu-1gb"
     ssh_username = "root"
     snapshot_name = "baseinstall"

@@ -25,7 +25,7 @@ source "digitalocean" "foo" {
     api_token    = "${var.deploy_access_token}"
     droplet_name = "futel-stage.phu73l.net"
     image        = "${var.image}"
-    region       = "sfo1"
+    region       = "sfo3"
     size         = "s-1vcpu-1gb"
     communicator = "ssh"
     ssh_username = "futel"
