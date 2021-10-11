@@ -2,6 +2,7 @@
 - name: load secrets
   include_vars: "deploy_digitalocean_secrets_digitalocean.yml"
   no_log: true
+# XXX we are running in packer, this is just finding the droplet id  
 - name: create droplet
   community.digitalocean.digital_ocean_droplet:
     state: present
