@@ -20,4 +20,4 @@ vagrant provision --provision-with update_asterisk_sip
 
 ## Deploy itests to VM
 
-vagrant provision --provision-with update_asterisk_itests
+vagrant provision --provision-with deploy/update_asterisk_itests

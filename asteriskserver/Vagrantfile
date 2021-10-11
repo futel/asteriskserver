@@ -76,7 +76,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   end    
 
   config.vm.provision "update_asterisk_itests", type: "ansible" do |ansible|
-    ansible.playbook = "update_asterisk_itests_playbook.yml"
+    ansible.playbook = "deploy/update_asterisk_itests_playbook.yml"
     
     # default vm gets virtualbox ansible inventory group
     ansible.groups = {
