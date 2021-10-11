@@ -43,4 +43,10 @@ build {
             playbook_file = "deploy/update_asterisk_playbook.yml"
             extra_arguments = ["--vault-password-file=conf/vault_pass_generic.txt"]        
         }
+    provisioner "ansible" {
+        groups = ["digitalocean"]
+            playbook_file = "deploy/provision_storage_playbook.yml"
+            extra_arguments = ["--vault-password-file=conf/vault_pass_digitalocean.txt"]
+        }
+        
 }
