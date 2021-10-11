@@ -1,7 +1,8 @@
 ## Requirements
 
 Have assets subdirectory populated with assets.
-Don't have any droplets, droplet images, volumes named assetsbuild.
+Don't have any droplets, droplet images, or volumes named assetsbuild.
+Don't have any volume images with names starting with assetsbuild.
 
 ## Initialize packer
 
