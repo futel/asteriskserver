@@ -11,7 +11,9 @@ Steps:
 ## Requirements and test
 
 Have no Digital Ocean droplets or domains named futel-stage.phu73l.net.
+Have no Digital Ocean volumes named assets.
 Have no Digital Ocean images named baseinstall or update.
+Have only one Digital Ocean volume snapshot with a name starting with assetsubuild.
 Create or check out release branch.
 
 Run unit tests locally

@@ -1,0 +1,8 @@
+---
+- hosts: digitalocean
+  tasks:
+    - include: build_volume.yml
+- hosts: baseinstall
+  become: true
+  tasks:
+    - include: provision_storage.yml  
