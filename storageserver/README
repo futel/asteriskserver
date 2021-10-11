@@ -26,10 +26,11 @@ In digitalocean console, destroy assetsbuild droplet snapshot
 
 ## Notes
 
+community.digitalocean.digital_ocean_snapshot is the ansible collection to snapshot volume
+
 volume snapshot downgrade:
 check out appropriate release to match asteriskserver
 create volume snapshot
-note that new snapshot must be created before upgrading asteriskserver
 
 asteriskserver stage deploy:
 create, provision, etc droplet
@@ -44,3 +45,5 @@ delete all assetsbuild volume snapshots but most recent
 asteriskserver prod downgrade:
 make snapshot of current futel-prod droplet
 delete futel-prod droplet
+create droplet from futel-prod-back
+XXX create, mount volume of appropriate revision
