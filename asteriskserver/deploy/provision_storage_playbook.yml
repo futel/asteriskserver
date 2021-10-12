@@ -4,9 +4,12 @@
     - include: build_volume.yml
 - hosts: baseinstall
   become: true
+<<<<<<< HEAD
   vars:
     ansible_user: futel
     ansible_port: 42422
     ansible_ssh_private_key_file: conf/id_rsa
+=======
+>>>>>>> 7e17e7b96e2c0f1e326e92bb57682070c807e655
   tasks:
     - include: provision_storage.yml  

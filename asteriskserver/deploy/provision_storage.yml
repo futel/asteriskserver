@@ -1,5 +1,12 @@
 ---
 # see also https://gist.github.com/charignon/72871fe890f4482ccd5bb9d6fd9afcdf
+<<<<<<< HEAD
+=======
+- name: create filesystem on volume
+  community.general.filesystem:
+    fstype: ext4
+    dev: /dev/disk/by-id/scsi-0DO_Volume_assets
+>>>>>>> 7e17e7b96e2c0f1e326e92bb57682070c807e655
 - name: create mount point for volume
   file:
     path: /mnt/assets
@@ -9,5 +16,9 @@
     path: /mnt/assets
     src: /dev/disk/by-id/scsi-0DO_Volume_assets
     fstype: ext4
+<<<<<<< HEAD
     opts: discard,defaults,noatime,ro
+=======
+    opts: discard,defaults,noatime
+>>>>>>> 7e17e7b96e2c0f1e326e92bb57682070c807e655
     state: present

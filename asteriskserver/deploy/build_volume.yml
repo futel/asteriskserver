@@ -7,12 +7,20 @@
     snapshot_type: volume
     oauth_token: "{{ deploy_access_token }}"
   register: resp_out
+<<<<<<< HEAD
+=======
+#- debug: msg="resp_out {{ resp_out }}"
+>>>>>>> 7e17e7b96e2c0f1e326e92bb57682070c807e655
 - name: get ID of volume snapshot
   set_fact:
     snapshot_id: "{{ item.id }}"
   loop: "{{ resp_out.data | json_query(name) }}"
   vars:
     name: "[?starts_with(name, 'assetsbuild')]"
+<<<<<<< HEAD
+=======
+#- debug: msg="snapshot_id {{ snapshot_id }}"
+>>>>>>> 7e17e7b96e2c0f1e326e92bb57682070c807e655
 - name: create block storage from image
   community.digitalocean.digital_ocean_block_storage:
     state: present
@@ -20,11 +28,14 @@
     oauth_token: "{{ deploy_access_token }}"
     snapshot_id: "{{ snapshot_id }}"
     volume_name: assets
+<<<<<<< HEAD
 - name: get attributes of stage droplet
   community.digitalocean.digital_ocean_droplet_info:
     oauth_token: "{{ deploy_access_token }}"
     name: futel-stage.phu73l.net
   register: resp_out
+=======
+>>>>>>> 7e17e7b96e2c0f1e326e92bb57682070c807e655
 - name: attach block storage to droplet
   community.digitalocean.digital_ocean_block_storage:
     state: present
@@ -32,4 +43,8 @@
     oauth_token: "{{ deploy_access_token }}"
     volume_name: assets
     region: sfo3
+<<<<<<< HEAD
     droplet_id: "{{ resp_out.data[0].id }}"
+=======
+    droplet_id: "{{ droplet_message.data.droplet.id }}"
+>>>>>>> 7e17e7b96e2c0f1e326e92bb57682070c807e655
