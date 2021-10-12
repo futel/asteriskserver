@@ -66,10 +66,6 @@
       - jansson-devel
       - espeak-ng
     state: present
-- name: update pip
-  pip:
-    name: pip
-    state: latest
 - name: update pip packages
   pip:
     name:
