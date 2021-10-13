@@ -11,7 +11,9 @@ Steps:
 ## Requirements and test
 
 Have no Digital Ocean droplets or domains named futel-stage.phu73l.net.
+Have no Digital Ocean volumes named assets.
 Have no Digital Ocean images named baseinstall or update.
+Have only one Digital Ocean volume snapshot with a name starting with assetsubuild.
 Create or check out release branch.
 
 Run unit tests locally
@@ -65,7 +67,8 @@ Wait for DNS to match IP address with "nslookup futel-stage.phu73l.net".
 
 Note stage conf version printed.
 
-  ansible-playbook -i deploy/hosts deploy/update_secrets_playbook.yml --limit baseinstall --vault-password-file=conf/vault_pass_prod.txt --extra-vars conf_version=<stage conf version>  
+  ansible-playbook -i deploy/hosts deploy/update_secrets_playbook.yml --limit baseinstall --vault-password-file=conf/vault_pass_prod.txt --extra-vars conf_version=<stage conf version>
+  ansible-playbook -i deploy/hosts deploy/provision_storage_playbook.yml --vault-password-file=conf/vault_pass_digitalocean.txt  
   ansible-playbook -i deploy/hosts deploy/sync_playbook.yml
 If sync_playbook failed, preserve any recordings downloaded to tmp/stage/recordings
   ansible-playbook -i deploy/hosts --limit baseinstall deploy/post_sync_playbook.yml

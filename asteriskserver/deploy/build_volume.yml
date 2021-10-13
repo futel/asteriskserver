@@ -1,0 +1,35 @@
+---
+- name: load secrets
+  include_vars: "deploy_digitalocean_secrets_digitalocean.yml"
+  no_log: true
+- name: get IDs of all volume snapshots
+  community.digitalocean.digital_ocean_snapshot_info:
+    snapshot_type: volume
+    oauth_token: "{{ deploy_access_token }}"
+  register: resp_out
+- name: get ID of volume snapshot
+  set_fact:
+    snapshot_id: "{{ item.id }}"
+  loop: "{{ resp_out.data | json_query(name) }}"
+  vars:
+    name: "[?starts_with(name, 'assetsbuild')]"
+- name: create block storage from image
+  community.digitalocean.digital_ocean_block_storage:
+    state: present
+    command: create
+    oauth_token: "{{ deploy_access_token }}"
+    snapshot_id: "{{ snapshot_id }}"
+    volume_name: assets
+- name: get attributes of stage droplet
+  community.digitalocean.digital_ocean_droplet_info:
+    oauth_token: "{{ deploy_access_token }}"
+    name: futel-stage.phu73l.net
+  register: resp_out
+- name: attach block storage to droplet
+  community.digitalocean.digital_ocean_block_storage:
+    state: present
+    command: attach
+    oauth_token: "{{ deploy_access_token }}"
+    volume_name: assets
+    region: sfo3
+    droplet_id: "{{ resp_out.data[0].id }}"

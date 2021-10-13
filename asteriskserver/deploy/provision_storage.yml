@@ -1,0 +1,13 @@
+---
+# see also https://gist.github.com/charignon/72871fe890f4482ccd5bb9d6fd9afcdf
+- name: create mount point for volume
+  file:
+    path: /mnt/assets
+    state: directory
+- name: mount volume
+  ansible.posix.mount:
+    path: /mnt/assets
+    src: /dev/disk/by-id/scsi-0DO_Volume_assets
+    fstype: ext4
+    opts: discard,defaults,noatime,ro
+    state: mounted
