@@ -10,7 +10,7 @@
 - name: get public network of stage droplet
   set_fact:
     ip_address: "{{ item.ip_address }}"
-  loop: "{{ droplet.data[0].networks.v4 }}"
+  loop: "{{ droplet.data[0].networks.v4 | json_query(type) }}"
   vars:
     type: "[?type=='public']"
 - debug: msg="droplet IP address {{ ip_address }}"
