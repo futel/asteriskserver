@@ -1,4 +1,4 @@
 ---
 - name: find conf version being used on prod
   command: grep -o "foo\|bar" /opt/asterisk/etc/asterisk/sip_callcentric.conf
-  register: conf_version
+  register: prod_conf_version

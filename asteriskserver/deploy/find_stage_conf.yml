@@ -1,12 +1,12 @@
 ---
 - name: print prod conf version
   debug:
-    msg="prod conf version is {{ conf_version.stdout_lines }}"
+    msg="prod conf version is {{ prod_conf_version.stdout_lines }}"
 - name: determine stage conf version
-  shell: echo "{{ conf_version.stdout }}" | ./stage_conf_version.py 
+  shell: echo "{{ prod_conf_version.stdout }}" | ./stage_conf_version.py 
   delegate_to: localhost
   become: no
-  register: stage_conf_version
+  register: conf_version
 - name: print stage conf version
   debug:
-    msg="stage_conf_version is {{ stage_conf_version.stdout }}"
+    msg="stage conf version is {{ conf_version.stdout }}"
