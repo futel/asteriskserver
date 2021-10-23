@@ -15,9 +15,6 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     ansible.groups = {
       "virtualbox" => ["default"]
     }
-    ansible.extra_vars = {
-      conf_version: "virtualbox"
-    }
     # uncomment for verbose output
     # ansible.raw_arguments = ["-v"]
   end    
@@ -30,9 +27,6 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     ansible.groups = {
       "virtualbox" => ["default"]
     }
-    ansible.extra_vars = {
-      conf_version: "virtualbox"
-    }
   end    
   
   config.vm.provision "update_asterisk", type: "ansible" do |ansible|
@@ -43,8 +37,6 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     ansible.groups = {
       "virtualbox" => ["default"]
     }
-    # uncomment for verbose output
-    # ansible.raw_arguments = ["-v"]
   end    
 
   config.vm.provision "update_secrets", type: "ansible" do |ansible|
@@ -54,9 +46,6 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     # default vm gets virtualbox ansible inventory group
     ansible.groups = {
       "virtualbox" => ["default"]
-    }
-    ansible.extra_vars = {
-      conf_version: "virtualbox"
     }
   end    
   
@@ -68,11 +57,6 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     ansible.groups = {
       "virtualbox" => ["default"]
     }
-    ansible.extra_vars = {
-      conf_version: "virtualbox"
-    }
-    # uncomment for verbose output
-    # ansible.raw_arguments = ["-v"]
   end    
 
   config.vm.provision "update_asterisk_itests", type: "ansible" do |ansible|
