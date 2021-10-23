@@ -1,7 +1,7 @@
 ---
 - name: copy integration test source
   copy:
-    src: src/itest/
+    src: ../src/itest/
     dest: /opt/asterisk/itest
     owner: asterisk
     group: asterisk
