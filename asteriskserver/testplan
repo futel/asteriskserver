@@ -25,6 +25,9 @@ any call starts detroit menu when registered to sip:525@origination-stage.futel.
 can register extension 530 using twilio programmable voice password
 ext 999 starts portland menu from extension 530
 any call starts portland menu when registered to sip:530@origination-stage.futel.sip.us1.twilio.com
+can register extension 535 using twilio programmable voice password
+ext 999 starts portland menu from extension 535
+any call starts portland menu when registered to sip:535@origination-stage.futel.sip.us1.twilio.com
 
 can register extension 700 using twilio programmable voice password
 ext 999 starts default menu from extension 700
@@ -63,7 +66,9 @@ outgoing call sends breckenridgest id from 515
 outgoing call indicates 911 when calling 933 from 525
 outgoing call sends breckenridgest id from 525
 outgoing call indicates 911 when calling 933 from 530
-outgoing call sends oskar from 530
+outgoing call sends oskar id from 530
+outgoing call indicates no 911 when calling 933 from 535
+outgoing call sends incoming id from 535
 
 outgoing call indicates 911 when calling 933 from 610
 outgoing call sends crossclinton id from 610
