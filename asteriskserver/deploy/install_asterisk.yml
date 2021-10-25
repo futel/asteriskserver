@@ -61,11 +61,6 @@
   args:
     chdir: /tmp/asterisk-13.38.3
     creates: /opt/asterisk/sbin/asterisk
-- name: make asterisk samples
-  command: sudo -u asterisk make samples
-  args:
-    chdir: /tmp/asterisk-13.38.3
-    creates: /opt/asterisk/etc/asterisk/extensions.conf
 - name: make asterisk config, as root
   command: make config
   args:
