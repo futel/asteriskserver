@@ -14,5 +14,4 @@
   become: true
   tasks:
     - include: update_asterisk.yml
-    - include: mount_virtualbox.yml
-    - include: update_asterisk_sounds.yml
+    - include: update_asterisk_sounds_virtualbox.yml

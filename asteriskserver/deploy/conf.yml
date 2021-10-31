@@ -1,7 +1,7 @@
 ---
 asset_directory: '../assets/sounds'
 asterisk_sound_directory: '../src/var/lib/asterisk/sounds'
-asset_sound_directory: '/mnt/assets/sounds'
+virtualbox_sound_directory: '/vagrant/src/var/lib/asterisk/sounds'
 deployed_sound_directory: '/opt/asterisk/var/lib/asterisk/sounds'
 deployed_moh_directory: '/opt/asterisk/var/lib/asterisk/moh'
 sound_items_en:
