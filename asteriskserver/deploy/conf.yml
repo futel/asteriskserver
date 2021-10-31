@@ -1,3 +1,28 @@
 ---
 asset_directory: '../assets/sounds'
 asterisk_sound_directory: '../src/var/lib/asterisk/sounds'
+asset_sound_directory: '/mnt/assets/sounds'
+deployed_sound_directory: '/opt/asterisk/var/lib/asterisk/sounds'
+deployed_moh_directory: '/opt/asterisk/var/lib/asterisk/moh'
+sound_items_en:
+  - futelconf
+  - statements
+sound_items_es:
+  - statements
+sound_items_futel:
+  - church-of-robotron
+  - conversations
+  - longmont
+  - missed-connections
+  - sequence-challenge
+  - williams-short
+  - williams-long
+  - oracle-dead-interstitial-long
+  - oracle-dead-interstitial-short
+  - oracle-dead-oracle
+  - peoples-homes
+  - wildcard-line
+moh_items:
+  - hold
+  - operator
+  - midi

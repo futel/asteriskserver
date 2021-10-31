@@ -7,135 +7,35 @@
     state: directory
     owner: asterisk
     group: asterisk
-- name: copy asterisk williams short sounds
-  copy:
-    src: ../src/var/lib/asterisk/sounds/futel/williams-short
-    dest: /opt/asterisk/var/lib/asterisk/sounds/futel
-    owner: asterisk
-    group: asterisk
-- name: copy asterisk williams long sounds
-  copy:
-    src: ../src/var/lib/asterisk/sounds/futel/williams-long
-    dest: /opt/asterisk/var/lib/asterisk/sounds/futel
-    owner: asterisk
-    group: asterisk
-- name: copy asterisk long oracle sounds
-  copy:
-    src: ../src/var/lib/asterisk/sounds/futel/oracle-dead-interstitial-long
-    dest: /opt/asterisk/var/lib/asterisk/sounds/futel
-    owner: asterisk
-    group: asterisk
-- name: copy asterisk short oracle sounds
-  copy:
-    src: ../src/var/lib/asterisk/sounds/futel/oracle-dead-interstitial-short
-    dest: /opt/asterisk/var/lib/asterisk/sounds/futel
-    owner: asterisk
-    group: asterisk
-- name: copy asterisk oracle oracle sounds
-  copy:
-    src: ../src/var/lib/asterisk/sounds/futel/oracle-dead-oracle
-    dest: /opt/asterisk/var/lib/asterisk/sounds/futel
-    owner: asterisk
-    group: asterisk
-- name: copy asterisk peoples homes sounds
-  copy:
-    src: ../src/var/lib/asterisk/sounds/futel/peoples-homes
-    dest: /opt/asterisk/var/lib/asterisk/sounds/futel
-    owner: asterisk
-    group: asterisk
-- name: make en statements directory
+- name: make es directory
   file:
-    path: /opt/asterisk/var/lib/asterisk/sounds/en/statements
+    path: /opt/asterisk/var/lib/asterisk/sounds/es
     state: directory
     owner: asterisk
     group: asterisk
-- name: make es statements directory
+- name: link en sounds
   file:
-    path: /opt/asterisk/var/lib/asterisk/sounds/es/statements
-    state: directory
-    owner: asterisk
-    group: asterisk
-- name: copy en statement sounds
+    src: "{{ asset_sound_directory }}/en/{{ item }}"
+    dest: "{{ deployed_sound_directory }}/en/{{ item }}"
+    state: link
+  with_items: "{{ sound_items_en }}"
+- name: link es sounds
+  file:
+    src: "{{ asset_sound_directory }}/es/{{ item }}"
+    dest: "{{ deployed_sound_directory }}/es/{{ item }}"
+    state: link
+  with_items: "{{ sound_items_es }}"
+- name: link futel sounds
+  file:
+    src: "{{ asset_sound_directory }}/futel/{{ item }}"
+    dest: "{{ deployed_sound_directory }}/futel/{{ item }}"
+    state: link
+  with_items: "{{ sound_items_futel }}"
+# we do not currently keep MOH in the futel-content repo, just copy
+- name: copy music on hold
   copy:
-    src: ../src/var/lib/asterisk/sounds/en/statements/{{ item }}
-    dest: /opt/asterisk/var/lib/asterisk/sounds/en/statements
+    src: "../src/var/lib/asterisk/moh/{{ item }}"
+    dest: "{{ deployed_moh_directory }}"
     owner: asterisk
     group: asterisk
-  with_items:
-    - anzie-wumpus
-    - challenge
-    - conversations
-    - karl-oracle-dead
-    - karl_quuux
-    - konami
-    - karl-robotron
-    - karl-voicemail-ivr
-    - karl-wildcard-line
-    - missed-connections
-    - peoples-homes
-    - rose-bar
-    - rose-foo
-    - sailor
-    - tishbite
-    - tishbite-wait
-- name: copy es statement sounds
-  copy:
-    src: ../src/var/lib/asterisk/sounds/es/statements/{{ item }}
-    dest: /opt/asterisk/var/lib/asterisk/sounds/es/statements
-    owner: asterisk
-    group: asterisk
-  with_items:
-    - missed-connections
-    - sailor
-    - sofia-community
-    - sofia-community-service
-    - sofia-directory
-    - sofia-general
-    - sofia-incoming
-    - sofia-information
-    - sofia-network
-    - sofia-outgoing
-    - sofia-utilities
-    - sofia-voicemail
-- name: copy asterisk wildcard line sounds
-  copy:
-    src: ../src/var/lib/asterisk/sounds/futel/wildcard-line
-    dest: /opt/asterisk/var/lib/asterisk/sounds/futel
-    owner: asterisk
-    group: asterisk
-- name: copy sounds
-  copy:
-    src: "{{ asterisk_sound_directory }}/futel/{{ item }}"
-    dest: /opt/asterisk/var/lib/asterisk/sounds/futel
-    owner: asterisk
-    group: asterisk
-  with_items:
-    - church-of-robotron
-    - conversations
-    - longmont
-    - missed-connections
-    - sequence-challenge
-- name: copy asterisk confbridge menu sounds
-  copy:
-    src: "{{ asterisk_sound_directory }}/en/futelconf"
-    dest: /opt/asterisk/var/lib/asterisk/sounds/en
-    owner: asterisk
-    group: asterisk
-- name: copy asterisk hold music
-  copy:
-    src: ../src/var/lib/asterisk/moh/hold/
-    dest: /opt/asterisk/var/lib/asterisk/moh/hold
-    owner: asterisk
-    group: asterisk
-- name: copy operator hold music
-  copy:
-    src: ../src/var/lib/asterisk/moh/operator/
-    dest: /opt/asterisk/var/lib/asterisk/moh/operator
-    owner: asterisk
-    group: asterisk
-- name: copy midi hold music
-  copy:
-    src: ../src/var/lib/asterisk/moh/midi/
-    dest: /opt/asterisk/var/lib/asterisk/moh/midi
-    owner: asterisk
-    group: asterisk
+  with_items: "{{ moh_items }}"

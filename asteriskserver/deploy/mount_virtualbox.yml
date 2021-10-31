@@ -1,0 +1,7 @@
+---
+# mimic /mnt/assets mount on DO
+- name: create assets mount link
+  file:
+    src: /vagrant/src/var/lib/asterisk/
+    dest: /mnt/assets
+    state: link
