@@ -28,25 +28,39 @@
     chdir: /tmp/asterisk-13.38.3
   with_items:
     - menuselect.makeopts
+# MENUSELECT_PBX
+# MENUSELECT_FUNCS
+# MENUSELECT_FORMATS
+# MENUSELECT_CODECS
 - name: run menuselect
   command: \
     sudo -u asterisk menuselect/menuselect \
     --disable-category MENUSELECT_TESTS \
+    --disable-category MENUSELECT_CEL \
     --disable-category MENUSELECT_CFLAGS \
+    --disable-category MENUSELECT_OPTS_app_voicemail \
     --disable-category MENUSELECT_AGIS \
     --disable-category MENUSELECT_EXTRA_SOUNDS \
     --disable chan_mgcp \
     --disable chan_mobile \
     --disable chan_ooh323 \
     --disable app_amd \
-    --disable app_mysql \    
+    --disable app_mysql \
+    --disable cdr_adaptive_odbc \
+    --disable cdr_custom \
     --disable cdr_manager \    
     --disable cdr_mysql \
+    --disable cdr_odbc \
+    --disable cdr_pgsql \
+    --disable cdr_radius \
+    --disable cdr_sqlite \
+    --disable cdr_sqlite3_custom \
+    --disable cdr_syslog \
+    --disable cdr_tds \
     --disable res_ari \
     --disable res_config_mysql \
     --disable res_hep_rtcp \
     --disable res_phoneprov
-    menuselect.makeopts
   args:
     chdir: /tmp/asterisk-13.38.3
 # XXX this creates is already there?
