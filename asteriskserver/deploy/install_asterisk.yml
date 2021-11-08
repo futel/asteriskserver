@@ -59,8 +59,10 @@
     --disable cdr_tds \
     --disable res_ari \
     --disable res_config_mysql \
-    --disable res_hep_rtcp \
-    --disable res_phoneprov
+    --disable res_hep \
+    --disable res_phoneprov \
+    --disable res_parking \    
+    --disable res_statsd
   args:
     chdir: /tmp/asterisk-13.38.3
 # XXX this creates is already there?
