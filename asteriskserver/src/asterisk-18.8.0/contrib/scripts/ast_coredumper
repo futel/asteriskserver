@@ -1,0 +1,1106 @@
+#!/usr/bin/env bash
+# Turn on extended globbing
+shopt -s extglob
+# Bail on any error
+set -e
+
+prog=$(basename $0)
+
+print_help() {
+cat <<EOF
+NAME
+	$prog - Dump and/or format asterisk coredump files
+
+SYNOPSIS
+	$prog [ --help ] [ --running | --RUNNING ] [ --latest ]
+		[ --tarball-coredumps ] [ --delete-coredumps-after ]
+		[ --tarball-results ] [ --delete-results-after ]
+		[ --tarball-config ] [ --tarball-uniqueid="<uniqueid>" ]
+		[ --no-default-search ] [ --append-coredumps ]
+		[ --asterisk-bin="path" ]
+		[ <coredump> | <pattern> ... ]
+
+DESCRIPTION
+
+	Extracts backtraces and lock tables from Asterisk coredump files.
+	For each coredump found, 4 new result files are created:
+	- <coredump>.brief.txt: The output of "thread apply all bt".
+
+	- <coredump>.thread1.txt: The output of "thread apply 1 bt full".
+
+	- <coredump>.full.txt: The output of "thread apply all bt full".
+
+	- <coredump>.locks.txt: If asterisk was compiled with
+		"DEBUG_THREADS", this file will contain a dump of the locks
+		table similar to doing a "core show locks" from the asterisk
+		CLI.
+
+	Optional features:
+	- The running asterisk process can be suspended and dumped.
+	- The coredumps can be merged into a tarball.
+	- The coredumps can be deleted after processing.
+	- The results files can be merged into a tarball.
+	- The results files can be deleted after processing.
+
+	Options:
+
+	--help
+		Print this help.
+
+	--running
+		Create a coredump from the running asterisk instance and
+		process it along with any other coredumps found (if any).
+		WARNING: This WILL interrupt call processing.  You will be
+		asked to confirm.  The coredump will be written to /tmp if
+		$OUTPUTDIR is not defined.
+
+	--RUNNING
+		Same as --running but without the confirmation prompt.
+		DANGEROUS!!
+
+	--latest
+		Process only the latest coredump from those specified (based
+		on last-modified time).  If a dump of the running process was
+		requested, it is always included in addition to the latest
+		from the existing coredumps.
+
+	--tarball-coredumps
+		Creates a gzipped tarball of coredumps processed, their
+		results txt files and copies of /etc/os-release,
+		/usr/sbin/asterisk, /usr/lib(64)/libasterisk* and
+		/usr/lib(64)/asterisk as those files are needed to properly
+		examine the coredump.  The file will be named
+		$OUTPUTDIR/asterisk.<timestamp>.coredumps.tar.gz or
+		$OUTPUTDIR/asterisk-<uniqueid>.coredumps.tar.gz if
+		--tarball-uniqueid was specified.
+		WARNING:  This file could 1gb in size!
+		Mutually exclusive with --tartball-results
+
+	--delete-coredumps-after
+		Deletes all processed coredumps regardless of whether
+		a tarball was created.
+
+	--tarball-results
+		Creates a gzipped tarball of all result files produced.
+		The tarball name will be:
+		$OUTPUTDIR/asterisk.<timestamp>.results.tar.gz
+		Mutually exclusive with --tartball-coredumps
+
+	--delete-results-after
+		Deletes all processed results regardless of whether
+		a tarball was created.  It probably doesn't make sense
+		to use this option unless you have also specified
+		--tarball-results.
+
+	--tarball-config
+		Adds the contents of /etc/asterisk to the tarball created
+		with --tarball-coredumps or --tarball-results.
+
+	--tarball-uniqueid="<uniqueid>"
+		Normally DATEFORMAT is used to make the tarballs unique
+		but you can use your own unique id in the tarball names
+		such as the Jira issue id.
+
+	--no-default-search
+		Ignore COREDUMPS from the config files and process only
+		coredumps listed on the command line (if any) and/or
+		the running asterisk instance (if requested).
+
+	--append-coredumps
+		Append any coredumps specified on the command line to the
+		config file specified ones instead of overriding them.
+
+	--asterisk-binary
+		Path to the asterisk binary. Default: look for asterisk
+		in the PATH.
+
+	<coredump> | <pattern>
+		A list of coredumps or coredump search patterns.  Unless
+		--append-coredumps was specified, these entries will override
+		those specified in the config files.
+
+		Any resulting file that isn't actually a coredump is silently
+		ignored.  If your patterns contains spaces be sure to only
+		quote the portion of the pattern that DOESN'T contain wildcard
+		expressions.  If you quote the whole pattern, it won't be
+		expanded.
+
+		If --no-default-search is specified and no files are specified
+		on the command line, then the only the running asterisk process
+		will be dumped (if requested).  Otherwise if no files are
+		specified on the command line the value of COREDUMPS from
+		ast_debug_tools.conf will be used.  Failing that, the following
+		patterns will be used:
+		/tmp/core[-._]asterisk!(*.txt)
+		/tmp/core[-._]\$(hostname)!(*.txt)
+
+NOTES
+	You must be root to use $prog.
+
+	$OUTPUTDIR can be read from the current environment or from the
+	ast_debug_tools.conf file described below.  If not specified,
+	work products are placed in the same directory as the core file.
+
+	The script relies on not only bash, but also recent GNU date and
+	gdb with python support.  *BSD operating systems may require
+	installation of the 'coreutils' and 'devel/gdb' packagess and minor
+	tweaking of the ast_debug_tools.conf file.
+
+	Any files output will have ':' characters changed to '-'.  This is
+	to facilitate uploading those files to Jira which doesn't like the
+	colons.
+
+FILES
+	/etc/asterisk/ast_debug_tools.conf
+	~/ast_debug_tools.conf
+	./ast_debug_tools.conf
+
+	#
+	# This file is used by the Asterisk debug tools.
+	# Unlike other Asterisk config files, this one is
+	# "sourced" by bash and must adhere to bash semantics.
+	#
+
+	# A list of coredumps and/or coredump search patterns.
+	# Bash extended globs are enabled and any resulting files
+	# that aren't actually coredumps are silently ignored
+	# so you can be liberal with the globs.
+	#
+	# If your patterns contains spaces be sure to only quote
+	# the portion of the pattern that DOESN'T contain wildcard
+	# expressions.  If you quote the whole pattern, it won't
+	# be expanded and the glob characters will be treated as
+	# literals.
+	#
+	# The exclusion of files ending ".txt" is just for
+	# demonstration purposes as non-coredumps will be ignored
+	# anyway.
+	COREDUMPS=(/tmp/core[-._]asterisk!(*.txt) /tmp/core[-._]\$(hostname)!(*.txt))
+
+	# The directory to contain output files and work directories.
+	# For output from existing core files, the default is the
+	# directory that the core file is found in.  For core files
+	# produced from a running process, the default is /tmp.
+	OUTPUTDIR=/some/directory
+
+	# Date command for the "running" coredump and tarballs.
+	# DATEFORMAT will be executed to get the timestamp.
+	# Don't put quotes around the format string or they'll be
+	# treated as literal characters.  Also be aware of colons
+	# in the output as you can't upload files with colons in
+	# the name to Jira.
+	#
+	# Unix timestamp
+	#DATEFORMAT='date +%s.%N'
+	#
+	# *BSD/MacOS doesn't support %N but after installing GNU
+	# coreutils...
+	#DATEFORMAT='gdate +%s.%N'
+	#
+	# Readable GMT
+	#DATEFORMAT='date -u +%FT%H-%M-%S%z'
+	#
+	# Readable Local time
+	DATEFORMAT='date +%FT%H-%M-%S%z'
+
+EOF
+	exit 1
+}
+
+if [ $EUID -ne 0 ] ; then
+	echo "You must be root to use $prog."
+	exit 1
+fi
+
+running=false
+RUNNING=false
+latest=false
+tarball_coredumps=false
+tarball_config=false
+delete_coredumps_after=false
+tarball_results=false
+delete_results_after=false
+append_coredumps=false
+
+declare -a COREDUMPS
+declare -a ARGS_COREDUMPS
+
+# readconf reads a bash-sourceable file and sets variables
+# that havn't already been set.  This allows variables set
+# on the command line or that are already in the environment
+# to take precedence over those read from the file.
+#
+# Setting the values can't be done in a subshell so you can't
+# just pipe the output of sed into the while.
+
+readconf() {
+	while read line ; do
+		v=${line%%=*}
+		[ -z "${!v}" ] && eval $line || :
+	done <<EOF
+$( sed -r -e "/\s*#/d" -e "/^\s*$/d" $1 )
+EOF
+}
+
+# Read config files from most important to least important.
+# Variable set on the command line or environment always take precedence.
+[ -f ./ast_debug_tools.conf ] && readconf ./ast_debug_tools.conf
+[ -f ~/ast_debug_tools.conf ] && readconf ~/ast_debug_tools.conf
+[ -f /etc/asterisk/ast_debug_tools.conf ] && readconf /etc/asterisk/ast_debug_tools.conf
+
+# For *BSD, the preferred gdb may be in /usr/local/bin so we
+# need to search for one that supports python.
+for g in $(which -a gdb) ; do
+	result=$($g --batch --ex "python print('hello')" 2>/dev/null || : )
+	if [[ "$result" =~ ^hello$ ]] ; then
+		GDB=$g
+		break
+	fi
+done
+
+if [ -z "$GDB" ] ; then
+	echo "No suitable gdb was found in $PATH"
+	exit 1
+fi
+
+if [ -n "$OUTPUTDIR" ] ; then
+	if [ ! -d "$OUTPUTDIR" ] ; then
+		echo "OUTPUTDIR $OUTPUTDIR doesn't exists or is not a directory"
+		exit 1
+	fi
+fi
+
+if [ ${#COREDUMPS[@]} -eq 0 ] ; then
+	COREDUMPS+=(/tmp/core[-._]asterisk!(*.txt) /tmp/core[-._]$(hostname)!(*.txt))
+fi
+
+DATEFORMAT=${DATEFORMAT:-'date +%FT%H-%M-%S%z'}
+
+# Use "$@" (with the quotes) so spaces in patterns or
+# file names are preserved.
+# Later on when we have to iterate over COREDUMPS, we always
+# use the indexes rather than trying to expand the values of COREDUMPS
+# just in case.
+
+for a in "$@" ; do
+	case "$a" in
+	--running)
+		running=true
+		;;
+	--RUNNING)
+		RUNNING=true
+		;;
+	--no-default-search)
+		# Clean out COREDUMPS from config files
+		COREDUMPS=()
+		;;
+	--latest)
+		latest=true
+		;;
+	--tarball-coredumps)
+		tarball_coredumps=true
+		;;
+	--tarball-config)
+		tarball_config=true
+		;;
+	--delete-coredumps-after)
+		delete_coredumps_after=true
+		;;
+	--tarball-results)
+		tarball_results=true
+		;;
+	--delete-results-after)
+		delete_results_after=true
+		;;
+	--append-coredumps)
+		append_coredumps=true
+		;;
+	--tarball-uniqueid=*)
+		tarball_uniqueid=${a#*=}
+		;;
+	--asterisk-bin=*)
+		asterisk_bin=${a#*=}
+		;;
+	--help|-*)
+		print_help
+		;;
+	*)
+		ARGS_COREDUMPS+=("$a")
+		# If any files are specified on the command line, ignore those
+		# specified in the config files unless append-coredumps was specified.
+		if ! $append_coredumps ; then
+			COREDUMPS=()
+		fi
+	esac
+done
+
+# append coredumps/patterns specified as command line arguments to COREDUMPS.
+for i in ${!ARGS_COREDUMPS[@]} ; do
+	COREDUMPS+=("${ARGS_COREDUMPS[$i]}")
+done
+
+# At this point, all glob entries that match files should be expanded.
+# Any entries that don't exist are probably globs that didn't match anything
+# and need to be pruned.  Any non coredumps are also pruned.
+
+for i in ${!COREDUMPS[@]} ; do
+	if [ ! -f "${COREDUMPS[$i]}" ] ; then
+		unset COREDUMPS[$i]
+		continue
+	fi
+	# Some versions of 'file' don't allow only the first n bytes of the
+	# file to be processed so we use dd to grab just the first 32 bytes.
+	mimetype=$(dd if="${COREDUMPS[$i]}" bs=32 count=1 2>/dev/null | file -bi -)
+	if [[ ! "$mimetype" =~ coredump ]] ; then
+		unset COREDUMPS[$i]
+		continue
+	fi
+done
+
+# Sort and weed out any dups
+IFS=$'\x0a'
+readarray -t COREDUMPS < <(echo -n "${COREDUMPS[*]}" | sort -u )
+unset IFS
+
+# If --latest, get the last modified timestamp of each file,
+# sort them, then return the latest.
+if [ ${#COREDUMPS[@]} -gt 0 ] && $latest ; then
+	lf=$(find "${COREDUMPS[@]}" -printf '%T@ %p\n' | sort -n | tail -1)
+	COREDUMPS=("${lf#* }")
+fi
+
+# Timestamp to use for output files
+df=${tarball_uniqueid:-$(${DATEFORMAT})}
+
+if [ x"$asterisk_bin" = x ]; then
+	asterisk_bin=$(which asterisk)
+fi
+
+if $running || $RUNNING ; then
+	# We need to go through some gyrations to find the pid of the running
+	# MAIN asterisk process and not someone or something running asterisk -r.
+
+	unset pid
+
+	# Simplest case first...
+	pids=$(pgrep -f "$asterisk_bin" || : )
+	pidcount=$(echo $pids | wc -w)
+
+	# Single process, great.
+	if [ $pidcount -eq 1 ] ; then
+		pid=$pids
+		echo "Found a single asterisk instance running as process $pid"
+	fi
+
+	# More than 1 asterisk process running
+	if [ x"$pid" = x ] ; then
+		# More than 1 process running, let's try asking asterisk for it's
+		# pidfile
+		pidfile=$("$asterisk_bin" -rx "core show settings" 2>/dev/null | sed -n -r -e "s/^\s*pid file:\s+(.*)/\1/gpi")
+		# We found it
+		if [ x"$pidfile" != x -a -f "$pidfile" ] ; then
+			pid=$(cat "$pidfile")
+			echo "Found pidfile $pidfile with process $pid"
+		fi
+	fi
+
+	# It's possible that asterisk was started with the -C option which means the
+	# control socket and pidfile might not be where we expect.  We're going to
+	# have to parse the process arguments to see if -C was specified.
+	# The first process that has a -C argument determines which config
+	# file to use to find the pidfile of the main process.
+	# NOTE: The ps command doesn't quote command line arguments that it
+	# displays so we need to look in /proc/<pid>/cmdline.
+
+	if [ x"$pid" = x ] ; then
+		# BSDs might not mount /proc by default :(
+		mounted_proc=0
+		if uname -o | grep -qi "bsd" ; then
+			if ! mount | grep -qi "/proc" ; then
+				echo "Temporarily mounting /proc"
+				mounted_proc=1
+				mount -t procfs proc /proc
+			fi
+		fi
+
+		for p in $pids ; do
+			# Fields in cmdline are delimited by NULLs
+			astetcconf=$(sed -n -r -e "s/.*\x00-C\x00([^\x00]+).*/\1/gp" /proc/$p/cmdline)
+			if [ x"$astetcconf" != x ] ; then
+				pidfile=$("$asterisk_bin" -C "$astetcconf" -rx "core show settings" 2>/dev/null | sed -n -r -e "s/^\s*pid file:\s+(.*)/\1/gpi")
+				if [ x"$pidfile" != x -a -f "$pidfile" ] ; then
+					pid=$(cat "$pidfile")
+					echo "Found pidfile $pidfile the hard way with process $pid"
+					break
+				fi
+			fi
+		done
+		if [ $mounted_proc -eq 1 ] ; then
+			echo "Unmounting /proc"
+			umount /proc
+		fi
+	fi
+
+	if [ x"$pid" = x ] ; then
+		>&2 echo "Can't determine pid of the running asterisk instance"
+		exit 1
+	fi
+
+	if $RUNNING ; then
+		answer=Y
+	else
+		read -p "WARNING:  Taking a core dump of the running asterisk instance will suspend call processing while the dump is saved.  Do you wish to continue? (y/N) " answer
+	fi
+	if [[ "$answer" =~ ^[Yy] ]] ; then
+		cf="${OUTPUTDIR:-/tmp}/core-asterisk-running-$df"
+		echo "Dumping running asterisk process to $cf"
+		${GDB} ${asterisk_bin} -p $pid -q --batch --ex "gcore $cf" >/dev/null 2>&1
+		COREDUMPS+=("$cf")
+	else
+		echo "Skipping dump of running process"
+	fi
+fi
+
+if [ "${#COREDUMPS[@]}" -eq 0 ] ; then
+	echo "No coredumps found"
+	print_help
+fi
+
+# Extract the gdb scripts from the end of this script
+# and save them to /tmp/.gdbinit
+
+gdbinit=${OUTPUTDIR:-/tmp}/.ast_coredumper.gdbinit
+
+trap "rm $gdbinit" EXIT
+
+ss=`egrep -n "^#@@@SCRIPTSTART@@@" $0 |cut -f1 -d:`
+tail -n +${ss} $0 >$gdbinit
+
+# Now iterate over the coredumps and dump the debugging info
+for i in ${!COREDUMPS[@]} ; do
+	cf=$(readlink -ne ${COREDUMPS[$i]})
+	echo "Processing $cf"
+
+	cfdir=`dirname ${cf}`
+	cfname=`basename ${cf}`
+	outputdir=${OUTPUTDIR:-${cfdir}}
+
+	${GDB} -n --batch -q --ex "source $gdbinit" "$asterisk_bin" "$cf" 2>/dev/null | (
+		of=/dev/null
+		while IFS= read line ; do
+			if [[ "$line" =~ !@!@!@!\ ([^\ ]+)\ !@!@!@! ]] ; then
+				of=${outputdir}/${cfname}-${BASH_REMATCH[1]}
+				of=${of//:/-}
+				rm -f "$of"
+				echo "Creating $of"
+			fi
+			echo -e $"$line" >> "$of"
+		done
+	)
+
+	if $tarball_coredumps ; then
+		cfname=${cfname//:/-}
+		tf=${outputdir}/${cfname}.tar.gz
+		echo "Creating ${tf}"
+
+		dest=${outputdir}/${cfname}.output
+		rm -rf ${dest} 2>/dev/null || :
+
+		libdir=usr/lib
+		[ -d /usr/lib64 ] && libdir+=64
+		mkdir -p ${dest}/tmp ${dest}/${libdir}/asterisk ${dest}/etc ${dest}/usr/sbin
+
+		ln -s ${cf} ${dest}/tmp/${cfname}
+		cp ${outputdir}/${cfname}*.txt ${dest}/tmp/
+		[ -f /etc/os-release ] && cp /etc/os-release ${dest}/etc/
+		if $tarball_config ; then
+			cp -a /etc/asterisk ${dest}/etc/
+		fi
+		cp -a /${libdir}/libasterisk* ${dest}/${libdir}/
+		cp -a /${libdir}/asterisk/* ${dest}/${libdir}/asterisk/
+		cp -a /usr/sbin/asterisk ${dest}/usr/sbin
+		rm -rf ${tf}
+		tar -chzf ${tf} --transform="s/^[.]/${cfname}.output/" -C ${dest} .
+		sleep 3
+		rm -rf ${dest}
+		echo "Created $tf"
+	elif $tarball_results ; then
+		cfname=${cfname//:/-}
+		tf=${outputdir}/${cfname}.tar.gz
+		echo "Creating ${tf}"
+
+		dest=${outputdir}/${cfname}.output
+		rm -rf ${dest} 2>/dev/null || :
+		mkdir -p ${dest}
+		cp ${outputdir}/${cfname}*.txt ${dest}/
+		if $tarball_config ; then
+			mkdir -p ${dest}/etc
+			cp -a /etc/asterisk ${dest}/etc/
+		fi
+		tar -chzf ${tf} --transform="s/^[.]/${cfname}/" -C ${dest} .
+		rm -rf ${dest}
+		echo "Created $tf"
+	fi
+
+if $delete_coredumps_after ; then
+		rm -rf "${cf}"
+	fi
+
+	if $delete_results_after ; then
+		rm -rf "${cf//:/-}"-{brief,full,thread1,locks,info}.txt
+	fi
+done
+
+exit
+
+# Be careful editng the inline scripts.
+# They're space-indented.
+
+# We need the python bit because lock_infos isn't
+# a valid symbol in asterisk unless DEBUG_THREADS was
+# used during the compile.  Also, interrupt and continue
+# are only valid for a running program.
+
+#@@@SCRIPTSTART@@@
+python
+
+import datetime
+
+
+def timeval_to_datetime(value):
+    """Convert a timeval struct to a python datetime object
+
+    Args:
+        value: A gdb Value representing a C timeval
+
+    Return:
+        A python datetime object
+    """
+
+    sec = int(value['tv_sec'])
+    usec = int(value['tv_usec'])
+
+    return datetime.datetime.fromtimestamp(sec + usec / float(1000000))
+
+
+def s_strip(value):
+    """Convert the given value to a string, and strip any leading/trailing
+    spaces and/or quotes.
+
+    Args:
+        name: The gdb Value to convert and strip
+
+    Return:
+        The stripped value as a string
+    """
+
+    if value == None:
+        return "None"
+
+    try:
+        if 'char *' not in str(value.type) and 'char [' not in str(value.type):
+            # Use the string method for everything but string pointers (only
+            # points to first letter) and non-string values in general
+            return value.string().strip('" ') or "<None>"
+    except:
+        pass
+
+    return str(value).strip('" ') or "<None>"
+
+
+def get(name):
+    """Retrieve a named variable's value as a string using GDB.
+
+    Args:
+        name: The name of the variable to look up
+
+    Return:
+        The variable's value as a string
+    """
+
+    return s_strip(gdb.parse_and_eval(name))
+
+
+def get_container_hash_objects(name, type, on_object=None):
+    """Retrieve a list of objects from an ao2_container_hash.
+
+    Expected on_object signature:
+
+        res, stop = on_object(GDB Value)
+
+    The given callback, on_object, is called for each object found in the
+    container. The callback is passed a dereferenced GDB Value object and
+    expects an object to be returned, which is then appended to a list of
+    objects to be returned by this function. Iteration can be stopped by
+    returning "True" for the second return value.
+
+    If on_object is not specified then the dereferenced GDB value is instead
+    added directly to the returned list.
+
+    Args:
+        name: The name of the ao2_container
+        type: The type of objects stored in the container
+        on_object: Optional function called on each object found
+
+    Return:
+        A list of container objects
+    """
+
+    objs = []
+
+    try:
+
+        container = gdb.parse_and_eval(name).cast(
+            gdb.lookup_type('struct ao2_container_hash').pointer())
+
+        # Loop over every bucket searching for hash bucket nodes
+        for n in range(container['n_buckets']):
+            node = container['buckets'][n]['list']['last']
+            while node:
+                # Each node holds the needed object
+                obj = node.dereference()['common']['obj'].cast(
+                    gdb.lookup_type(type).pointer()).dereference()
+
+                res, stop = on_object(obj) if on_object else (obj, False)
+
+                if res:
+                    objs.append(res)
+
+                if stop:
+                    return objs
+
+                node = node.dereference()['links']['last']
+    except Exception as e:
+        print("{0} - {1}".format(name, e))
+        pass
+
+    return objs
+
+
+def get_container_rbtree_objects(name, type, on_object=None):
+    """Retrieve a list of objects from an ao2_container_rbtree.
+
+    Expected on_object signature:
+
+        res, stop = on_object(GDB Value)
+
+    The given callback, on_object, is called for each object found in the
+    container. The callback is passed a dereferenced GDB Value object and
+    expects an object to be returned, which is then appended to a list of
+    objects to be returned by this function. Iteration can be stopped by
+    returning "True" for the second return value.
+
+    If on_object is not specified then the dereferenced GDB value is instead
+    added directly to the returned list.
+
+    Args:
+        name: The name of the ao2_container
+        type: The type of objects stored in the container
+        on_object: Optional function called on each object found
+
+    Return:
+        A list of container objects
+    """
+
+    objs = []
+
+    def handle_node(node):
+
+        if not node:
+            return True
+
+        # Each node holds the needed object
+        obj = node.dereference()['common']['obj'].cast(
+            gdb.lookup_type(type).pointer()).dereference()
+
+        res, stop = on_object(obj) if on_object else (obj, False)
+
+        if res:
+            objs.append(res)
+
+        return not stop and (handle_node(node['left']) and
+                             handle_node(node['right']))
+
+    try:
+        container = gdb.parse_and_eval(name).cast(
+            gdb.lookup_type('struct ao2_container_rbtree').pointer())
+
+        handle_node(container['root'])
+    except Exception as e:
+        print("{0} - {1}".format(name, e))
+        pass
+
+    return objs
+
+
+def build_info():
+
+    try:
+        return ("Asterisk {0} built by {1} @ {2} on a {3} running {4} on {5}"
+                .format(get("asterisk_version"),
+                    get("ast_build_user"),
+                    get("ast_build_hostname"),
+                    get("ast_build_machine"),
+                    get("ast_build_os"),
+                    get("ast_build_date")))
+    except:
+        return "Unable to retrieve build info"
+
+
+def build_opts():
+
+    try:
+        return get("asterisk_build_opts")
+    except:
+        return "Unable to retrieve build options"
+
+
+def uptime():
+
+    try:
+        started = timeval_to_datetime(gdb.parse_and_eval("ast_startuptime"))
+        loaded = timeval_to_datetime(gdb.parse_and_eval("ast_lastreloadtime"))
+
+        return ("System started: {0}\n"
+                "Last reload: {1}".format(started, loaded))
+    except:
+        return "Unable to retrieve uptime"
+
+
+class TaskProcessor(object):
+
+    template = ("{name:70} {processed:>10} {in_queue:>10} {max_depth:>10} "
+                "{low_water:>10} {high_water:>10}")
+
+    header = {'name': 'Processor', 'processed': 'Processed',
+              'in_queue': 'In Queue', 'max_depth': 'Max Depth',
+              'low_water': 'Low water', 'high_water': 'High water'}
+
+    @staticmethod
+    def objects():
+
+        try:
+            objs = get_container_hash_objects('tps_singletons',
+                'struct ast_taskprocessor', TaskProcessor.from_value)
+
+            objs.sort(key=lambda x: x.name.lower())
+        except Exception as e:
+            return []
+
+        return objs
+
+    @staticmethod
+    def from_value(value):
+
+        return TaskProcessor(
+            value['name'],
+            value['stats']['_tasks_processed_count'],
+            value['tps_queue_size'],
+            value['stats']['max_qsize'],
+            value['tps_queue_low'],
+            value['tps_queue_high']), False
+
+    def __init__(self, name, processed, in_queue, max_depth,
+                 low_water, high_water):
+
+        self.name = s_strip(name)
+        self.processed = int(processed)
+        self.in_queue = int(in_queue)
+        self.max_depth = int(max_depth)
+        self.low_water = int(low_water)
+        self.high_water = int(high_water)
+
+
+class Channel(object):
+
+    template = ("{name:30} {context:>20} {exten:>20} {priority:>10} {state:>25} "
+                "{app:>20} {data:>30} {caller_id:>15} {created:>30} "
+                "{account_code:>15} {peer_account:>15} {bridge_id:>38}")
+
+    header = {'name': 'Channel', 'context': 'Context', 'exten': 'Extension',
+              'priority': 'Priority', 'state': "State", 'app': 'Application',
+              'data': 'Data', 'caller_id': 'CallerID', 'created': 'Created',
+              'account_code': 'Accountcode', 'peer_account': 'PeerAccount',
+              'bridge_id': 'BridgeID'}
+
+    @staticmethod
+    def objects():
+
+        try:
+            objs = get_container_hash_objects('channels',
+                'struct ast_channel', Channel.from_value)
+
+            objs.sort(key=lambda x: x.name.lower())
+        except:
+            return []
+
+        return objs
+
+    @staticmethod
+    def from_value(value):
+
+        bridge_id = None
+        if value['bridge']:
+            bridge_id = value['bridge']['uniqueid']
+
+        return Channel(
+            value['name'],
+            value['context'],
+            value['exten'],
+            value['priority'],
+            value['state'],
+            value['appl'],
+            value['data'],
+            value['caller']['id']['number']['str'],
+            timeval_to_datetime(value['creationtime']),
+            value['accountcode'],
+            value['peeraccount'],
+            bridge_id), False
+
+    @staticmethod
+    def summary():
+
+        try:
+            return ("{0} active channels\n"
+                    "{1} active calls\n"
+                    "{2} calls processed".format(
+                        int(gdb.parse_and_eval(
+                            'channels').dereference()['elements']),
+                        get("countcalls"),
+                        get("totalcalls")))
+        except:
+            return "Unable to retrieve channel summary"
+
+    def __init__(self, name, context=None, exten=None, priority=None,
+                 state=None, app=None, data=None, caller_id=None,
+                 created=None, account_code=None, peer_account=None,
+                 bridge_id=None):
+
+        self.name = s_strip(name)
+        self.context = s_strip(context)
+        self.exten = s_strip(exten)
+        self.priority = int(priority)
+        self.state = s_strip(state)
+        self.app = s_strip(app)
+        self.data = s_strip(data)
+        self.caller_id = s_strip(caller_id)
+        self.created = s_strip(created)
+        self.account_code = s_strip(account_code)
+        self.peer_account = s_strip(peer_account)
+        self.bridge_id = s_strip(bridge_id)
+
+
+class Bridge(object):
+
+    template = ("{uniqueid:38} {num_channels:>15} {subclass:>10} {tech:>20} "
+                "{created:>30}")
+
+    header = {'uniqueid': 'Bridge-ID', 'num_channels': 'Chans',
+              'subclass': 'Type', 'tech': 'Technology', 'created': 'Created'}
+
+    @staticmethod
+    def objects():
+
+        try:
+            objs = get_container_rbtree_objects('bridges',
+                'struct ast_bridge', Bridge.from_value)
+
+            objs.sort(key=lambda x: x.uniqueid.lower())
+        except:
+            return []
+
+        return objs
+
+    @staticmethod
+    def from_value(value):
+
+        return Bridge(
+            value['uniqueid'],
+            value['num_channels'],
+            timeval_to_datetime(value['creationtime']),
+            value['v_table']['name'],
+            value['technology']['name']), False
+
+
+    def __init__(self, uniqueid, num_channels=None, created=None, subclass=None,
+                 tech=None):
+
+        self.uniqueid = s_strip(uniqueid)
+        self.num_channels = int(num_channels)
+        self.created = s_strip(created)
+        self.subclass = s_strip(subclass)
+        self.tech = s_strip(tech)
+
+
+class DumpAsteriskCommand(gdb.Command):
+
+    def __init__(self):
+        super(DumpAsteriskCommand, self).__init__ ("dump-asterisk",
+            gdb.COMMAND_OBSCURE, gdb.COMPLETE_COMMAND)
+
+    def print_table(self, type):
+
+        plural = "{0}s".format(type.__name__)
+
+        objs = type.objects()
+
+        if not len(objs):
+            print("{0} not found\n".format(plural))
+            return
+
+        print("{0} ({1}):\n".format(plural, len(objs)))
+
+        print(type.template.format(**type.header))
+
+        for obj in objs:
+            print(type.template.format(**vars(obj)))
+
+        print("\n")
+
+    def invoke(self, arg, from_tty):
+        try:
+            gdb.execute("interrupt", from_tty)
+        except:
+            pass
+        print("!@!@!@! thread1.txt !@!@!@!\n")
+        try:
+            gdb.execute("p $_siginfo", from_tty)
+            gdb.execute("info signal $_siginfo.si_signo")
+        except:
+            pass
+        try:
+            gdb.execute("thread apply 1 bt full", from_tty)
+        except:
+            pass
+        print("!@!@!@! brief.txt !@!@!@!\n")
+        try:
+            gdb.execute("p $_siginfo", from_tty)
+            gdb.execute("info signal $_siginfo.si_signo")
+        except:
+            pass
+        try:
+            gdb.execute("thread apply all bt", from_tty)
+        except:
+            pass
+        print("!@!@!@! full.txt !@!@!@!\n")
+        try:
+            gdb.execute("p $_siginfo", from_tty)
+            gdb.execute("info signal $_siginfo.si_signo")
+        except:
+            pass
+        try:
+            gdb.execute("thread apply all bt full", from_tty)
+        except:
+            pass
+        print("!@!@!@! locks.txt !@!@!@!\n")
+        try:
+            gdb.execute("p $_siginfo", from_tty)
+            gdb.execute("info signal $_siginfo.si_signo")
+        except:
+            pass
+        try:
+            gdb.execute("show_locks", from_tty)
+        except:
+            pass
+
+        print("!@!@!@! info.txt !@!@!@!\n")
+
+        gdb.execute('set print addr off')
+
+        try:
+            print("{0}\n".format(build_info()))
+            print("{0}\n".format(uptime()))
+            print("Build options = {0}\n".format(build_opts()))
+
+            self.print_table(TaskProcessor)
+            self.print_table(Bridge)
+            self.print_table(Channel)
+
+            print(Channel.summary())
+        except:
+            pass
+        finally:
+            gdb.execute('set print addr on')
+
+        try:
+            gdb.execute("continue", from_tty)
+        except:
+            pass
+
+DumpAsteriskCommand ()
+end
+
+define show_locks
+   set $n = lock_infos.first
+
+   if $argc == 0
+      printf "                                                                                                                    where_held count-|\n"
+      printf "                                                                                                                         suspended-| |\n"
+      printf "                                                                                                        type- |     times locked-| | |\n"
+      printf "thread         status   file                   line function                             lock name            | lock addr        | | |\n"
+   else
+      printf "thread,status,file,line,function,lock_name,lock_type,lock_addr,times_locked,suspended,where_held_count,where_held_file,where_held_line,where_held_function,there_held_thread\n"
+   end
+
+   while $n
+      if $n->num_locks > 0
+      set $i = 0
+      while $i < $n->num_locks
+         if $n->locks[$i]->suspended == 0
+            if ((ast_mutex_t *)$n->locks[$i]->lock_addr)->tracking
+               if $n->locks[$i]->type > 0
+                  set $track = ((ast_rwlock_t *)$n->locks[$i]->lock_addr)->track
+               else
+                  set $track = ((ast_mutex_t *)$n->locks[$i]->lock_addr)->track
+               end
+            end
+            set $reentrancy = $track->reentrancy
+            set $pending = $n->locks[$i]->pending
+            if $argc > 0
+               printf "%p,%d,%s,%d,%s,%s,%d,%p,%d,%d,%d",\
+                  $n->thread_id, $n->locks[$i]->pending, $n->locks[$i]->file, $n->locks[$i]->line_num, $n->locks[$i]->func,\
+                  $n->locks[$i]->lock_name, $n->locks[$i]->type, $n->locks[$i]->lock_addr, $n->locks[$i]->times_locked,\
+                  $n->locks[$i]->suspended, $track->reentrancy
+               if $reentrancy
+                  if $pending
+                     printf ",%s,%d,%s,%p", $track->file[0], $track->lineno[0], $track->func[0], $track->thread[0]
+                  end
+               end
+            else
+               if $n->locks[$i]->pending < 0
+                  printf "%p failed   %-20s %6d %-36s %-20s %d %14p %3d %d %d",\
+                     $n->thread_id,\
+                     $n->locks[$i]->file, $n->locks[$i]->line_num, $n->locks[$i]->func,\
+                     $n->locks[$i]->lock_name, $n->locks[$i]->type, $n->locks[$i]->lock_addr, $n->locks[$i]->times_locked,\
+                     $n->locks[$i]->suspended, $track->reentrancy
+               end
+               if $n->locks[$i]->pending == 0
+                  printf "%p holding  %-20s %6d %-36s %-20s %d %14p %3d %d %d",\
+                     $n->thread_id,\
+                     $n->locks[$i]->file, $n->locks[$i]->line_num, $n->locks[$i]->func,\
+                     $n->locks[$i]->lock_name, $n->locks[$i]->type, $n->locks[$i]->lock_addr, $n->locks[$i]->times_locked,\
+                     $n->locks[$i]->suspended, $track->reentrancy
+               end
+               if $n->locks[$i]->pending > 0
+                  printf "%p waiting  %-20s %6d %-36s %-20s %d %14p %3d %d %d",\
+                     $n->thread_id,\
+                     $n->locks[$i]->file, $n->locks[$i]->line_num, $n->locks[$i]->func,\
+                     $n->locks[$i]->lock_name, $n->locks[$i]->type, $n->locks[$i]->lock_addr, $n->locks[$i]->times_locked,\
+                     $n->locks[$i]->suspended, $track->reentrancy
+               end
+               if $reentrancy
+                  if $pending
+                     printf "\n               held at: %-20s %6d %-36s by 0x%08lx", $track->file[0], $track->lineno[0], $track->func[0], $track->thread_id[0]
+                  end
+               end
+            end
+            printf "\n"
+         end
+         set $i = $i + 1
+      end
+    end
+    set $n = $n->entry->next
+  end
+end
+
+dump-asterisk
