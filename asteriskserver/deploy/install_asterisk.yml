@@ -11,12 +11,6 @@
     dest: /tmp
     delete: yes
     recursive: yes
-- name: set asterisk source owner and group
-  file:
-    dest: /tmp/asterisk-13.38.3
-    owner: asterisk
-    group: asterisk
-    recurse: yes
 - name: configure asterisk
   command: ./configure --libdir=/opt/asterisk/lib64 --prefix=/opt/asterisk --exec_prefix=/opt/asterisk
   args:
