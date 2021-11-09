@@ -18,12 +18,12 @@
     group: asterisk
     recurse: yes
 - name: configure asterisk
-  command: sudo -u asterisk ./configure --libdir=/opt/asterisk/lib64 --prefix=/opt/asterisk --exec_prefix=/opt/asterisk
+  command: ./configure --libdir=/opt/asterisk/lib64 --prefix=/opt/asterisk --exec_prefix=/opt/asterisk
   args:
     chdir: /tmp/asterisk-13.38.3
     creates: /tmp/asterisk-13.38.3/makeopts    
 - name: create asterisk menuselect config file
-  command: sudo -u asterisk make {{ item }}
+  command: make {{ item }}
   args:
     chdir: /tmp/asterisk-13.38.3
   with_items:
@@ -34,7 +34,7 @@
 # MENUSELECT_CODECS
 - name: run menuselect
   command: \
-    sudo -u asterisk menuselect/menuselect \
+    menuselect/menuselect \
     --disable-category MENUSELECT_TESTS \
     --disable-category MENUSELECT_CEL \
     --disable-category MENUSELECT_CFLAGS \
@@ -65,19 +65,17 @@
     --disable res_statsd
   args:
     chdir: /tmp/asterisk-13.38.3
-# XXX this creates is already there?
-# We're changed=false here and just doing this on the install?
 - name: make asterisk
-  command: sudo -u asterisk make
+  command: make
   args:
     chdir: /tmp/asterisk-13.38.3
     creates: /tmp/asterisk-13.38.3/main    
 - name: install asterisk
-  command: sudo -u asterisk make install
+  command: make install
   args:
     chdir: /tmp/asterisk-13.38.3
     creates: /opt/asterisk/sbin/asterisk
-- name: make asterisk config, as root
+- name: make asterisk config, including system scripts
   command: make config
   args:
     chdir: /tmp/asterisk-13.38.3
@@ -92,6 +90,19 @@
     state: directory
     owner: asterisk
     group: asterisk
+#? /var/spool/asterisk/ /var/lib/asterisk/ /var/run/asterisk/
+#? /var/log/asterisk/
+#? /etc/asterisk
+#? /lib64
+- name: change file ownership
+  file:
+    path: "{{ item }}"
+    state: directory
+    owner: asterisk
+    group: asterisk
+    recurse: yes
+  with_items:
+    - /opt/asterisk
 - name: enable but do not yet start asterisk
   service:
     name: asterisk
