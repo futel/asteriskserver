@@ -90,10 +90,6 @@
     state: directory
     owner: asterisk
     group: asterisk
-#? /var/spool/asterisk/ /var/lib/asterisk/ /var/run/asterisk/
-#? /var/log/asterisk/
-#? /etc/asterisk
-#? /lib64
 - name: change file ownership
   file:
     path: "{{ item }}"
@@ -102,7 +98,12 @@
     group: asterisk
     recurse: yes
   with_items:
-    - /opt/asterisk
+    - /opt/asterisk/etc/asterisk
+    - /opt/asterisk/lib64
+    - /opt/asterisk/var/lib/asterisk
+    - /opt/asterisk/var/log/asterisk    
+    - /opt/asterisk/var/run/asterisk    
+    - /opt/asterisk/var/spool/asterisk
 - name: enable but do not yet start asterisk
   service:
     name: asterisk
