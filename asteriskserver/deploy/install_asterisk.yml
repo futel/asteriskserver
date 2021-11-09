@@ -1,19 +1,19 @@
 ---
 - name: copy asterisk
   synchronize:
-    src: "{{ src }}/asterisk-13.38.3"
+    src: "{{ src }}/asterisk-18.8.0"
     dest: /tmp
     delete: yes
     recursive: yes
 - name: configure asterisk
   command: ./configure
   args:
-    chdir: /tmp/asterisk-13.38.3
-    creates: /tmp/asterisk-13.38.3/makeopts    
+    chdir: /tmp/asterisk-18.8.0
+    creates: /tmp/asterisk-18.8.0/makeopts    
 - name: create asterisk menuselect config file
   command: make {{ item }}
   args:
-    chdir: /tmp/asterisk-13.38.3
+    chdir: /tmp/asterisk-18.8.0
   with_items:
     - menuselect.makeopts
 # MENUSELECT_PBX
@@ -26,7 +26,6 @@
     --disable-category MENUSELECT_TESTS \
     --disable-category MENUSELECT_CEL \
     --disable-category MENUSELECT_CFLAGS \
-    --disable-category MENUSELECT_OPTS_app_voicemail \
     --disable-category MENUSELECT_AGIS \
     --disable-category MENUSELECT_EXTRA_SOUNDS \
     --disable chan_mgcp \
@@ -34,14 +33,16 @@
     --disable chan_ooh323 \
     --disable app_amd \
     --disable app_mysql \
+    --disable app_voicemail_imap \
+    --disable app_voicemail_odbc \    
     --disable cdr_adaptive_odbc \
+    --disable cdr_beanstalkd \
     --disable cdr_custom \
-    --disable cdr_manager \    
+    --disable cdr_manager \
     --disable cdr_mysql \
     --disable cdr_odbc \
     --disable cdr_pgsql \
     --disable cdr_radius \
-    --disable cdr_sqlite \
     --disable cdr_sqlite3_custom \
     --disable cdr_syslog \
     --disable cdr_tds \
@@ -52,21 +53,21 @@
     --disable res_parking \    
     --disable res_statsd
   args:
-    chdir: /tmp/asterisk-13.38.3
+    chdir: /tmp/asterisk-18.8.0
 - name: make asterisk
   command: make
   args:
-    chdir: /tmp/asterisk-13.38.3
-    creates: /tmp/asterisk-13.38.3/main    
+    chdir: /tmp/asterisk-18.8.0
+    creates: /tmp/asterisk-18.8.0/main    
 - name: install asterisk
   command: make install
   args:
-    chdir: /tmp/asterisk-13.38.3
+    chdir: /tmp/asterisk-18.8.0
     creates: /sbin/asterisk
 - name: make asterisk config, including system scripts
   command: make config
   args:
-    chdir: /tmp/asterisk-13.38.3
+    chdir: /tmp/asterisk-18.8.0
     creates: /etc/init.d/asterisk
 - name: copy service config
   copy:
