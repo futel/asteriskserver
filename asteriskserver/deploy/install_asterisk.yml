@@ -82,11 +82,10 @@
   args:
     chdir: /tmp/asterisk-13.38.3
     creates: /etc/init.d/asterisk
-# this adds ASTARGS="-U asterisk"
-- name: copy our safe_asterisk
+- name: copy service config
   copy:
-    src: "{{ src }}/safe_asterisk"
-    dest: /opt/asterisk/sbin
+    src: "{{ src }}/etc/sysconfig/asterisk"
+    dest: /etc/sysconfig/asterisk
 - name: make asterisk log archive directory
   file:
     path: /opt/asterisk/var/log/asterisk/old
