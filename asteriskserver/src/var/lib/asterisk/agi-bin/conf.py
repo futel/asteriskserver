@@ -1,1 +1,1 @@
-asterisk_root = "/"
+asterisk_root = "/opt/asterisk"
