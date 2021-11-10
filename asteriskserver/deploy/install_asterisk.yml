@@ -12,7 +12,7 @@
     delete: yes
     recursive: yes
 - name: configure asterisk
-  command: ./configure --prefix=/opt/asterisk --exec_prefix=/opt/asterisk
+  command: ./configure --prefix=/opt/asterisk
   args:
     chdir: /tmp/asterisk-13.38.3
     creates: /tmp/asterisk-13.38.3/makeopts    
