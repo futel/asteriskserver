@@ -93,7 +93,6 @@
     recurse: yes
   with_items:
     - /opt/asterisk/etc/asterisk
-    - /opt/asterisk/lib64
     - /opt/asterisk/var/lib/asterisk
     - /opt/asterisk/var/log/asterisk    
     - /opt/asterisk/var/run/asterisk    
