@@ -1,3 +1,4 @@
+conf = require("conf")
 util = require("util")
 
 function bounce()
@@ -21,7 +22,7 @@ function voicemail_create(context, exten)
     app.AGI("next_vm.agi")
     vmbox = channel.vmbox:get()
     -- XXX
-    app.system("/opt/asterisk/sbin/asterisk -x 'voicemail reload'")
+    app.system(conf.asterisk_root .. "/sbin/asterisk -x 'voicemail reload'")
     app.VoiceMailMain(vmbox)
 end
 

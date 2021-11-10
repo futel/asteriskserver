@@ -1,3 +1,4 @@
+conf = require("conf")
 util = require("util")
 
 function menu_contribute(context, extension)
@@ -51,37 +52,37 @@ extensions = {
     wildcard_line_contribute = util.context_array(menu_contribute, {}),    
     wildcard_line_play_one = util.context(
         {intro_statements={
-             "/opt/asterisk/var/lib/asterisk/sounds/futel/wildcard-line/1"},
+             conf.asterisk_root .. "/var/lib/asterisk/sounds/futel/wildcard-line/1"},
          menu_entries={},
          statement_dir=nil}),
     wildcard_line_play_two = util.context(
         {intro_statements={
-             "/opt/asterisk/var/lib/asterisk/sounds/futel/wildcard-line/2"},
+             conf.asterisk_root .. "/var/lib/asterisk/sounds/futel/wildcard-line/2"},
          menu_entries={},
          statement_dir=nil}),
     wildcard_line_play_three = util.context(
         {intro_statements={
-             "/opt/asterisk/var/lib/asterisk/sounds/futel/wildcard-line/3"},
+             conf.asterisk_root .. "/var/lib/asterisk/sounds/futel/wildcard-line/3"},
          menu_entries={},
          statement_dir=nil}),
     wildcard_line_play_four = util.context(
         {intro_statements={
-             "/opt/asterisk/var/lib/asterisk/sounds/futel/wildcard-line/4"},
+             conf.asterisk_root .. "/var/lib/asterisk/sounds/futel/wildcard-line/4"},
          menu_entries={},
          statement_dir=nil}),
     wildcard_line_play_five = util.context(
         {intro_statements={
-             "/opt/asterisk/var/lib/asterisk/sounds/futel/wildcard-line/5"},
+             conf.asterisk_root .. "/var/lib/asterisk/sounds/futel/wildcard-line/5"},
          menu_entries={},
          statement_dir=nil}),
     wildcard_line_play_six = util.context(
         {intro_statements={
-             "/opt/asterisk/var/lib/asterisk/sounds/futel/wildcard-line/6"},
+             conf.asterisk_root .. "/var/lib/asterisk/sounds/futel/wildcard-line/6"},
          menu_entries={},
          statement_dir=nil}),
     wildcard_line_play_seven = util.context(
         {intro_statements={
-             "/opt/asterisk/var/lib/asterisk/sounds/futel/wildcard-line/7"},
+             conf.asterisk_root .. "/var/lib/asterisk/sounds/futel/wildcard-line/7"},
          menu_entries={},
          statement_dir=nil})}
 

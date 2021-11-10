@@ -1,3 +1,4 @@
+util = require("conf")
 util = require("util")
 
 -- peoples homes
@@ -23,7 +24,7 @@ end
 -- play content one and be done
 function menu_content_one(context, extension)
     return play_content(
-        {"/opt/asterisk/var/lib/asterisk/sounds/futel/conversations/1"},
+        {conf.asterisk_root .. "/var/lib/asterisk/sounds/futel/conversations/1"},
         "conversations",
         context,
         extension)
@@ -32,7 +33,7 @@ end
 -- play content two and be done
 function menu_content_two(context, extension)
     return play_content(
-        {"/opt/asterisk/var/lib/asterisk/sounds/futel/conversations/2"},
+        {conf.asterisk_root .. "/var/lib/asterisk/sounds/futel/conversations/2"},
         "conversations",
         context,
         extension)
@@ -41,7 +42,7 @@ end
 -- play content three and be done
 function menu_content_three(context, extension)
     return play_content(
-        {"/opt/asterisk/var/lib/asterisk/sounds/futel/conversations/3"},
+        {conf.asterisk_root .. "/var/lib/asterisk/sounds/futel/conversations/3"},
         "conversations",
         context,
         extension)
@@ -50,7 +51,7 @@ end
 -- play content four and be done
 function menu_content_four(context, extension)
     return play_content(
-        {"/opt/asterisk/var/lib/asterisk/sounds/futel/conversations/4"},
+        {conf.asterisk_root .. "/var/lib/asterisk/sounds/futel/conversations/4"},
         "conversations",
         context,
         extension)
@@ -59,7 +60,7 @@ end
 -- play content five and be done
 function menu_content_five(context, extension)
     return play_content(
-        {"/opt/asterisk/var/lib/asterisk/sounds/futel/conversations/5"},
+        {conf.asterisk_root .. "/var/lib/asterisk/sounds/futel/conversations/5"},
         "conversations",
         context,
         extension)
@@ -68,7 +69,7 @@ end
 -- play content six and be done
 function menu_content_six(context, extension)
     return play_content(
-        {"/opt/asterisk/var/lib/asterisk/sounds/futel/conversations/6"},
+        {conf.asterisk_root .. "/var/lib/asterisk/sounds/futel/conversations/6"},
         "conversations",
         context,
         extension)
@@ -77,7 +78,7 @@ end
 -- play content seven and be done
 function menu_content_seven(context, extension)
     return play_content(
-        {"/opt/asterisk/var/lib/asterisk/sounds/futel/conversations/7"},
+        {conf.asterisk_root .. "/var/lib/asterisk/sounds/futel/conversations/7"},
         "conversations",
         context,
         extension)
@@ -86,7 +87,7 @@ end
 -- play content eight and be done
 function menu_content_eight(context, extension)
     return play_content(
-        {"/opt/asterisk/var/lib/asterisk/sounds/futel/conversations/8"},
+        {conf.asterisk_root .. "/var/lib/asterisk/sounds/futel/conversations/8"},
         "conversations",
         context,
         extension)
@@ -95,7 +96,7 @@ end
 -- play content nine and be done
 function menu_content_nine(context, extension)
     return play_content(
-        {"/opt/asterisk/var/lib/asterisk/sounds/futel/conversations/9"},
+        {conf.asterisk_root .. "/var/lib/asterisk/sounds/futel/conversations/9"},
         "conversations",
         context,
         extension)
@@ -104,15 +105,15 @@ end
 -- play content one..nine and be done
 function menu_content_one_selected(context, extension)
     return play_content(
-        {"/opt/asterisk/var/lib/asterisk/sounds/futel/conversations/1",
-         "/opt/asterisk/var/lib/asterisk/sounds/futel/conversations/2",
-         "/opt/asterisk/var/lib/asterisk/sounds/futel/conversations/3",
-         "/opt/asterisk/var/lib/asterisk/sounds/futel/conversations/4",
-         "/opt/asterisk/var/lib/asterisk/sounds/futel/conversations/5",
-         "/opt/asterisk/var/lib/asterisk/sounds/futel/conversations/6",
-         "/opt/asterisk/var/lib/asterisk/sounds/futel/conversations/7",
-         "/opt/asterisk/var/lib/asterisk/sounds/futel/conversations/8",
-         "/opt/asterisk/var/lib/asterisk/sounds/futel/conversations/9"},
+        {conf.asterisk_root .. "/var/lib/asterisk/sounds/futel/conversations/1",
+         conf.asterisk_root .. "/var/lib/asterisk/sounds/futel/conversations/2",
+         conf.asterisk_root .. "/var/lib/asterisk/sounds/futel/conversations/3",
+         conf.asterisk_root .. "/var/lib/asterisk/sounds/futel/conversations/4",
+         conf.asterisk_root .. "/var/lib/asterisk/sounds/futel/conversations/5",
+         conf.asterisk_root .. "/var/lib/asterisk/sounds/futel/conversations/6",
+         conf.asterisk_root .. "/var/lib/asterisk/sounds/futel/conversations/7",
+         conf.asterisk_root .. "/var/lib/asterisk/sounds/futel/conversations/8",
+         conf.asterisk_root .. "/var/lib/asterisk/sounds/futel/conversations/9"},
         "conversations",
         context,
         extension)
@@ -121,14 +122,14 @@ end
 -- play content two..nine and be done
 function menu_content_two_selected(context, extension)
     return play_content(
-        {"/opt/asterisk/var/lib/asterisk/sounds/futel/conversations/2",
-         "/opt/asterisk/var/lib/asterisk/sounds/futel/conversations/3",
-         "/opt/asterisk/var/lib/asterisk/sounds/futel/conversations/4",
-         "/opt/asterisk/var/lib/asterisk/sounds/futel/conversations/5",
-         "/opt/asterisk/var/lib/asterisk/sounds/futel/conversations/6",
-         "/opt/asterisk/var/lib/asterisk/sounds/futel/conversations/7",
-         "/opt/asterisk/var/lib/asterisk/sounds/futel/conversations/8",
-         "/opt/asterisk/var/lib/asterisk/sounds/futel/conversations/9"},
+        {conf.asterisk_root .. "/var/lib/asterisk/sounds/futel/conversations/2",
+         conf.asterisk_root .. "/var/lib/asterisk/sounds/futel/conversations/3",
+         conf.asterisk_root .. "/var/lib/asterisk/sounds/futel/conversations/4",
+         conf.asterisk_root .. "/var/lib/asterisk/sounds/futel/conversations/5",
+         conf.asterisk_root .. "/var/lib/asterisk/sounds/futel/conversations/6",
+         conf.asterisk_root .. "/var/lib/asterisk/sounds/futel/conversations/7",
+         conf.asterisk_root .. "/var/lib/asterisk/sounds/futel/conversations/8",
+         conf.asterisk_root .. "/var/lib/asterisk/sounds/futel/conversations/9"},
         "conversations",
         context,
         extension)
@@ -137,13 +138,13 @@ end
 -- play content three..nine and be done
 function menu_content_three_selected(context, extension)
     return play_content(
-        {"/opt/asterisk/var/lib/asterisk/sounds/futel/conversations/3",
-         "/opt/asterisk/var/lib/asterisk/sounds/futel/conversations/4",
-         "/opt/asterisk/var/lib/asterisk/sounds/futel/conversations/5",
-         "/opt/asterisk/var/lib/asterisk/sounds/futel/conversations/6",
-         "/opt/asterisk/var/lib/asterisk/sounds/futel/conversations/7",
-         "/opt/asterisk/var/lib/asterisk/sounds/futel/conversations/8",
-         "/opt/asterisk/var/lib/asterisk/sounds/futel/conversations/9"},
+        {conf.asterisk_root .. "/var/lib/asterisk/sounds/futel/conversations/3",
+         conf.asterisk_root .. "/var/lib/asterisk/sounds/futel/conversations/4",
+         conf.asterisk_root .. "/var/lib/asterisk/sounds/futel/conversations/5",
+         conf.asterisk_root .. "/var/lib/asterisk/sounds/futel/conversations/6",
+         conf.asterisk_root .. "/var/lib/asterisk/sounds/futel/conversations/7",
+         conf.asterisk_root .. "/var/lib/asterisk/sounds/futel/conversations/8",
+         conf.asterisk_root .. "/var/lib/asterisk/sounds/futel/conversations/9"},
         "conversations",
         context,
         extension)
@@ -152,12 +153,12 @@ end
 -- play content four..nine and be done
 function menu_content_four_selected(context, extension)
     return play_content(
-        {"/opt/asterisk/var/lib/asterisk/sounds/futel/conversations/4",
-         "/opt/asterisk/var/lib/asterisk/sounds/futel/conversations/5",
-         "/opt/asterisk/var/lib/asterisk/sounds/futel/conversations/6",
-         "/opt/asterisk/var/lib/asterisk/sounds/futel/conversations/7",
-         "/opt/asterisk/var/lib/asterisk/sounds/futel/conversations/8",
-         "/opt/asterisk/var/lib/asterisk/sounds/futel/conversations/9"},
+        {conf.asterisk_root .. "/var/lib/asterisk/sounds/futel/conversations/4",
+         conf.asterisk_root .. "/var/lib/asterisk/sounds/futel/conversations/5",
+         conf.asterisk_root .. "/var/lib/asterisk/sounds/futel/conversations/6",
+         conf.asterisk_root .. "/var/lib/asterisk/sounds/futel/conversations/7",
+         conf.asterisk_root .. "/var/lib/asterisk/sounds/futel/conversations/8",
+         conf.asterisk_root .. "/var/lib/asterisk/sounds/futel/conversations/9"},
         "conversations",
         context,
         extension)
@@ -166,11 +167,11 @@ end
 -- play content five..nine and be done
 function menu_content_five_selected(context, extension)
     return play_content(
-        {"/opt/asterisk/var/lib/asterisk/sounds/futel/conversations/5",
-         "/opt/asterisk/var/lib/asterisk/sounds/futel/conversations/6",
-         "/opt/asterisk/var/lib/asterisk/sounds/futel/conversations/7",
-         "/opt/asterisk/var/lib/asterisk/sounds/futel/conversations/8",
-         "/opt/asterisk/var/lib/asterisk/sounds/futel/conversations/9"},
+        {conf.asterisk_root .. "/var/lib/asterisk/sounds/futel/conversations/5",
+         conf.asterisk_root .. "/var/lib/asterisk/sounds/futel/conversations/6",
+         conf.asterisk_root .. "/var/lib/asterisk/sounds/futel/conversations/7",
+         conf.asterisk_root .. "/var/lib/asterisk/sounds/futel/conversations/8",
+         conf.asterisk_root .. "/var/lib/asterisk/sounds/futel/conversations/9"},
         "conversations",
         context,
         extension)
@@ -179,10 +180,10 @@ end
 -- play content six..nine and be done
 function menu_content_six_selected(context, extension)
     return play_content(
-        {"/opt/asterisk/var/lib/asterisk/sounds/futel/conversations/6",
-         "/opt/asterisk/var/lib/asterisk/sounds/futel/conversations/7",
-         "/opt/asterisk/var/lib/asterisk/sounds/futel/conversations/8",
-         "/opt/asterisk/var/lib/asterisk/sounds/futel/conversations/9"},
+        {conf.asterisk_root .. "/var/lib/asterisk/sounds/futel/conversations/6",
+         conf.asterisk_root .. "/var/lib/asterisk/sounds/futel/conversations/7",
+         conf.asterisk_root .. "/var/lib/asterisk/sounds/futel/conversations/8",
+         conf.asterisk_root .. "/var/lib/asterisk/sounds/futel/conversations/9"},
         "conversations",
         context,
         extension)
@@ -191,9 +192,9 @@ end
 -- play content seven..nine and be done
 function menu_content_seven_selected(context, extension)
     return play_content(
-        {"/opt/asterisk/var/lib/asterisk/sounds/futel/conversations/7",
-         "/opt/asterisk/var/lib/asterisk/sounds/futel/conversations/8",
-         "/opt/asterisk/var/lib/asterisk/sounds/futel/conversations/9"},
+        {conf.asterisk_root .. "/var/lib/asterisk/sounds/futel/conversations/7",
+         conf.asterisk_root .. "/var/lib/asterisk/sounds/futel/conversations/8",
+         conf.asterisk_root .. "/var/lib/asterisk/sounds/futel/conversations/9"},
         "conversations",
         context,
         extension)
@@ -202,8 +203,8 @@ end
 -- play content eight..nine and be done
 function menu_content_eight_selected(context, extension)
     return play_content(
-        {"/opt/asterisk/var/lib/asterisk/sounds/futel/conversations/8",
-         "/opt/asterisk/var/lib/asterisk/sounds/futel/conversations/9"},
+        {conf.asterisk_root .. "/var/lib/asterisk/sounds/futel/conversations/8",
+         conf.asterisk_root .. "/var/lib/asterisk/sounds/futel/conversations/9"},
         "conversations",
         context,
         extension)
@@ -212,7 +213,7 @@ end
 -- play content nine and be done
 function menu_content_nine_selected(context, extension)
     return play_content(
-        {"/opt/asterisk/var/lib/asterisk/sounds/futel/conversations/9"},
+        {conf.asterisk_root .. "/var/lib/asterisk/sounds/futel/conversations/9"},
         "conversations",
         context,
         extension)
@@ -368,17 +369,17 @@ extensions = {
          statement_dir="peoples-homes"}),
     paul_knauls_content_one = util.context(
         {intro_statements={
-             "/opt/asterisk/var/lib/asterisk/sounds/futel/peoples-homes/paul_knauls_cotton_club"},
+             conf.asterisk_root .. "/var/lib/asterisk/sounds/futel/peoples-homes/paul_knauls_cotton_club"},
          menu_entries={},
          statement_dir=nil}),
     paul_knauls_content_two = util.context(
         {intro_statements={
-             "/opt/asterisk/var/lib/asterisk/sounds/futel/peoples-homes/paul_knauls_gentrification"},
+             conf.asterisk_root .. "/var/lib/asterisk/sounds/futel/peoples-homes/paul_knauls_gentrification"},
          menu_entries={},
          statement_dir=nil}),
     paul_knauls_content_three = util.context(
         {intro_statements={
-             "/opt/asterisk/var/lib/asterisk/sounds/futel/peoples-homes/paul_knauls_work_aging"},
+             conf.asterisk_root .. "/var/lib/asterisk/sounds/futel/peoples-homes/paul_knauls_work_aging"},
          menu_entries={},
          statement_dir=nil}),
     -- paul_knauls_message = util.context_array(menu_paul_knauls_message, {}),
@@ -643,60 +644,60 @@ extensions = {
     missed_connections_listen = util.context(
         {intro_statements={},
          menu_entries={
-             [1]={{"/opt/asterisk/var/lib/asterisk/sounds/futel/missed-connections/clip_01_06_20", "to-hear-more-and-reply"}, "message_three_play"},
-             [2]={{"/opt/asterisk/var/lib/asterisk/sounds/futel/missed-connections/msg0000-clip", "to-hear-more-and-reply"}, "message_four_play"},
-             [3]={{"/opt/asterisk/var/lib/asterisk/sounds/futel/missed-connections/msg0001-clip", "to-hear-more-and-reply"}, "message_five_play"},
-             [4]={{"/opt/asterisk/var/lib/asterisk/sounds/futel/missed-connections/msg0002-clip", "to-hear-more-and-reply"}, "message_six_play"},
-             [5]={{"/opt/asterisk/var/lib/asterisk/sounds/futel/missed-connections/msg0003-clip", "to-hear-more-and-reply"}, "message_seven_play"},
-             [6]={{"/opt/asterisk/var/lib/asterisk/sounds/futel/missed-connections/msg0004-clip", "to-hear-more-and-reply"}, "message_eight_play"},
-             [7]={{"/opt/asterisk/var/lib/asterisk/sounds/futel/missed-connections/msg0007-clip", "to-hear-more-and-reply"}, "message_nine_play"},
-             [8]={{"/opt/asterisk/var/lib/asterisk/sounds/futel/missed-connections/msg0008-clip", "to-hear-more-and-reply"}, "message_ten_play"}},
+             [1]={{conf.asterisk_root .. "/var/lib/asterisk/sounds/futel/missed-connections/clip_01_06_20", "to-hear-more-and-reply"}, "message_three_play"},
+             [2]={{conf.asterisk_root .. "/var/lib/asterisk/sounds/futel/missed-connections/msg0000-clip", "to-hear-more-and-reply"}, "message_four_play"},
+             [3]={{conf.asterisk_root .. "/var/lib/asterisk/sounds/futel/missed-connections/msg0001-clip", "to-hear-more-and-reply"}, "message_five_play"},
+             [4]={{conf.asterisk_root .. "/var/lib/asterisk/sounds/futel/missed-connections/msg0002-clip", "to-hear-more-and-reply"}, "message_six_play"},
+             [5]={{conf.asterisk_root .. "/var/lib/asterisk/sounds/futel/missed-connections/msg0003-clip", "to-hear-more-and-reply"}, "message_seven_play"},
+             [6]={{conf.asterisk_root .. "/var/lib/asterisk/sounds/futel/missed-connections/msg0004-clip", "to-hear-more-and-reply"}, "message_eight_play"},
+             [7]={{conf.asterisk_root .. "/var/lib/asterisk/sounds/futel/missed-connections/msg0007-clip", "to-hear-more-and-reply"}, "message_nine_play"},
+             [8]={{conf.asterisk_root .. "/var/lib/asterisk/sounds/futel/missed-connections/msg0008-clip", "to-hear-more-and-reply"}, "message_ten_play"}},
          statement_dir="missed-connections"}),
     message_three_play = util.context(
         {intro_statements={
-             "/opt/asterisk/var/lib/asterisk/sounds/futel/missed-connections/1578329858737"},
+             conf.asterisk_root .. "/var/lib/asterisk/sounds/futel/missed-connections/1578329858737"},
          menu_entries={},
          statement_dir="missed-connections"}),
     message_four_play = util.context(
         {intro_statements={
-             "/opt/asterisk/var/lib/asterisk/sounds/futel/missed-connections/msg0000"},
+             conf.asterisk_root .. "/var/lib/asterisk/sounds/futel/missed-connections/msg0000"},
          menu_entries={},         
          statement_dir="missed-connections"}),
     message_five_play = util.context(
         {intro_statements={
-             "/opt/asterisk/var/lib/asterisk/sounds/futel/missed-connections/msg0001"},
+             conf.asterisk_root .. "/var/lib/asterisk/sounds/futel/missed-connections/msg0001"},
          menu_entries={
              {"to-play-responses-to-this-message", "message_five_response_play"}},
          statement_dir="missed-connections"}),
     message_five_response_play = util.context(
         {intro_statements={
-             "/opt/asterisk/var/lib/asterisk/sounds/futel/missed-connections/msg0001-reply"},
+             conf.asterisk_root .. "/var/lib/asterisk/sounds/futel/missed-connections/msg0001-reply"},
          menu_entries={
              {"to-play-responses-to-this-message", "message_five_response_play"}},
          statement_dir="missed-connections"}),
     message_six_play = util.context(
         {intro_statements={
-             "/opt/asterisk/var/lib/asterisk/sounds/futel/missed-connections/msg0002"},
+             conf.asterisk_root .. "/var/lib/asterisk/sounds/futel/missed-connections/msg0002"},
          menu_entries={},         
          statement_dir="missed-connections"}),
     message_seven_play = util.context(
         {intro_statements={
-             "/opt/asterisk/var/lib/asterisk/sounds/futel/missed-connections/msg0003"},
+             conf.asterisk_root .. "/var/lib/asterisk/sounds/futel/missed-connections/msg0003"},
          menu_entries={},
          statement_dir="missed-connections"}),
     message_eight_play = util.context(
         {intro_statements={
-             "/opt/asterisk/var/lib/asterisk/sounds/futel/missed-connections/msg0004"},
+             conf.asterisk_root .. "/var/lib/asterisk/sounds/futel/missed-connections/msg0004"},
          menu_entries={},         
          statement_dir="missed-connections"}),
     message_nine_play = util.context(
         {intro_statements={
-             "/opt/asterisk/var/lib/asterisk/sounds/futel/missed-connections/msg0007"},
+             conf.asterisk_root .. "/var/lib/asterisk/sounds/futel/missed-connections/msg0007"},
          menu_entries={},         
          statement_dir="missed-connections"}),
     message_ten_play = util.context(
         {intro_statements={
-             "/opt/asterisk/var/lib/asterisk/sounds/futel/missed-connections/msg0008"},
+             conf.asterisk_root .. "/var/lib/asterisk/sounds/futel/missed-connections/msg0008"},
          menu_entries={},         
          statement_dir="missed-connections"}),
 
