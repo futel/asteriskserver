@@ -5,13 +5,17 @@ import random
 import uuid
 import yaml
 
-asterisk_etc_dir = '/opt/asterisk/etc/asterisk'
+import conf
+
+asterisk_etc_dir = os.path.join(
+    conf.asterisk_root, 'etc/asterisk')
 
 # filename suffixes to consider for sound files
 soundfile_suffixes = [
     '.gsm', '.sl44', '.sln', '.sln16', '.sln44', '.sln48', '.wav']
 # superdirectory for sound files
-superdirectory = '/opt/asterisk/var/lib/asterisk/sounds/'
+superdirectory = os.path.join(
+    conf.asterisk_root, 'var/lib/asterisk/sounds/')
 # general directories for sound files, in order of preference
 statement_dirs = [
     'statements/karl_quuux/',
@@ -44,7 +48,8 @@ preferred_statement_dirs = [
     'statements/sofia-utilities/',
     'statements/sofia-voicemail/']
 
-metric_filename = '/opt/asterisk/var/log/asterisk/metrics'
+metric_filename = os.path.join(
+    conf.asterisk_root, 'var/log/asterisk/metrics')
 
 def read_config(config_filename):
     yfile = '/'.join((asterisk_etc_dir, config_filename))

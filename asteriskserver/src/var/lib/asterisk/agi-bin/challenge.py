@@ -5,10 +5,12 @@ SQLite would be easier, but this is a text file.
 """
 
 import collections
+import os
 
+import conf
 import ratelimiter
 
-filename = "/opt/asterisk/etc/asterisk/challenge.csv"
+filename = os.path.join(conf.asterisk_root, "etc/asterisk/challenge.csv")
 
 
 def write_challenge_line(key, value):

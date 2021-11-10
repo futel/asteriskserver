@@ -3,9 +3,14 @@
 Sequence challenge.
 """
 
+import os
+import conf
+
 #DIGIT_PAUSE = 0.1
 #ELEMENT_PAUSE = 0.25
-sound_dirname = "/opt/asterisk/var/lib/asterisk/sounds/futel/sequence-challenge/"
+sound_dirname = os.path.join(
+    conf.asterisk_root,
+    "var/lib/asterisk/sounds/futel/sequence-challenge/")
 
 def play_sound(agi_o, name, pause=750):
     name = sound_dirname + name
