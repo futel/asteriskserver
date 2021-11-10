@@ -3,62 +3,62 @@
   include_vars: "conf.yml"
 - name: make recordings directory
   file:
-    path: /opt/asterisk/var/lib/asterisk/sounds/futel/recordings
+    path: /var/lib/asterisk/sounds/futel/recordings
     state: directory
     owner: asterisk
     group: asterisk
 - name: copy asterisk williams short sounds
   copy:
     src: ../src/var/lib/asterisk/sounds/futel/williams-short
-    dest: /opt/asterisk/var/lib/asterisk/sounds/futel
+    dest: /var/lib/asterisk/sounds/futel
     owner: asterisk
     group: asterisk
 - name: copy asterisk williams long sounds
   copy:
     src: ../src/var/lib/asterisk/sounds/futel/williams-long
-    dest: /opt/asterisk/var/lib/asterisk/sounds/futel
+    dest: /var/lib/asterisk/sounds/futel
     owner: asterisk
     group: asterisk
 - name: copy asterisk long oracle sounds
   copy:
     src: ../src/var/lib/asterisk/sounds/futel/oracle-dead-interstitial-long
-    dest: /opt/asterisk/var/lib/asterisk/sounds/futel
+    dest: /var/lib/asterisk/sounds/futel
     owner: asterisk
     group: asterisk
 - name: copy asterisk short oracle sounds
   copy:
     src: ../src/var/lib/asterisk/sounds/futel/oracle-dead-interstitial-short
-    dest: /opt/asterisk/var/lib/asterisk/sounds/futel
+    dest: /var/lib/asterisk/sounds/futel
     owner: asterisk
     group: asterisk
 - name: copy asterisk oracle oracle sounds
   copy:
     src: ../src/var/lib/asterisk/sounds/futel/oracle-dead-oracle
-    dest: /opt/asterisk/var/lib/asterisk/sounds/futel
+    dest: /var/lib/asterisk/sounds/futel
     owner: asterisk
     group: asterisk
 - name: copy asterisk peoples homes sounds
   copy:
     src: ../src/var/lib/asterisk/sounds/futel/peoples-homes
-    dest: /opt/asterisk/var/lib/asterisk/sounds/futel
+    dest: /var/lib/asterisk/sounds/futel
     owner: asterisk
     group: asterisk
 - name: make en statements directory
   file:
-    path: /opt/asterisk/var/lib/asterisk/sounds/en/statements
+    path: /var/lib/asterisk/sounds/en/statements
     state: directory
     owner: asterisk
     group: asterisk
 - name: make es statements directory
   file:
-    path: /opt/asterisk/var/lib/asterisk/sounds/es/statements
+    path: /var/lib/asterisk/sounds/es/statements
     state: directory
     owner: asterisk
     group: asterisk
 - name: copy en statement sounds
   copy:
     src: ../src/var/lib/asterisk/sounds/en/statements/{{ item }}
-    dest: /opt/asterisk/var/lib/asterisk/sounds/en/statements
+    dest: /var/lib/asterisk/sounds/en/statements
     owner: asterisk
     group: asterisk
   with_items:
@@ -81,7 +81,7 @@
 - name: copy es statement sounds
   copy:
     src: ../src/var/lib/asterisk/sounds/es/statements/{{ item }}
-    dest: /opt/asterisk/var/lib/asterisk/sounds/es/statements
+    dest: /var/lib/asterisk/sounds/es/statements
     owner: asterisk
     group: asterisk
   with_items:
@@ -100,13 +100,13 @@
 - name: copy asterisk wildcard line sounds
   copy:
     src: ../src/var/lib/asterisk/sounds/futel/wildcard-line
-    dest: /opt/asterisk/var/lib/asterisk/sounds/futel
+    dest: /var/lib/asterisk/sounds/futel
     owner: asterisk
     group: asterisk
 - name: copy sounds
   copy:
     src: "{{ asterisk_sound_directory }}/futel/{{ item }}"
-    dest: /opt/asterisk/var/lib/asterisk/sounds/futel
+    dest: /var/lib/asterisk/sounds/futel
     owner: asterisk
     group: asterisk
   with_items:
@@ -118,24 +118,24 @@
 - name: copy asterisk confbridge menu sounds
   copy:
     src: "{{ asterisk_sound_directory }}/en/futelconf"
-    dest: /opt/asterisk/var/lib/asterisk/sounds/en
+    dest: /var/lib/asterisk/sounds/en
     owner: asterisk
     group: asterisk
 - name: copy asterisk hold music
   copy:
     src: ../src/var/lib/asterisk/moh/hold/
-    dest: /opt/asterisk/var/lib/asterisk/moh/hold
+    dest: /var/lib/asterisk/moh/hold
     owner: asterisk
     group: asterisk
 - name: copy operator hold music
   copy:
     src: ../src/var/lib/asterisk/moh/operator/
-    dest: /opt/asterisk/var/lib/asterisk/moh/operator
+    dest: /var/lib/asterisk/moh/operator
     owner: asterisk
     group: asterisk
 - name: copy midi hold music
   copy:
     src: ../src/var/lib/asterisk/moh/midi/
-    dest: /opt/asterisk/var/lib/asterisk/moh/midi
+    dest: /var/lib/asterisk/moh/midi
     owner: asterisk
     group: asterisk

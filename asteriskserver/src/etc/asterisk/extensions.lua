@@ -1,4 +1,4 @@
-package.path = package.path .. ';/opt/asterisk/etc/asterisk/?.lua'
+package.path = package.path .. ';/etc/asterisk/?.lua'
 
 extensions_admin = require("extensions_admin")
 extensions_challenge = require("extensions_challenge")

@@ -1,3 +1,3 @@
-local conf = {asterisk_root = "/opt/asterisk"}
+local conf = {asterisk_root = "/"}
 
 return conf

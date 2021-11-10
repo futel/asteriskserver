@@ -9,12 +9,12 @@
   synchronize:
     mode: push
     src: tmp/stage/vm_futel_users.inc
-    dest: /opt/asterisk/etc/asterisk/vm_futel_users.inc
+    dest: /etc/asterisk/vm_futel_users.inc
     private_key: ../conf/id_rsa    
 - meta: clear_facts
 - name: set ownership of voicemail conf on stage
   file:
-    path: /opt/asterisk/etc/asterisk/vm_futel_users.inc
+    path: /etc/asterisk/vm_futel_users.inc
     owner: asterisk
     group: asterisk
 - meta: clear_facts    
@@ -22,13 +22,13 @@
   synchronize:
     mode: push
     src: tmp/stage/default
-    dest: /opt/asterisk/var/spool/asterisk/voicemail
+    dest: /var/spool/asterisk/voicemail
     delete: yes
     private_key: ../conf/id_rsa
 - meta: clear_facts
 - name: set ownership of voicemail data on stage
   file:
-    path: /opt/asterisk/var/spool/asterisk/voicemail/default
+    path: /var/spool/asterisk/voicemail/default
     owner: asterisk
     group: asterisk
     recurse: yes
@@ -37,12 +37,12 @@
   synchronize:
     mode: push
     src: tmp/stage/challenge.csv
-    dest: /opt/asterisk/etc/asterisk/challenge.csv
+    dest: /etc/asterisk/challenge.csv
     private_key: ../conf/id_rsa    
 - meta: clear_facts
 - name: set ownership of challenge file on stage
   file:
-    path: /opt/asterisk/etc/asterisk/challenge.csv
+    path: /etc/asterisk/challenge.csv
     owner: asterisk
     group: asterisk
 - meta: clear_facts
@@ -50,12 +50,12 @@
   synchronize:
     mode: push
     src: tmp/stage/messages
-    dest: /opt/asterisk/var/log/asterisk/messages
+    dest: /var/log/asterisk/messages
     private_key: ../conf/id_rsa    
 - meta: clear_facts
 - name: set ownership of logs on stage
   file:
-    path: /opt/asterisk/var/log/asterisk/messages
+    path: /var/log/asterisk/messages
     owner: asterisk
     group: asterisk
 - meta: clear_facts
@@ -63,12 +63,12 @@
   synchronize:
     mode: push
     src: tmp/stage/metrics
-    dest: /opt/asterisk/var/log/asterisk/metrics
+    dest: /var/log/asterisk/metrics
     private_key: ../conf/id_rsa    
 - meta: clear_facts
 - name: set ownership of logs on stage
   file:
-    path: /opt/asterisk/var/log/asterisk/metrics
+    path: /var/log/asterisk/metrics
     owner: asterisk
     group: asterisk
 - meta: clear_facts
@@ -76,13 +76,13 @@
   synchronize:
     mode: push
     src: tmp/stage/old
-    dest: /opt/asterisk/var/log/asterisk
+    dest: /var/log/asterisk
     delete: yes
     private_key: ../conf/id_rsa    
 - meta: clear_facts
 - name: set ownership of logs on stage
   file:
-    path: /opt/asterisk/var/log/asterisk/old
+    path: /var/log/asterisk/old
     owner: asterisk
     group: asterisk
     recurse: yes

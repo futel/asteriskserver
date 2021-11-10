@@ -2,11 +2,11 @@
 - name: copy integration test source
   copy:
     src: ../src/itest/
-    dest: /opt/asterisk/itest
+    dest: /opt/futel/itest
     owner: asterisk
     group: asterisk
 - name: make integration test scripts executable
   file:
-    path: /opt/asterisk/itest
+    path: /opt/futel/itest
     mode: "u+x"
     recurse: yes

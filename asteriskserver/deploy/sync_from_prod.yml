@@ -1,3 +1,5 @@
+# Our current state for asterisk location: stage is in /, prod is in /opt.
+# Update when prod is in /.
 ---
 - name: copy recordings from prod
   synchronize:

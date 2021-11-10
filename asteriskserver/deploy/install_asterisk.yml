@@ -1,10 +1,4 @@
 ---
-- name: make asterisk directory
-  file:
-    path: /opt/asterisk
-    state: directory
-    owner: asterisk
-    group: asterisk
 - name: copy asterisk
   synchronize:
     src: "{{ src }}/asterisk-13.38.3"
@@ -12,7 +6,7 @@
     delete: yes
     recursive: yes
 - name: configure asterisk
-  command: ./configure --prefix=/opt/asterisk
+  command: ./configure
   args:
     chdir: /tmp/asterisk-13.38.3
     creates: /tmp/asterisk-13.38.3/makeopts    
@@ -68,7 +62,7 @@
   command: make install
   args:
     chdir: /tmp/asterisk-13.38.3
-    creates: /opt/asterisk/sbin/asterisk
+    creates: /sbin/asterisk
 - name: make asterisk config, including system scripts
   command: make config
   args:
@@ -80,7 +74,7 @@
     dest: /etc/sysconfig/asterisk
 - name: make asterisk log archive directory
   file:
-    path: /opt/asterisk/var/log/asterisk/old
+    path: /var/log/asterisk/old
     state: directory
     owner: asterisk
     group: asterisk
@@ -92,11 +86,11 @@
     group: asterisk
     recurse: yes
   with_items:
-    - /opt/asterisk/etc/asterisk
-    - /opt/asterisk/var/lib/asterisk
-    - /opt/asterisk/var/log/asterisk    
-    - /opt/asterisk/var/run/asterisk    
-    - /opt/asterisk/var/spool/asterisk
+    - /etc/asterisk
+    - /var/lib/asterisk
+    - /var/log/asterisk    
+    - /var/run/asterisk    
+    - /var/spool/asterisk
 - name: enable but do not yet start asterisk
   service:
     name: asterisk
