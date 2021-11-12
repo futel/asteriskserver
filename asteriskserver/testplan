@@ -28,6 +28,9 @@ any call starts portland menu when registered to sip:530@origination-stage.futel
 can register extension 535 using twilio programmable voice password
 ext 999 starts portland menu from extension 535
 any call starts portland menu when registered to sip:535@origination-stage.futel.sip.us1.twilio.com
+can register extension 535 using twilio programmable voice password
+ext 999 starts portland menu from extension 535
+any call starts portland menu when registered to sip:535@origination-stage.futel.sip.us1.twilio.com
 
 can register extension 700 using twilio programmable voice password
 ext 999 starts default menu from extension 700
