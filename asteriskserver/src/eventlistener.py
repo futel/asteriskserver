@@ -11,6 +11,7 @@ import socket
 import json
 import logging
 import sys
+from datetime import datetime, timezone
 
 import boto3
 from asterisk import manager
@@ -28,8 +29,10 @@ logging.basicConfig(
     format='%(asctime)s %(message)s')
 
 def event_to_message(event):
+    now = datetime.now(timezone.utc).replace(microsecond=0).isoformat()
     return json.dumps(
-        {'hostname': socket.gethostname(),
+        {'timestamp': now,
+         'hostname': socket.gethostname(),
          'event': event.headers})
 
 def handle_interesting_event(event, manager, snsclient):
