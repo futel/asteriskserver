@@ -1,0 +1,4 @@
+# Startup configuration for the Asterisk daemon
+
+AST_USER="asterisk"
+AST_GROUP="asterisk"
