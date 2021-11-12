@@ -1,0 +1,28 @@
+---
+- name: load secrets
+  include_vars: "deploy_digitalocean_secrets_digitalocean.yml"
+  no_log: true
+- name: remove stage domain name
+  community.digitalocean.digital_ocean_domain:
+    state: absent
+    name: futel-stage.phu73l.net
+    oauth_token: "{{ deploy_access_token }}"
+- name: gather information about prod droplet
+  community.digitalocean.digital_ocean_droplet_info:
+    oauth_token: "{{ deploy_access_token }}"  
+    name: futel-prod.phu73l.net
+  register: droplet
+- name: get public network of prod droplet
+  set_fact:
+    ip_address: "{{ item.ip_address }}"
+  loop: "{{ droplet.data[0].networks.v4 | json_query(type) }}"
+  vars:
+    type: "[?type=='public']"
+- debug: msg="prod IP is {{ ip_address }}"    
+# XXX this fails if domain name already exists?
+- name: point name to droplet
+  community.digitalocean.digital_ocean_domain:
+    state: present
+    name: futel-prod.phu73l.net
+    ip: "{{ ip_address }}"
+    oauth_token: "{{ deploy_access_token }}"
