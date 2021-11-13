@@ -1,3 +1,4 @@
+
 ## Deploy an asterisk server to Digital Ocean
 
 Steps:
@@ -23,7 +24,7 @@ Run unit tests locally
 
 Run integration tests on virtualbox
 
-  cd /opt/asterisk/itest
+  cd /opt/futel/itest
   sudo -u asterisk ./itest.sh
 
 ## Initialize packer
