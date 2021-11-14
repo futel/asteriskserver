@@ -151,14 +151,11 @@ function goto_parent_context(menu_function, context, exten)
     end
 end
 
--- Call the language macro and replay the menu.
--- the only way this seems workable from lua is to call a conf macro
--- exten => s,1,Set(CHANNEL(language)=es)
--- channel.LANGUAGE = "es"
--- channel.LANGUAGE:set("es")
--- channel.LANGUAGE():set("es")
+-- Set the language channel thingy and replay the menu.
 function set_language_es(menu_function, context, extension)
-    app.Macro("languagees")     -- extensions.conf
+    -- this is how we are supposed to be able to do it
+    --channel.LANGUAGE():set("es")    
+    app.exec("Set(CHANNEL(language)=es)")
     return menu_function(context, extension)    
 end
 
