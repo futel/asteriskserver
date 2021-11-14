@@ -14,7 +14,7 @@ util = require("util")
 -- execute background playing of content
 -- if no selection, go to conversations menu main
 function play_content(contents, context, exten)
-    app.AGI("metric.agi", context)
+    util.metric(context)
     for content in util.iter(contents) do
         app.Background(content)
     end

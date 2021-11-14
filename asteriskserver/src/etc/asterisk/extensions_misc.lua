@@ -1,50 +1,50 @@
 function directory_mayor_portland(context, exten)
-    app.AGI("metric.agi", context)
+    util.metric(context)
     app.Macro("dial", "+15038234120")
 end
 
 function directory_mayor_ypsi(context, exten)
-    app.AGI("metric.agi", context)
+    util.metric(context)
     app.Macro("dial", "+17344822017")
 end
 
 function directory_mayor_detroit(context, exten)
-    app.AGI("metric.agi", context)
+    util.metric(context)
     app.Macro("dial", "+13132243400")
 end
 
 function directory_sissyphus(context, exten)
-    app.AGI("metric.agi", context)
+    util.metric(context)
     app.Macro("dial", channel.e_pants:get())
 end
 
 function directory_dream_survey(context, exten)
-    app.AGI("metric.agi", context)
+    util.metric(context)
     app.Macro("dial", "+19712581465")
 end
 
 function directory_natr_xxx(context, exten)
-    app.AGI("metric.agi", context)
+    util.metric(context)
     app.Macro("dial", "+18336287999")
 end
 
 function directory_utopian_hotline(context, exten)
-    app.AGI("metric.agi", context)
+    util.metric(context)
     app.Macro("dial", "+15036627263")
 end
 
 function directory_nuforc(context, exten)
-    app.AGI("metric.agi", context)
+    util.metric(context)
     app.Macro("dial", "+12067223000")
 end
 
 function directory_office_of_night_things(context, exten)
-    app.AGI("metric.agi", context)
+    util.metric(context)
     app.Macro("dial", "+18003900934")
 end
 
 function directory_random_payphone(context, exten)
-    app.AGI("metric.agi", context)
+    util.metric(context)
     -- no retry, queue rings all members, long timeout
     app.Queue("payphones", "rn")
     -- retry, queue rings members sequentially randomly, short timeout
@@ -52,12 +52,12 @@ function directory_random_payphone(context, exten)
 end
 
 function directory_random_concentrationcamp(context, exten)
-    app.AGI("metric.agi", context)
+    util.metric(context)
     app.Queue("concentrationcamps", "r")
 end
 
 function directory_tmbg_dial_a_song(context, exten)
-    app.AGI("metric.agi", context)
+    util.metric(context)
     app.Macro("dial", "+18443876962")
 end
 

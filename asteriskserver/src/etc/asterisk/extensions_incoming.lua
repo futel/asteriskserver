@@ -1,7 +1,7 @@
 util = require("util")
 
 function operator_incoming(context, exten)
-    app.AGI("metric.agi", context)
+    util.metric(context)
     app.VoiceMail(1337, "u")
 end
 

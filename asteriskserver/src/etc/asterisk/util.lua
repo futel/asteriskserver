@@ -67,12 +67,17 @@ function say(filename, context, preferred_subdirs)
     app.Background(channel.agi_out:get())
 end
 
+-- write a metric line named context
+function metric(context)
+    app.AGI("metric.agi", context)    
+end
+
 -- execute menu of statements by saying them
 -- intro statements is sequence of strings
 -- menu_statements is sequence of strings, sequences, or nils
 function menu(pre_callable, intro_statements, menu_statements, statement_dir, context, exten)
     
-    app.AGI("metric.agi", context)
+    metric(context)
 
     if pre_callable then
         pre_callable()
@@ -229,6 +234,7 @@ local util = {
     lockfile_create = lockfile_create,
     lockfile_exists = lockfile_exists,    
     menu = menu,
+    metric = metric,    
     play_random_background = play_random_background,
     record = record,
     say = say}

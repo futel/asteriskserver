@@ -22,7 +22,7 @@ function call_933(context, extension)
 end
 
 function call_emergency(context, number)
-    app.AGI("metric.agi", context)
+    util.metric(context)
     if is_911_enabled() then
         util.say("dialing-nine-one-one")
         app.Macro("dial", number)
