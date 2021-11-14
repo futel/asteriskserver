@@ -178,6 +178,23 @@ local extensions = {
         {menu_entries={
              {"for-the-suicide-prevention-hotline", "suicide-hotline"},
              {"for-an-obamaphone", "obamaphone-michigan"}},
-         statement_dir="community-service"})}
+         statement_dir="community-service"}),
+    utilities_portland = util.context(
+        {menu_entries={
+             {"for-the-current-time", "current-time"},
+             {"for-the-trymet-transit-tracker", "trimet-transit-tracker"},
+             {"to-access-your-multnomah-county-library-account", "lib-account-line"},
+             {"for-a-random-number", "random-number"}},
+         statement_dir="utilities"}),
+    utilities_ypsi = util.context(
+        {menu_entries={
+             {"for-the-current-time", "current-time-ypsi"},
+             {"for-a-random-number", "random-number"}},
+         statement_dir="utilities"}),
+    utilities_souwester = util.context(
+        {menu_entries={
+             {"for-the-current-time", "current-time"},
+             {"for-a-random-number", "random-number"}},
+         statement_dir="utilities"})}
 
 return extensions
