@@ -153,6 +153,17 @@ local extensions = {
              "all-services-are-free-from-any-fewtel-phone",
              "for-more-information-contact-the-operator-from-any-fewtel-phone-or-visit-our-website-at-fewtel-dot-net"},
          menu_entries={},         
-         statement_dir="information"})}
+         statement_dir="information"}),
+    network = util.context(
+        {menu_entries={
+             {"for-longmont-potion-castle", "longmont"},
+             {"for-the-dark-fiber", "dark-fiber"},
+             {"for-the-p-l-a-telephone-network-interface", "pla-interface"},
+             {"for-the-pink-phone-from-the-future", "pink-phone"},
+             {"for-the-collectors-net-inbound-portal", "cnet-portal"},
+             {"for-the-mojave-phone-booth-conference-line", "mojave-conference"},
+             {"for-the-payphone-radio-network", "payphone-radio"},
+             {"for-the-shadytel-voice-bbs", "shady-bbs"}},
+         statement_dir="network"})}
 
 return extensions
