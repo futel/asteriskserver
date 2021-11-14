@@ -216,7 +216,7 @@ extensions = {
              {"for-the-fewtel-voice-conference", "futel-conf"},
              {"for-instructions", "challenge_instructions"},
              {"for-the-leaderboard", "challenge_leaderboard"},
-             {"for-the-fewtel-community", "community-outgoing"},
+             {"for-the-fewtel-community", "community_outgoing"},
              {"for-more-information-about-the-fewtel-remote-testing-facility",
               "challenge_info"}},
          statement_dir="challenge"}),
