@@ -164,6 +164,20 @@ local extensions = {
              {"for-the-mojave-phone-booth-conference-line", "mojave-conference"},
              {"for-the-payphone-radio-network", "payphone-radio"},
              {"for-the-shadytel-voice-bbs", "shady-bbs"}},
-         statement_dir="network"})}
+         statement_dir="network"}),
+    community_services_oregon = util.context(
+        {menu_entries={
+             {"for-two-one-one-community-resources", "info-211"},
+             {"for-multnomah-county-mental-health-crisis-intervention",
+              "mental-health-crisis"},
+             {"for-the-call-to-safety-crisis-line", "call-to-safety"},
+             {"for-the-suicide-prevention-hotline", "suicide-hotline"},
+             {"for-an-obamaphone", "obamaphone-oregon"}},
+         statement_dir="community-service"}),
+    community_services_michigan = util.context(
+        {menu_entries={
+             {"for-the-suicide-prevention-hotline", "suicide-hotline"},
+             {"for-an-obamaphone", "obamaphone-michigan"}},
+         statement_dir="community-service"})}
 
 return extensions
