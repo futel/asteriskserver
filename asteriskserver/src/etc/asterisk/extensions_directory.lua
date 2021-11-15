@@ -1,4 +1,5 @@
 util = require("util")
+math = require("math")
 
 function directory_mayor_portland(context, exten)
     util.metric(context)
@@ -61,6 +62,15 @@ end
 function directory_tmbg_dial_a_song(context, exten)
     util.metric(context)
     app.Macro("dial", "+18443876962")
+end
+
+function random_number(context, exten)
+    util.metric(context)
+    r = math.random(100)
+    for i = 1,util.max_iterations do    
+        util.say("your-random-number-is", "utilities")
+        app.SayNumber(r)
+    end
 end
 
 local extensions = {
@@ -178,17 +188,18 @@ local extensions = {
              {"for-the-current-time", "current-time"},
              {"for-the-trymet-transit-tracker", "trimet-transit-tracker"},
              {"to-access-your-multnomah-county-library-account", "lib-account-line"},
-             {"for-a-random-number", "random-number"}},
+             {"for-a-random-number", "random_number"}},
          statement_dir="utilities"}),
     utilities_ypsi = util.context(
         {menu_entries={
              {"for-the-current-time", "current-time-ypsi"},
-             {"for-a-random-number", "random-number"}},
+             {"for-a-random-number", "random_number"}},
          statement_dir="utilities"}),
     utilities_souwester = util.context(
         {menu_entries={
              {"for-the-current-time", "current-time"},
-             {"for-a-random-number", "random-number"}},
-         statement_dir="utilities"})}
+             {"for-a-random-number", "random_number"}},
+         statement_dir="utilities"}),
+    random_number = util.destination_context(random_number)}
 
 return extensions
