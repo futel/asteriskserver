@@ -95,7 +95,7 @@ local extensions = {
              [3]={"for-the-church-of-robotron", "robotron"},
              [4]={"to-ring-a-fewtel-telephone", "internal-dialtone-wrapper"},
              [5]={"for-hold-the-phone", "hold_the_phone_main"},
-             [6]={"for-the-apology-service", "apology-service-ivr"},
+             [6]={"for-the-apology-service", "apology_intro"},
              [7]={"for-more-information-about-fewtel", "information_futel"}},
          statement_dir="community"}),
 }

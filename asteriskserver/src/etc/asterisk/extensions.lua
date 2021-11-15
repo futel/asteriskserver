@@ -1,6 +1,7 @@
 package.path = package.path .. ';/etc/asterisk/?.lua'
 
 extensions_admin = require("extensions_admin")
+extensions_apology = require("extensions_apology")
 extensions_challenge = require("extensions_challenge")
 extensions_holdthephone = require("extensions_holdthephone")
 extensions_incoming = require("extensions_incoming")
@@ -19,6 +20,7 @@ extensions = {
 
 -- add extensions from each module to the dialplan data structure
 for k,v in pairs(extensions_admin) do extensions[k] = v end
+for k,v in pairs(extensions_apology) do extensions[k] = v end
 for k,v in pairs(extensions_challenge) do extensions[k] = v end
 for k,v in pairs(extensions_holdthephone) do extensions[k] = v end
 for k,v in pairs(extensions_incoming) do extensions[k] = v end
