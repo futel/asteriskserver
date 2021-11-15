@@ -12,8 +12,21 @@ function operator(context, exten)
     app.VoiceMail(1337, "u")
 end
 
+-- dial number with timeout if it passes filter
+function filterdial(context, exten)
+    metric(context)
+    -- filter or die
+    app.AGI("filter_outgoing.agi", exten)
+    -- friction, which may or may not die
+    app.AGI("friction.agi", context)
+    -- we passed, find timeout, if any, and dial
+    app.AGI("call_timeout.agi")
+    app.Macro("dial", exten, channel.agi_out:get())
+end
+
 local extensions = {
     operator = util.destination_context(operator),
+    filterdial = util.dial_context(filterdial),
     information_futel = util.context(
         {intro_statements={
              "fewtel-is-portlands-most-exclusive-telephone-network",

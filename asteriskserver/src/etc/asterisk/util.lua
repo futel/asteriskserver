@@ -164,11 +164,24 @@ function set_language_es(menu_function, context, extension)
     return menu_function(context, extension)    
 end
 
--- return context array which immediately starts destination_function
--- without interaction
+-- Return context array which immediately starts destination_function
+-- when called with no extension.
 function destination_context(destination_function)
     local context_array = {}
     context_array.s = destination_function
+    return context_array
+end
+
+-- Return context array which immediately starts destination_function
+-- when called with a possibly dialable extension. Dialable extensions
+-- begin with a number or +.
+function dial_context(destination_function)
+    local context_array = {}
+    -- Asterisk doesn't like _!, so we need a more specific pattern.
+    -- Filterable outgoing dialed numbers begin with +.
+    context_array["_+!"] = destination_function
+    -- Other dialble numbers begin with a digit.
+    context_array["_X!"] = destination_function    
     return context_array
 end
 
@@ -230,6 +243,7 @@ local util = {
     context = context,
     context_array = context_array,
     destination_context = destination_context,
+    dial_context = dial_context,    
     iter = iter,
     lockfile_create = lockfile_create,
     lockfile_exists = lockfile_exists,
