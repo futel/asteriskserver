@@ -9,13 +9,13 @@ end
 
 function voicemail_check(context, exten)
     bounce()
-    metric(context)
+    util.metric(context)
     app.VoiceMailMain()
 end
 
 function voicemail_create(context, exten)
     bounce()
-    metric(context)    
+    util.metric(context)    
     util.say(
         "voicemail-can-be-accessed-from-any-fewtel-phone-or-from-the-fewtel-incoming-line",
         "voicemail")
@@ -28,7 +28,7 @@ end
 
 function voicemail_leave(context, exten)
     bounce()
-    metric(context)
+    util.metric(context)
     app.VoiceMail()
 end
 
