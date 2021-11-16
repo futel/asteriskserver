@@ -3,47 +3,47 @@ math = require("math")
 
 function directory_mayor_portland(context, exten)
     util.metric(context)
-    app.Macro("dial", "+15038234120")
+    util.internaldial("+15038234120")
 end
 
 function directory_mayor_ypsi(context, exten)
     util.metric(context)
-    app.Macro("dial", "+17344822017")
+    util.internaldial("+17344822017")
 end
 
 function directory_mayor_detroit(context, exten)
     util.metric(context)
-    app.Macro("dial", "+13132243400")
+    util.internaldial("+13132243400")
 end
 
 function directory_sissyphus(context, exten)
     util.metric(context)
-    app.Macro("dial", channel.e_pants:get())
+    util.internaldial(channel.e_pants:get())
 end
 
 function directory_dream_survey(context, exten)
     util.metric(context)
-    app.Macro("dial", "+19712581465")
+    util.internaldial("+19712581465")
 end
 
 function directory_natr_xxx(context, exten)
     util.metric(context)
-    app.Macro("dial", "+18336287999")
+    util.internaldial("+18336287999")
 end
 
 function directory_utopian_hotline(context, exten)
     util.metric(context)
-    app.Macro("dial", "+15036627263")
+    util.internaldial("+15036627263")
 end
 
 function directory_nuforc(context, exten)
     util.metric(context)
-    app.Macro("dial", "+12067223000")
+    util.internaldial("+12067223000")
 end
 
 function directory_office_of_night_things(context, exten)
     util.metric(context)
-    app.Macro("dial", "+18003900934")
+    util.internaldial("+18003900934")
 end
 
 function directory_random_payphone(context, exten)
@@ -61,7 +61,7 @@ end
 
 function directory_tmbg_dial_a_song(context, exten)
     util.metric(context)
-    app.Macro("dial", "+18443876962")
+    util.internaldial("+18443876962")
 end
 
 function random_number(context, exten)

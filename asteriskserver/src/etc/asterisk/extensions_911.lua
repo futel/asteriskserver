@@ -25,7 +25,7 @@ function call_emergency(context, number)
     util.metric(context)
     if is_911_enabled() then
         util.say("dialing-nine-one-one")
-        app.Macro("dial", number)
+        util.internaldial(number)
     else
         app.Busy()
     end

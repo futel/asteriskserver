@@ -77,6 +77,9 @@ function get_dialstring(number, outgoingchannel)
 end
 
 function get_timeoutstring(timeout)
+    if timeout == nil then
+        timeout = ""
+    end
     return "g" .. timeout
 end
 
