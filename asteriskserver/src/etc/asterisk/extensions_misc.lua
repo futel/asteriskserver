@@ -33,6 +33,7 @@ end
 local extensions = {
     operator = util.destination_context(operator),
     filterdial = util.dial_context(filterdial),
+    dial = util.dial_context(dial),    
     information_futel = util.context(
         {intro_statements={
              "fewtel-is-portlands-most-exclusive-telephone-network",
