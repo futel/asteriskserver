@@ -72,6 +72,33 @@ function metric(context)
     app.AGI("metric.agi", context)    
 end
 
+function get_dialstring(number, outgoingchannel)
+    return "SIP/" .. number .. "@" .. outgoingchannel
+end
+
+function get_timeoutstring(timeout)
+    return "g" .. timeout
+end
+
+-- Dial number with timeout in dial command syntax (which can be empty).
+function internaldial(number, timeout)
+    metric("internaldial")
+    -- wait for ratelimiter
+    app.AGI("call_ratelimit.agi")
+    dialstring = get_dialstring(number, channel.outgoingchannel:get())
+    timeoutstring = get_timeoutstring(timeout)
+    -- start trying to dial
+    app.Dial(dialstring, nil, timeoutstring)
+    dialstatus = channel.DIALSTATUS:get()
+    -- we have completed the call, metric and react to the outcome    
+    -- note that we don't get here if the caller hung up first
+    metric("outgoing-dialstatus-" .. dialstatus)
+    if (dialstatus == "CHANUNAVAIL") or (dialstatus == "CONGESTION") then
+        app.Playtones("congestion")
+        app.Congestion()
+    end
+end
+
 -- execute menu of statements by saying them
 -- intro statements is sequence of strings
 -- menu_statements is sequence of strings, sequences, or nils
@@ -243,7 +270,8 @@ local util = {
     context = context,
     context_array = context_array,
     destination_context = destination_context,
-    dial_context = dial_context,    
+    dial_context = dial_context,
+    internaldial = internaldial,
     iter = iter,
     lockfile_create = lockfile_create,
     lockfile_exists = lockfile_exists,
