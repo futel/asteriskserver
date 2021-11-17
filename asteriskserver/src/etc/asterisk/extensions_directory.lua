@@ -1,3 +1,4 @@
+conf = require("conf")
 util = require("util")
 math = require("math")
 
@@ -73,6 +74,17 @@ function random_number(context, exten)
     end
 end
 
+function longmont(context, exten)
+    util.metric(context)
+    util.play_random_background(
+        conf.asterisk_root .. "/var/lib/asterisk/sounds/futel/longmont")
+end
+
+function payphone_radio(context, exten)
+    util.metric(context)
+    app.MP3Player("http://104.167.4.67:8136/stream")
+end
+
 local extensions = {
     directory_portland = util.context(
         {menu_entries={
@@ -144,7 +156,7 @@ local extensions = {
              {"for-the-pink-phone-from-the-future", "pink-phone"},
              {"for-the-collectors-net-inbound-portal", "cnet-portal"},
              {"for-the-mojave-phone-booth-conference-line", "mojave-conference"},
-             {"for-the-payphone-radio-network", "payphone-radio"},
+             {"for-the-payphone-radio-network", "payphone_radio"},
              {"for-the-shadytel-voice-bbs", "shady-bbs"}},
          statement_dir="network"}),
     community_services_oregon = util.context(
@@ -179,6 +191,8 @@ local extensions = {
              {"for-a-random-number", "random_number"}},
          statement_dir="utilities"}),
     random_number = util.destination_context(random_number),
+    longmont = util.destination_context(longmont),
+    payphone_radio = util.destination_context(payphone_radio),
     directory_mayor_portland = util.destination_context(
         directory_mayor_portland),
     directory_mayor_ypsi = util.destination_context(
