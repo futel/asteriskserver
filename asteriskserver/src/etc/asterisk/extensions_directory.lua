@@ -136,28 +136,6 @@ local extensions = {
              [7]={"for-they-might-be-giants-dial-a-song",
                   "directory_tmbg_dial_a_song"}},
          statement_dir="directory"}),
-    directory_mayor_portland = util.destination_context(
-        directory_mayor_portland),
-    directory_mayor_ypsi = util.destination_context(
-        directory_mayor_ypsi),
-    directory_mayor_detroit = util.destination_context(
-        directory_mayor_detroit),
-    directory_sissyphus = util.destination_context(
-        directory_sissyphus),
-    directory_dream_survey = util.destination_context(
-        directory_dream_survey),
-    directory_natr_xxx = util.destination_context(directory_natr_xxx),
-    directory_utopian_hotline = util.destination_context(
-        directory_utopian_hotline),
-    directory_nuforc = util.destination_context(directory_nuforc),    
-    directory_office_of_night_things = util.destination_context(
-        directory_office_of_night_things),
-    directory_random_payphone = util.destination_context(
-        directory_random_payphone),
-    directory_random_concentrationcamp = util.destination_context(
-        directory_random_concentrationcamp),
-    directory_tmbg_dial_a_song = util.destination_context(
-        directory_tmbg_dial_a_song),
     network = util.context(
         {menu_entries={
              {"for-longmont-potion-castle", "longmont"},
@@ -200,6 +178,28 @@ local extensions = {
              {"for-the-current-time", "current-time"},
              {"for-a-random-number", "random_number"}},
          statement_dir="utilities"}),
-    random_number = util.destination_context(random_number)}
+    random_number = util.destination_context(random_number),
+    directory_mayor_portland = util.destination_context(
+        directory_mayor_portland),
+    directory_mayor_ypsi = util.destination_context(
+        directory_mayor_ypsi),
+    directory_mayor_detroit = util.destination_context(
+        directory_mayor_detroit),
+    directory_sissyphus = util.destination_context(
+        directory_sissyphus),
+    directory_dream_survey = util.destination_context(
+        directory_dream_survey),
+    directory_natr_xxx = util.destination_context(directory_natr_xxx),
+    directory_utopian_hotline = util.destination_context(
+        directory_utopian_hotline),
+    directory_nuforc = util.destination_context(directory_nuforc),    
+    directory_office_of_night_things = util.destination_context(
+        directory_office_of_night_things),
+    directory_random_payphone = util.destination_context(
+        directory_random_payphone),
+    directory_random_concentrationcamp = util.destination_context(
+        directory_random_concentrationcamp),
+    directory_tmbg_dial_a_song = util.destination_context(
+        directory_tmbg_dial_a_song)}
 
 return extensions
