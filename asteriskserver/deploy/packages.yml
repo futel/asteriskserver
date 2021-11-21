@@ -12,6 +12,7 @@
       - selinux-policy
       - selinux-policy-targeted
       - sendmail
+      - dracut-squash
     state: absent
 - name: install epel yum package
   yum:
@@ -32,6 +33,7 @@
       - chrony
       - man
       - mpg123
+      - rsync
       - vim-enhanced
       - gcc
       - gcc-c++

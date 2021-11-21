@@ -17,6 +17,6 @@
     oauth_token: "{{ deploy_access_token }}"
     size: s-1vcpu-1gb
     region: sfo1
-    image: centos-8-x64
+    image: rockylinux-8-x64
     ssh_keys: ["{{ ssh_key.data.ssh_key.fingerprint }}"]
   register: droplet
