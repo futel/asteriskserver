@@ -2,7 +2,7 @@
 
 We use Vagrant and Virtualbox on an Ubuntu host.
 
-## Require or install requirements
+## Requirements and test
 
 ansible-playbook -i deploy/hosts deploy/requirements_conf_vm_playbook.yml
 ansible-playbook -K -i deploy/hosts deploy/requirements_packages_generic_playbook.yml
