@@ -1,15 +1,13 @@
-# Our current state for asterisk location: stage is in /, prod is in /opt.
-# Update when prod is in /.
 ---
 - name: copy recordings from prod
   synchronize:
     mode: pull
-    src: /opt/asterisk/var/lib/asterisk/sounds/futel/recordings
+    src: /var/lib/asterisk/sounds/futel/recordings
     dest: tmp/stage
     private_key: ../conf/id_rsa
 - name: fail if recordings exist on prod
   find:
-    paths: '/opt/asterisk/var/lib/asterisk/sounds/futel/recordings'
+    paths: '/var/lib/asterisk/sounds/futel/recordings'
     file_type: directory
   register: recordings_found
 - fail:
@@ -18,38 +16,38 @@
 - name: copy voicemail from prod
   synchronize:
     mode: pull
-    src: /opt/asterisk/etc/asterisk/vm_futel_users.inc
+    src: /etc/asterisk/vm_futel_users.inc
     dest: tmp/stage
     private_key: ../conf/id_rsa    
 - name: copy voicemail from prod
   synchronize:
     mode: pull
-    src: /opt/asterisk/var/spool/asterisk/voicemail/default
+    src: /var/spool/asterisk/voicemail/default
     dest: tmp/stage
     delete: yes
     private_key: ../conf/id_rsa    
 - name: copy challenge file from prod
   synchronize:
     mode: pull
-    src: /opt/asterisk/etc/asterisk/challenge.csv
+    src: /etc/asterisk/challenge.csv
     dest: tmp/stage
     private_key: ../conf/id_rsa    
 - name: copy logs from prod
   synchronize:
     mode: pull
-    src: /opt/asterisk/var/log/asterisk/messages
+    src: /var/log/asterisk/messages
     dest: tmp/stage
     private_key: ../conf/id_rsa    
 - name: copy logs from prod
   synchronize:
     mode: pull
-    src: /opt/asterisk/var/log/asterisk/metrics
+    src: /var/log/asterisk/metrics
     dest: tmp/stage
     private_key: ../conf/id_rsa    
 - name: copy logs from prod
   synchronize:
     mode: pull
-    src: /opt/asterisk/var/log/asterisk/old
+    src: /var/log/asterisk/old
     dest: tmp/stage
     delete: yes
     private_key: ../conf/id_rsa
