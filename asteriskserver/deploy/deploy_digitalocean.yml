@@ -9,3 +9,14 @@
     ssh_pub_key: ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDLA29JYoC7OscF5RFJ96YTV3e7Mk3FjC29o9IfThEa4zTnQLlCqbaMbxtAgEiPimjPMPnEvnB7ZIz7JJ8ammh6H9+RuFDTAwXWgOOccSMNQidKvL4+IZFPeezb4UELAoAT7lWD2X6JttfrALgIzFUYlVgWHux0gNFOFiCb8h1Y2prVT1FqSS1gTQ5cyo9IIxoQzqeKCxEyqjBKN4LO3wqNsQzZ4EGHsD/U7HibucAE4u8jqlkd6lWtYyWH0/XyALzjlk1YHMgwIPHZw/DRWAINiRNe9t/NgzkW5DnIKTAJfKNJ2154SeMlPg6EaWuasnQ9VxpI+898Oz8v6Z6z1Qq7 karl@dispater
     oauth_token: "{{ deploy_access_token }}"
   register: ssh_key
+- name: create stage droplet
+  digital_ocean_droplet:
+    state: present
+    name: futel-stage.phu73l.net
+    unique_name: yes
+    oauth_token: "{{ deploy_access_token }}"
+    size: s-1vcpu-1gb
+    region: sfo1
+    image: centos-8-x64
+    ssh_keys: ["{{ ssh_key.data.ssh_key.fingerprint }}"]
+  register: droplet
