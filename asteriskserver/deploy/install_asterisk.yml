@@ -119,6 +119,6 @@
     - /var/run/asterisk
     - /var/spool/asterisk
 - name: enable but do not yet start asterisk
-  service:
+  ansible.builtin.systemd:
     name: asterisk
     enabled: yes

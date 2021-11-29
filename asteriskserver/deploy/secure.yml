@@ -1,23 +1,26 @@
+# We are using iptables, the more modern toolkit is firewalld and we may
+# need to convert to that at some point.
 ---
 - name: stop and disable firewalld
-  service:
+  ansible.builtin.systemd:
     name: firewalld
     state: stopped
     enabled: no
+    masked: yes
 - name: write sshd config
   copy:
     src: ../src/sshd_config
     dest: /etc/ssh/sshd_config
 - name: restart sshd
-  service:
+  ansible.builtin.systemd:
     name: sshd
     state: restarted
 - name: enable iptables
-  service:
+  ansible.builtin.systemd:
     name: iptables
     enabled: yes
 - name: enable ip6tables
-  service:
+  ansible.builtin.systemd:
     name: ip6tables
     enabled: yes
 - name: update iptables rules
@@ -29,10 +32,10 @@
 - name: save ip6tables rules
   shell: ip6tables-save >/etc/sysconfig/ip6tables
 - name: start iptables
-  service:
+  ansible.builtin.systemd:
     name: iptables
     state: restarted
 - name: start ip6tables
-  service:
+  ansible.builtin.systemd:
     name: ip6tables
     state: restarted

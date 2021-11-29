@@ -5,7 +5,7 @@
     src: "{{ src }}/postfix/main.cf"
     dest: /etc/postfix/main.cf
 - name: restart postfix
-  service:
+  ansible.builtin.systemd:
     name: postfix
     state: restarted
 - name: set timezone with zoneinfo
@@ -20,15 +20,12 @@
     dest: /etc/sysconfig/clock
     force: yes
 - name: start chronyd
-  service:
+  ansible.builtin.systemd:
     name: chronyd
     state: started
-- name: enable chronyd service
-  service:
-    name: chronyd
-    enabled: yes
+    enabled: yes    
 - name: enable and start redis service
-  service:
+  ansible.builtin.systemd:
     name: redis
-    enabled: yes
     state: started
+    enabled: yes

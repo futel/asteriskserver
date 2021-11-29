@@ -55,6 +55,6 @@
     group: root
 # enable but do not yet start supervisord
 - name: enable supervisord service
-  service:
+  ansible.builtin.systemd:
     name: supervisord
     enabled: yes

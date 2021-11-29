@@ -1,9 +1,9 @@
 ---
 - name: start asterisk
-  service:
+  ansible.builtin.systemd:
     name: asterisk
     state: started
 - name: start supervisord
-  service:
+  ansible.builtin.systemd:
     name: supervisord
     state: started
