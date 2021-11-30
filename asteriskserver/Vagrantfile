@@ -28,6 +28,15 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       "virtualbox" => ["default"]
     }
   end    
+
+  config.vm.provision "secure", type: "ansible" do |ansible|
+    ansible.playbook = "deploy/secure_playbook.yml"
+    
+    # default vm gets virtualbox ansible inventory group
+    ansible.groups = {
+      "virtualbox" => ["default"]
+    }
+  end    
   
   config.vm.provision "update_asterisk", type: "ansible" do |ansible|
     ansible.playbook = "deploy/update_asterisk_playbook.yml"

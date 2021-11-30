@@ -1,0 +1,9 @@
+# Virtualbox is completely open and does't change ports,
+# so we just need to shut down firewalld.
+---
+- name: stop and disable firewalld
+  ansible.builtin.systemd:
+    name: firewalld
+    state: stopped
+    enabled: no
+    masked: yes
