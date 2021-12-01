@@ -24,7 +24,6 @@ ext 999 starts default menu from extension 625
 ext 999 starts ypsi menu from extension 630
 ext 999 starts default menu from extension 640
 ext 999 starts default menu from extension 655
-ext 999 starts open signal menu from extension 660
 ext 999 starts dialtone from extension 670
 ext 999 starts default menu from extension 680
 ext 999 starts detroit menu from extension 690
@@ -70,8 +69,6 @@ outgoing call indicates 911 when calling 933 from 640
 outgoing call sends mykle id from 640
 outgoing call indicates 911 when calling 933 from 655
 outgoing call sends taylor id from 655
-outgoing call indicates 911 when calling 933 from 660
-outgoing call sends open signal id from 660
 outgoing call indicates 911 when calling 933 from 670
 outgoing call sends r2d2 id from 670
 outgoing call indicates no 911 when calling 933 from 675
@@ -121,13 +118,11 @@ incoming call:
 
 incoming call to oskar calls oskar extension
 incoming call to garth gets garth extension
-incoming call to open signal gets open signal extension
 incoming call to r2d2 calls r2d2 extension
 incoming call to xnor calls xnor extension
 incoming call to ypsi calls ypsi extension
 incoming call to crossclinton calls crossclinton extension
 incoming call to mykle calls mykle extension
-incoming call to paz calls paz extension
 incoming call to robotron calls robotron extension
 incoming call to souwester calls souwester extension
 incoming call to hoyt calls hoyt extension
