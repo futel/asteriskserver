@@ -28,8 +28,6 @@
 - name: install yum packages
   yum:
     name:
-      - iptables-services
-      - firewalld
       - chrony
       - man
       - mpg123

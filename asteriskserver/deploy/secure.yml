@@ -1,6 +1,12 @@
 # We are using iptables, the more modern toolkit is firewalld and we may
 # need to convert to that at some point.
 ---
+- name: install yum packages
+  yum:
+    name:
+      - iptables-services
+      - firewalld
+    state: present
 - name: stop and disable firewalld
   ansible.builtin.systemd:
     name: firewalld
