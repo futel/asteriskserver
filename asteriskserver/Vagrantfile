@@ -28,16 +28,6 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     # ansible.raw_arguments = ["-v"]
   end    
 
-  config.vm.provision "install_asterisk_helpers", type: "ansible" do |ansible|
-    ansible.playbook = "deploy/install_asterisk_helpers_playbook.yml"
-    ansible.vault_password_file = "conf/vault_pass_virtualbox.txt"
-    
-    # default vm gets virtualbox ansible inventory group
-    ansible.groups = {
-      "virtualbox" => ["default"]
-    }
-  end    
-
   config.vm.provision "update_asterisk", type: "ansible" do |ansible|
     ansible.playbook = "deploy/update_asterisk_playbook.yml"
     ansible.vault_password_file = "conf/vault_pass_generic.txt"    

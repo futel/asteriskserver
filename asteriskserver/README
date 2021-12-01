@@ -38,7 +38,6 @@ Wait for DNS to match IP address with "nslookup futel-stage.phu73l.net".
 
   ansible-playbook -i deploy/hosts deploy/secure_playbook.yml --limit baseinstall
   ansible-playbook -i deploy/hosts deploy/baseinstall_playbook.yml --limit baseinstall
-  ansible-playbook -i deploy/hosts deploy/install_asterisk_helpers_playbook.yml --limit baseinstall
   ansible-playbook -i deploy/hosts deploy/update_assets_playbook.yml
   ansible-playbook -i deploy/hosts deploy/update_asterisk_playbook.yml --limit baseinstall --vault-password-file=conf/vault_pass_generic.txt
   ansible-playbook -i deploy/hosts deploy/find_stage_conf_playbook.yml
