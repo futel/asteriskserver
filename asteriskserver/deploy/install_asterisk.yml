@@ -1,10 +1,8 @@
 ---
-- name: copy asterisk
-  synchronize:
-    src: "{{ src }}/asterisk-18.8.0"
+- name: copy asterisk source
+  ansible.builtin.unarchive:
+    src: "{{ src }}/asterisk-18.8.0.tar.gz"
     dest: /tmp
-    delete: yes
-    recursive: yes
 - name: configure asterisk
   command: ./configure
   args:
