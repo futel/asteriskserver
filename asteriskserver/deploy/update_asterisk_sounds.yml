@@ -37,12 +37,6 @@
     dest: /var/lib/asterisk/sounds/futel
     owner: asterisk
     group: asterisk
-- name: copy asterisk peoples homes sounds
-  copy:
-    src: ../src/var/lib/asterisk/sounds/futel/peoples-homes
-    dest: /var/lib/asterisk/sounds/futel
-    owner: asterisk
-    group: asterisk
 - name: make en statements directory
   file:
     path: /var/lib/asterisk/sounds/en/statements
@@ -71,8 +65,6 @@
     - karl-robotron
     - karl-voicemail-ivr
     - karl-wildcard-line
-    - missed-connections
-    - peoples-homes
     - rose-bar
     - rose-foo
     - sailor
@@ -85,7 +77,6 @@
     owner: asterisk
     group: asterisk
   with_items:
-    - missed-connections
     - sailor
     - sofia-community
     - sofia-community-service
@@ -113,7 +104,6 @@
     - church-of-robotron
     - conversations
     - longmont
-    - missed-connections
     - sequence-challenge
 - name: copy asterisk confbridge menu sounds
   copy:
