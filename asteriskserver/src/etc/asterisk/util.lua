@@ -279,7 +279,6 @@ local util = {
     lockfile_create = lockfile_create,
     lockfile_exists = lockfile_exists,
     max_iterations = max_iterations,
-    menu = menu,
     metric = metric,    
     play_random_background = play_random_background,
     record = record,
