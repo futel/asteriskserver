@@ -19,3 +19,8 @@
   tasks:
     - include: pre_sync_to_stage.yml
     - include: sync_to_stage.yml
+    - include: post_sync.yml
+- hosts: virtualbox
+  become: true
+  tasks:
+    - include: post_sync.yml

@@ -46,11 +46,7 @@ Note stage conf version printed.
 
   ansible-playbook -i deploy/hosts deploy/update_secrets_playbook.yml --limit baseinstall --vault-password-file=conf/vault_pass_prod.txt --extra-vars conf_version=<stage conf version>
   ansible-playbook -i deploy/hosts deploy/provision_storage_playbook.yml --vault-password-file=conf/vault_pass_digitalocean.txt
-  ansible-playbook -i deploy/hosts deploy/sync_playbook.yml
-  
-If sync_playbook failed, preserve any recordings downloaded to tmp/stage/recordings
-
-  ansible-playbook -i deploy/hosts --limit baseinstall deploy/post_sync_playbook.yml
+  ansible-playbook -i deploy/hosts --limit localhost,prod,baseinstall deploy/sync_playbook.yml
 
 ## Test droplet
 
@@ -63,10 +59,8 @@ Test stage against google sheet testplan.
   ansible-playbook -i deploy/hosts deploy/hostname_playbook.yml
 rename futel-prod.phu73l.net droplet to futel-prod-back
 rename futel-stage.phu73l.net droplet to futel-prod.phu73l.net
-  ansible-playbook -i deploy/hosts deploy/sync_playbook.yml
-If sync_playbook failed, preserve any recordings downloaded to tmp/stage/recordings
-  ansible-playbook -i deploy/hosts --limit baseinstall deploy/post_sync_playbook.yml
-  ansible-playbook -i deploy/hosts deploy/post_sync_dns_playbook.yml --vault-password-file=conf/vault_pass_digitalocean.txt
+  ansible-playbook -i deploy/hosts --limit localhost,prod,baseinstall deploy/sync_playbook.yml --vault-password-file=conf/vault_pass_digitalocean.txt
+  ansible-playbook -i deploy/hosts deploy/post_sync_dns_playbook.yml --vault-password-file=conf/vault_pass_digitalocean.txt  
 point all callcentric DID forwarding rules to extensions corresponding to new conf_version on futel-prod.phu73l.net
   futel-r2d2 user to foo|bar
 point all voip.ms DID forwarding rules to subaccounts corresponding to new conf_version on futel-prod.phu73l.net
