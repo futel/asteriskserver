@@ -48,8 +48,8 @@ local extensions = {
              [3]={"for-more-information-about-the-fewtel-voicemail-system",
                   "voicemail_information"}},
          statement_dir="voicemail"}),
-    voicemail_information = util.context(
-        {intro_statements={
+    voicemail_information = util.statement_context(
+        {statements={
              "voicemail-boxes-in-the-fewtel-voicemail-system-can-be-created-from-any-fewtel-phone",
              "voicemail-boxes-in-the-fewtel-voicemail-system-can-be-accessed-from-any-fewtel-phone-or-from-the-fewtel-incoming-line",
              "at",
@@ -75,13 +75,11 @@ local extensions = {
              "three",
              "three",
              "seven"},
-         menu_entries={},
          statement_dir="voicemail"}),
-    voicemail_bounce = util.context(
-        {intro_statements={
+    voicemail_bounce = util.statement_context(
+        {statements={
              "this-system-is-temporarily-down-for-maintenance",
              "try-again-later"},
-         menu_entries={},
          statement_dir="voicemail"}),
     voicemail_check = util.destination_context(voicemail_check),
     voicemail_create = util.destination_context(voicemail_create),

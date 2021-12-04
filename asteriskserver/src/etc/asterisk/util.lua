@@ -102,10 +102,16 @@ function internaldial(number, timeout)
     end
 end
 
+-- say goodbye and hang up
+function goodbye()    
+    say("goodbye")
+    app.Hangup()
+end
+
 -- execute menu of statements by saying them
 -- intro statements is sequence of strings
 -- menu_statements is sequence of strings, sequences, or nils
-function menu(pre_callable, intro_statements, menu_statements, statement_dir, context, exten)
+function menu(pre_callable, post_callable, intro_statements, menu_statements, statement_dir, context, exten)
     
     metric(context)
 
@@ -142,9 +148,12 @@ function menu(pre_callable, intro_statements, menu_statements, statement_dir, co
             app.Background("silence/1")
         end
     end
-    
-    say("goodbye")
-    app.Hangup()
+
+    if post_callable then
+        post_callable()
+    else
+        goodbye()
+    end
 end
 
 -- play statement, then record and store file in directory
@@ -215,6 +224,21 @@ function dial_context(destination_function)
     return context_array
 end
 
+-- Return context array which says statements with nothing but default
+-- menu entries, then gotos parent context
+function statement_context(arg)
+    local statements = arg.statements
+    local statement_dir = arg.statement_dir        
+    goto_parent_context_or_die = function()
+        return goto_parent_context(nil, nil, nil)
+    end
+    return context(
+        {intro_statements=statements,
+         post_callable=goto_parent_context_or_die,
+         menu_entries={},
+         statement_dir=statement_dir})
+end
+
 -- return context array with standard keys added
 -- keys: selections values: destinations
 function context_array(menu_function, destinations)
@@ -246,6 +270,7 @@ end
 -- return context array with a menu and standard keys added
 function context(arg)
     local pre_callable = arg.pre_callable
+    local post_callable = arg.post_callable    
     local intro_statements = arg.intro_statements
     local menu_entries = arg.menu_entries
     local statement_dir = arg.statement_dir
@@ -259,6 +284,7 @@ function context(arg)
     local menu_function = function(context, exten)
         return menu(
             pre_callable,
+            post_callable,
             intro_statements,
             menu_statements,
             statement_dir,
@@ -274,6 +300,7 @@ local util = {
     context_array = context_array,
     destination_context = destination_context,
     dial_context = dial_context,
+    statement_context = statement_context,    
     internaldial = internaldial,
     iter = iter,
     lockfile_create = lockfile_create,
