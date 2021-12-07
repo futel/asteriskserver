@@ -12,6 +12,7 @@ Steps:
 Have no Digital Ocean droplets or domains named futel-stage.phu73l.net.
 Have no Digital Ocean volumes named assets.
 Have only one Digital Ocean volume snapshot with a name starting with assetsubuild.
+Have src/asterisk-18.8.0-futel.1.el8.x86_64.rpm built by buildserver.
 Create or check out release branch.
 
 Run unit tests locally

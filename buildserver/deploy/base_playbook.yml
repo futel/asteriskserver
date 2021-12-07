@@ -1,0 +1,15 @@
+---
+# - hosts: baseinstall
+#   become: true
+#   vars:
+#     src: "../src"
+#   tasks:
+#     - include: packages.yml
+#     - include: build.yml    
+- hosts: virtualbox
+  become: true
+  vars:
+    src: "../src"
+  tasks:
+    - include: packages.yml
+    - include: build.yml

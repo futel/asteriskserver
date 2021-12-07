@@ -89,6 +89,6 @@
     group: asterisk
 - name: make asterisk scripts executable
   file:
-    path: /var/lib/asterisk
+    path: /var/lib/asterisk/agi-bin
     mode: "u+x"
     recurse: yes

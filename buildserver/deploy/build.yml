@@ -1,0 +1,30 @@
+---
+- name: set up rpm tree
+  ansible.builtin.command: rpmdev-setuptree
+- name: copy asterisk source
+  ansible.builtin.unarchive:
+    src: "{{ src }}/root/rpmbuild/SOURCES/asterisk-18.8.0.futel.1.tar.gz" 
+    dest: /root/rpmbuild/SOURCES
+- name: copy asterisk source
+  copy:
+    src: "{{ src }}/root/rpmbuild/SOURCES/{{ item }}"
+    dest: /root/rpmbuild/SOURCES
+    mode: u=rx,g=r,o=r
+  with_items:
+    - menuselect.sh
+- name: copy asterisk spec
+  ansible.builtin.copy:
+    src: "{{ src }}/root/rpmbuild/SPECS/asterisk.spec"
+    dest: /root/rpmbuild/SPECS
+- name: archive asterisk source
+  ansible.builtin.command: tar --create --gzip --file asterisk-18.8.0.futel.1.tar.gz asterisk-18.8.0
+  args:
+    chdir: /root/rpmbuild/SOURCES
+- name: build srpm
+  ansible.builtin.command: rpmbuild -bs ~/rpmbuild/SPECS/asterisk.spec
+- name: build rpm
+  ansible.builtin.command: rpmbuild -bb ~/rpmbuild/SPECS/asterisk.spec
+- name: fetch rpm
+  ansible.builtin.fetch:
+    src: /root/rpmbuild/RPMS/x86_64/asterisk-18.8.0-futel.1.el8.x86_64.rpm
+    dest: rpm
