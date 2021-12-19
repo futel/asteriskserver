@@ -2,13 +2,11 @@ util = require("util")
 
 function operator(context, exten)
     util.metric(context)    
-    app.UserEvent("OperatorAttempt")
     util.say("please-hold")
     util.say("for-the-next-available-operator")
     app.FollowMe("operator", "d")
     -- if we got here, no operator accepted
     util.metric("operator-nopickup")
-    app.UserEvent("OperatorNoPickup")
     app.VoiceMail(1337, "u")
 end
 
