@@ -32,6 +32,7 @@
       - man
       - mpg123
       - rsync
+      - sox
       - vim-enhanced
       - SDL
       - libtool
