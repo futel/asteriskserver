@@ -29,11 +29,9 @@
   yum:
     name:
       - chrony
-      - man
       - mpg123
       - rsync
       - sox
-      - vim-enhanced
       - SDL
       - libtool
       - autoconf
@@ -44,24 +42,13 @@
       - tcpdump
       - openssh
       - openssh-server
-      - openssh-clients
-      - openssl-devel
-      - ncurses-devel
-      - libxml2-devel
-      - lua-devel
-      - newt-devel
-      - kernel-devel
-      - sqlite-devel
-      - libuuid-devel
       - supervisor
       - cyrus-sasl-plain
       - python3-yaml
       - python3-pip
       - postfix
       - redis
-      - jansson-devel
       - espeak-ng
-      - libedit-devel
     state: present
 - name: update pip packages
   pip:
