@@ -16,19 +16,37 @@ menuselect/menuselect \
     --disable-category MENUSELECT_CFLAGS \
     --disable-category MENUSELECT_AGIS \
     --disable-category MENUSELECT_EXTRA_SOUNDS \
+    --disable chan_alsa \
+    --disable chan_console \
     --disable chan_dahdi \
     --disable chan_mgcp \
     --disable chan_mobile \
     --disable chan_ooh323 \
+    --disable chan_oss \
     --disable chan_skinny \
     --disable app_alarmreceiver \
     --disable app_amd \
+    --disable app_celgenuserevent \
     --disable app_dahdiras \
+    --disable app_db \
+    --disable app_fax \
     --disable app_festival \
     --disable app_flash \
+    --disable app_forkcdr \
+    --disable app_ices \
+    --disable app_image \
+    --disable app_ivrdemo \
+    --disable app_macro \
     --disable app_meetme \
+    --disable app_milliwatt \
     --disable app_minivm \
     --disable app_mysql \
+    --disable app_nbscat \
+    --disable app_osplookup \
+    --disable app_sendtext \
+    --disable app_skel \
+    --disable app_sms \
+    --disable app_statsd \
     --disable app_url \
     --disable app_voicemail_imap \
     --disable app_voicemail_odbc \
@@ -62,6 +80,7 @@ menuselect/menuselect \
     --disable res_stir_shaken \
     --disable res_stun_monitor \
     --disable res_timing_dahdi\
+    --enable app_mixmonitor \
     --enable res_pjsip \
     --enable res_pjsip_pubsub \
     --enable res_pjsip_session \
