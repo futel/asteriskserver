@@ -24,6 +24,7 @@ menuselect/menuselect \
     --disable chan_ooh323 \
     --disable chan_oss \
     --disable chan_skinny \
+    --disable app_adsiprog \
     --disable app_alarmreceiver \
     --disable app_amd \
     --disable app_celgenuserevent \
@@ -33,6 +34,7 @@ menuselect/menuselect \
     --disable app_festival \
     --disable app_flash \
     --disable app_forkcdr \
+    --disable app_getcpeid \
     --disable app_ices \
     --disable app_image \
     --disable app_ivrdemo \
@@ -62,7 +64,9 @@ menuselect/menuselect \
     --disable cdr_syslog \
     --disable cdr_tds \
     --disable codec_dahdi \
+    --disable func_callcompletion \
     --disable func_odbc \
+    --disable res_adsi \
     --disable res_ael_share \
     --disable res_ari \
     --disable res_calendar \
