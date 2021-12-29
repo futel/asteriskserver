@@ -14,6 +14,7 @@ any call starts detroit menu when registered to sip:515@origination-stage.futel.
 any call starts portland menu when registered to sip:520@origination-stage.futel.sip.us1.twilio.com
 any call starts portland menu when registered to sip:530@origination-stage.futel.sip.us1.twilio.com
 any call starts portland menu when registered to sip:535@origination-stage.futel.sip.us1.twilio.com
+any call starts portland menu when registered to sip:540@origination-stage.futel.sip.us1.twilio.com
 
 any call starts default menu when registered to sip:700@origination-stage.futel.sip.us1.twilio.com
 
@@ -52,6 +53,8 @@ outgoing call indicates 911 when calling 933 from 530
 outgoing call sends oskar id from 530
 outgoing call indicates no 911 when calling 933 from 535
 outgoing call sends incoming id from 535
+outgoing call indicates no 911 when calling 933 from 540
+outgoing call sends incoming id from 540
 
 outgoing call indicates 911 when calling 933 from 610
 outgoing call sends crossclinton id from 610
