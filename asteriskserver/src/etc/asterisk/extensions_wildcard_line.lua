@@ -1,6 +1,11 @@
 conf = require("conf")
 util = require("util")
 
+function wildcard_path(filename)
+    statement_dir = conf.asterisk_root .. "var/lib/asterisk/sounds/futel/wildcard-line/"    
+    return statement_dir .. filename
+end
+
 function menu_contribute(context, extension)
     app.AGI("metric.agi", context)
     util.say("wildcard-line-welcome", "wildcard-line")
@@ -49,27 +54,20 @@ extensions = {
              {{"wildcard-line-to-hear", "wildcard-line-episode-one"},
                  "wildcard_line_play_one"}},
          statement_dir="wildcard-line"}),
-    wildcard_line_contribute = util.context_array(menu_contribute, {}),    
+    wildcard_line_contribute = util.context_array(menu_contribute, {}),
     wildcard_line_play_one = util.statement_context(
-        {statements={
-             conf.asterisk_root .. "/var/lib/asterisk/sounds/futel/wildcard-line/1"}}),
+        {statements={wildcard_path("1")}}),
     wildcard_line_play_two = util.statement_context(
-        {statements={
-             conf.asterisk_root .. "/var/lib/asterisk/sounds/futel/wildcard-line/2"}}),
+        {statements={wildcard_path("2")}}),
     wildcard_line_play_three = util.statement_context(
-        {statements={
-             conf.asterisk_root .. "/var/lib/asterisk/sounds/futel/wildcard-line/3"}}),
+        {statements={wildcard_path("3")}}),
     wildcard_line_play_four = util.statement_context(
-        {statements={
-             conf.asterisk_root .. "/var/lib/asterisk/sounds/futel/wildcard-line/4"}}),
+        {statements={wildcard_path("4")}}),
     wildcard_line_play_five = util.statement_context(
-        {statements={
-             conf.asterisk_root .. "/var/lib/asterisk/sounds/futel/wildcard-line/5"}}),
+        {statements={wildcard_path("5")}}),
     wildcard_line_play_six = util.statement_context(
-        {statements={
-             conf.asterisk_root .. "/var/lib/asterisk/sounds/futel/wildcard-line/6"}}),
+        {statements={wildcard_path("6")}}),
     wildcard_line_play_seven = util.statement_context(
-        {statements={
-             conf.asterisk_root .. "/var/lib/asterisk/sounds/futel/wildcard-line/7"}})}
+        {statements={wildcard_path("7")}})}
 
 return extensions
