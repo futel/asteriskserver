@@ -22,6 +22,8 @@ extensions = {
         {intro_statements={"wildcard-line-welcome"},
          menu_entries={
              {"wildcard-line-to-contribute", "wildcard_line_contribute"},
+             {{"wildcard-line-to-hear", "wildcard-line-episode-eight"},
+                 "wildcard_line_play_eight"},
              {{"wildcard-line-to-hear", "wildcard-line-episode-seven"},
                  "wildcard_line_play_seven"},
              {{"wildcard-line-to-hear", "wildcard-line-episode-six"},
@@ -40,6 +42,8 @@ extensions = {
     wildcard_line_incoming = util.context(
         {intro_statements={"wildcard-line-welcome"},
          menu_entries={
+             {{"wildcard-line-to-hear", "wildcard-line-episode-eight"},
+                 "wildcard_line_play_eight"},
              {{"wildcard-line-to-hear", "wildcard-line-episode-seven"},
                  "wildcard_line_play_seven"},
              {{"wildcard-line-to-hear", "wildcard-line-episode-six"},
@@ -62,6 +66,7 @@ extensions = {
     wildcard_line_play_four = wildcard_context("4"),
     wildcard_line_play_five = wildcard_context("5"),
     wildcard_line_play_six = wildcard_context("6"),
-    wildcard_line_play_seven = wildcard_context("7")}
+    wildcard_line_play_seven = wildcard_context("7"),
+    wildcard_line_play_eight = wildcard_context("8")}    
 
 return extensions
