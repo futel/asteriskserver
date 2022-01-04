@@ -50,40 +50,26 @@ extensions = {
                  "wildcard_line_play_one"}},
          statement_dir="wildcard-line"}),
     wildcard_line_contribute = util.context_array(menu_contribute, {}),    
-    wildcard_line_play_one = util.context(
-        {intro_statements={
-             conf.asterisk_root .. "/var/lib/asterisk/sounds/futel/wildcard-line/1"},
-         menu_entries={},
-         statement_dir=nil}),
-    wildcard_line_play_two = util.context(
-        {intro_statements={
-             conf.asterisk_root .. "/var/lib/asterisk/sounds/futel/wildcard-line/2"},
-         menu_entries={},
-         statement_dir=nil}),
-    wildcard_line_play_three = util.context(
-        {intro_statements={
-             conf.asterisk_root .. "/var/lib/asterisk/sounds/futel/wildcard-line/3"},
-         menu_entries={},
-         statement_dir=nil}),
-    wildcard_line_play_four = util.context(
-        {intro_statements={
-             conf.asterisk_root .. "/var/lib/asterisk/sounds/futel/wildcard-line/4"},
-         menu_entries={},
-         statement_dir=nil}),
-    wildcard_line_play_five = util.context(
-        {intro_statements={
-             conf.asterisk_root .. "/var/lib/asterisk/sounds/futel/wildcard-line/5"},
-         menu_entries={},
-         statement_dir=nil}),
-    wildcard_line_play_six = util.context(
-        {intro_statements={
-             conf.asterisk_root .. "/var/lib/asterisk/sounds/futel/wildcard-line/6"},
-         menu_entries={},
-         statement_dir=nil}),
-    wildcard_line_play_seven = util.context(
-        {intro_statements={
-             conf.asterisk_root .. "/var/lib/asterisk/sounds/futel/wildcard-line/7"},
-         menu_entries={},
-         statement_dir=nil})}
+    wildcard_line_play_one = util.statement_context(
+        {statements={
+             conf.asterisk_root .. "/var/lib/asterisk/sounds/futel/wildcard-line/1"}}),
+    wildcard_line_play_two = util.statement_context(
+        {statements={
+             conf.asterisk_root .. "/var/lib/asterisk/sounds/futel/wildcard-line/2"}}),
+    wildcard_line_play_three = util.statement_context(
+        {statements={
+             conf.asterisk_root .. "/var/lib/asterisk/sounds/futel/wildcard-line/3"}}),
+    wildcard_line_play_four = util.statement_context(
+        {statements={
+             conf.asterisk_root .. "/var/lib/asterisk/sounds/futel/wildcard-line/4"}}),
+    wildcard_line_play_five = util.statement_context(
+        {statements={
+             conf.asterisk_root .. "/var/lib/asterisk/sounds/futel/wildcard-line/5"}}),
+    wildcard_line_play_six = util.statement_context(
+        {statements={
+             conf.asterisk_root .. "/var/lib/asterisk/sounds/futel/wildcard-line/6"}}),
+    wildcard_line_play_seven = util.statement_context(
+        {statements={
+             conf.asterisk_root .. "/var/lib/asterisk/sounds/futel/wildcard-line/7"}})}
 
 return extensions
