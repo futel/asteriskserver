@@ -1,9 +1,10 @@
 conf = require("conf")
 util = require("util")
 
-function wildcard_path(filename)
-    statement_dir = conf.asterisk_root .. "var/lib/asterisk/sounds/futel/wildcard-line/"    
-    return statement_dir .. filename
+function wildcard_context(filename)
+    statement_dir = conf.asterisk_root .. "var/lib/asterisk/sounds/futel/wildcard-line/"
+    statement_file = statement_dir .. filename
+    return util.statement_context({statements={statement_file}})
 end
 
 function menu_contribute(context, extension)
@@ -55,19 +56,12 @@ extensions = {
                  "wildcard_line_play_one"}},
          statement_dir="wildcard-line"}),
     wildcard_line_contribute = util.context_array(menu_contribute, {}),
-    wildcard_line_play_one = util.statement_context(
-        {statements={wildcard_path("1")}}),
-    wildcard_line_play_two = util.statement_context(
-        {statements={wildcard_path("2")}}),
-    wildcard_line_play_three = util.statement_context(
-        {statements={wildcard_path("3")}}),
-    wildcard_line_play_four = util.statement_context(
-        {statements={wildcard_path("4")}}),
-    wildcard_line_play_five = util.statement_context(
-        {statements={wildcard_path("5")}}),
-    wildcard_line_play_six = util.statement_context(
-        {statements={wildcard_path("6")}}),
-    wildcard_line_play_seven = util.statement_context(
-        {statements={wildcard_path("7")}})}
+    wildcard_line_play_one = wildcard_context("1"),
+    wildcard_line_play_two = wildcard_context("2"),
+    wildcard_line_play_three = wildcard_context("3"),
+    wildcard_line_play_four = wildcard_context("4"),
+    wildcard_line_play_five = wildcard_context("5"),
+    wildcard_line_play_six = wildcard_context("6"),
+    wildcard_line_play_seven = wildcard_context("7")}
 
 return extensions
