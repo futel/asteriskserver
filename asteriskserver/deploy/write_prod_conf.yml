@@ -1,0 +1,7 @@
+---
+- name: set fact for prod conf version
+  ansible.builtin.set_fact:
+    prod_conf_version: "{{ hostvars['futel-prod.phu73l.net']['prod_conf_version']['stdout'] }}"
+- name: print prod conf version
+  debug:
+    msg="prod conf version is {{ prod_conf_version }}"

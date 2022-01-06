@@ -1,0 +1,7 @@
+---
+- name: set fact for stage conf version
+  ansible.builtin.set_fact:
+    conf_version: "{{ hostvars['localhost']['conf_version']['stdout'] }}"
+- name: print stage conf version
+  debug:
+    msg="stage conf version is {{ conf_version }}"

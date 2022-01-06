@@ -8,16 +8,21 @@ ansible-playbook -i deploy/hosts deploy/requirements_conf_vm_playbook.yml
 ansible-playbook -K -i deploy/hosts deploy/requirements_packages_generic_playbook.yml
 ansible-playbook -K -i deploy/hosts deploy/requirements_packages_vm_playbook.yml
 
-## Deploy to VM
+## Deploy to newly created VM
 
 ansible-playbook -i deploy/hosts deploy/update_assets_playbook.yml
 vagrant up
 
-# shortcut: update asterisk conf and scripts for already built box
-# this assumes everything you want to do is in update_asterisk.yml and update_asterisk_sip.yml
-vagrant provision --provision-with update_asterisk
-vagrant provision --provision-with update_asterisk_sip
+## Provision an existing VM
 
-## Deploy itests to VM
+vagrant provision
+
+## Shortcut: update asterisk conf and scripts on an existing VM
+
+this assumes everything you want to do is in update_asterisk_playbook.yml and update_secrets_playbook.yml
+vagrant provision --provision-with update_asterisk
+vagrant provision --provision-with update_secrets
+
+## Deploy itests to an existing VM
 
 vagrant provision --provision-with deploy/update_asterisk_itests

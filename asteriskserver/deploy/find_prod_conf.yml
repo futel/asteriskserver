@@ -1,4 +1,7 @@
 ---
-- name: find conf version being used on prod
+- name: find prod conf version
   command: grep -o "foo\|bar" /etc/asterisk/sip_callcentric.conf
-  register: prod_conf_version
+  register: reg
+- name: set fact for prod conf version
+  ansible.builtin.set_fact:
+    prod_conf_version: "{{ reg }}"
