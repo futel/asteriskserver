@@ -29,6 +29,7 @@
   yum:
     name:
       - chrony
+      - lua
       - mpg123
       - rsync
       - sox
