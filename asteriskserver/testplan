@@ -42,7 +42,7 @@ outgoing dialtone:
 outgoing call indicates no 911 when calling 933 from 500
 outgoing call sends incoming id from 500
 outgoing call indicates 911 when calling 933 from 505
-outgoing call sends tishbite id from 505
+outgoing call sends saratoga id from 505
 outgoing call indicates 911 when calling 933 from 510
 outgoing call sends jesse id from 510
 outgoing call indicates 911 when calling 933 from 515
