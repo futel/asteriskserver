@@ -148,6 +148,21 @@ local extensions = {
              [7]={"for-they-might-be-giants-dial-a-song",
                   "directory_tmbg_dial_a_song"}},
          statement_dir="directory"}),
+    directory_safe = util.context(
+        {menu_entries={
+             {"for-the-mayor", "directory_mayor_portland"},
+             {"for-the-druid-of-sissyphus-gardens",
+              "directory_sissyphus"},
+             {"for-a-random-payphone", "directory_random_payphone"},
+             {"for-the-wilamette-valley-dream-survey",
+              "directory_dream_survey"},
+             {"for-nature-x-x-x", "directory_natr_xxx"},
+             {"for-the-utopian-hotline", "directory_utopian_hotline"},
+             {"for-the-national-u-f-o-reporting-center",
+              "directory_nuforc"},
+             {"for-they-might-be-giants-dial-a-song",
+              "directory_tmbg_dial_a_song"}},
+         statement_dir="directory"}),
     network = util.context(
         {menu_entries={
              {"for-longmont-potion-castle", "longmont"},

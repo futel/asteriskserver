@@ -26,6 +26,10 @@ function outgoing_souwester_pre_bounce()
     outgoing_pre_menu("outgoing_souwester_menu")
 end
 
+function outgoing_safe_pre_bounce()
+    outgoing_pre_menu("outgoing_safe_menu")
+end
+
 local extensions = {
     outgoing_portland = util.context(
         {pre_callable=outgoing_portland_pre_bounce,
@@ -86,6 +90,18 @@ local extensions = {
              [6]={"for-the-telecommunications-network", "network"},
              [7]={"for-a-random-concentration-camp", "directory_random_concentrationcamp"},
              [9]={nil, "call_911_9"},
+             [0]={"for-the-operator", "operator"}},
+         statement_dir="outgoing"}),
+    outgoing_safe = util.context(
+        {pre_callable=outgoing_safe_pre_bounce,
+         intro_statements={"para-espanol", "oprima-estrella"},
+         menu_entries={ 
+             [1]={"to-make-a-call", "outgoing-dialtone-wrapper"},
+             [2]={"for-voicemail", "voicemail_outgoing"},
+             [3]={"for-the-directory", "directory_safe"},
+             [4]={"for-utilities", "utilities_portland"},
+             [5]={"for-the-fewtel-community", "community_outgoing"},
+             [6]={"for-the-telecommunications-network", "network"},
              [0]={"for-the-operator", "operator"}},
          statement_dir="outgoing"}),
     community_outgoing = util.context(
