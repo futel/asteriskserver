@@ -4,7 +4,6 @@ saratoga_extension = 505
 central_extension = 510
 breckenridgest_extension = 515
 cesarchavez_extension = 520
-crossclinton_extension = 610
 robotron_extension = 615
 souwester_extension = 620
 ypsi_extension = 630
@@ -80,14 +79,6 @@ function ring_ypsi(context)
         ypsi_extension,
         nil,
         "ypsi",
-        context)
-end
-
-function ring_crossclinton(context) 
-    return ring_context(
-        crossclinton_extension,
-        nil,
-        "crossclinton",
         context)
 end
 
@@ -183,7 +174,6 @@ local extensions = {
     ring_detroitbusco = util.destination_context(ring_detroitbusco),
     ring_taylor = util.destination_context(ring_taylor),
     ring_ypsi = util.destination_context(ring_ypsi),
-    ring_crossclinton = util.destination_context(ring_crossclinton),
     ring_alley27 = util.destination_context(ring_alley27),
     ring_robotron = util.destination_context(ring_robotron),
     ring_souwester = util.destination_context(ring_souwester),
