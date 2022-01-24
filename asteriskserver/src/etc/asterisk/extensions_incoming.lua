@@ -1,5 +1,20 @@
 util = require("util")
 
+saratoga_extension = 505
+central_extension = 510
+breckenridgest_extension = 515
+crossclinton_extension = 610
+robotron_extension = 615
+souwester_extension = 620
+ypsi_extension = 630
+alley27_extension = 640
+taylor_extension = 655
+r2d2_extension = 670
+ainsworth_extension = 680
+detroitbusco_extension = 690
+eighth_extension = 695
+
+
 function operator_incoming(context, exten)
     util.metric(context)
     app.VoiceMail(1337, "u")
@@ -26,6 +41,119 @@ function member_auth(context, exten)
     app.Goto("member_main", "s", 1)
 end
 
+-- ring phone at extension with termination, then metric with identifier
+function ring_context(extension, termination, identifier, context)
+    util.metric(context)
+    dialstring = util.get_dialstring(extension, termination)
+    app.Dial(dialstring)
+    dialstatus = channel.DIALSTATUS:get()
+    metric("incoming-dialstatus-" .. dialstatus .. "-" .. identifier)
+end
+
+function ring_ainsworth(context, exten)
+    return ring_context(
+        ainsworth_extension,
+        nil,
+        "ainsworth",
+        context)
+end
+
+function ring_detroitbusco(context) 
+    return ring_context(
+        detroitbusco_extension,
+        nil,
+        "detroitbusco",
+        context)
+end
+
+function ring_taylor(context) 
+    return ring_context(
+        taylor_extension,
+        nil,
+        "taylor",
+        context)
+end
+
+function ring_ypsi(context) 
+    return ring_context(
+        ypsi_extension,
+        nil,
+        "ypsi",
+        context)
+end
+
+function ring_crossclinton(context) 
+    return ring_context(
+        crossclinton_extension,
+        nil,
+        "crossclinton",
+        context)
+end
+
+function ring_alley27(context) 
+    return ring_context(
+        alley27_extension,
+        nil,
+        "alley27",
+        context)
+end
+
+function ring_robotron(context) 
+    return ring_context(
+        robotron_extension,
+        nil,
+        "robotron",
+        context)
+end
+
+function ring_souwester(context) 
+    return ring_context(
+        souwester_extension,
+        nil,
+        "souwester",
+        context)
+end
+
+function ring_eighth(context) 
+    return ring_context(
+        eighth_extension,
+        nil,
+        "eighth",
+        context)
+end
+
+function ring_r2d2(context) 
+    return ring_context(
+        r2d2_extension,
+        nil,
+        "r2d2",
+        context)
+end
+
+function ring_central(context) 
+    return ring_context(
+        central_extension,
+        "twilio-pv-termination",
+        "central",
+        context)
+end
+
+function ring_breckenridgest(context) 
+    return ring_context(
+        breckenridgest_extension,
+        "twilio-pv-termination",
+        "breckenridgest",
+        context)
+end
+
+function ring_saratoga(context) 
+    return ring_context(
+        saratoga_extension,
+        "twilio-pv-termination",
+        "saratoga",
+        context)
+end
+
 local extensions = {
     incoming_leet = util.context(
         {intro_statements={
@@ -41,7 +169,20 @@ local extensions = {
     operator_incoming = util.destination_context(operator_incoming),
     member_auth = util.destination_context(member_auth),
     admin_auth = util.destination_context(admin_auth),        
-    fake_admin_auth = util.destination_context(fake_admin_auth),    
+    fake_admin_auth = util.destination_context(fake_admin_auth),
+    ring_ainsworth = util.destination_context(ring_ainsworth),
+    ring_detroitbusco = util.destination_context(ring_detroitbusco),
+    ring_taylor = util.destination_context(ring_taylor),
+    ring_ypsi = util.destination_context(ring_ypsi),
+    ring_crossclinton = util.destination_context(ring_crossclinton),
+    ring_alley27 = util.destination_context(ring_alley27),
+    ring_robotron = util.destination_context(ring_robotron),
+    ring_souwester = util.destination_context(ring_souwester),
+    ring_eighth = util.destination_context(ring_eighth),
+    ring_r2d2 = util.destination_context(ring_r2d2),
+    ring_central = util.destination_context(ring_central),
+    ring_breckenridgest = util.destination_context(ring_breckenridgest),
+    ring_saratoga = util.destination_context(ring_saratoga),
     community_incoming = util.context(
         {menu_entries={ 
              [1]={"for-the-fewtel-voice-conference", "futel-conf"},

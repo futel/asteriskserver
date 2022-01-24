@@ -72,8 +72,13 @@ function metric(context)
     app.AGI("metric.agi", context)    
 end
 
+-- Return a string usable for the asterisk Dial command.
 function get_dialstring(number, outgoingchannel)
-    return "SIP/" .. number .. "@" .. outgoingchannel
+    dialstring = "SIP/" .. number
+    if outgoingchannel ~= nil then
+        dialstring = dialstring .. "@" .. outgoingchannel        
+    end
+    return dialstring
 end
 
 function get_timeoutstring(timeout)
@@ -300,6 +305,7 @@ local util = {
     context_array = context_array,
     destination_context = destination_context,
     dial_context = dial_context,
+    get_dialstring = get_dialstring,    
     statement_context = statement_context,    
     internaldial = internaldial,
     iter = iter,
