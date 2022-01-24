@@ -3,6 +3,7 @@ util = require("util")
 saratoga_extension = 505
 central_extension = 510
 breckenridgest_extension = 515
+cesarchavez_extension = 520
 crossclinton_extension = 610
 robotron_extension = 615
 souwester_extension = 620
@@ -154,6 +155,14 @@ function ring_saratoga(context)
         context)
 end
 
+function ring_cesarchavez(context) 
+    return ring_context(
+        cesarchavez_extension,
+        "twilio-pv-termination",
+        "cesarchavez",
+        context)
+end
+
 local extensions = {
     incoming_leet = util.context(
         {intro_statements={
@@ -183,6 +192,7 @@ local extensions = {
     ring_central = util.destination_context(ring_central),
     ring_breckenridgest = util.destination_context(ring_breckenridgest),
     ring_saratoga = util.destination_context(ring_saratoga),
+    ring_cesarchavez = util.destination_context(ring_cesarchavez),    
     community_incoming = util.context(
         {menu_entries={ 
              [1]={"for-the-fewtel-voice-conference", "futel-conf"},
