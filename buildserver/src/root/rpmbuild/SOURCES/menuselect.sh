@@ -85,6 +85,7 @@ menuselect/menuselect \
     --disable res_stun_monitor \
     --disable res_timing_dahdi\
     --enable app_mixmonitor \
+    --enable chan_pjsip \    
     --enable res_pjsip \
     --enable res_pjsip_pubsub \
     --enable res_pjsip_session \
