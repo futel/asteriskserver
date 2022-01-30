@@ -1,3 +1,5 @@
+outgoingchannel = "twilio-termination"
+
 max_iterations = 10
 
 -- statements for positions that can be named in a menu
@@ -93,7 +95,7 @@ function internaldial(number, timeout)
     metric("internaldial")
     -- wait for ratelimiter
     app.AGI("call_ratelimit.agi")
-    dialstring = get_dialstring(number, channel.outgoingchannel:get())
+    dialstring = get_dialstring(number, outgoingchannel)
     timeoutstring = get_timeoutstring(timeout)
     -- start trying to dial
     app.Dial(dialstring, nil, timeoutstring)
