@@ -12,8 +12,9 @@ def timeout_to_timeout_str(minutes):
 
 def call_timeout(config, extension, now):
     """Return timeout string from config for extension and now."""
-    if config:
-        config_map = util.relevant_config(config, extension, now)
-        if config_map:
-            return timeout_to_timeout_str(config_map.get('timeout'))
+    if extension:
+        if config:
+            config_map = util.relevant_config(config, extension, now)
+            if config_map:
+                return timeout_to_timeout_str(config_map.get('timeout'))
     return ""

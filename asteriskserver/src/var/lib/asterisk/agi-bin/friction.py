@@ -67,9 +67,11 @@ def action(action_map, config_map):
     return action_map.get(config_map.get('action', 'noop'), noop)
 
 def friction(agi, extension, now, context):
-    config = util.read_config(config_filename)
-    if config:
-        config_map = util.relevant_config(config, extension, now, context)
-        if config_map:
-            action(action_map, config_map)(agi)
+    if extension:
+        config = util.read_config(config_filename)
+        if config:
+            config_map = util.relevant_config(
+                config, extension, now, context)
+            if config_map:
+                action(action_map, config_map)(agi)
 
