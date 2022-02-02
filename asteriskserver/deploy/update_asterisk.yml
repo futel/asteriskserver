@@ -53,10 +53,10 @@
     dest: /etc/asterisk
     owner: asterisk
     group: asterisk
-- name: copy sip conf with secrets
+- name: copy pjsip conf with secrets
   template:
-    src: ../src/etc/asterisk/sip_secret.conf.j2
-    dest: /etc/asterisk/sip_secret.conf
+    src: ../src/etc/asterisk/pjsip_secret.conf.j2
+    dest: /etc/asterisk/pjsip_secret.conf
     owner: asterisk
     group: asterisk
 - name: copy dialplan conf with secrets

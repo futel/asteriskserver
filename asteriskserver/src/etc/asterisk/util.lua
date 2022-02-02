@@ -76,7 +76,13 @@ end
 
 -- Return a string usable for the asterisk Dial command.
 function get_dialstring(number, outgoingchannel)
-    dialstring = "SIP/" .. number
+    if outgoingchannel ~= nil then
+        dialstring = "SIP/"
+    else
+        -- no channel => dialing extension => PJSIP
+        dialstring = "PJSIP/"        
+    end
+    dialstring = dialstring .. number
     if outgoingchannel ~= nil then
         dialstring = dialstring .. "@" .. outgoingchannel        
     end
