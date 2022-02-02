@@ -1,4 +1,4 @@
-outgoingchannel = "twilio-termination"
+outgoingchannel = "twilio"
 
 max_iterations = 10
 
@@ -76,13 +76,7 @@ end
 
 -- Return a string usable for the asterisk Dial command.
 function get_dialstring(number, outgoingchannel)
-    if outgoingchannel ~= nil then
-        dialstring = "SIP/"
-    else
-        -- no channel => dialing extension => PJSIP
-        dialstring = "PJSIP/"        
-    end
-    dialstring = dialstring .. number
+    dialstring = "PJSIP/" .. number
     if outgoingchannel ~= nil then
         dialstring = dialstring .. "@" .. outgoingchannel        
     end
