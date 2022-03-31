@@ -67,18 +67,6 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     }
   end    
   
-  # use this environment variable to build with production ssh port/user
-  if ENV['vagrantbox'] == 'centos6_32_baseconfig'
-    # we put ssh on 42422, so override default 2222 guest port
-    config.vm.network "forwarded_port", guest: 42422, host: 2222, id: "ssh"
-    # we will want another ssh key for non-virtualbox
-    config.ssh.username = "futel"
-    config.ssh.private_key_path = "conf/id_rsa"
-    # if we put ssh on 42422 and are virtualbox, forward that port
-    config.ssh.guest_port = 42422
-    config.ssh.port = 2222
-  end
-
   config.vm.provider :virtualbox do |vb|
     vb.memory = 1024            # current prod is 512mb, this is for convenience
     # this creates vboxnet0 and vboxnet1, with pingable eth1 on vboxnet1
