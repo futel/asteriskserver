@@ -30,6 +30,10 @@ function outgoing_safe_pre_bounce()
     outgoing_pre_menu("outgoing_safe_menu")
 end
 
+function goto_parent_context_context(context, exten)
+    util.goto_parent_context()
+end
+
 local extensions = {
     outgoing_portland = util.context(
         {pre_callable=outgoing_portland_pre_bounce,
@@ -114,6 +118,8 @@ local extensions = {
              [6]={"for-the-apology-service", "apology_intro"},
              [7]={"for-more-information-about-fewtel", "information_futel"}},
          statement_dir="community"}),
+    goto_parent_context = util.destination_context(
+        goto_parent_context_context)
 }
 
 return extensions
