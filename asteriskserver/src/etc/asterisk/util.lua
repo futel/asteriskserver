@@ -192,13 +192,14 @@ function pop_parent_context()
 end
 
 -- Pop parent context and goto it. We do this becuase we can't gosub in lua.
-function goto_parent_context(menu_function, context, exten)
+function goto_parent_context()
     local parent_context = pop_parent_context()
-    if parent_context then
-      return app.Goto(parent_context, "s", 1)
+    if parent_context ~= "" and parent_context then
+        return app.Goto(parent_context, "s", 1)
     else
-      -- no parent_context, replay menu_function.
-      return menu_function(context, extension)
+        -- no parent_context, go to outgoing context for extension
+        local outgoing_context = channel.outgoing_context:get()
+        return app.Goto(outgoing_context, "s", 1)        
     end
 end
 
@@ -235,13 +236,10 @@ end
 -- menu entries, then gotos parent context
 function statement_context(arg)
     local statements = arg.statements
-    local statement_dir = arg.statement_dir        
-    goto_parent_context_or_die = function()
-        return goto_parent_context(nil, nil, nil)
-    end
+    local statement_dir = arg.statement_dir
     return context(
         {intro_statements=statements,
-         post_callable=goto_parent_context_or_die,
+         post_callable=goto_parent_context,
          menu_entries={},
          statement_dir=statement_dir})
 end
@@ -257,7 +255,7 @@ function context_array(menu_function, destinations)
     context_array.i = menu_function
     -- # is our default key for parent menu destination
     context_array["#"] = function(context, exten)
-        goto_parent_context(menu_function, context, exten)
+        goto_parent_context()
     end
     -- * is our default key for localization
     context_array["*"] = function(context, exten)
