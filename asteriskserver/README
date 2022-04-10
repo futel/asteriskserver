@@ -64,6 +64,7 @@ rename futel-stage.phu73l.net droplet to futel-prod.phu73l.net
 point all voip.ms DID forwarding rules to subaccounts corresponding to new conf_version on futel-prod.phu73l.net
   185060_prod-foo|bar subaccount
 wait for DNS to propagate with "nslookup futel-prod.phu73l.net"
+shutdown futel-prod-back
 make a snapshot of futel-prod-back
 
 ansible-playbook -i deploy/hosts deploy/post_promote_playbook.yml --vault-password-file=conf/vault_pass_digitalocean.txt
