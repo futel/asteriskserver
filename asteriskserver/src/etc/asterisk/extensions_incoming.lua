@@ -158,7 +158,7 @@ end
 function ring_hedron(context) 
     return ring_context(
         hedron_extension,
-        "twilio-pv-termination",
+        nil,
         "hedron",
         context)
 end
