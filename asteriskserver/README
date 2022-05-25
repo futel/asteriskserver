@@ -80,7 +80,7 @@ test that prod incoming calls to extensions work (may take time)
 
 This is done after a new vpnbox is deployed.
 
-  ansible-playbook -i deploy/hosts --limit prod deploy/secure_playbook_prod.yml
+  ansible-playbook -i deploy/hosts --limit prod deploy/secure_playbook.yml
 
 ## Create droplets from images
 
