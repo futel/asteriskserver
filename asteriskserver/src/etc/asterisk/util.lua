@@ -64,8 +64,8 @@ function play_random_background(dirname)
 end
 
 -- execuate background statement using sound_path
-function say(filename, context, preferred_subdirs)
-    app.AGI("sound_path.agi", filename, context, preferred_subdirs)
+function say(filename, context)
+    app.AGI("sound_path.agi", filename, context)
     app.Background(channel.agi_out:get())
 end
 
