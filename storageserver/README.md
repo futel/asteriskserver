@@ -23,7 +23,7 @@ Validate requirements and configuration locally
 
 - In digitalocean console, create snapshot of assetsbuild volume with default name.
 - In digitalocean console, destroy assetsbuild volume.
-- In digitalocean console, destroy assetsbuild droplet snapshot
+- In digitalocean console, destroy all assetsbuild droplet snapshots but most recent
 
 ## Notes
 
