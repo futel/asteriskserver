@@ -8,7 +8,7 @@ variable "deploy_access_token" {
 source "digitalocean" "foo" {
     api_token    = "${var.deploy_access_token}"
     droplet_name = "assetsbuild"
-    image        = "centos-8-x64"
+    image        = "rockylinux-8-x64"
     region       = "sfo3"
     size         = "s-1vcpu-1gb"
     ssh_username = "root"

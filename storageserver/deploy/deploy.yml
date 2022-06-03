@@ -2,14 +2,14 @@
 - name: load secrets
   include_vars: "deploy_digitalocean_secrets_digitalocean.yml"
   no_log: true
-# XXX we are running in packer, this is just finding the droplet id  
+# XXX we are running in packer, this is just finding the already created droplet id 
 - name: create droplet
   community.digitalocean.digital_ocean_droplet:
     state: present
     name: assetsbuild
     unique_name: yes
     oauth_token: "{{ deploy_access_token }}"
-    image: "centos-8-x64"
+    image: rockylinux-8-x64
     size: s-1vcpu-1gb
     region: sfo3
   register: droplet_message
