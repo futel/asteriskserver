@@ -2,6 +2,9 @@
 - name: load secrets
   include_vars: "deploy_digitalocean_secrets_digitalocean.yml"
   no_log: true
+- name: set fact for volume name
+  set_fact:
+    volume_name: "assets{{ ansible_facts.date_time.epoch }}"
 - name: get IDs of all volume snapshots
   community.digitalocean.digital_ocean_snapshot_info:
     snapshot_type: volume
@@ -19,7 +22,7 @@
     command: create
     oauth_token: "{{ deploy_access_token }}"
     snapshot_id: "{{ snapshot_id }}"
-    volume_name: assets
+    volume_name: "{{ volume_name }}"
 - name: get attributes of stage droplet
   community.digitalocean.digital_ocean_droplet_info:
     oauth_token: "{{ deploy_access_token }}"
@@ -30,6 +33,6 @@
     state: present
     command: attach
     oauth_token: "{{ deploy_access_token }}"
-    volume_name: assets
+    volume_name: "{{ volume_name }}"
     region: sfo3
     droplet_id: "{{ resp_out.data[0].id }}"

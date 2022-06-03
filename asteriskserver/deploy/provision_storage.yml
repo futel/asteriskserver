@@ -1,5 +1,8 @@
 ---
 # see also https://gist.github.com/charignon/72871fe890f4482ccd5bb9d6fd9afcdf
+- name: set fact for volume name
+  ansible.builtin.set_fact:
+    volume_name: "{{ hostvars['localhost']['volume_name'] }}"
 - name: create mount point for volume
   file:
     path: /mnt/assets
@@ -7,7 +10,7 @@
 - name: mount volume
   ansible.posix.mount:
     path: /mnt/assets
-    src: /dev/disk/by-id/scsi-0DO_Volume_assets
+    src: "/dev/disk/by-id/scsi-0DO_Volume_{{ volume_name }}"
     fstype: ext4
     opts: discard,defaults,noatime,ro
     state: mounted
