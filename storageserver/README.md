@@ -2,7 +2,6 @@
 
 - Have assets subdirectory populated with assets.
 - Don't have any droplets, droplet images, or volumes named assetsbuild.
-- Don't have any volume images with names starting with assetsbuild.
 
 ## Initialize packer
 
@@ -23,7 +22,8 @@ Validate requirements and configuration locally
 
 - In digitalocean console, create snapshot of assetsbuild volume with default name.
 - In digitalocean console, destroy assetsbuild volume.
-- In digitalocean console, destroy all assetsbuild droplet snapshots but most recent
+- In digitalocean console, destroy all assetsbuild volume snapshots but most recent.
+- In digitalocean console, destroy assetsbuild droplet snapshot.
 
 ## Notes
 
