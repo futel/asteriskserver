@@ -1,9 +1,9 @@
 util = require("util")
 
+breckenridge_extension = 415
 hedron_extension = 440
 saratoga_extension = 505
 central_extension = 510
-breckenridgest_extension = 515
 cesarchavez_extension = 520
 robotron_extension = 615
 souwester_extension = 620
@@ -131,11 +131,11 @@ function ring_central(context)
         context)
 end
 
-function ring_breckenridgest(context) 
+function ring_breckenridge(context) 
     return ring_context(
-        breckenridgest_extension,
+        breckenridge_extension,
         "twilio-pv",
-        "breckenridgest",
+        "breckenridge",
         context)
 end
 
@@ -189,7 +189,7 @@ local extensions = {
     ring_eighth = util.destination_context(ring_eighth),
     ring_r2d2 = util.destination_context(ring_r2d2),
     ring_central = util.destination_context(ring_central),
-    ring_breckenridgest = util.destination_context(ring_breckenridgest),
+    ring_breckenridge = util.destination_context(ring_breckenridge),
     ring_saratoga = util.destination_context(ring_saratoga),
     ring_cesarchavez = util.destination_context(ring_cesarchavez),
     ring_hedron = util.destination_context(ring_hedron),
