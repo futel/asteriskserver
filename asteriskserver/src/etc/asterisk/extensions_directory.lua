@@ -195,14 +195,9 @@ local extensions = {
              {"to-access-your-multnomah-county-library-account", "lib-account-line"},
              {"for-a-random-number", "random_number"}},
          statement_dir="utilities"}),
-    utilities_ypsi = util.context(
+    utilities_generic = util.context(
         {menu_entries={
              {"for-the-current-time", "current-time-ypsi"},
-             {"for-a-random-number", "random_number"}},
-         statement_dir="utilities"}),
-    utilities_souwester = util.context(
-        {menu_entries={
-             {"for-the-current-time", "current-time"},
              {"for-a-random-number", "random_number"}},
          statement_dir="utilities"}),
     random_number = util.destination_context(random_number),
