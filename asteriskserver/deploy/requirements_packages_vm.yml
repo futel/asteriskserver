@@ -3,6 +3,6 @@
   apt:
     name:
       - vagrant
-      - virtualbox-6.0
+      - virtualbox
 - name: have vagrant plugins
   command: vagrant plugin install vagrant-vbguest
