@@ -5,12 +5,16 @@ voipms_leet_incoming = "+15034681337"
 -- return true if the calling extension should be allowed to call 911
 function is_911_enabled()
     callerid = channel.callerid:get()
+    disable_911 = channel.disable_911:get()    
     if callerid == voipms_leet_incoming then
         return false
+    elseif disable_911 == "yes" then
+        return false
+    else
+        -- assume our callerid is a valid outgoing number
+        -- assume any valid outgoing number has 911 provisioned
+        return true
     end
-    -- assume our callerid is a valid outgoing number
-    -- assume any valid outgoing number has 911 provisioned
-    return true
 end
 
 function call_911(context, extension)
@@ -27,6 +31,7 @@ function call_emergency(context, number)
         util.say("dialing-nine-one-one")
         util.internaldial(number)
     else
+        util.metric("call_911_denied")
         app.Busy()
     end
 end
