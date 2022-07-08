@@ -7,6 +7,10 @@ We use Vagrant and Virtualbox on an Ubuntu host.
 The guest needs a NAT network interface to communicate with external VOIP servers, and a host-only network interface to communicate with the host and/or other guests.
 
 A Virtualbox host-only network should be created with DHCP server enabled. I used the Virtualbox configurator.
+Name vboxnet0
+IPV4 Address 172.28.128.1
+IPV4 Network Mask 255.255.255.0
+DHCP server enabled
 
 The Virtualbox guest box should have a NAT interface as Adapter 1, and the host-only network as Adapter 2. This might be set up automatically by vagrant?
 
