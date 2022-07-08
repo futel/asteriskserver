@@ -126,7 +126,7 @@ end
 function ring_central(context) 
     return ring_context(
         central_extension,
-        "twilio-pv",
+        "twilio",
         "central",
         context)
 end
@@ -134,7 +134,7 @@ end
 function ring_breckenridge(context) 
     return ring_context(
         breckenridge_extension,
-        "twilio-pv",
+        "twilio",
         "breckenridge",
         context)
 end
@@ -142,7 +142,7 @@ end
 function ring_saratoga(context) 
     return ring_context(
         saratoga_extension,
-        "twilio-pv",
+        "twilio",
         "saratoga",
         context)
 end
@@ -150,7 +150,7 @@ end
 function ring_cesarchavez(context) 
     return ring_context(
         cesarchavez_extension,
-        "twilio-pv",
+        "twilio",
         "cesarchavez",
         context)
 end
