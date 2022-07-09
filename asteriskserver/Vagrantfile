@@ -70,7 +70,10 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.provider :virtualbox do |vb|
     vb.memory = 1024            # current prod is 512mb, this is for convenience
     # this creates vboxnet0 and vboxnet1, with pingable eth1 on vboxnet1
-    config.vm.network "private_network", type: "dhcp", :adapter => 2    
+    # We need to set the IP because Virtualbox only allows addresses in that range, and Vagrant
+    # is defaulting to one in a different private network range, presumably some combinations of
+    # updates will fix this and let us use the default someday.
+    config.vm.network "private_network", type: "dhcp", ip: "192.168.56.1", :adapter => 2    
     # uncomment to disable headless mode
     # vb.gui = true
   end
