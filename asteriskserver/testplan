@@ -6,29 +6,40 @@ ext 998 starts admin menu
 ext 1000 starts dialtone
 ext 1001 starts incoming menu
 
-any call starts default menu when registered to sip:500@origination-stage.futel.sip.us1.twilio.com
-any call starts default menu when registered to sip:505@origination-stage.futel.sip.us1.twilio.com
-any call starts default menu when registered to sip:510@origination-stage.futel.sip.us1.twilio.com
-any call starts detroit menu when registered to sip:515@origination-stage.futel.sip.us1.twilio.com
-any call starts portland menu when registered to sip:520@origination-stage.futel.sip.us1.twilio.com
-any call starts portland menu when registered to sip:530@origination-stage.futel.sip.us1.twilio.com
-any call starts dialtone when registered to sip:535@origination-stage.futel.sip.us1.twilio.com
-any call starts portland menu when registered to sip:535@origination-stage.futel.sip.us1.twilio.com
-any call starts portland menu when registered to sip:540@origination-stage.futel.sip.us1.twilio.com
-
-any call starts default menu when registered to sip:700@origination-stage.futel.sip.us1.twilio.com
-
-ext 999 starts dialtone from extension 610
-ext 999 starts default menu from extension 615
-ext 999 starts souwester menu from extension 620
-ext 999 starts default menu from extension 625
-ext 999 starts ypsi menu from extension 630
-ext 999 starts default menu from extension 640
-ext 999 starts default menu from extension 655
-ext 999 starts dialtone from extension 670
-ext 999 starts default menu from extension 680
-ext 999 starts detroit menu from extension 690
-ext 999 starts default menu from extension 695
+outgoing context and dialtone:
+after dialing 999 from extension:
+(dial 933 from dialtone to test 911)
+extension initial-context has-911 caller-id
+400 portland no incoming
+401 portland no incoming
+402 portland no incoming
+403 portland no incoming
+405 portland yes saratoga
+410 portland yes central
+415 detroit yes breckenridge
+416 dialtone no breckenridge-internal
+420 portland yes cesarchavez
+421 portland yes incoming
+435 dialtone no sjac
+440 portland yes hedron
+445 portland yes incoming
+615 portland yes robotron
+620 souwester yes souwester
+625 portland no incoming
+630 ypsi yes pearl
+640 portland yes alley27
+635 portland yes taylor
+670 dialtone yes r2d2
+680 portland yes ainsworth
+690 detroit no detroitbusco
+695 portland yes eighth
+700 portland no incoming
+701 portland no incoming
+702 portland no incoming
+703 portland no incoming
+704 portland no incoming
+710 portland no incoming
+711 portland no incoming
 
 outgoing menu performs friction action when configured for extension and time
 outgoing menu does not perform friction action when configured for extension and time
@@ -36,55 +47,6 @@ outgoing menu performs, metrics context_restricted_dialtone when configured
 outgoing menu ypsi performs friction action when configured for extension and time
 outgoing menu ypsi does not perform friction action when configured for extension and time
 outgoing menu ypsi performs, metrics context_restricted_dialtone when configured
-
-outgoing dialtone:
-
-outgoing call indicates no 911 when calling 933 from 500
-outgoing call sends incoming id from 500
-outgoing call indicates 911 when calling 933 from 505
-outgoing call sends saratoga id from 505
-outgoing call indicates 911 when calling 933 from 510
-outgoing call sends jesse id from 510
-outgoing call indicates 911 when calling 933 from 515
-outgoing call sends breckenridgest id from 515
-outgoing call indicates no 911 when calling 933 from 520
-outgoing call sends incoming id from 520
-outgoing call indicates 911 when calling 933 from 530
-outgoing call sends oskar id from 530
-outgoing call indicates no 911 when calling 933 from 535
-outgoing call sends incoming id from 535
-outgoing call indicates no 911 when calling 933 from 540
-outgoing call sends incoming id from 540
-
-outgoing call indicates 911 when calling 933 from 610
-outgoing call sends crossclinton id from 610
-outgoing call indicates 911 when calling 933 from 615
-outgoing call sends robotron id from 615
-outgoing call indicates 911 when calling 933 from 620
-outgoing call sends souwester id from 620
-outgoing call indicates no 911 when calling 933 from 625
-outgoing call sends incoming id from 625
-outgoing call indicates 911 when calling 933 from 630
-outgoing call sends ypsi id from 630
-outgoing call indicates no 911 when calling 933 from 635
-outgoing call sends incoming id from 635
-outgoing call indicates 911 when calling 933 from 640
-outgoing call sends mykle id from 640
-outgoing call indicates 911 when calling 933 from 655
-outgoing call sends taylor id from 655
-outgoing call indicates 911 when calling 933 from 670
-outgoing call sends r2d2 id from 670
-outgoing call indicates no 911 when calling 933 from 675
-outgoing call sends incoming id from 675
-outgoing call indicates 911 when calling 933 from 680
-outgoing call sends xnor id from 680
-outgoing call indicates 911 when calling 933 from 690
-outgoing call sends detroitbusco id from 690
-outgoing call indicates 911 when calling 933 from 695
-outgoing call sends hoyt id from 695
-
-outgoing call indicates no 911 when calling 933 from 700
-outgoing call sends incoming id from 700
 
 outgoing can call NANPA number without prefix (11 digit NANPA)
 outgoing can call NANPA number with 1 prefix
