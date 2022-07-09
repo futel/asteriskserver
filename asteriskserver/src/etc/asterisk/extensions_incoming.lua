@@ -2,6 +2,7 @@ util = require("util")
 
 saratoga_extension = 405
 breckenridge_extension = 415
+sjac_extension = 435
 hedron_extension = 440
 central_extension = 510
 cesarchavez_extension = 520
@@ -163,6 +164,14 @@ function ring_hedron(context)
         context)
 end
 
+function ring_sjac(context) 
+    return ring_context(
+        sjac_extension,
+        nil,
+        "sjac",
+        context)
+end
+
 local extensions = {
     incoming_leet = util.context(
         {intro_statements={
@@ -193,6 +202,7 @@ local extensions = {
     ring_saratoga = util.destination_context(ring_saratoga),
     ring_cesarchavez = util.destination_context(ring_cesarchavez),
     ring_hedron = util.destination_context(ring_hedron),
+    ring_sjac = util.destination_context(ring_sjac),
     community_incoming = util.context(
         {menu_entries={ 
              [1]={"for-the-fewtel-voice-conference", "futel-conf"},
