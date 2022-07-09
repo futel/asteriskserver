@@ -1,11 +1,13 @@
 util = require("util")
 
 saratoga_extension = 405
+central_extension = 410
 breckenridge_extension = 415
+cesarchavez_extension = 420
 sjac_extension = 435
 hedron_extension = 440
-central_extension = 510
-cesarchavez_extension = 520
+
+
 robotron_extension = 615
 souwester_extension = 620
 ypsi_extension = 630
