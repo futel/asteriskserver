@@ -22,7 +22,7 @@ extension initial-context has-911 caller-id
 421 portland yes incoming
 435 dialtone no sjac
 440 portland yes hedron
-445 portland yes incoming
+445 portland no incoming
 615 portland yes robotron
 620 souwester yes souwester
 625 portland no incoming
