@@ -1,5 +1,7 @@
 # Audio assets
 
+Note: these steps are for reference only, all of the actions should be performed by the build/deploy steps. This should be verified, and then this cdocument can be removed. Probably the only things remaining are cleaning and requirements.
+
 We want to normalize audio for the maximum volume and get it into a format the asterisk can read.
 
 See [audio formats](https://wiki.asterisk.org/wiki/display/AST/Asterisk+10+Codecs+and+Audio+Formats)
