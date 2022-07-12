@@ -1,6 +1,8 @@
 ---
 - name: find prod conf version
-  command: grep -o "foo\|bar" /etc/asterisk/sip_callcentric.conf
+#  command: grep -o "foo\|bar" /etc/asterisk/sip_callcentric.conf
+# in real life we are probably updating from a later branch
+  command: grep -o "foo\|bar" /etc/asterisk/pjsip_secret_flavored.conf
   register: reg
 - name: set fact for prod conf version
   ansible.builtin.set_fact:
