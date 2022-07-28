@@ -1,11 +1,16 @@
 # We are using iptables, the more modern toolkit is firewalld and we may
 # need to convert to that at some point.
 ---
+- name: install epel yum package
+  yum:
+    name:
+      - epel-release
 - name: install yum packages
   yum:
     name:
       - iptables-services
       - firewalld
+      - openvpn
     state: present
 - name: stop and disable firewalld
   ansible.builtin.systemd:
@@ -21,6 +26,34 @@
   ansible.builtin.systemd:
     name: sshd
     state: restarted
+- name: install openvpn client config and creds
+  copy:
+    src: ../src/etc/openvpn/client/{{ item }}
+    dest: /etc/openvpn/client
+    owner: root
+    group: root
+  with_items:
+    - ca.crt
+    - client.conf
+    - client-asteriskserver.crt
+    - client-asteriskserver.key
+- name: install openvpn client scripts
+  copy:
+    src: ../src/etc/openvpn/client/{{ item }}
+    dest: /etc/openvpn/client
+    owner: root
+    group: root
+    mode: a+x
+  with_items:
+    - client.down
+    - client.up
+- name: enable and start openvpn client services
+  ansible.builtin.systemd:
+    name: "{{ item }}"
+    state: started
+    enabled: yes
+  with_items:
+    - openvpn-client@client
 - name: enable iptables
   ansible.builtin.systemd:
     name: iptables

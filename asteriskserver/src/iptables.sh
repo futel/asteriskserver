@@ -18,10 +18,15 @@ iptables -A INPUT -m state --state ESTABLISHED,RELATED -j ACCEPT
 # let ssh in from anywhere
 iptables -A INPUT -p tcp --dport 42422 -j ACCEPT
 # let anything in from vpnbox
-# this should be changed to only be the asterisk and ssh ports
+# this should just be the openvpn proto/port once all asterisk clients are behind the vpn
 iptables -A INPUT -s vpnbox-prod-foo.phu73l.net -j ACCEPT
 iptables -A INPUT -s vpnbox-prod-bar.phu73l.net -j ACCEPT
 iptables -A INPUT -s vpnbox-prod-baz.phu73l.net -j ACCEPT
+# let anything in from vpn interface
+# 10.8.0.0 255.255.255.0
+# 192.168.0.0 255.255.255.0
+iptables -A INPUT -i tun0 -j ACCEPT
+iptables -A FORWARD -i tun0 -j ACCEPT
 
 # voip.ms
 iptables -A INPUT -p udp -m udp -s sanjose.voip.ms --dport 5060:5080 -j ACCEPT

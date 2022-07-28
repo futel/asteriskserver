@@ -14,10 +14,6 @@
       - sendmail
       - dracut-squash
     state: absent
-- name: install epel yum package
-  yum:
-    name:
-      - epel-release
 - name: update yum
   yum:
     name: "*"
