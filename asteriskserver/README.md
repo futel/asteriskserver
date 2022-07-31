@@ -48,7 +48,7 @@ Note IP address printed.
 Wait for DNS to match IP address with "nslookup futel-stage.phu73l.net".
 
 ```
-  ansible-playbook -i deploy/hosts deploy/secure_playbook.yml --limit baseinstall --vault-password-file=conf/vault_pass_prod.txt
+  ansible-playbook -i deploy/hosts deploy/secure_playbook.yml --limit prod:localhost:baseinstall --vault-password-file=conf/vault_pass_prod.txt
   ansible-playbook -i deploy/hosts deploy/baseinstall_playbook.yml --limit baseinstall
   ansible-playbook -i deploy/hosts deploy/update_asterisk_playbook.yml --limit baseinstall --vault-password-file=conf/vault_pass_generic.txt
   ansible-playbook -i deploy/hosts deploy/update_secrets_playbook.yml --limit prod:localhost:baseinstall --vault-password-file=conf/vault_pass_prod.txt
@@ -100,7 +100,7 @@ remove snapshots of futel-prod-back except for most recent
 This is done after a new vpnbox is deployed.
 
 ```
-  ansible-playbook -i deploy/hosts --limit prod deploy/secure_playbook.yml --vault-password-file=conf/vault_pass_prod.txt
+  ansible-playbook -i deploy/hosts deploy/update_iptables_playbook.yml
 ```
 
 ## Create droplets from images

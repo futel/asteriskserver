@@ -35,8 +35,24 @@
   with_items:
     - ca.crt
     - client.conf
-    - client-asteriskserver.crt
-    - client-asteriskserver.key
+    - client-asteriskserver-foo.crt
+    - client-asteriskserver-bar.crt    
+    - client-asteriskserver-foo.key
+    - client-asteriskserver-bar.key    
+- name: symlink openvpn client creds
+  ansible.builtin.file:
+    src: /etc/openvpn/client/client-asteriskserver-{{ conf_version }}.crt
+    dest: /etc/openvpn/client/client.crt
+    state: link
+    owner: root
+    group: root
+- name: symlink openvpn client creds
+  ansible.builtin.file:
+    src: /etc/openvpn/client/client-asteriskserver-{{ conf_version }}.key
+    dest: /etc/openvpn/client/client.key
+    state: link
+    owner: root
+    group: root
 - name: install openvpn client scripts
   copy:
     src: ../src/etc/openvpn/client/{{ item }}
@@ -62,19 +78,3 @@
   ansible.builtin.systemd:
     name: ip6tables
     enabled: yes
-- name: update iptables rules
-  script: ../src/iptables.sh
-- name: update ip6tables rules
-  script: ../src/ip6tables.sh
-- name: save iptables rules
-  shell: iptables-save >/etc/sysconfig/iptables
-- name: save ip6tables rules
-  shell: ip6tables-save >/etc/sysconfig/ip6tables
-- name: start iptables
-  ansible.builtin.systemd:
-    name: iptables
-    state: restarted
-- name: start ip6tables
-  ansible.builtin.systemd:
-    name: ip6tables
-    state: restarted
