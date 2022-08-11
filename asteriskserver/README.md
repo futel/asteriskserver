@@ -44,7 +44,7 @@ Validate requirements and configuration locally
 
 ## Update assets
 
-Checkout the content directory into the assets subdirectory.
+Checkout the content repository into the assets subdirectory.
 
 https://gitlab.com/futel/futel-content
 
