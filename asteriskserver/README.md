@@ -1,7 +1,11 @@
+# Deploy an asterisk server to Digital Ocean
 
-## Deploy an asterisk server to Digital Ocean
+## Meta-requirements
 
-Steps:
+The setup of README-aws and README-twilio should be completed. These should only have to be done once.
+
+## Steps
+
 - Test, validate, etc.
 - Create stage droplet with domain name
 - Test
