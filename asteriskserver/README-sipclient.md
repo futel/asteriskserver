@@ -1,9 +1,12 @@
-# set up sip client
+# Seting up a sip client for the asterisk server.
 
-requirements
-<extension> from sip.conf etc
-<secret> from sip_secret.conf.j2 and update_asterisk_secrets_generic.yml
-<server> futel-prod.phu73l.net or origination-prod.futel.sip.us1.twilio.com
+## requirements
+
+<extension> from pjsip.conf etc
+<secret> from pjsip_secret.conf.j2 and update_asterisk_secrets_generic.yml
+<server> futel-prod.phu73l.net or futel-stage.phu73l.net
+
+Client must be behind a VPN client.
 
 ## set up a spa-1001 linksysPAP etc
 
@@ -29,7 +32,6 @@ firmware server path: blank
 config server path: blank
 automatic upgrade: no
 always skip the firmware check: selected
-
 
 fxs port
 account active: yes
