@@ -1,4 +1,7 @@
-asteriskserver/conf
+conf/*
 *.box
-asteriskserver/.vagrant
-asteriskserver/src/var/lib/asterisk/sounds
+.vagrant
+src/var/lib/asterisk/sounds
+*.pyc
+assets/*
+ansible.log
