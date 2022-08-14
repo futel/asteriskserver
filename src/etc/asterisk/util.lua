@@ -91,6 +91,8 @@ function get_timeoutstring(timeout)
 end
 
 -- Dial number with timeout in dial command syntax (which can be empty).
+-- Note that this can dial external endpoints, "internaldial" may be
+-- a confusing name.
 function internaldial(number, timeout)
     metric("internaldial")
     -- wait for ratelimiter
