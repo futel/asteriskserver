@@ -1,8 +1,7 @@
-conf = require("conf")
 util = require("util")
 
 function wildcard_context(filename)
-    statement_dir = conf.asterisk_root .. "var/lib/asterisk/sounds/futel/wildcard-line/"
+    statement_dir = "/var/lib/asterisk/sounds/futel/wildcard-line/"
     statement_file = statement_dir .. filename
     return util.statement_context({statements={statement_file}})
 end

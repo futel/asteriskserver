@@ -4,14 +4,10 @@ import util
 import sys
 import os
 
-import conf
-
 
 agi = agi.AGI()
 
-sound_dirname = os.path.join(
-    conf.asterisk_root,
-    "var/lib/asterisk/sounds/futel/sequence-challenge/")
+sound_dirname = "/var/lib/asterisk/sounds/futel/sequence-challenge/"
 
 def play_sound(agi_o, name):
     name = sound_dirname + name

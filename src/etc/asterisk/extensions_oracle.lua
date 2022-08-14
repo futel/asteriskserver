@@ -1,9 +1,8 @@
-conf = require("conf")
 util = require("util")
 
 function oracle_dead_intro_pre()
     util.play_random_background(
-        conf.asterisk_root .. "/var/lib/asterisk/sounds/futel/oracle-dead-interstitial-long")
+        "/var/lib/asterisk/sounds/futel/oracle-dead-interstitial-long")
     util.say("oracle-dead-intro-hello", oracle-dead)
     util.say("oracle-dead-intro-to-skip-instructions", oracle-dead)
     util.say("oracle-dead-intro-motivation", oracle-dead)
@@ -25,7 +24,7 @@ end
 
 function oracle_dead_sound_intro_pre()
     util.play_random_background(
-        conf.asterisk_root .. "/var/lib/asterisk/sounds/futel/oracle-dead-interstitial-long")
+        "/var/lib/asterisk/sounds/futel/oracle-dead-interstitial-long")
     util.say("oracle-dead-setup-attempting", oracle-dead)
     util.say("oracle-dead-intro-no-guarantee-content", oracle-dead)
     util.say("oracle-dead-intro-no-guarantee-content", oracle-dead)    
@@ -34,7 +33,7 @@ end
 
 function oracle_dead_sound_pre()
     util.play_random_background(
-        conf.asterisk_root .. "/var/lib/asterisk/sounds/futel/oracle-dead-oracle")
+        "/var/lib/asterisk/sounds/futel/oracle-dead-oracle")
 end
 
 -- [oracle-dead-entry]
@@ -51,7 +50,7 @@ end
 -- same => n,Goto(s,digit)  ; collect another digit
 -- exten => #,1,NoOp
 -- same => n,Set(numbers=$[${numbers} + 1])
--- same => n,AGI(random_file_strip.agi,${asterisk_root}/var/lib/asterisk/sounds/futel/oracle-dead-interstitial-short)
+-- same => n,AGI(random_file_strip.agi,/var/lib/asterisk/sounds/futel/oracle-dead-interstitial-short)
 -- same => n,Background(${agi_out})
 -- same => n,Macro(say,thank-you,oracle-dead)
 -- same => n,Macro(say,oracle-dead-instructions-enter-number-again,oracle-dead)

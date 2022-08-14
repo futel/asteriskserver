@@ -1,40 +1,39 @@
-conf = require("conf")
 util = require("util")
 
 function robotron_pre()
     util.play_random_background(
-        conf.asterisk_root .. "/var/lib/asterisk/sounds/futel/williams-short")
+        "/var/lib/asterisk/sounds/futel/williams-short")
 end
 
 local extensions = {
     robotron_doctrine_of_futility_play = util.context(
         {intro_statements={
-             conf.asterisk_root .. "/var/lib/asterisk/sounds/futel/church-of-robotron/Church_of_Robotron_Sermon__Doctrine_of_Futility"},
+             "/var/lib/asterisk/sounds/futel/church-of-robotron/Church_of_Robotron_Sermon__Doctrine_of_Futility"},
          menu_entries={},
          statement_dir=nil}),
     robotron_eight_ways_play = util.context(
         {intro_statements={
-             conf.asterisk_root .. "/var/lib/asterisk/sounds/futel/church-of-robotron/Church_of_Robotron_Sermon__Eight_Ways"},
+             "/var/lib/asterisk/sounds/futel/church-of-robotron/Church_of_Robotron_Sermon__Eight_Ways"},
          menu_entries={},
          statement_dir=nil}),
     robotron_doctrine_of_error_play = util.context(
         {intro_statements={
-             conf.asterisk_root .. "/var/lib/asterisk/sounds/futel/church-of-robotron/Church_of_Robotron_Sermon__Doctrine_of_Error"},
+             "/var/lib/asterisk/sounds/futel/church-of-robotron/Church_of_Robotron_Sermon__Doctrine_of_Error"},
          menu_entries={},
          statement_dir=nil}),
     robotron_ninth_position_play = util.context(
         {intro_statements={
-             conf.asterisk_root .. "/var/lib/asterisk/sounds/futel/church-of-robotron/Church_of_Robotron_Sermon__The_Ninth_Position"},
+             "/var/lib/asterisk/sounds/futel/church-of-robotron/Church_of_Robotron_Sermon__The_Ninth_Position"},
          menu_entries={},
          statement_dir=nil}),
     robotron_what_are_the_robotrons_play = util.context(
         {intro_statements={
-             conf.asterisk_root .. "/var/lib/asterisk/sounds/futel/church-of-robotron/Church_of_Robotron_Sermon__What_are_the_Robotrons"},
+             "/var/lib/asterisk/sounds/futel/church-of-robotron/Church_of_Robotron_Sermon__What_are_the_Robotrons"},
          menu_entries={},
          statement_dir=nil}),
     robotron_battle_poetry_play = util.context(
         {intro_statements={
-             conf.asterisk_root .. "/var/lib/asterisk/sounds/futel/church-of-robotron/waves"},
+             "/var/lib/asterisk/sounds/futel/church-of-robotron/waves"},
          menu_entries={},
          statement_dir=nil}),
     robotron = util.context(

@@ -6,13 +6,11 @@ Prompt for and collect recordings.
 from itertools import cycle
 import os, errno
 
-import conf
 import util
 import statements
 
 
-RECORDING_DIR = os.path.join(
-    conf.asterisk_root, 'var/lib/asterisk/sounds/futel/recordings')
+RECORDING_DIR = '/var/lib/asterisk/sounds/futel/recordings'
 
 def mkdir(path):
     """Make directory and parents, silently ignoring existing directories."""

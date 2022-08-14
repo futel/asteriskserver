@@ -1,4 +1,3 @@
-conf = require("conf")
 util = require("util")
 
 function outgoing_pre_menu(context_name)
@@ -7,7 +6,7 @@ function outgoing_pre_menu(context_name)
     -- 911 digits.
     app.AGI("friction.agi", context_name)
     util.play_random_background(
-        conf.asterisk_root .. "/var/lib/asterisk/sounds/futel/williams-short")
+        "/var/lib/asterisk/sounds/futel/williams-short")
 end
 
 function outgoing_portland_pre_bounce()

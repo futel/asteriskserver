@@ -1,4 +1,3 @@
-conf = require("conf")
 util = require("util")
 math = require("math")
 
@@ -76,8 +75,7 @@ end
 
 function longmont(context, exten)
     util.metric(context)
-    util.play_random_background(
-        conf.asterisk_root .. "/var/lib/asterisk/sounds/futel/longmont")
+    util.play_random_background("/var/lib/asterisk/sounds/futel/longmont")
 end
 
 function payphone_radio(context, exten)
