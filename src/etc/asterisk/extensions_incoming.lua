@@ -44,9 +44,9 @@ function member_auth(context, exten)
 end
 
 -- ring phone at extension with termination, then metric with identifier
-function ring_context(extension, termination, identifier, context)
+function ring_context(extension, identifier, context)
     util.metric(context)
-    dialstring = util.get_dialstring(extension, termination)
+    dialstring = util.get_dialstring(extension, nil)
     app.Dial(dialstring)
     dialstatus = channel.DIALSTATUS:get()
     metric("incoming-dialstatus-" .. dialstatus .. "-" .. identifier)
@@ -55,7 +55,6 @@ end
 function ring_ainsworth(context, exten)
     return ring_context(
         ainsworth_extension,
-        nil,
         "ainsworth",
         context)
 end
@@ -63,7 +62,6 @@ end
 function ring_detroitbusco(context) 
     return ring_context(
         detroitbusco_extension,
-        nil,
         "detroitbusco",
         context)
 end
@@ -71,7 +69,6 @@ end
 function ring_taylor(context) 
     return ring_context(
         taylor_extension,
-        nil,
         "taylor",
         context)
 end
@@ -79,7 +76,6 @@ end
 function ring_ypsi(context) 
     return ring_context(
         ypsi_extension,
-        nil,
         "ypsi",
         context)
 end
@@ -87,7 +83,6 @@ end
 function ring_alley27(context) 
     return ring_context(
         alley27_extension,
-        nil,
         "alley27",
         context)
 end
@@ -95,7 +90,6 @@ end
 function ring_robotron(context) 
     return ring_context(
         robotron_extension,
-        nil,
         "robotron",
         context)
 end
@@ -103,7 +97,6 @@ end
 function ring_souwester(context) 
     return ring_context(
         souwester_extension,
-        nil,
         "souwester",
         context)
 end
@@ -111,7 +104,6 @@ end
 function ring_eighth(context) 
     return ring_context(
         eighth_extension,
-        nil,
         "eighth",
         context)
 end
@@ -119,7 +111,6 @@ end
 function ring_r2d2(context) 
     return ring_context(
         r2d2_extension,
-        nil,
         "r2d2",
         context)
 end
@@ -127,7 +118,6 @@ end
 function ring_central(context) 
     return ring_context(
         central_extension,
-        "twilio",
         "central",
         context)
 end
@@ -135,7 +125,6 @@ end
 function ring_breckenridge(context) 
     return ring_context(
         breckenridge_extension,
-        "twilio",
         "breckenridge",
         context)
 end
@@ -143,7 +132,6 @@ end
 function ring_saratoga(context) 
     return ring_context(
         saratoga_extension,
-        "twilio",
         "saratoga",
         context)
 end
@@ -151,7 +139,6 @@ end
 function ring_cesarchavez(context) 
     return ring_context(
         cesarchavez_extension,
-        "twilio",
         "cesarchavez",
         context)
 end
@@ -159,7 +146,6 @@ end
 function ring_hedron(context) 
     return ring_context(
         hedron_extension,
-        nil,
         "hedron",
         context)
 end
@@ -167,7 +153,6 @@ end
 function ring_sjac(context) 
     return ring_context(
         sjac_extension,
-        nil,
         "sjac",
         context)
 end
