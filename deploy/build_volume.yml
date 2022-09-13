@@ -10,12 +10,23 @@
     snapshot_type: volume
     oauth_token: "{{ deploy_access_token }}"
   register: resp_out
+- name: extract snapshot data from response
+  set_fact:
+    snapshots: "{{ resp_out.data }}"
+- name: sort snapshot data
+  set_fact:
+    snapshots: "{{ snapshots | sort(attribute='created_at') }}"
+- debug: msg="snapshots {{ snapshots }}"
+# loop through all snapshots and set the id, the last one is the one we end up with
 - name: get ID of volume snapshot
   set_fact:
     snapshot_id: "{{ item.id }}"
-  loop: "{{ resp_out.data | json_query(name) }}"
+  loop: "{{ snapshots | json_query(name) }}"
   vars:
     name: "[?starts_with(name, 'assetsbuild')]"
+# XXX Note that if this playbook has been run twice, we will create and attach a new storage.
+#     This is probably not a problem because we ignore the previous ones when mounting, but we will
+#     still have an unmounted storage attached (that we are paying for).
 - name: create block storage from image
   community.digitalocean.digital_ocean_block_storage:
     state: present

@@ -15,9 +15,6 @@ The setup of README-aws and README-twilio should be completed. These should only
 ## Requirements and test
 
 - Have no Digital Ocean droplets or domains named futel-stage.phu73l.net.
-- Have no Digital Ocean volumes named assets.
-- XXX there is one attached to prod
-- Have only one Digital Ocean volume snapshot with a name starting with assetsubuild.
 - Have src/asterisk-18.8.0-futel.1.el8.x86_64.rpm built by buildserver.
 - Create or check out release branch.
 
@@ -63,8 +60,6 @@ Wait for DNS to match IP address with "nslookup futel-stage.phu73l.net".
   ansible-playbook -i deploy/hosts deploy/baseinstall_playbook.yml --limit baseinstall
   ansible-playbook -i deploy/hosts deploy/update_asterisk_playbook.yml --limit baseinstall --vault-password-file=conf/vault_pass_generic.txt
   ansible-playbook -i deploy/hosts deploy/update_secrets_playbook.yml --limit prod:localhost:baseinstall --vault-password-file=conf/vault_pass_prod.txt
-  # this is mounting the existing assets volume
-  # instead of creating a new one
   ansible-playbook -i deploy/hosts deploy/provision_storage_playbook.yml --vault-password-file=conf/vault_pass_digitalocean.txt
   ansible-playbook -i deploy/hosts --limit localhost,prod,baseinstall deploy/sync_playbook.yml
 ```
@@ -98,6 +93,9 @@ make a snapshot of futel-prod-back
 ```
 ansible-playbook -i deploy/hosts deploy/post_promote_playbook.yml --vault-password-file=conf/vault_pass_digitalocean.txt
 ```
+
+Delete the assets* volume which was attached to futel-prod-back.
+- XXX post_promote_playbook should handle this?
 
 remove snapshots of futel-prod-back except for most recent
 
