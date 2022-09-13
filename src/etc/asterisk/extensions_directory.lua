@@ -174,11 +174,13 @@ local extensions = {
          statement_dir="network"}),
     community_services_oregon = util.context(
         {menu_entries={
-             {"for-two-one-one-community-resources", "info-211"},
-             {"for-multnomah-county-mental-health-crisis-intervention",
-              "mental-health-crisis"},
-             {"for-the-call-to-safety-crisis-line", "call-to-safety"},
              {"for-the-suicide-prevention-hotline", "suicide-hotline"},
+             {"if-you-need-help-with-a-crisis-situation", "project-respond"},
+             {"if-you-are-a-teenager-needing-support", "oregon-youthline"},
+             {"for-two-one-one-community-resources", "info-211"},
+             {"for-multnomah-county-mental-health-crisis-intervention", "mental-health-crisis"},
+             {"for-the-call-to-safety-crisis-line", "call-to-safety"},
+             {"for-help-with-drugs-or-alcohol-problems", "portland-alcohol-and-drug-helpline"},
              {"for-an-obamaphone", "obamaphone-oregon"}},
          statement_dir="community-service"}),
     community_services_michigan = util.context(

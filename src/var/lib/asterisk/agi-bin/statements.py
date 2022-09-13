@@ -242,6 +242,9 @@ statement_groups = [
          'star']},
     {'name': 'community-service',
      'statements': [
+         'if-you-need-help-with-a-crisis-situation',
+         'if-you-are-a-teenager-needing-support',
+         'for-help-with-drugs-or-alcohol-problems',
          'for-two-one-one-community-resources',
          'for-multnomah-county-mental-health-crisis-intervention',
          'for-the-call-to-safety-crisis-line',
