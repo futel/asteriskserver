@@ -1,4 +1,3 @@
-util = require("conf")
 util = require("util")
 
 -- conversations

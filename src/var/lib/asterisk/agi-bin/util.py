@@ -5,7 +5,7 @@ import random
 import uuid
 import yaml
 
-asterisk_etc_dir '/etc/asterisk'
+asterisk_etc_dir = '/etc/asterisk'
 
 # filename suffixes to consider for sound files
 soundfile_suffixes = [
