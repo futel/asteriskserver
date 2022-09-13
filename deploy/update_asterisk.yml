@@ -30,12 +30,6 @@
     dest: /etc/asterisk/extensions_secret.conf
     owner: asterisk
     group: asterisk
-- name: copy followme conf with secrets
-  template:
-    src: ../src/etc/asterisk/followme_secret.conf.j2
-    dest: /etc/asterisk/followme_secret.conf
-    owner: asterisk
-    group: asterisk
 - name: copy blocklist conf with secrets
   template:
     src: ../src/etc/asterisk/blocklist.yaml.j2
