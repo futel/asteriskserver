@@ -42,7 +42,7 @@
     mode: "a+x"    
 - name: install event listener
   copy:
-    src: ../src/eventlistener.py
+    src: ../src/opt/futel/src/eventlistener.py
     dest: /opt/futel/src
     owner: asterisk
     group: asterisk
