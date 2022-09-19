@@ -39,6 +39,13 @@
     dest: /opt/futel/bin
     owner: asterisk
     group: asterisk
+    mode: "a+x"
+- name: install extension status utility
+  copy:
+    src: ../src/opt/futel/bin/contact_status.py
+    dest: /opt/futel/bin
+    owner: asterisk
+    group: asterisk
     mode: "a+x"    
 - name: install event listener
   copy:
