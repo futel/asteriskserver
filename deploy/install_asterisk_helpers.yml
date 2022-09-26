@@ -53,6 +53,13 @@
     dest: /opt/futel/src
     owner: asterisk
     group: asterisk
+    mode: "a+x"
+- name: install event publisher
+  copy:
+    src: ../src/opt/futel/src/snspublish.py
+    dest: /opt/futel/src
+    owner: asterisk
+    group: asterisk
     mode: "a+x"    
 - name: set up supervisord conf
   copy:

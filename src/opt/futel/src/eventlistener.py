@@ -4,42 +4,27 @@ Send asterisk manager events to aws sns queue.
 """
 
 import eventlistenerconf
+import snspublish
 
 import functools
 import time
-import socket
-import json
 import logging
 import sys
-from datetime import datetime, timezone
 
-import boto3
 from asterisk import manager
 
 # asterisk manager config
 asterisk_ip = "localhost"
 asterisk_user = "futel"
 
-# aws config
-aws_region_name = 'us-west-2'
-
 logging.basicConfig(
     stream=sys.stdout,
     level=logging.INFO,
     format='%(asctime)s %(message)s')
 
-def event_to_message(event):
-    now = datetime.now(timezone.utc).replace(microsecond=0).isoformat()
-    return json.dumps(
-        {'timestamp': now,
-         'hostname': socket.gethostname(),
-         'event': event.headers})
-
 def handle_interesting_event(event, manager, snsclient):
-    message = event_to_message(event)
     logging.info('publishing %s' % message)
-    response = snsclient.publish(
-        TopicArn=eventlistenerconf.aws_arn, Message=message)
+    snspublish.publish(event, snsclient)
 
 def handle_misc_event(event, manager, snsclient):
     #if event.headers.get('AppData') in ('OperatorAttempt', 'OperatorNoPickup'):
@@ -47,11 +32,7 @@ def handle_misc_event(event, manager, snsclient):
     logging.info('not publishing %s' % event.headers)
 
 def get_manager():
-    snsclient = boto3.client(
-        'sns',
-        region_name=aws_region_name,
-        aws_access_key_id=eventlistenerconf.aws_access_key_id,
-        aws_secret_access_key=eventlistenerconf.aws_secret_access_key)
+    snsclient = snspublish.get_snsclient()
 
     amanager = manager.Manager()
     amanager.connect(asterisk_ip)
