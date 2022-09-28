@@ -1,12 +1,6 @@
 ---
 - name: load conf
   include_vars: "conf.yml"
-- name: make recordings directory
-  file:
-    path: /var/lib/asterisk/sounds/futel/recordings
-    state: directory
-    owner: asterisk
-    group: asterisk
 - name: copy asterisk williams short sounds
   copy:
     src: ../src/var/lib/asterisk/sounds/futel/williams-short
@@ -127,5 +121,11 @@
   copy:
     src: ../src/var/lib/asterisk/moh/midi/
     dest: /var/lib/asterisk/moh/midi
+    owner: asterisk
+    group: asterisk
+- name: make recordings directory
+  file:
+    path: /var/lib/asterisk/sounds/futel/recordings
+    state: directory
     owner: asterisk
     group: asterisk
