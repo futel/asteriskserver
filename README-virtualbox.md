@@ -1,4 +1,4 @@
-## Deploy a futel asterisk server on a 64 bit centos VM
+## Deploy a futel asterisk server on a 64 bit Rocky Linux VM
 
 We use Vagrant and Virtualbox on an Ubuntu host.
 
