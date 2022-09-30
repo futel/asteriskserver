@@ -1,4 +1,9 @@
 ---
+- name: link futel sounds
+  file:
+    src: /vagrant/src/var/lib/asterisk/sounds/futel
+    dest: /var/lib/asterisk/sounds/futel
+    state: link
 - name: link en statement sounds
   file:
     src: /vagrant/src/var/lib/asterisk/sounds/en/statements
@@ -13,11 +18,6 @@
   file:
     src: /vagrant/src/var/lib/asterisk/sounds/en/futelconf
     dest: /var/lib/asterisk/sounds/en/futelconf
-    state: link
-- name: link futel sounds
-  file:
-    src: /vagrant/src/var/lib/asterisk/sounds/futel
-    dest: /var/lib/asterisk/sounds/futel
     state: link
 - name: link hold music
   file:
