@@ -36,11 +36,6 @@ function directory_utopian_hotline(context, exten)
     util.internaldial("+15036627263")
 end
 
-function directory_nuforc(context, exten)
-    util.metric(context)
-    util.internaldial("+12067223000")
-end
-
 function directory_office_of_night_things(context, exten)
     util.metric(context)
     util.internaldial("+18003900934")
@@ -86,20 +81,18 @@ end
 local extensions = {
     directory_portland = util.context(
         {menu_entries={
-             [1]={"for-the-mayor", "directory_mayor_portland"},
-             [2]={"for-a-random-concentration-camp",
-                  "directory_random_concentrationcamp"},
-             [3]={"for-the-druid-of-sissyphus-gardens",
-                  "directory_sissyphus"},
-             [4]={"for-a-random-payphone", "directory_random_payphone"},
-             [5]={"for-the-wilamette-valley-dream-survey",
-                  "directory_dream_survey"},
-             [6]={"for-nature-x-x-x", "directory_natr_xxx"},
-             [7]={"for-the-utopian-hotline", "directory_utopian_hotline"},
-             [8]={"for-the-national-u-f-o-reporting-center",
-                  "directory_nuforc"},
-             [9]={"for-they-might-be-giants-dial-a-song",
-                  "directory_tmbg_dial_a_song"}},
+             {"for-the-mayor", "directory_mayor_portland"},
+             {"for-a-random-concentration-camp",
+              "directory_random_concentrationcamp"},
+             {"for-the-druid-of-sissyphus-gardens",
+              "directory_sissyphus"},
+             {"for-a-random-payphone", "directory_random_payphone"},
+             {"for-the-wilamette-valley-dream-survey",
+              "directory_dream_survey"},
+             {"for-nature-x-x-x", "directory_natr_xxx"},
+             {"for-the-utopian-hotline", "directory_utopian_hotline"},
+             {"for-they-might-be-giants-dial-a-song",
+              "directory_tmbg_dial_a_song"}},
          statement_dir="directory"}),
     directory_ypsi = util.context(
         {menu_entries={
@@ -156,8 +149,6 @@ local extensions = {
               "directory_dream_survey"},
              {"for-nature-x-x-x", "directory_natr_xxx"},
              {"for-the-utopian-hotline", "directory_utopian_hotline"},
-             {"for-the-national-u-f-o-reporting-center",
-              "directory_nuforc"},
              {"for-they-might-be-giants-dial-a-song",
               "directory_tmbg_dial_a_song"}},
          statement_dir="directory"}),
@@ -214,7 +205,6 @@ local extensions = {
     directory_natr_xxx = util.destination_context(directory_natr_xxx),
     directory_utopian_hotline = util.destination_context(
         directory_utopian_hotline),
-    directory_nuforc = util.destination_context(directory_nuforc),    
     directory_office_of_night_things = util.destination_context(
         directory_office_of_night_things),
     directory_random_payphone = util.destination_context(
