@@ -38,6 +38,8 @@ def get_manager():
     amanager.connect(asterisk_ip)
     amanager.login(asterisk_user, eventlistenerconf.asterisk_passwd)
 
+    # XXX Exceptions raised by event handlers just cause us to hang, is this because they are
+    #     in a separate thread?
     event_handler = functools.partial(
         handle_interesting_event, snsclient=snsclient)
     misc_event_handler = functools.partial(
@@ -56,42 +58,21 @@ def get_manager():
 
 def retry_get_manager():
     while True:
-        try:
-            amanager = get_manager()
-            if not amanager.connected():
-                raise Exception('not connected')
+        amanager = get_manager()
+        if amanager.connected():
             return amanager
-        except Exception as exc:
-            # all of this rescuing is silly
-            # should just let supervisord do its thing
-            logging.info(str(exc))
-        finally:
-            time.sleep(60)
+        logging.info('not connected')
+        time.sleep(60)
 
 def main():
     logging.info('starting')
     amanager = retry_get_manager()
     while True:
-        try:
-            if not amanager.connected():
-                raise Exception('not connected')
-            _response = amanager.mailbox_count(1337)
-            logging.debug('.')
-        except Exception as exc:
-            # all of this rescuing is silly
-            # should just let supervisord do its thing
-            try:
-                logging.info(str(exc))
-                amanager.logoff()
-            except Exception as exc:
-                logging.info(str(exc))
-            try:
-                amanager.close()
-            except Exception as exc:
-                logging.info(str(exc))
-            # XXX we cleaned up the manager, now we need to create a new one
-        finally:
-            time.sleep(60)
+        if not amanager.connected():
+            raise Exception('not connected')
+        _response = amanager.mailbox_count(1337)
+        logging.debug('.')
+        time.sleep(60)
 
 if __name__ == "__main__":
     main()
