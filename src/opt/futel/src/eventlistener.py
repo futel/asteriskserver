@@ -23,7 +23,7 @@ logging.basicConfig(
     format='%(asctime)s %(message)s')
 
 def handle_interesting_event(event, manager, snsclient):
-    logging.info('publishing %s' % message)
+    logging.info('publishing %s' % event.headers)
     snspublish.publish(event, snsclient)
 
 def handle_misc_event(event, manager, snsclient):
