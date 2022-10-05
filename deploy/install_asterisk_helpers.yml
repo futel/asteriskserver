@@ -40,27 +40,18 @@
     owner: asterisk
     group: asterisk
     mode: "a+x"
-- name: install extension status utility
+- name: install reporting utilities
   copy:
-    src: ../src/opt/futel/bin/contact_status.py
-    dest: /opt/futel/bin
-    owner: asterisk
-    group: asterisk
-    mode: "a+x"    
-- name: install event listener
-  copy:
-    src: ../src/opt/futel/src/eventlistener.py
+    src: ../src/opt/futel/src/{{ item }}
     dest: /opt/futel/src
     owner: asterisk
     group: asterisk
     mode: "a+x"
-- name: install event publisher
-  copy:
-    src: ../src/opt/futel/src/snspublish.py
-    dest: /opt/futel/src
-    owner: asterisk
-    group: asterisk
-    mode: "a+x"    
+  with_items:
+    - contact_publisher.py
+    - contact_status.py
+    - eventlistener.py
+    - snspublish.py
 - name: set up supervisord conf
   copy:
     src: ../src/supervisord.conf
