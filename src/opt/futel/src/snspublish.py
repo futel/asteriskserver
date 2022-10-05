@@ -24,7 +24,7 @@ def event_to_message(event):
     return json.dumps(
         {'timestamp': now,
          'hostname': socket.gethostname(),
-         'event': event.headers})
+         'event': event})
 
 def publish(event, snsclient):
     message = event_to_message(event)

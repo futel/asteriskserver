@@ -24,7 +24,7 @@ logging.basicConfig(
 
 def handle_interesting_event(event, manager, snsclient):
     logging.info('publishing %s' % event.headers)
-    snspublish.publish(event, snsclient)
+    snspublish.publish(event.headers, snsclient)
 
 def handle_misc_event(event, manager, snsclient):
     #if event.headers.get('AppData') in ('OperatorAttempt', 'OperatorNoPickup'):
