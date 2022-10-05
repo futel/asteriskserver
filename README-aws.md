@@ -37,7 +37,7 @@ view asterisk-prod-events SNS topic
 
 view asterisk-prod-events SQS queue
 - assert that NumberOfMessagesReceived increases after message-causing event happens
-= assert that ApproximateNumberOfMessagesVisible is small
+- assert that ApproximateNumberOfMessagesVisible is small
 - assert that ApproximateAgeOfOldestMessage is small
 
 view "View/Delete Messages" under "Queue Actions" dropdown and confirm that messages are received (note that this prevents legitimate recipients)
