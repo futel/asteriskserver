@@ -3,7 +3,7 @@
   include_vars: "conf.yml"
 - name: copy futel sounds
   copy:
-    src: "{{ asterisk_sound_directory }}/futel/{{ item }}"
+    src: "{{ src }}/var/lib/asterisk/sounds/futel/{{ item }}"
     dest: /var/lib/asterisk/sounds/futel
     owner: asterisk
     group: asterisk
@@ -32,7 +32,7 @@
     group: asterisk
 - name: copy en statement sounds
   copy:
-    src: "{{ asterisk_sound_directory }}/en/statements/{{ item }}"
+    src: "{{ src }}/var/lib/asterisk/sounds/en/statements/{{ item }}"
     dest: /var/lib/asterisk/sounds/en/statements
     owner: asterisk
     group: asterisk
@@ -53,7 +53,7 @@
     - tishbite-wait
 - name: copy es statement sounds
   copy:
-    src: "{{ asterisk_sound_directory }}/es/statements/{{ item }}"  
+    src: "{{ src }}/var/lib/asterisk/sounds/es/statements/{{ item }}"  
     dest: /var/lib/asterisk/sounds/es/statements
     owner: asterisk
     group: asterisk
@@ -71,14 +71,14 @@
     - sofia-voicemail
 - name: copy en asterisk confbridge menu sounds
   copy:
-    src: "{{ asterisk_sound_directory }}/en/futelconf"
+    src: "{{ src }}/var/lib/asterisk/sounds/en/futelconf"
     dest: /var/lib/asterisk/sounds/en
     owner: asterisk
     group: asterisk
 - name: copy hold music
   copy:
-    src: ../src/var/lib/asterisk/moh/{{ item }}/
-    dest: /var/lib/asterisk/moh/{{ item }}
+    src: "{{ src }}/var/lib/asterisk/moh/{{ item }}"
+    dest: /var/lib/asterisk/moh
     owner: asterisk
     group: asterisk
   with_items:

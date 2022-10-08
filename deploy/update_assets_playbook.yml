@@ -1,4 +1,6 @@
 ---
 - hosts: localhost
+  vars:
+    src: "../src"
   tasks:
     - include: update_assets.yml

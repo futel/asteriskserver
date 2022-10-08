@@ -3,48 +3,48 @@
   include_vars: "conf.yml"
 - name: clean sounds directories
   file:
-    path: "{{ asterisk_sound_directory }}"
+    path: "{{ src }}/var/lib/asterisk/sounds"
     state: absent
 - name: clean sounds directories
   file:
-    path: "{{ asterisk_sound_directory }}"
+    path: "{{ src }}/var/lib/asterisk/sounds"
     state: directory
 - name: update and copy sounds
-  command: ruby scripts/update_audio_assets.rb {{ asterisk_sound_directory }}/{{ item }} {{ asset_directory }}/{{ item }}
+  command: ruby scripts/update_audio_assets.rb {{ src }}/{{ item }} {{ asset_directory }}/{{ item }}
   with_items:
-    - futel/church-of-robotron
-    - futel/conversations
-    - futel/longmont
-    - futel/oracle-dead-interstitial-long
-    - futel/oracle-dead-interstitial-short
-    - futel/oracle-dead-oracle
-    - futel/sequence-challenge
-    - futel/wildcard-line
-    - futel/williams-long
-    - futel/williams-short
-    - en/statements/anzie-wumpus
-    - en/statements/challenge
-    - en/statements/conversations
-    - en/statements/karl-oracle-dead
-    - en/statements/karl_quuux
-    - en/statements/karl-robotron
-    - en/statements/karl-voicemail-ivr
-    - en/statements/karl-wildcard-line
-    - en/statements/konami
-    - en/statements/rose-bar
-    - en/statements/rose-foo
-    - en/statements/sailor
-    - en/statements/tishbite
-    - en/statements/tishbite-wait
-    - en/futelconf
-    - es/statements/sailor
-    - es/statements/sofia-community
-    - es/statements/sofia-community-service
-    - es/statements/sofia-directory
-    - es/statements/sofia-general
-    - es/statements/sofia-incoming
-    - es/statements/sofia-information
-    - es/statements/sofia-network
-    - es/statements/sofia-outgoing
-    - es/statements/sofia-utilities
-    - es/statements/sofia-voicemail
+    - var/lib/asterisk/sounds/futel/church-of-robotron
+    - var/lib/asterisk/sounds/futel/conversations
+    - var/lib/asterisk/sounds/futel/longmont
+    - var/lib/asterisk/sounds/futel/oracle-dead-interstitial-long
+    - var/lib/asterisk/sounds/futel/oracle-dead-interstitial-short
+    - var/lib/asterisk/sounds/futel/oracle-dead-oracle
+    - var/lib/asterisk/sounds/futel/sequence-challenge
+    - var/lib/asterisk/sounds/futel/wildcard-line
+    - var/lib/asterisk/sounds/futel/williams-long
+    - var/lib/asterisk/sounds/futel/williams-short
+    - var/lib/asterisk/sounds/en/statements/anzie-wumpus
+    - var/lib/asterisk/sounds/en/statements/challenge
+    - var/lib/asterisk/sounds/en/statements/conversations
+    - var/lib/asterisk/sounds/en/statements/karl-oracle-dead
+    - var/lib/asterisk/sounds/en/statements/karl_quuux
+    - var/lib/asterisk/sounds/en/statements/karl-robotron
+    - var/lib/asterisk/sounds/en/statements/karl-voicemail-ivr
+    - var/lib/asterisk/sounds/en/statements/karl-wildcard-line
+    - var/lib/asterisk/sounds/en/statements/konami
+    - var/lib/asterisk/sounds/en/statements/rose-bar
+    - var/lib/asterisk/sounds/en/statements/rose-foo
+    - var/lib/asterisk/sounds/en/statements/sailor
+    - var/lib/asterisk/sounds/en/statements/tishbite
+    - var/lib/asterisk/sounds/en/statements/tishbite-wait
+    - var/lib/asterisk/sounds/en/futelconf
+    - var/lib/asterisk/sounds/es/statements/sailor
+    - var/lib/asterisk/sounds/es/statements/sofia-community
+    - var/lib/asterisk/sounds/es/statements/sofia-community-service
+    - var/lib/asterisk/sounds/es/statements/sofia-directory
+    - var/lib/asterisk/sounds/es/statements/sofia-general
+    - var/lib/asterisk/sounds/es/statements/sofia-incoming
+    - var/lib/asterisk/sounds/es/statements/sofia-information
+    - var/lib/asterisk/sounds/es/statements/sofia-network
+    - var/lib/asterisk/sounds/es/statements/sofia-outgoing
+    - var/lib/asterisk/sounds/es/statements/sofia-utilities
+    - var/lib/asterisk/sounds/es/statements/sofia-voicemail

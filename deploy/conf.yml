@@ -1,3 +1,2 @@
 ---
-asset_directory: '../assets/sounds'
-asterisk_sound_directory: '../src/var/lib/asterisk/sounds'
+asset_directory: '../assets/src'
