@@ -1,18 +1,4 @@
 ---
-- name: copy recordings from prod
-  synchronize:
-    mode: pull
-    src: /var/lib/asterisk/sounds/futel/recordings
-    dest: tmp/stage
-    private_key: ../conf/id_rsa
-- name: fail if recordings exist on prod
-  find:
-    paths: '/var/lib/asterisk/sounds/futel/recordings'
-    file_type: directory
-  register: recordings_found
-- fail:
-     msg: 'The recordings directory is not empty.'
-  when: recordings_found.matched > 0
 - name: copy voicemail from prod
   synchronize:
     mode: pull

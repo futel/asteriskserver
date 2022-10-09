@@ -7,7 +7,6 @@ The setup of README-aws and README-twilio should be completed. These should only
 ## Steps
 
 - Test, validate, etc.
-- Update assets
 - Create stage droplet with domain name
 - Test
 - Promote stage droplet to prod droplet
@@ -40,16 +39,9 @@ Validate requirements and configuration locally
   ansible-playbook -K -i deploy/hosts deploy/requirements_packages_generic_playbook.yml
 ```
 
-## Update assets
-
-Checkout the content repository into the assets subdirectory.
-
-https://gitlab.com/futel/futel-content
-
 ## Deploy stage droplet
 
 ```
-  ansible-playbook -i deploy/hosts deploy/update_assets_playbook.yml
   ansible-playbook -i deploy/hosts deploy/deploy_digitalocean_playbook.yml --vault-password-file=conf/vault_pass_digitalocean.txt
 ```
 
