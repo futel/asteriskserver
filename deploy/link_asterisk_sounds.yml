@@ -30,9 +30,3 @@
     - hold
     - operator
     - midi
-- name: make recordings directory                                        
-  file:                                                                  
-    path: /var/lib/asterisk/sounds/futel/recordings         
-    state: directory                                                     
-    owner: asterisk                                                      
-    group: asterisk

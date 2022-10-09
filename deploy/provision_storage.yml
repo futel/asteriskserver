@@ -1,11 +1,13 @@
 ---
 # see also https://gist.github.com/charignon/72871fe890f4482ccd5bb9d6fd9afcdf
+- name: load conf
+  include_vars: "conf.yml"
 - name: set fact for volume name
   ansible.builtin.set_fact:
     volume_name: "{{ hostvars['localhost']['volume_name'] }}"
 - name: create mount point for volume
   file:
-    path: /mnt/assets
+    path: "{{ dest_asset_directory }}"
     state: directory
 - name: mount volume
   ansible.posix.mount:

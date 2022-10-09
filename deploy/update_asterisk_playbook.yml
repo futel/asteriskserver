@@ -8,7 +8,6 @@
     src: "../src"
   tasks:
     - include: update_asterisk.yml
-    - include: update_asterisk_sounds.yml
     - include: link_asterisk_sounds.yml
 - hosts: virtualbox
   become: true
