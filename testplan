@@ -48,7 +48,7 @@ outgoing menu ypsi performs friction action when configured for extension and ti
 outgoing menu ypsi does not perform friction action when configured for extension and time
 outgoing menu ypsi performs, metrics context_restricted_dialtone when configured
 
-outgoing can call NANPA number without prefix (11 digit NANPA)
+outgoing can call NANPA number without prefix (10 digit NANPA)
 outgoing can call NANPA number with 1 prefix
 outgoing can call NANPA number with 011 1 prefix
 outgoing can call Mexico number without 011 prefix (12 digit with 52 prefix)
@@ -171,9 +171,6 @@ can hear all episodes of wildcard line
 
 incoming community:
 sends user to community menu
-
-admin record statements:
-can record statements
 
 logs are generated
 metrics are generated
