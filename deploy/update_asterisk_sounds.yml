@@ -1,10 +1,15 @@
 ---
 - name: load conf
   include_vars: "conf.yml"
+# This is temporary until we have a real assets build.
+- name: make fake assets mount directory
+  file:
+    path: "{{ dest_asset_directory }}"
+    state: directory
 - name: copy futel sounds
   copy:
     src: "{{ src }}/var/lib/asterisk/sounds/futel/{{ item }}"
-    dest: /var/lib/asterisk/sounds/futel
+    dest: "{{ dest_asset_directory }}/var/lib/asterisk/sounds/futel"
     owner: asterisk
     group: asterisk
   with_items:    
@@ -20,20 +25,20 @@
     - sequence-challenge
 - name: make en statements directory
   file:
-    path: /var/lib/asterisk/sounds/en/statements
+    path: "{{ dest_asset_directory }}/var/lib/asterisk/sounds/en/statements"
     state: directory
     owner: asterisk
     group: asterisk
 - name: make es statements directory
   file:
-    path: /var/lib/asterisk/sounds/es/statements
+    path: "{{ dest_asset_directory }}/var/lib/asterisk/sounds/es/statements"
     state: directory
     owner: asterisk
     group: asterisk
 - name: copy en statement sounds
   copy:
     src: "{{ src }}/var/lib/asterisk/sounds/en/statements/{{ item }}"
-    dest: /var/lib/asterisk/sounds/en/statements
+    dest: "{{ dest_asset_directory }}/var/lib/asterisk/sounds/en/statements"
     owner: asterisk
     group: asterisk
   with_items:
@@ -54,7 +59,7 @@
 - name: copy es statement sounds
   copy:
     src: "{{ src }}/var/lib/asterisk/sounds/es/statements/{{ item }}"  
-    dest: /var/lib/asterisk/sounds/es/statements
+    dest: "{{ dest_asset_directory }}/var/lib/asterisk/sounds/es/statements"
     owner: asterisk
     group: asterisk
   with_items:
@@ -72,22 +77,16 @@
 - name: copy en asterisk confbridge menu sounds
   copy:
     src: "{{ src }}/var/lib/asterisk/sounds/en/futelconf"
-    dest: /var/lib/asterisk/sounds/en
+    dest: "{{ dest_asset_directory }}/var/lib/asterisk/sounds/en"
     owner: asterisk
     group: asterisk
 - name: copy hold music
   copy:
     src: "{{ src }}/var/lib/asterisk/moh/{{ item }}"
-    dest: /var/lib/asterisk/moh
+    dest: "{{ dest_asset_directory }}/var/lib/asterisk/moh"
     owner: asterisk
     group: asterisk
   with_items:
     - hold
     - operator
     - midi
-- name: make recordings directory
-  file:
-    path: /var/lib/asterisk/sounds/futel/recordings
-    state: directory
-    owner: asterisk
-    group: asterisk

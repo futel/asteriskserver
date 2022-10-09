@@ -1,0 +1,36 @@
+---
+- name: link futel sounds
+  file:
+    src: "{{ dest_asset_directory_virtualbox }}/var/lib/asterisk/sounds/futel"
+    dest: /var/lib/asterisk/sounds/futel
+    state: link
+- name: link en statement sounds
+  file:
+    src: "{{ dest_asset_directory_virtualbox }}/var/lib/asterisk/sounds/en/statements"
+    dest: /var/lib/asterisk/sounds/en/statements
+    state: link
+- name: link es statement sounds
+  file:
+    src: "{{ dest_asset_directory_virtualbox }}/var/lib/asterisk/sounds/es"
+    dest: /var/lib/asterisk/sounds/es
+    state: link
+- name: link en asterisk confbridge menu sounds
+  file:
+    src: "{{ dest_asset_directory_virtualbox }}/var/lib/asterisk/sounds/en/futelconf"
+    dest: /var/lib/asterisk/sounds/en/futelconf
+    state: link
+- name: link hold music
+  file:
+    src: "{{ dest_asset_directory_virtualbox }}/var/lib/asterisk/moh/{{ item }}"
+    dest: /var/lib/asterisk/moh/{{ item }}
+    state: link
+  with_items:
+    - hold
+    - operator
+    - midi
+- name: make recordings directory                                        
+  file:                                                                  
+    path: /var/lib/asterisk/sounds/futel/recordings         
+    state: directory                                                     
+    owner: asterisk                                                      
+    group: asterisk

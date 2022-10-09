@@ -1,27 +1,29 @@
 ---
+- name: load conf
+  include_vars: "conf.yml"
 - name: link futel sounds
   file:
-    src: /vagrant/src/var/lib/asterisk/sounds/futel
+    src: "{{ dest_asset_directory }}/var/lib/asterisk/sounds/futel"
     dest: /var/lib/asterisk/sounds/futel
     state: link
 - name: link en statement sounds
   file:
-    src: /vagrant/src/var/lib/asterisk/sounds/en/statements
+    src: "{{ dest_asset_directory }}/var/lib/asterisk/sounds/en/statements"
     dest: /var/lib/asterisk/sounds/en/statements
     state: link
 - name: link es statement sounds
   file:
-    src: /vagrant/src/var/lib/asterisk/sounds/es
+    src: "{{ dest_asset_directory }}/var/lib/asterisk/sounds/es"
     dest: /var/lib/asterisk/sounds/es
     state: link
 - name: link en asterisk confbridge menu sounds
   file:
-    src: /vagrant/src/var/lib/asterisk/sounds/en/futelconf
+    src: "{{ dest_asset_directory }}/var/lib/asterisk/sounds/en/futelconf"
     dest: /var/lib/asterisk/sounds/en/futelconf
     state: link
 - name: link hold music
   file:
-    src: /vagrant/src/var/lib/asterisk/moh/{{ item }}
+    src: "{{ dest_asset_directory }}/var/lib/asterisk/moh/{{ item }}"
     dest: /var/lib/asterisk/moh/{{ item }}
     state: link
   with_items:

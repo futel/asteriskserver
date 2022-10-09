@@ -9,11 +9,12 @@
   tasks:
     - include: update_asterisk.yml
     - include: update_asterisk_sounds.yml
-    - include: update_asterisk_cruft.yml
+    - include: link_asterisk_sounds.yml
+    - include: update_asterisk_cruft.yml    
 - hosts: virtualbox
   become: true
   vars:
     src: "../src"
   tasks:
     - include: update_asterisk.yml
-    - include: update_asterisk_sounds_virtualbox.yml
+    - include: link_asterisk_sounds_virtualbox.yml

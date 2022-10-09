@@ -1,2 +1,4 @@
 ---
 asset_directory: '../assets/src'
+dest_asset_directory: '/mnt/tmpassets'
+dest_asset_directory_virtualbox: '/vagrant/src'
