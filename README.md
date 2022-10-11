@@ -14,8 +14,8 @@ The setup of README-aws and README-twilio should be completed. These should only
 ## Requirements and test
 
 - Have no Digital Ocean droplets or domains named futel-stage.phu73l.net.
-- Have src/asterisk-18.8.0-futel.1.el8.x86_64.rpm built by buildserver.
 - Have a Digital Ocean assets snapshot created by storageserver.
+- Have src/asterisk-18.8.0-futel.1.el8.x86_64.rpm built by buildserver.
 - Create or check out release branch.
 
 Run unit tests locally
