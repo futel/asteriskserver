@@ -7,14 +7,27 @@
 - name: remove yum packages
   yum:
     name:
+      - asterisk
       - audit
       - cockpit-bridge
       - cockpit-ws
+      - cpp
+      - dracut-squash
+      - diffutils
+      - emacs-filesystem
+      - freetype
+      - libX11
+      - libX11-common
+      - libX11-xcb
+      - man-db
+      - man-pages
+      - man-pages-overrides
       - rpcbind
       - selinux-policy
       - selinux-policy-targeted
       - sendmail
-      - dracut-squash
+      - telnet
+      - xkeyboard-config      
     state: absent
 - name: update yum
   yum:
