@@ -1,4 +1,6 @@
 ---
+- name: load conf
+  include_vars: "conf.yml"
 - name: link futel sounds
   file:
     src: "{{ dest_asset_directory_virtualbox }}/var/lib/asterisk/sounds/futel"
