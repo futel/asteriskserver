@@ -36,7 +36,6 @@ Validate requirements and configuration locally
 
 ## Deploy to newly created VM
 
-  ansible-playbook -i deploy/hosts deploy/update_assets_playbook.yml
   vagrant up
 
 ## Provision an existing VM

@@ -1,6 +1,11 @@
 ---
 - name: load conf
   include_vars: "conf.yml"
+- name: extract assets package on the host
+  ansible.builtin.command:
+    cmd: tar -zxvf ../src/assets.tgz --directory {{ host_asset_directory_virtualbox }}
+  delegate_to: localhost
+  become: no
 - name: link futel sounds
   file:
     src: "{{ dest_asset_directory_virtualbox }}/var/lib/asterisk/sounds/futel"
