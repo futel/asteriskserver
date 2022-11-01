@@ -26,6 +26,10 @@ Have a recent Rocky 8 Vagrant box.
 
 ## Requirements and test
 
+Have an assets package built by storageserver in src/assets.tgz.
+
+Validate requirements and configuration locally
+
   ansible-playbook -i deploy/hosts deploy/requirements_conf_vm_playbook.yml
   ansible-playbook -K -i deploy/hosts deploy/requirements_packages_generic_playbook.yml
   ansible-playbook -K -i deploy/hosts deploy/requirements_packages_vm_playbook.yml
@@ -36,6 +40,8 @@ Have a recent Rocky 8 Vagrant box.
   vagrant up
 
 ## Provision an existing VM
+
+This is only needed to update an existing VM, if no changes have been made, a successful "vagrant up" will also provision.
 
   vagrant provision
 
