@@ -8,6 +8,8 @@
   yum:
     name:
       - audit
+      - cockpit-bridge
+      - cockpit-ws
       - rpcbind
       - selinux-policy
       - selinux-policy-targeted
