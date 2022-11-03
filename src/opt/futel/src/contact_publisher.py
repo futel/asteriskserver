@@ -10,6 +10,8 @@ import time
 import logging
 import sys
 
+publish_secs = 120
+
 #{'Event': 'Hangup', 'Privilege': 'call,all', 'Channel': 'PJSIP/445-0000000b', 'ChannelState': '6', 'ChannelStateDesc': 'Up', 'CallerIDNum': '+15032945966', 'CallerIDName': '<unknown>', 'ConnectedLineNum': '<unknown>', 'ConnectedLineName': '<unknown>', 'Language': 'en', 'AccountCode': '', 'Context': 'voicemail_outgoing', 'Exten': 's', 'Priority': '1', 'Uniqueid': '1664673321.11', 'Linkedid': '1664673321.11', 'Cause': '16', 'Cause-txt': 'Normal Clearing'}
 
 # Event: contact_status_<status>
@@ -35,7 +37,7 @@ def main():
             logging.info('publishing %s' % event)
             snspublish.publish(event, snsclient)
         logging.debug('.')
-        time.sleep(60)
+        time.sleep(publish_secs)
 
 if __name__ == "__main__":
     main()
