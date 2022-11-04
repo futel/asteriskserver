@@ -70,21 +70,24 @@ def get_challenge_leaderboard():
 
 def get_challenge_leaderboard_positions():
     """
-    Return list of three highest sorted (score, keys) pairs.
+    Return sequence of (score, keys) pairs, sorted by ascending score.
     """
     leaderboard = get_challenge_leaderboard()
-    leaderboard = reversed(
+    return reversed(
         sorted(leaderboard.items(), key = lambda item: item[0]))
-    leaderboard = list(leaderboard)
-    leaderboard = leaderboard[0:3]
-    return leaderboard
 
 def get_challenge_leaderboard_position(key):
     """
-    Return (position, tied) for key, or None.
+    Return (position, tied) for key,
+    or None if key is not in the first three positions.
     """
     leaderboard = get_challenge_leaderboard_positions()
-    for (position, (score, keys)) in enumerate(leaderboard):
+    leaderboard = enumerate(leaderboard)
+    for _dummy in range(3):
+        try:
+            (position, (_score, keys)) = next(leaderboard)
+        except StopIteration:
+            return None
         if key in keys:
             if len(keys) > 1:
                 return (position, True)
@@ -92,6 +95,9 @@ def get_challenge_leaderboard_position(key):
     return None
 
 def get_challenge_leaderboard_line(key):
+    """
+    Return a string describing the position for key, or None.
+    """
     position = get_challenge_leaderboard_position(key)
     if position is not None:
         (position, tied) = position
@@ -108,3 +114,12 @@ def get_challenge_leaderboard_line(key):
                 return "you-are-tied-for-third-place"
             return "you-are-in-third-place"
     return None
+
+def get_challenge_leaderboard_lines():
+    """
+    Yield a sequence of strings describing the leaderboard.
+    """
+    leaderboard = get_challenge_leaderboard_positions()
+    for (score, keys) in leaderboard:
+        for key in keys:
+            yield (score, key)

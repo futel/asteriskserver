@@ -1,0 +1,22 @@
+#!/usr/bin/env python3
+
+from asterisk import *
+
+import challenge
+import util
+
+agi = agi.AGI()
+
+
+def main():
+    lines = challenge.get_challenge_leaderboard_lines()
+    for line in lines:
+        (score, key) = line
+        agi.say_digits(key)
+        util.say(agi, "has-a-score-of", preferred_sub='challenge')
+        agi.say_digits(score)
+        agi.appexec("background", "silence/1")
+
+
+agi.answer()
+util.agi_tracebacker(agi, main)

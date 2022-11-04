@@ -189,12 +189,8 @@ function menu_authenticate(context, extension)
 end
 
 function menu_challenge_leaderboard(context, extension)
-        util.say("access-denied", "challenge")
-        util.say("access-denied", "challenge")
-        util.say("access-denied", "challenge")
-        util.say("access-denied", "challenge")
-        util.say("access-denied", "challenge")
-        return goto_main()
+    app.AGI("challenge_leaderboard_lines.agi")
+    return goto_main()
 end
 
 extensions = {
