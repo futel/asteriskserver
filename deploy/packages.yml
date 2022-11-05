@@ -1,9 +1,5 @@
 ---
 # distro package setup and installation
-- name: install selinux bindings, required since we start with selinux
-  yum:
-    name: python3-libselinux
-    state: present 
 - name: remove yum packages
   yum:
     name:
@@ -12,30 +8,27 @@
       - cockpit-bridge
       - cockpit-ws
       - cpp
+      - dejavu-fonts-common
+      - dejavu-sans-mono-fonts
       - dracut-squash
       - diffutils
       - emacs-filesystem
       - freetype
+      - geolite2-city
+      - geolite2-country
       - libX11
       - libX11-common
       - libX11-xcb
+      - libXau
       - man-db
       - man-pages
       - man-pages-overrides
       - rpcbind
-      - selinux-policy
-      - selinux-policy-targeted
       - sendmail
       - telnet
-      - xkeyboard-config      
+      - xkeyboard-config
     state: absent
-- name: update yum
-  yum:
-    name: "*"
-    state: latest
-# should be replaced with "enablerepo: powertools" when installing packages?
-- name: enable CentOS PowerTools repository for epel
-  command: dnf config-manager --set-enabled powertools
+    autoremove: yes
 - name: install yum packages
   yum:
     name:
@@ -54,6 +47,14 @@
       - redis
       - espeak-ng
     state: present
+- name: update yum
+  yum:
+    name: "*"
+    state: latest
+# XXX is this still needed? It's out of order now...
+# should be replaced with "enablerepo: powertools" when installing packages?
+- name: enable CentOS PowerTools repository for epel
+  command: dnf config-manager --set-enabled powertools
 - name: update pip packages
   pip:
     name:
