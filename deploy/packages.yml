@@ -10,7 +10,6 @@
       - cpp
       - dejavu-fonts-common
       - dejavu-sans-mono-fonts
-      - dracut-squash
       - diffutils
       - emacs-filesystem
       - freetype
