@@ -1,0 +1,20 @@
+#!/usr/bin/env python3
+
+from asterisk import *
+import sys
+
+import challenge
+import util
+
+agi = agi.AGI()
+
+
+def main():
+    key = sys.argv[1]
+    score = challenge.get_challenge_leaderboard_score(key)
+    if score:
+        util.say(agi, "your-score-is", preferred_sub='challenge')
+        agi.say_digits(score)
+
+agi.answer()
+util.agi_tracebacker(agi, main)

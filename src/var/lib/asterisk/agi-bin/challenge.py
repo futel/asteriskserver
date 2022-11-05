@@ -94,6 +94,16 @@ def get_challenge_leaderboard_position(key):
             return (position, False)
     return None
 
+def get_challenge_leaderboard_score(key):
+    """
+    Return score for key, or None.
+    """
+    leaderboard = get_challenge_leaderboard_positions()
+    for (score, keys) in leaderboard:
+        if key in keys:
+            return score
+    return None
+
 def get_challenge_leaderboard_line(key):
     """
     Return a string describing the position for key, or None.
