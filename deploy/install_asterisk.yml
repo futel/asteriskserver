@@ -7,11 +7,17 @@
   yum:
     name: /tmp/asterisk-18.8.0-futel.1.el8.x86_64.rpm
     state: present
-    disable_gpg_check: True    
+    disable_gpg_check: True
+# XXX is this installed by the RPM?
 - name: copy service config
   copy:
     src: "{{ src }}/etc/sysconfig/asterisk"
     dest: /etc/sysconfig/asterisk
+# XXX this should be installed by the RPM
+- name: copy systemd unit file
+  copy:
+    src: "{{ src }}/etc/systemd/system/asterisk.service"
+    dest: /etc/systemd/system
 - name: make asterisk log archive directory
   file:
     path: /var/log/asterisk/old
