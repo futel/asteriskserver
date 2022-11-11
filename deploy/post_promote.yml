@@ -2,16 +2,28 @@
 - name: load secrets
   include_vars: "deploy_digitalocean_secrets_digitalocean.yml"
   no_log: true
-# delete does not work with name, only id
-- name: get data including droplet id
-  digital_ocean:
-    unique_name: yes
-    api_token: "{{ deploy_access_token }}"
+- name: gather information about futel-prod-back droplet
+  community.digitalocean.digital_ocean_droplet_info:
     name: futel-prod-back
-  register: message  
+    oauth_token: "{{ deploy_access_token }}"  
+  register: droplet
+- name: shutdown futel-prod-back
+  community.digitalocean.digital_ocean_droplet:
+    droplet_id: "{{ droplet.data[0].id }}"  
+    state: inactive
+    name: futel-prod-back    
+    region: sfo3    
+    size: s-1vcpu-1gb
+    image: rockylinux-8-x64
+    oauth_token: "{{ deploy_access_token }}"
+- name: snapshot futel-prod-back
+  community.digitalocean.digital_ocean_snapshot:
+    droplet_id: "{{ droplet.data[0].id }}"
+    state: present
+    snapshot_type: droplet
+    oauth_token: "{{ deploy_access_token }}"
 - name: delete futel-prod-back
-  digital_ocean:
-    state: deleted
-    command: droplet
-    id: "{{ message.droplet.id }}"
-    api_token: "{{ deploy_access_token }}"
+  community.digitalocean.digital_ocean_droplet:
+    id: "{{ droplet.data[0].id }}"
+    state: absent
+    oauth_token: "{{ deploy_access_token }}"
