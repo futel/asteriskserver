@@ -27,7 +27,10 @@
       - telnet
       - xkeyboard-config
     state: absent
-    autoremove: yes
+    autoremove: yes    
+# should be replaced with "enablerepo: powertools" when installing packages?
+- name: enable CentOS PowerTools repository for epel
+  command: dnf config-manager --set-enabled powertools
 - name: install yum packages
   yum:
     name:
@@ -50,10 +53,6 @@
   yum:
     name: "*"
     state: latest
-# XXX is this still needed? It's out of order now...
-# should be replaced with "enablerepo: powertools" when installing packages?
-- name: enable CentOS PowerTools repository for epel
-  command: dnf config-manager --set-enabled powertools
 - name: update pip packages
   pip:
     name:
