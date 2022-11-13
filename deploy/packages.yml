@@ -10,6 +10,7 @@
       - cpp
       - dejavu-fonts-common
       - dejavu-sans-mono-fonts
+      - dracut-squash
       - diffutils
       - emacs-filesystem
       - freetype
@@ -23,6 +24,8 @@
       - man-pages
       - man-pages-overrides
       - rpcbind
+      - selinux-policy
+      - selinux-policy-targeted
       - sendmail
       - telnet
       - xkeyboard-config
