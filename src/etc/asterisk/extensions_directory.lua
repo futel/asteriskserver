@@ -8,7 +8,7 @@ end
 
 function directory_mayor_ypsi(context, exten)
     util.metric(context)
-    util.internaldial("+17344822017")
+    util.internaldial("+13138884044")
 end
 
 function directory_mayor_detroit(context, exten)
