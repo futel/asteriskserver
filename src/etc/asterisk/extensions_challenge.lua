@@ -185,7 +185,7 @@ end
 function menu_authenticate(context, extension)
     mailbox = vmauthenticate()
     app.AGI("challenge_leaderboard_position.agi", mailbox)
-    app.AGI("challenge_leaderboard_position.score.agi", mailbox)    
+    app.AGI("challenge_leaderboard_score.agi", mailbox)    
     return app.Goto("challenge_list", "s", 1)
 end
 
