@@ -14,9 +14,10 @@
     state: present
     name: futel-stage.phu73l.net
     unique_name: yes
-    oauth_token: "{{ deploy_access_token }}"
     size: s-1vcpu-1gb
     region: sfo3
     image: rockylinux-8-x64
+    monitoring: yes
     ssh_keys: ["{{ ssh_key.data.ssh_key.fingerprint }}"]
+    oauth_token: "{{ deploy_access_token }}"
   register: droplet
