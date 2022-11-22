@@ -79,11 +79,11 @@ def get_challenge_leaderboard_positions():
 def get_challenge_leaderboard_position(key):
     """
     Return (position, tied) for key,
-    or None if key is not in the first three positions.
+    or None if key is not in the first five positions.
     """
     leaderboard = get_challenge_leaderboard_positions()
     leaderboard = enumerate(leaderboard)
-    for _dummy in range(3):
+    for _dummy in range(5):
         try:
             (position, (_score, keys)) = next(leaderboard)
         except StopIteration:
@@ -123,6 +123,14 @@ def get_challenge_leaderboard_line(key):
             if tied:
                 return "you-are-tied-for-third-place"
             return "you-are-in-third-place"
+        if position == 3:
+            if tied:
+                return "you-are-tied-for-fourth-place"
+            return "you-are-in-fourth-place"
+        if position == 4:
+            if tied:
+                return "you-are-tied-for-fifth-place"
+            return "you-are-in-fifth-place"
     return None
 
 def get_challenge_leaderboard_lines():
