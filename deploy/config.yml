@@ -29,3 +29,9 @@
     name: redis
     state: started
     enabled: yes
+# this is eating memory
+- name: stop and disable dnf makecache
+  ansible.builtin.systemd:
+    name: dnf-makecache.timer
+    state: stopped
+    enabled: no
