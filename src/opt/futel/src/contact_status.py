@@ -55,12 +55,12 @@ def get_extension_lines(lines):
         Line(line=line.line,
              extension=line.extension,
              status=line.status[3]) for line in lines]
-    # filter to Avail status only
-    lines = [
-        Line(line=line.line,
-             extension=line.extension,
-             status=line) for line in lines
-        if line.status == 'Avail']
+    # # filter to Avail status only
+    # lines = [
+    #     Line(line=line.line,
+    #          extension=line.extension,
+    #          status=line) for line in lines
+    #     if line.status == 'Avail']
     # we are done
     return lines
 
