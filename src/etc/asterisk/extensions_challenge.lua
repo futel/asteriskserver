@@ -79,17 +79,17 @@ function challenge_sequence_four(mailbox)
     -- if we get here we won
 end
 
--- function challenge_shadytel(mailbox)
---     from_shadytel = channel.from_shadytel:get()
---     if from_shadytel ~= "True" then
---         for i=1,10 do
---             util.say("visit-this-destination-via-shadytel-extension-3003-for-access",
---                 "challenge")
---         end
---         app.Hangup()
---     end
---     -- if we get here we won
--- end
+function challenge_incoming(mailbox)
+    from_incoming = channel.from_incoming:get()
+    if from_incoming ~= "True" then
+        for i=1,10 do
+            util.say("visit-this-destination-via-the-incoming-number-for-access",
+                "challenge")
+        end
+        app.Hangup()
+    end
+    -- if we get here we won
+end
 
 function challenge_hold(mailbox)
     app.AGI("waiting_game.agi")
@@ -159,9 +159,9 @@ function menu_challenge_sequence_four(context, extension)
         challenge_sequence_four)
 end
 
--- function menu_challenge_shadytel(context, extension)
---     do_challenge("achievement-mailbox", "achievement-shadytel", challenge_shadytel)
--- end
+function menu_challenge_incoming(context, extension)
+    do_challenge("achievement-mailbox", "achievement-incoming", challenge_incoming)
+end
 
 function menu_challenge_hold(context, extension)
     do_challenge(
@@ -177,10 +177,10 @@ end
 --         challenge_conference)
 -- end
 
--- function menu_challenge_shadytel_main(context, extension)
---     channel.from_shadytel = "True"
---     return goto_main()
--- end
+function menu_challenge_incoming_main(context, extension)
+    channel.from_incoming = "True"
+    return goto_main()
+end
 
 function menu_authenticate(context, extension)
     mailbox = vmauthenticate()
@@ -216,8 +216,8 @@ extensions = {
              {"for-more-information-about-the-fewtel-remote-testing-facility",
               "challenge_info"}},
          statement_dir="challenge"}),
-    -- challenge_shadytel_main = util.context_array(
-    --     menu_challenge_shadytel_main, {}),
+    challenge_incoming_main = util.context_array(
+        menu_challenge_incoming_main, {}),
     challenge_instructions = util.context(
         {intro_statements={
              "welcome-to-the-fewtel-remote-testing-facility",
@@ -260,7 +260,7 @@ extensions = {
              {"for-challenge-hunt-the-wumpus", "challenge_wumpus"},
              {"for-challenge-konami", "challenge_konami"},
              {"for-challenge-sequence", "challenge_sequence_list"},
-             -- {"for-challenge-shadytel", "challenge_shadytel"},
+             {"for-challenge-incoming", "challenge_incoming"},
              {"for-challenge-hold", "challenge_hold"}
              -- {"for-challenge-oracle", "challenge_conference"},
          },
@@ -285,8 +285,8 @@ extensions = {
         menu_challenge_sequence_three, {}),    
     challenge_sequence_four = util.context_array(
         menu_challenge_sequence_four, {}),
-    -- challenge_shadytel = util.context_array(
-    --     menu_challenge_shadytel, {}),
+    challenge_incoming = util.context_array(
+        menu_challenge_incoming, {}),
     challenge_hold = util.context_array(
         menu_challenge_hold, {}),        
     -- challenge_conference = util.context_array(
