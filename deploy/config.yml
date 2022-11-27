@@ -1,5 +1,8 @@
 ---
 # misc config of distro packages
+- name: Disable SELinux
+  ansible.posix.selinux:
+    state: disabled
 - name: write postfix config
   copy:
     src: "{{ src }}/postfix/main.cf"
@@ -35,3 +38,6 @@
     name: dnf-makecache.timer
     state: stopped
     enabled: no
+# Reboot to persist selinux changes
+- name: reboot
+  ansible.builtin.reboot:    
