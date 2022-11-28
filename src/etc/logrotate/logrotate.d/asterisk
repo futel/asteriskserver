@@ -1,4 +1,4 @@
-/var/log/asterisk/messages /var/log/asterisk/metrics /var/log/asterisk/*log {
+/var/log/asterisk/messages /var/log/asterisk/verbose /var/log/asterisk/metrics /var/log/asterisk/*log {
 	missingok
 	notifempty
 	rotate 31
