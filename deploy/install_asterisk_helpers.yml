@@ -1,7 +1,7 @@
 ---
 - name: add logrotate job
   copy:
-    src: ../src/logrotate/logrotate.d/asterisk
+    src: ../src/etc/logrotate/logrotate.d/asterisk
     dest: /etc/logrotate.d/asterisk
 - name: make futel directories
   file:
