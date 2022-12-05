@@ -32,12 +32,17 @@
     name: redis
     state: started
     enabled: yes
-# this is eating memory
+# This is eating memory.
 - name: stop and disable dnf makecache
   ansible.builtin.systemd:
     name: dnf-makecache.timer
     state: stopped
     enabled: no
-# Reboot to persist selinux changes
+# Reboot to persist selinux changes.
 - name: reboot
-  ansible.builtin.reboot:    
+  ansible.builtin.reboot:
+# If we are a Vagrant VM, we need to remount after a reboot.
+- name: mount all
+  command: mount -a
+  args:
+    warn: no

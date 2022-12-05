@@ -5,8 +5,9 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.define "default"
   config.vm.box = "generic/rocky8"
   config.vm.synced_folder ".", "/vagrant",
-    :mount_options => ["dmode=777,fmode=777"]
-
+    automount: true,                          
+    mount_options: ["dmode=777,fmode=777"]
+  
   config.vm.provision "secure", type: "ansible" do |ansible|
     ansible.playbook = "deploy/secure_playbook.yml"
     
