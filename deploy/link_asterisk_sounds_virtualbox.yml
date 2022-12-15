@@ -2,7 +2,7 @@
 - name: extract assets package on the host
   ansible.builtin.command:
     cmd: tar -zxvf ../src/assets.tgz --directory {{ host_asset_directory_virtualbox }}
-  delegate_to: local
+  delegate_to: localhost
   become: no
 - name: link futel sounds
   file:
