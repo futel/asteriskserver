@@ -2,7 +2,7 @@ VAGRANTFILE_API_VERSION = "2"
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
-  config.vm.define "virtualbox"
+  config.vm.define "default"
   config.vm.box = "generic/rocky8"
   config.vm.synced_folder ".", "/vagrant",
     automount: true,                          
@@ -10,36 +10,84 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   
   config.vm.provision "secure", type: "ansible" do |ansible|
     ansible.playbook = "deploy/secure_playbook.yml"
-    inventory_path = "deploy/hosts"
-  end    
+    # Our vm gets virtualbox ansible inventory group.
+    ansible.groups = {
+      "virtualbox" => ["default"]
+    }
+    # Generate an ansible hosts file with the variables we need.
+    ansible.host_vars = {
+      "default" => {"ansible_python_interpreter" => "auto",
+                    "host_asset_directory_virtualbox" => "..",
+                    "dest_asset_directory_virtualbox" => "/vagrant/build/opt/futel"}}
+  end
   
   config.vm.provision "baseinstall", type: "ansible" do |ansible|
     ansible.playbook = "deploy/baseinstall_playbook.yml"
     ansible.vault_password_file = "conf/vault_pass_virtualbox.txt"
-    inventory_path = "deploy/hosts"
+    # Our vm gets virtualbox ansible inventory group.
+    ansible.groups = {
+      "virtualbox" => ["default"]
+    }
+    # Generate an ansible hosts file with the variables we need.
+    ansible.host_vars = {
+      "default" => {"ansible_python_interpreter" => "auto",
+                    "host_asset_directory_virtualbox" => "..",
+                    "dest_asset_directory_virtualbox" => "/vagrant/build/opt/futel"}}
   end    
 
   config.vm.provision "update_asterisk", type: "ansible" do |ansible|
     ansible.playbook = "deploy/update_asterisk_playbook.yml"
-    ansible.vault_password_file = "conf/vault_pass_generic.txt"    
-    inventory_path = "deploy/hosts"
+    ansible.vault_password_file = "conf/vault_pass_generic.txt"
+    # Our vm gets virtualbox ansible inventory group.
+    ansible.groups = {
+      "virtualbox" => ["default"]
+    }
+    # Generate an ansible hosts file with the variables we need.
+    ansible.host_vars = {
+      "default" => {"ansible_python_interpreter" => "auto",
+                    "host_asset_directory_virtualbox" => "..",
+                    "dest_asset_directory_virtualbox" => "/vagrant/build/opt/futel"}}
   end    
 
   config.vm.provision "update_secrets", type: "ansible" do |ansible|
     ansible.playbook = "deploy/update_secrets_playbook.yml"
     ansible.vault_password_file = "conf/vault_pass_virtualbox.txt"
-    inventory_path = "deploy/hosts"
+    # Our vm gets virtualbox ansible inventory group.
+    ansible.groups = {
+      "virtualbox" => ["default"]
+    }
+    # Generate an ansible hosts file with the variables we need.
+    ansible.host_vars = {
+      "default" => {"ansible_python_interpreter" => "auto",
+                    "host_asset_directory_virtualbox" => "..",
+                    "dest_asset_directory_virtualbox" => "/vagrant/build/opt/futel"}}
   end    
   
   config.vm.provision "sync", type: "ansible" do |ansible|
     ansible.playbook = "deploy/sync_playbook.yml"
-    ansible.vault_password_file = "conf/vault_pass_virtualbox.txt"    
-    inventory_path = "deploy/hosts"
+    ansible.vault_password_file = "conf/vault_pass_virtualbox.txt"
+    # Our vm gets virtualbox ansible inventory group.
+    ansible.groups = {
+      "virtualbox" => ["default"]
+    }
+    # Generate an ansible hosts file with the variables we need.
+    ansible.host_vars = {
+      "default" => {"ansible_python_interpreter" => "auto",
+                    "host_asset_directory_virtualbox" => "..",
+                    "dest_asset_directory_virtualbox" => "/vagrant/build/opt/futel"}}
   end    
 
   config.vm.provision "update_asterisk_itests", type: "ansible" do |ansible|
     ansible.playbook = "deploy/update_asterisk_itests_playbook.yml"
-    inventory_path = "deploy/hosts"
+    # Our vm gets virtualbox ansible inventory group.
+    ansible.groups = {
+      "virtualbox" => ["default"]
+    }
+    # Generate an ansible hosts file with the variables we need.
+    ansible.host_vars = {
+      "default" => {"ansible_python_interpreter" => "auto",
+                    "host_asset_directory_virtualbox" => "..",
+                    "dest_asset_directory_virtualbox" => "/vagrant/build/opt/futel"}}
   end    
   
   config.vm.provider :virtualbox do |vb|

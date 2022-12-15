@@ -4,13 +4,6 @@ baseinstall:
       ansible_python_interpreter: auto
       dest_asset_directory: /mnt/assets
 
-virtualbox:
-  hosts:
-    dummy:
-      ansible_python_interpreter: auto
-      host_asset_directory_virtualbox: ..
-      dest_asset_directory_virtualbox: /vagrant/build/opt/futel
-
 prod:
   hosts:
     futel-prod.phu73l.net:
