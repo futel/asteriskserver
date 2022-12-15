@@ -1,5 +1,0 @@
----
-asset_directory: '../assets/src'
-host_asset_directory_virtualbox: '..'
-dest_asset_directory: '/mnt/assets'
-dest_asset_directory_virtualbox: '/vagrant/build/opt/futel'

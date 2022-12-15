@@ -1,6 +1,4 @@
 ---
-- name: load conf
-  include_vars: "conf.yml"
 - name: extract assets package on the host
   ansible.builtin.command:
     cmd: tar -zxvf ../src/assets.tgz --directory {{ host_asset_directory_virtualbox }}
