@@ -19,7 +19,7 @@ digitalocean:
       ansible_connection: local
       ansible_python_interpreter: /usr/bin/python3
 
-localhost:
+local:
   hosts:
     localhost:
       ansible_python_interpreter: /usr/bin/python3

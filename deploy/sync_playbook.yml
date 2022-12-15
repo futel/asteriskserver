@@ -1,5 +1,5 @@
 ---
-- hosts: localhost
+- hosts: local
   tasks:
     - include: pre_sync_from_prod.yml
 - hosts: prod
