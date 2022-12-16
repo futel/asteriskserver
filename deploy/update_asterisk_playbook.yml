@@ -15,4 +15,5 @@
     src: "../src"
   tasks:
     - include: update_asterisk.yml
-    - include: link_asterisk_sounds_virtualbox.yml
+    - include: extract_assets.yml    
+    - include: link_asterisk_sounds.yml

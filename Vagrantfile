@@ -17,8 +17,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     # Generate an ansible hosts file with the variables we need.
     ansible.host_vars = {
       "default" => {"ansible_python_interpreter" => "auto",
-                    "host_asset_directory_virtualbox" => "..",
-                    "dest_asset_directory_virtualbox" => "/vagrant/build/opt/futel"}}
+                    "host_asset_directory" => "..",
+                    "dest_asset_directory" => "/vagrant/build/opt/futel"}}
   end
   
   config.vm.provision "baseinstall", type: "ansible" do |ansible|
@@ -31,8 +31,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     # Generate an ansible hosts file with the variables we need.
     ansible.host_vars = {
       "default" => {"ansible_python_interpreter" => "auto",
-                    "host_asset_directory_virtualbox" => "..",
-                    "dest_asset_directory_virtualbox" => "/vagrant/build/opt/futel"}}
+                    "host_asset_directory" => "..",
+                    "dest_asset_directory" => "/vagrant/build/opt/futel"}}
   end    
 
   config.vm.provision "update_asterisk", type: "ansible" do |ansible|
@@ -45,8 +45,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     # Generate an ansible hosts file with the variables we need.
     ansible.host_vars = {
       "default" => {"ansible_python_interpreter" => "auto",
-                    "host_asset_directory_virtualbox" => "..",
-                    "dest_asset_directory_virtualbox" => "/vagrant/build/opt/futel"}}
+                    "host_asset_directory" => "..",
+                    "dest_asset_directory" => "/vagrant/build/opt/futel"}}
   end    
 
   config.vm.provision "update_secrets", type: "ansible" do |ansible|
@@ -59,8 +59,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     # Generate an ansible hosts file with the variables we need.
     ansible.host_vars = {
       "default" => {"ansible_python_interpreter" => "auto",
-                    "host_asset_directory_virtualbox" => "..",
-                    "dest_asset_directory_virtualbox" => "/vagrant/build/opt/futel"}}
+                    "host_asset_directory" => "..",
+                    "dest_asset_directory" => "/vagrant/build/opt/futel"}}
   end    
   
   config.vm.provision "sync", type: "ansible" do |ansible|
@@ -73,8 +73,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     # Generate an ansible hosts file with the variables we need.
     ansible.host_vars = {
       "default" => {"ansible_python_interpreter" => "auto",
-                    "host_asset_directory_virtualbox" => "..",
-                    "dest_asset_directory_virtualbox" => "/vagrant/build/opt/futel"}}
+                    "host_asset_directory" => "..",
+                    "dest_asset_directory" => "/vagrant/build/opt/futel"}}
   end    
 
   config.vm.provision "update_asterisk_itests", type: "ansible" do |ansible|
@@ -86,8 +86,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     # Generate an ansible hosts file with the variables we need.
     ansible.host_vars = {
       "default" => {"ansible_python_interpreter" => "auto",
-                    "host_asset_directory_virtualbox" => "..",
-                    "dest_asset_directory_virtualbox" => "/vagrant/build/opt/futel"}}
+                    "host_asset_directory" => "..",
+                    "dest_asset_directory" => "/vagrant/build/opt/futel"}}
   end    
   
   config.vm.provider :virtualbox do |vb|
