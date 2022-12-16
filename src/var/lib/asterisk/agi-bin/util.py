@@ -58,7 +58,20 @@ def agi_tracebacker(agi_o, func, *args, **kwargs):
             agi_o.verbose(line)
         raise
 
-def sound_path(sound_name, preferred_sub=None, language='en'):
+def sound_path(agi_o, sound_name, preferred_sub=None, language='en'):
+    """
+    Return path for file for sound_name.
+    """
+    path = sound_path_find(sound_name, preferred_sub, language)
+    if not path:
+    # We didn't find a path, create and return an absolute path without suffix.
+        error(agi_o,
+              "sound_path unable to find sound file %s %s %s" % (sound_name, preferred_sub, language))
+        # XXX We are forgetting localization!
+        path = sound_path_create(sound_name)
+    return path
+
+def sound_path_find(sound_name, preferred_sub=None, language='en'):
     """
     Return partial path for file for sound_name, or None.
     Path does not include extension.
@@ -87,16 +100,19 @@ def sound_path(sound_name, preferred_sub=None, language='en'):
                     # A playable file exists at the path. Return it without the
                     # suffix.
                     return sd + path
-    # We didn't find a path, create and return an absolute path without suffix.
-    # This ignores localization in a bad way, always returning the language of the
-    # sound_name.
+    return None
+
+def sound_path_create(sound_name):
+    """
+    Create a sound file for sound_name, which is in espeak's format,
+    and return its path. Path does not include extension.
+    """
     path = "/tmp/%s" % sound_name
     os.system("echo {} | espeak-ng -w {}.wav".format(
         sound_name, path))
     # flite version
     # os.system('echo {} | /bin/flite  -o {}.wav'.format(sound_name, path))
     # os.system('echo {} | /bin/flite_cmu_us_awb -o {}.wav'.format(sound_n\
-
     return path
 
 def say(agi_o, filename, preferred_sub=None, escape=False):
@@ -105,7 +121,7 @@ def say(agi_o, filename, preferred_sub=None, escape=False):
         escape_digits = '0123456789*#ABCD*'
     else:
         escape_digits = ''
-    path = sound_path(filename, preferred_sub, language)
+    path = sound_path(agi_o, filename, preferred_sub, language)
     if path:
         return agi_o.stream_file(path, escape_digits=escape_digits)
 
@@ -142,6 +158,11 @@ def metric_metriclog(**kwargs):
     ch.setFormatter(formatter)
     logger.addHandler(ch)
     logger.info('')
+
+def error(agi_o, message):
+    """Log an error in the asterisk log."""
+    # Asterisk argument string marshalling is fun.
+    agi_o.appexec("log", "ERROR,%s" % message)
 
 def calling_extension(agi_o):
     """ Return the calling extension. """
