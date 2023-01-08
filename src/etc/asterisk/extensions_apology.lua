@@ -15,7 +15,7 @@ local extensions = {
              {"to-learn-more-about-the-apology-service",
               "apology_about"}},
          statement_dir="apology-service"}),
-    apology_service = util.destination_context(apology_service),    
+    apology_service = util.context_array(apology_service, {}),
     apology_about = util.context(
         {intro_statements={
              "apologies-are-not-recorded-or-listened-to",

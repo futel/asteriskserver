@@ -80,8 +80,8 @@ local extensions = {
              "this-system-is-temporarily-down-for-maintenance",
              "try-again-later"},
          statement_dir="voicemail"}),
-    voicemail_check = util.destination_context(voicemail_check),
-    voicemail_create = util.destination_context(voicemail_create),
-    voicemail_leave = util.destination_context(voicemail_leave)}
+    voicemail_check = util.context_array(voicemail_check, {}),
+    voicemail_create = util.context_array(voicemail_create, {}),
+    voicemail_leave = util.context_array(voicemail_leave, {})}
 
 return extensions

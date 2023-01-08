@@ -189,8 +189,8 @@ local extensions = {
              {"for-the-current-time", "current-time-ypsi"},
              {"for-a-random-number", "random_number"}},
          statement_dir="utilities"}),
-    random_number = util.destination_context(random_number),
-    longmont = util.destination_context(longmont),
+    random_number = util.context_array(random_number, {}),
+    longmont = util.context_array(longmont, {}),
     payphone_radio = util.destination_context(payphone_radio),
     directory_mayor_portland = util.destination_context(
         directory_mayor_portland),

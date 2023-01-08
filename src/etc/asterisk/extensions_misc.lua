@@ -29,7 +29,7 @@ function dial(context, exten)
 end
 
 local extensions = {
-    operator = util.destination_context(operator),
+    operator = util.context_array(operator, {}),
     filterdial = util.dial_context(filterdial),
     dial = util.dial_context(dial),    
     information_futel = util.context(
