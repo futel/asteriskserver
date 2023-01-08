@@ -20,7 +20,7 @@
     masked: yes
 - name: write sshd config
   copy:
-    src: ../src/sshd_config
+    src: ../src/etc/ssh/sshd_config
     dest: /etc/ssh/sshd_config
 - name: restart sshd
   ansible.builtin.systemd:
