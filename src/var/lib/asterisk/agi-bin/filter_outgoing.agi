@@ -57,7 +57,7 @@ def filter_outgoing(blocklist, number, extension):
     """
     if number == '911':
         return                  # survive
-    if number == '933':         # callcentric 911 test number
+    if number == '933':         # twilio 911 test number
         return                  # survive
     if filter_prefix(premium_nampa_prefixes, number):
         util.metric(agi, 'filter-outgoing-premium')
