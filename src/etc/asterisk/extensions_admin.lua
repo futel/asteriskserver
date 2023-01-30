@@ -4,7 +4,7 @@ local extensions = {
     admin_main = util.context(
         {intro_statements={"fewtel"},
          menu_entries={
-             [1]={"for-the-fewtel-voice-conference", "futel-conf"},
+             [1]={"for-the-fewtel-voice-conference", "futel-conf-admin"},
              [2]={{"for", "the", "outgoing", "menus"},
                  "outgoing_chooser"},
              [3]={"for-an-internal-dialtone",
