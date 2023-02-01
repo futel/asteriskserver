@@ -87,7 +87,7 @@ ansible-playbook -i deploy/hosts deploy/post_promote_playbook.yml --vault-passwo
 
 Delete the assets* volume which was attached to futel-prod-back.
 
-remove snapshots of futel-prod-back except for most recent
+Remove snapshots of futel-prod-back except for most recent.
 
 - test that prod outgoing calls work
 - test that prod incoming call to incoming line works
