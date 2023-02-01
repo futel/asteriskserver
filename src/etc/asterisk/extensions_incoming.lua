@@ -9,7 +9,7 @@ microcosm_extension = 445
 robotron_extension = 615
 souwester_extension = 620
 ypsi_extension = 630
-alley27_extension = 640
+-- alley27_extension = 640
 taylor_extension = 655
 r2d2_extension = 670
 ainsworth_extension = 680
@@ -80,12 +80,12 @@ function ring_ypsi(context)
         context)
 end
 
-function ring_alley27(context) 
-    return ring_context(
-        alley27_extension,
-        "alley27",
-        context)
-end
+-- function ring_alley27(context) 
+--     return ring_context(
+--         alley27_extension,
+--         "alley27",
+--         context)
+-- end
 
 function ring_robotron(context) 
     return ring_context(
@@ -177,7 +177,7 @@ local extensions = {
     ring_detroitbusco = util.destination_context(ring_detroitbusco),
     ring_taylor = util.destination_context(ring_taylor),
     ring_ypsi = util.destination_context(ring_ypsi),
-    ring_alley27 = util.destination_context(ring_alley27),
+--    ring_alley27 = util.destination_context(ring_alley27),
     ring_robotron = util.destination_context(ring_robotron),
     ring_souwester = util.destination_context(ring_souwester),
     ring_eighth = util.destination_context(ring_eighth),
