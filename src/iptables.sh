@@ -28,14 +28,16 @@ iptables -A INPUT -s vpnbox-prod-baz.phu73l.net -j ACCEPT
 iptables -A INPUT -i tun0 -j ACCEPT
 iptables -A FORWARD -i tun0 -j ACCEPT
 
-# voip.ms
+# voip.ms SIP
 iptables -A INPUT -p udp -m udp -s sanjose.voip.ms --dport 5060:5080 -j ACCEPT
 iptables -A INPUT -p udp -m udp -s sanjose.voip.ms --dport 10000:20000 -j ACCEPT
-# twilio us1 (east coast)
+# twilio us1 (east coast) SIP
 # https://www.twilio.com/docs/sip-trunking/ip-addresses
 iptables -A INPUT -p udp -m udp -s 54.172.60.0/30 --dport 5060:5061 -j ACCEPT
 iptables -A INPUT -p udp -m udp -s 54.172.60.0/23 --dport 10000:20000 -j ACCEPT
-# twilio us2 (west coast)
+# twilio us2 (west coast) SIP
 # https://www.twilio.com/docs/sip-trunking/ip-addresses
 iptables -A INPUT -p udp -m udp -s 54.244.51.0/30 --dport 5060:5061 -j ACCEPT
 iptables -A INPUT -p udp -m udp -s 54.244.51.0/24 --dport 10000:20000 -j ACCEPT
+# philtel IAX
+iptables -A INPUT -p udp -m udp -s 137.184.53.70 --dport 4569 -j ACCEPT
