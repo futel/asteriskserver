@@ -152,7 +152,7 @@ end
 
 function ring_microcosm(context) 
     return ring_context(
-        sjac_microcosm,
+        microcosm_extension,
         "microcosm",
         context)
 end
