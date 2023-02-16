@@ -169,16 +169,6 @@ local extensions = {
              [9]={nil, "fake_admin_auth"},
              [0]={"to-speak-to-an-operator", "operator_incoming"}},
          statement_dir="incoming"}),
-    incoming_philtel = util.context(
-        {intro_statements={
-             "welcome-to-fewtel", "para-espanol", "oprima-estrella"},
-         menu_entries={
-             [1]={"for-voicemail", "voicemail_incoming"},
-             [2]={"for-the-fewtel-community", "community_incoming"},
-             [7]={nil, "member_auth"},             
-             [9]={nil, "fake_admin_auth"},
-             [0]={"to-speak-to-an-operator", "operator_incoming"}},
-         statement_dir="incoming"}),
     operator_incoming = util.destination_context(operator_incoming),
     member_auth = util.destination_context(member_auth),
     admin_auth = util.destination_context(admin_auth),        
