@@ -21,11 +21,6 @@ function directory_sissyphus(context, exten)
     util.internaldial(channel.e_pants:get())
 end
 
-function directory_dream_survey(context, exten)
-    util.metric(context)
-    util.internaldial("+19712581465")
-end
-
 function directory_natr_xxx(context, exten)
     util.metric(context)
     util.internaldial("+18336287999")
@@ -85,8 +80,6 @@ local extensions = {
              {"for-the-druid-of-sissyphus-gardens",
               "directory_sissyphus"},
              {"for-a-random-payphone", "directory_random_payphone"},
-             {"for-the-wilamette-valley-dream-survey",
-              "directory_dream_survey"},
              {"for-nature-x-x-x", "directory_natr_xxx"},
              {"for-the-utopian-hotline", "directory_utopian_hotline"},
              {"for-they-might-be-giants-dial-a-song",
@@ -145,8 +138,6 @@ local extensions = {
              {"for-the-druid-of-sissyphus-gardens",
               "directory_sissyphus"},
              {"for-a-random-payphone", "directory_random_payphone"},
-             {"for-the-wilamette-valley-dream-survey",
-              "directory_dream_survey"},
              {"for-nature-x-x-x", "directory_natr_xxx"},
              {"for-the-utopian-hotline", "directory_utopian_hotline"},
              {"for-they-might-be-giants-dial-a-song",
@@ -200,8 +191,6 @@ local extensions = {
         directory_mayor_detroit),
     directory_sissyphus = util.destination_context(
         directory_sissyphus),
-    directory_dream_survey = util.destination_context(
-        directory_dream_survey),
     directory_natr_xxx = util.destination_context(directory_natr_xxx),
     directory_utopian_hotline = util.destination_context(
         directory_utopian_hotline),
