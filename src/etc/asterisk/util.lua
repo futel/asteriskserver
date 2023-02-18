@@ -173,24 +173,56 @@ function record(statement, directory)
     app.Hangup()
 end
 
+-- Split str into pieces with separator and return an array.
+function split(str, separator)
+    local tbl = {}
+    local pattern = string.format("[^%s]+", separator)    -- everything except separator
+    str:gsub(pattern, function(x) tbl[#tbl+1]=x end)
+    if tbl[1] == "" then
+        -- Assume we have one empty string entry.
+        return {}
+    end
+    return tbl
+end
+
+-- Push entry string into stack and return stack. Stack is a string with 0 or more entries
+-- separated by the separator and not containing the separator.
+function push_stack(stack, entry)
+    local separator = ':'
+    if stack ~= "" then
+        return string.format('%s%s%s', stack, separator, entry)
+    end
+    return entry
+end
+
+-- Pop entry string from stack and return (stack, entry). Stack is a string with 0 or more entries
+-- separated by the separator and not containing the separator. Entry may be nil.
+function pop_stack(stack)
+    local separator = ':'
+    local tbl = split(stack, separator)
+    local entry = table.remove(tbl)
+    return table.concat(tbl, separator), entry
+end
+
+-- Push parent context stored in channel variable.
+function push_parent_context(context)
+    channel.parent_context = push_stack(channel.parent_context:get(), context)
+end
+
 -- execute goto to destination_context
 function goto_context(destination_context, context, exten)
     push_parent_context(context)
     return app.Goto(destination_context, "s", 1)
 end
 
--- Push parent context stored in channel variable.
-function push_parent_context(context)
-    -- Push parent context. Our stack is limited to one value!
-    channel.parent_context = context
-end
-
 -- Pop and return parent context stored in channel variable.
 function pop_parent_context()
-    -- Pop parent context. Our stack is limited to one value!
-    local ret = channel.parent_context:get()
-    channel.parent_context = ""  -- can't set to nil
-    return ret
+    local stack, context = pop_stack(channel.parent_context:get())
+    if not context then
+        context = ""
+    end
+    channel.parent_context = stack
+    return context
 end
 
 -- Pop parent context and goto it. We do this becuase we can't gosub in lua.
@@ -199,9 +231,9 @@ function goto_parent_context()
     if parent_context ~= "" and parent_context then
         return app.Goto(parent_context, "s", 1)
     else
-        -- no parent_context, go to outgoing context for extension
-        local outgoing_context = channel.outgoing_context:get()
-        return app.Goto(outgoing_context, "s", 1)        
+        -- No parent_context, replay our current context, hopefully it has an s extension.
+        -- This shouldn't happen unless we are at the initial context.
+        return app.Goto("s", 1)        
     end
 end
 
@@ -316,6 +348,8 @@ local util = {
     max_iterations = max_iterations,
     metric = metric,    
     play_random_background = play_random_background,
+    push_stack = push_stack,
+    pop_stack = pop_stack,
     record = record,
     say = say}
 
