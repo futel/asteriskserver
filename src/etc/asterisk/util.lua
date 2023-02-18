@@ -217,7 +217,11 @@ end
 
 -- Pop and return parent context stored in channel variable.
 function pop_parent_context()
-    local stack, context = pop_stack(channel.parent_context:get())
+    local parent_context = channel.parent_context:get();
+    if not parent_context then
+        parent_context = ""
+    end
+    local stack, context = pop_stack(parent_context)
     if not context then
         context = ""
     end
