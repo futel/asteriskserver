@@ -172,7 +172,6 @@ local extensions = {
         {menu_entries={
              {"for-the-current-time", "current-time"},
              {"for-the-trymet-transit-tracker", "trimet-transit-tracker"},
-             {"to-access-your-multnomah-county-library-account", "lib-account-line"},
              {"for-a-random-number", "random_number"}},
          statement_dir="utilities"}),
     utilities_generic = util.context(
