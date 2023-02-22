@@ -48,13 +48,14 @@
     group: asterisk
     mode: "a+x"
   with_items:
+    - confbridge_encourager.py
     - contact_publisher.py
     - contact_status.py
     - eventlistener.py
     - snspublish.py
 - name: set up supervisord conf
   copy:
-    src: ../src/supervisord.conf
+    src: ../src/etc/supervisord.conf
     dest: /etc/supervisord.conf
     owner: root
     group: root
