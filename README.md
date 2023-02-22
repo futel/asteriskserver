@@ -25,11 +25,6 @@ Run unit tests locally
   python3 -m unittest discover test
 ```
 
-```
-  cd src/etc/asterisk/test
-  lua test.lua
-```
-
 Run integration tests on virtualbox
 
 ```
