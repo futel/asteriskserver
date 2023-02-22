@@ -9,6 +9,7 @@ After=network.target
 Type=notify
 Environment=HOME=/var/lib/asterisk
 WorkingDirectory=/var/lib/asterisk
+RuntimeDirectory=asterisk
 User=asterisk
 Group=asterisk
 #ExecStart=/usr/sbin/asterisk -mqf -C /etc/asterisk/asterisk.conf
