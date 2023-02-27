@@ -63,10 +63,23 @@
 - name: update a chunk of yum
   yum:
     name:
+      - glibc
+      - glibc-all-langpacks
+      - glibc-common
+      - glibc-gconv-extra
+    state: latest
+- name: update a chunk of yum
+  yum:
+    name:
       - kernel
       - kernel-core
       - kernel-modules
       - kernel-tools      
+    state: latest
+- name: update a chunk of yum
+  yum:
+    name:
+      - linux-firmware
     state: latest
 - name: update the remaining yum
   yum:
