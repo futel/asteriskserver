@@ -1,11 +1,3 @@
-ext 993 starts members menu
-ext 994 starts ypsi menu
-ext 995 starts default menu
-ext 996 starts restricted dialtone
-ext 998 starts admin menu
-ext 1000 starts dialtone
-ext 1001 starts incoming menu
-
 outgoing context and dialtone:
 after dialing 999 from extension:
 (dial 933 from dialtone to test 911)
@@ -26,7 +18,6 @@ extension initial-context has-911 caller-id
 620 souwester yes souwester
 625 portland no incoming
 630 ypsi yes pearl
-640 portland yes alley27
 635 portland yes taylor
 670 dialtone yes r2d2
 680 portland yes ainsworth
