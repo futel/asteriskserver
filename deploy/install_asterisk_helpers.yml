@@ -48,7 +48,6 @@
     group: asterisk
     mode: "a+x"
   with_items:
-    - confbridge_encourager.py
     - contact_publisher.py
     - contact_status.py
     - eventlistener.py
