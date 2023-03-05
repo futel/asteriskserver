@@ -50,3 +50,13 @@ Disable Call-Waiting Tone: yes
 Offhook Auto-Dial: 999
 Offhook Auto-Dial Delay: 0
 Hook Flash Timing: minimum: 500 maximum: 500
+
+## set up linphone
+
+- manage sip accounts:
+- SIP address: sip:<extension>@futel-stage.phu73l.net
+- SIP server address: <sip:futel-stage.phu73l.net;transport=udp>
+- transport: UDP
+- register: yes
+
+when prompted, enter <secret>
