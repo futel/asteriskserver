@@ -1,7 +1,6 @@
 # Set up twilio configuration for Asterisk server
 
-Twilio connects the Asterisk server to the PSTN for some incoming and
-outgoing calls.
+This usage of Twilio connects the Asterisk server to the PSTN for some incoming and outgoing calls.
 
 ## elastic sip trunking - credential lists
 
@@ -22,10 +21,19 @@ outgoing calls.
 
 ## phone numbers - manage - active
 
-for each incoming number that rings a Futel phone:
+We want a phone number for each client, and one or more phone numbers for testing. Each number must have corresponding Asterisk configuration.
+
+For each number used for client extensions:
+- friendly name: <client>
 - accept incoming: voice calls
 - configure with: SIP trunk
 - SIP trunk: futel-prod
+
+For each number used by for testing:
+- friendly name: stage test (one, two, etc)
+- accept incoming: voice calls
+- configure with: SIP trunk
+- SIP trunk: futel-stage
 
 ## to test stage
 
