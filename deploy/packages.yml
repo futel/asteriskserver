@@ -12,6 +12,7 @@
       - dejavu-sans-mono-fonts
       - dracut-squash
       - diffutils
+      - droplet-agent
       - emacs-filesystem
       - freetype
       - geolite2-city

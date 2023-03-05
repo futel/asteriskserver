@@ -27,42 +27,39 @@ def get_contact_lines():
     lines = subprocess.run(
         ["/sbin/asterisk", "-cx", "pjsip show contacts"],
         stdout=subprocess.PIPE)
-    lines = [line.decode('ascii') for line in lines.stdout.splitlines()]
-    lines = [line for line in lines
-             if line.strip().startswith("Contact")]
-    return [
-        Line(line=line, extension=None, status=None) for line in lines]
+    lines = (line.decode('ascii') for line in lines.stdout.splitlines())
+    lines = (line for line in lines
+             if line.strip().startswith("Contact"))
+    return (
+        Line(line=line, extension=None, status=None) for line in lines)
 
 def get_extension_lines(lines):
     """Return filtered and populated Lines from lines."""
     # filter for lines with extension
-    lines = [
+    lines = (
         Line(line=line.line,
              extension=extension_re.search(line.line), status=None)
-        for line in lines]
-    lines = [line for line in lines if line.extension]
+        for line in lines)
+    lines = (line for line in lines if line.extension)
     # extract extension
-    lines = [
+    lines = (
         Line(line=line.line,
              extension=line.extension.group(1),
-             status=None) for line in lines]
+             status=None) for line in lines)
     # extract status
-    lines = [
+    lines = (
         Line(line=line.line,
              extension=line.extension,
-             status=line.line.split()) for line in lines]
-    lines = [
+             status=line.line.split()) for line in lines)
+    lines = (
         Line(line=line.line,
              extension=line.extension,
-             status=line.status[3]) for line in lines]
+             status=line.status[3]) for line in lines)
     # # filter to Avail status only
-    # lines = [
+    # lines = (
     #     Line(line=line.line,
     #          extension=line.extension,
     #          status=line) for line in lines
-    #     if line.status == 'Avail']
+    #     if line.status == 'Avail')
     # we are done
     return lines
-
-# for (line) in lines:
-#     print(line.extension, line.status)

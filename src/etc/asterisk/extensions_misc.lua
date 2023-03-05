@@ -5,8 +5,11 @@ function operator(context, exten)
     util.say("please-hold")
     util.say("for-the-next-available-operator")
     app.FollowMe("operator", "d")
-    -- if we got here, no operator accepted
-    util.metric("operator-nopickup")
+    -- If we get here, either no operator accepted, or the caller hung
+    -- up before an operator could accept. There doesn't seem to be a way
+    -- to tell which, so don't try to metric. Not sure what happens to
+    -- voicemail in that case, but it's not causing issues.
+    -- util.metric("operator-nopickup")
     app.VoiceMail(1337, "u")
 end
 

@@ -26,10 +26,10 @@ def handle_interesting_event(event, manager, snsclient):
     logging.info('publishing %s' % event.headers)
     snspublish.publish(event.headers, snsclient)
 
-def handle_misc_event(event, manager, snsclient):
-    #if event.headers.get('AppData') in ('OperatorAttempt', 'OperatorNoPickup'):
-    #    return handle_interesting_event(event, manager, snsclient)
-    logging.info('not publishing %s' % event.headers)
+# def handle_misc_event(event, manager, snsclient):
+#     #if event.headers.get('AppData') in ('OperatorAttempt', 'OperatorNoPickup'):
+#     #    return handle_interesting_event(event, manager, snsclient)
+#     logging.info('not publishing %s' % event.headers)
 
 def get_manager():
     snsclient = snspublish.get_snsclient()
@@ -42,17 +42,12 @@ def get_manager():
     #     in a separate thread?
     event_handler = functools.partial(
         handle_interesting_event, snsclient=snsclient)
-    misc_event_handler = functools.partial(
-        handle_misc_event, snsclient=snsclient)
-    # amanager.register_event('PeerStatus', event_handler)
-    # amanager.register_event('Registry', event_handler)
+    #misc_event_handler = functools.partial(
+    #    handle_misc_event, snsclient=snsclient)
     amanager.register_event('ConfbridgeJoin', event_handler)
     amanager.register_event('ConfbridgeLeave', event_handler)
-    # amanager.register_event('HangupRequest', event_handler)
-    # amanager.register_event('SoftHangupRequest', event_handler)
-    amanager.register_event('Hangup', event_handler)
     amanager.register_event('UserEvent', event_handler)
-    amanager.register_event('*', misc_event_handler)
+    # amanager.register_event('*', misc_event_handler)
 
     return amanager
 
