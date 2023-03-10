@@ -4,7 +4,6 @@ saratoga_extension = 405
 central_extension = 410
 breckenridge_extension = 415
 cesarchavez_extension = 420
-sjac_extension = 435
 microcosm_extension = 445
 robotron_extension = 615
 souwester_extension = 620
@@ -143,13 +142,6 @@ function ring_cesarchavez(context)
         context)
 end
 
-function ring_sjac(context) 
-    return ring_context(
-        sjac_extension,
-        "sjac",
-        context)
-end
-
 function ring_microcosm(context) 
     return ring_context(
         microcosm_extension,
@@ -186,7 +178,6 @@ local extensions = {
     ring_breckenridge = util.destination_context(ring_breckenridge),
     ring_saratoga = util.destination_context(ring_saratoga),
     ring_cesarchavez = util.destination_context(ring_cesarchavez),
-    ring_sjac = util.destination_context(ring_sjac),
     ring_microcosm = util.destination_context(ring_microcosm),    
     community_incoming = util.context(
         {menu_entries={ 
