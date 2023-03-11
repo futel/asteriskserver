@@ -43,12 +43,6 @@ Validate requirements and configuration locally
 
 ```
   ansible-playbook -i deploy/hosts deploy/deploy_digitalocean_playbook.yml --vault-password-file=conf/vault_pass_digitalocean.txt
-```
-
-Note IP address printed.
-Wait for DNS to match IP address with "nslookup futel-stage.phu73l.net".
-
-```
   ansible-playbook -i deploy/hosts deploy/secure_playbook.yml --limit prod:localhost:baseinstall --vault-password-file=conf/vault_pass_prod.txt
   ansible-playbook -i deploy/hosts deploy/baseinstall_playbook.yml --limit baseinstall
   ansible-playbook -i deploy/hosts deploy/provision_storage_playbook.yml --vault-password-file=conf/vault_pass_digitalocean.txt
@@ -79,7 +73,6 @@ rename futel-stage.phu73l.net droplet to futel-prod.phu73l.net
 
 point all voip.ms DID forwarding rules to subaccounts corresponding to new conf_version on futel-prod.phu73l.net
   185060_prod-foo|bar subaccount
-wait for DNS to propagate with "nslookup futel-prod.phu73l.net"
 
 ```
 ansible-playbook -i deploy/hosts deploy/post_promote_playbook.yml --vault-password-file=conf/vault_pass_digitalocean.txt

@@ -20,3 +20,5 @@
     name: "{{ droplet.data[0].name }}"
     ip: "{{ ip_address }}"
     oauth_token: "{{ deploy_access_token }}"
+- name: wait for DNS to update
+  shell: ./dns_wait.py futel-stage.phu73l.net "{{ ip_address }}"

@@ -26,3 +26,5 @@
     name: futel-prod.phu73l.net
     ip: "{{ ip_address }}"
     oauth_token: "{{ deploy_access_token }}"
+- name: wait for DNS to update
+  shell: ./dns_wait.py futel-prod.phu73l.net "{{ ip_address }}"
