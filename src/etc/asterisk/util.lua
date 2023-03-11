@@ -86,6 +86,13 @@ function metric(context)
     app.AGI("metric.agi", context)    
 end
 
+-- Goto bounce context if there is a lockfile.
+function bounce()
+    if util.lockfile_exists() then
+        app.Goto("bounce", "s", 1)
+    end
+end
+
 -- Return a string usable for the asterisk Dial command.
 function get_dialstring(number, outgoingchannel)
     dialstring = "PJSIP/" .. number
@@ -357,6 +364,7 @@ function context(arg)
 end
 
 local util = {
+    bounce = bounce,
     context = context,
     context_array = context_array,
     destination_context = destination_context,
