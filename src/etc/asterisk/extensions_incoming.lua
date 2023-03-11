@@ -8,7 +8,7 @@ microcosm_extension = 445
 robotron_extension = 615
 souwester_extension = 620
 ypsi_extension = 630
--- alley27_extension = 640
+alley27_extension = 640
 taylor_extension = 655
 r2d2_extension = 670
 ainsworth_extension = 680
@@ -19,7 +19,7 @@ twilio_r2d2_incoming = "+15033828838"
 twilio_taylor_incoming = "+15039266271"
 twilio_ainsworth_incoming = "+15034449412"
 twilio_ypsi_incoming = "+17345476651"
--- twilio_alley27_incoming = "+15039288465"
+twilio_alley27_incoming = "+15039288465"
 twilio_robotron_incoming = "+15039266341"
 twilio_souwester_incoming = "+13602282259"
 twilio_eighth_incoming = "+15039266188"
@@ -95,12 +95,12 @@ function ring_ypsi(context)
         context)
 end
 
--- function ring_alley27(context) 
---     return ring_context(
---         alley27_extension,
---         "alley27",
---         context)
--- end
+function ring_alley27(context) 
+    return ring_context(
+        alley27_extension,
+        "alley27",
+        context)
+end
 
 function ring_robotron(context) 
     return ring_context(
@@ -236,7 +236,7 @@ local extensions = {
     ring_detroitbusco = util.destination_context(ring_detroitbusco),
     ring_taylor = util.destination_context(ring_taylor),
     ring_ypsi = util.destination_context(ring_ypsi),
---    ring_alley27 = util.destination_context(ring_alley27),
+    ring_alley27 = util.destination_context(ring_alley27),
     ring_robotron = util.destination_context(ring_robotron),
     ring_souwester = util.destination_context(ring_souwester),
     ring_eighth = util.destination_context(ring_eighth),
