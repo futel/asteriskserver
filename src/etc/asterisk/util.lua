@@ -20,6 +20,18 @@ positions = {1, 2, 3, 4, 5, 6, 7, 8, 9, 0}
 
 lockfile_name = "/opt/futel/var/run/lockfile"
 
+twilio_pv_callerids = {"sjac", "test"}
+
+-- return true if table t contains value
+local function has_value (t, value)
+    for i, v in ipairs(t) do
+        if v == value then
+            return true
+        end
+    end
+    return false
+end
+
 -- create a lockfile or fail, and don't return anything
 function lockfile_create()
     -- we only have one lockfile
@@ -229,15 +241,21 @@ function pop_parent_context()
     return context
 end
 
--- Pop parent context and goto it. We do this becuase we can't gosub in lua.
+-- Pop parent context and goto it. We do this becuase we can't call Asterisk's gosub in lua.
 function goto_parent_context()
     local parent_context = pop_parent_context()
     if parent_context ~= "" and parent_context then
         return app.Goto(parent_context, "s", 1)
     else
-        -- No parent_context, replay our current context, hopefully it has an s extension.
-        -- This shouldn't happen unless we are at the initial context.
-        return app.Goto("s", 1)        
+        -- No parent_context, this shouldn't happen unless we are at the initial context.
+        callerid = channel.CALLERID("number"):get()
+        if has_value(twilio_pv_callerids, callerid) then
+            -- We are coming from Twilio Programmable Voice, hang up so it can continue.
+            return app.Hangup()
+        else
+            -- Replay our current context, hopefully it has an s extension.
+            return app.Goto("s", 1)
+        end
     end
 end
 
