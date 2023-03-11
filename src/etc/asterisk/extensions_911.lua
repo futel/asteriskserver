@@ -4,7 +4,7 @@ voipms_leet_incoming = "+15034681337"
 
 -- return true if the calling extension should be allowed to call 911
 function is_911_enabled()
-    callerid = channel.callerid:get()
+    callerid = channel.CALLERID("number"):get()
     disable_911 = channel.disable_911:get()    
     if callerid == voipms_leet_incoming then
         return false
