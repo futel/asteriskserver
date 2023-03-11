@@ -15,6 +15,22 @@ ainsworth_extension = 680
 detroitbusco_extension = 690
 eighth_extension = 695
 
+twilio_r2d2_incoming = "+15033828838"
+twilio_taylor_incoming = "+15039266271"
+twilio_ainsworth_incoming = "+15034449412"
+twilio_ypsi_incoming = "+17345476651"
+-- twilio_alley27_incoming = "+15039288465"
+twilio_robotron_incoming = "+15039266341"
+twilio_souwester_incoming = "+13602282259"
+twilio_eighth_incoming = "+15039266188"
+twilio_breckenridge_incoming = "+13132469283"
+twilio_detroitbusco_incoming = "+13133327495"
+twilio_central_incoming = "+15034836584"
+twilio_saratoga_incoming = "+15033889637"
+twilio_cesarchavez_incoming = "+15039465227"
+-- twilio_sjac_incoming = "+15032126899"
+twilio_microcosm_incoming = "+15032945966"
+twilio_test_incoming = "+19713512383"
 
 function operator_incoming(context, exten)
     util.metric(context)
@@ -149,7 +165,57 @@ function ring_microcosm(context)
         context)
 end
 
+-- Extension to start a call from a Twilio SIP connection. These
+-- extensions aren't entered from the keypad, they come from a SIP
+-- URI.
+-- In practice this is a Twilio Elastic SIP connection, used by
+-- incoming calls from a Twilio phone number or a SIP Dial verb
+-- from a Twilio service.
+context_array_incoming_twilio = {
+    -- Calls received by a Twilio phone number and directd to the Twilio
+    -- Elastic SIP Trunk are addressed to the E.164 phone number.
+    [twilio_r2d2_incoming]=function(context, exten)
+        ring_r2d2(context) end,
+    [twilio_test_incoming]=function(context, exten)
+        ring_microcosm(context) end,
+    [twilio_taylor_incoming]=function(context, exten)
+        ring_taylor(context) end,
+    [twilio_ainsworth_incoming]=function(context, exten)
+        ring_ainsworth(context) end,
+    [twilio_ypsi_incoming]=function(context, exten)
+        ring_ypsi(context) end,
+    [twilio_robotron_incoming]=function(context, exten)
+        ring_robotron(context) end,
+    [twilio_souwester_incoming]=function(context, exten)
+        ring_souwester(context) end,
+    [twilio_eighth_incoming]=function(context, exten)
+        ring_eighth(context) end,
+    [twilio_breckenridge_incoming]=function(context, exten)
+        ring_breckenridge(context) end,
+    [twilio_detroitbusco_incoming]=function(context, exten)
+        ring_detroitbusco(context) end,
+    [twilio_central_incoming]=function(context, exten)
+        ring_central(context) end,
+    [twilio_saratoga_incoming]=function(context, exten)
+        ring_saratoga(context) end,
+    [twilio_cesarchavez_incoming]=function(context, exten)
+        ring_cesarchavez(context) end,
+    [twilio_microcosm_incoming]=function(context, exten)
+        ring_microcosm(context) end,
+    -- Calls from our Twilio Service are addressed to named contexts.
+    -- We don't verify that the extension is calling the context we set
+    -- it up for, and someone who gets the creds from a device or
+    -- whatever could call any of them here. This should be OK because
+    -- having a Futel phone lets you do most anything anyway.
+    -- XXX set everything normally set in pjsip endpoints
+    ["outgoing_portland"] = function(context, exten)
+        app.Goto("outgoing_portland", "s", 1) end,
+    ["outgoing_safe"] = function(context, exten)
+        app.Goto("outgoing_safe", "s", 1) end,
+}
+
 local extensions = {
+    incoming_twilio = context_array_incoming_twilio,
     incoming_leet = util.context(
         {pre_callable=util.bounce,
          intro_statements={
