@@ -1,6 +1,7 @@
 util = require("util")
 
 function outgoing_pre_menu(context_name)
+    util.bounce()
     -- Note that this is the first interaction on handset pickup, so
     -- friction should not be configured to block or ignore possible
     -- 911 digits.

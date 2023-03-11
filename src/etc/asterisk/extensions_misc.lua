@@ -32,6 +32,11 @@ function dial(context, exten)
 end
 
 local extensions = {
+    bounce = util.statement_context(
+        {statements={
+             "this-system-is-temporarily-down-for-maintenance",
+             "try-again-later"},
+         statement_dir="voicemail"}), -- This was originally for voicemail, we should generalize.
     operator = util.context_array(operator, {}),
     filterdial = util.dial_context(filterdial),
     dial = util.dial_context(dial),    

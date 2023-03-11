@@ -151,7 +151,8 @@ end
 
 local extensions = {
     incoming_leet = util.context(
-        {intro_statements={
+        {pre_callable=util.bounce,
+         intro_statements={
              "welcome-to-fewtel", "para-espanol", "oprima-estrella"},
          menu_entries={
              [1]={"for-voicemail", "voicemail_incoming"},
