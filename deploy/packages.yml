@@ -15,8 +15,11 @@
       - droplet-agent
       - emacs-filesystem
       - freetype
+      - gcc
       - geolite2-city
       - geolite2-country
+      - gnupg2-smime
+      - libicu
       - libX11
       - libX11-common
       - libX11-xcb
@@ -24,6 +27,7 @@
       - man-db
       - man-pages
       - man-pages-overrides
+      - mozjs60
       - rpcbind
       - sendmail
       - telnet
