@@ -212,6 +212,8 @@ context_array_incoming_twilio = {
         app.Goto("outgoing_portland", "s", 1) end,
     ["outgoing_safe"] = function(context, exten)
         app.Goto("outgoing_safe", "s", 1) end,
+    ["operator"] = function(context, exten)
+        app.Goto("operator", "s", 1) end
 }
 
 local extensions = {
