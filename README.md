@@ -43,12 +43,12 @@ Validate requirements and configuration locally
 
 ```
   ansible-playbook -i deploy/hosts deploy/deploy_digitalocean_playbook.yml --vault-password-file=conf/vault_pass_digitalocean.txt
-  ansible-playbook -i deploy/hosts deploy/secure_playbook.yml --limit prod:localhost:baseinstall --vault-password-file=conf/vault_pass_prod.txt
-  ansible-playbook -i deploy/hosts deploy/baseinstall_playbook.yml --limit baseinstall
+  ansible-playbook -i deploy/hosts deploy/secure_playbook.yml --limit 'all:!virtualbox' --vault-password-file=conf/vault_pass_prod.txt
+  ansible-playbook -i deploy/hosts deploy/baseinstall_playbook.yml --limit 'all:!virtualbox'
   ansible-playbook -i deploy/hosts deploy/provision_storage_playbook.yml --vault-password-file=conf/vault_pass_digitalocean.txt
-  ansible-playbook -i deploy/hosts deploy/update_asterisk_playbook.yml --limit baseinstall --vault-password-file=conf/vault_pass_generic.txt
-  ansible-playbook -i deploy/hosts deploy/update_secrets_playbook.yml --limit prod:localhost:baseinstall --vault-password-file=conf/vault_pass_prod.txt
-  ansible-playbook -i deploy/hosts --limit localhost,prod,baseinstall deploy/sync_playbook.yml
+  ansible-playbook -i deploy/hosts deploy/update_asterisk_playbook.yml --limit 'all:!virtualbox' --vault-password-file=conf/vault_pass_generic.txt
+  ansible-playbook -i deploy/hosts deploy/update_secrets_playbook.yml --limit 'all:!virtualbox' --vault-password-file=conf/vault_pass_prod.txt
+  ansible-playbook -i deploy/hosts --limit 'all:!virtualbox' deploy/sync_playbook.yml
 ```
 
 ## Test droplet
@@ -58,23 +58,17 @@ Test stage against google sheet testplan.
 
 ## Promote stage to prod
 
-```
-  ansible-playbook -i deploy/hosts --limit prod deploy/lock_playbook.yml
-  ansible-playbook -i deploy/hosts deploy/hostname_playbook.yml
-```
-
 rename futel-prod.phu73l.net droplet to futel-prod-back
 rename futel-stage.phu73l.net droplet to futel-prod.phu73l.net
-
-```
-  ansible-playbook -i deploy/hosts --limit localhost,prod,baseinstall deploy/sync_playbook.yml --vault-password-file=conf/vault_pass_digitalocean.txt
-  ansible-playbook -i deploy/hosts deploy/post_sync_dns_playbook.yml --vault-password-file=conf/vault_pass_digitalocean.txt  
-```
 
 point all voip.ms DID forwarding rules to subaccounts corresponding to new conf_version on futel-prod.phu73l.net
   185060_prod-foo|bar subaccount
 
 ```
+  ansible-playbook -i deploy/hosts --limit 'all:!virtualbox' deploy/lock_playbook.yml
+  ansible-playbook -i deploy/hosts deploy/hostname_playbook.yml
+  ansible-playbook -i deploy/hosts --limit 'all:!virtualbox' deploy/sync_playbook.yml --vault-password-file=conf/vault_pass_digitalocean.txt
+  ansible-playbook -i deploy/hosts deploy/post_sync_dns_playbook.yml --vault-password-file=conf/vault_pass_digitalocean.txt  
 ansible-playbook -i deploy/hosts deploy/post_promote_playbook.yml --vault-password-file=conf/vault_pass_digitalocean.txt
 ```
 
