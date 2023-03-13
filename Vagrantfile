@@ -8,8 +8,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     automount: true,                          
     mount_options: ["dmode=777,fmode=777"]
   
-  config.vm.provision "secure", type: "ansible" do |ansible|
-    ansible.playbook = "deploy/secure_playbook.yml"
+  config.vm.provision "deploy", type: "ansible" do |ansible|
+    ansible.playbook = "deploy/deploy_playbook.yml"
     # Our vm gets virtualbox ansible inventory group.
     ansible.groups = {
       "virtualbox" => ["default"]

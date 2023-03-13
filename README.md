@@ -41,13 +41,14 @@ Validate requirements and configuration locally
 
 ## Deploy stage droplet
 
+Note that the first playbook, deploy_playbook.yml, may fail if DNS takes a long time to propagate. Run it again if it does.
+
 ```
-  ansible-playbook -i deploy/hosts deploy/deploy_digitalocean_playbook.yml --vault-password-file=conf/vault_pass_digitalocean.txt
-  ansible-playbook -i deploy/hosts deploy/secure_playbook.yml --limit 'all:!virtualbox' --vault-password-file=conf/vault_pass_prod.txt
+  ansible-playbook -i deploy/hosts deploy/deploy_playbook.yml --vault-id=digitalocean@conf/vault_pass_digitalocean.txt --vault-id prod@conf/vault_pass_prod.txt
   ansible-playbook -i deploy/hosts deploy/baseinstall_playbook.yml --limit 'all:!virtualbox'
-  ansible-playbook -i deploy/hosts deploy/provision_storage_playbook.yml --vault-password-file=conf/vault_pass_digitalocean.txt
-  ansible-playbook -i deploy/hosts deploy/update_asterisk_playbook.yml --limit 'all:!virtualbox' --vault-password-file=conf/vault_pass_generic.txt
-  ansible-playbook -i deploy/hosts deploy/update_secrets_playbook.yml --limit 'all:!virtualbox' --vault-password-file=conf/vault_pass_prod.txt
+  ansible-playbook -i deploy/hosts deploy/provision_storage_playbook.yml --vault-id=digitalocean@conf/vault_pass_digitalocean.txt
+  ansible-playbook -i deploy/hosts deploy/update_asterisk_playbook.yml --limit 'all:!virtualbox' --vault-id generic@conf/vault_pass_generic.txt |cat
+  ansible-playbook -i deploy/hosts deploy/update_secrets_playbook.yml --limit 'all:!virtualbox' --vault-id=prod@conf/vault_pass_prod.txt
   ansible-playbook -i deploy/hosts --limit 'all:!virtualbox' deploy/sync_playbook.yml
 ```
 
@@ -67,9 +68,9 @@ point all voip.ms DID forwarding rules to subaccounts corresponding to new conf_
 ```
   ansible-playbook -i deploy/hosts --limit 'all:!virtualbox' deploy/lock_playbook.yml
   ansible-playbook -i deploy/hosts deploy/hostname_playbook.yml
-  ansible-playbook -i deploy/hosts --limit 'all:!virtualbox' deploy/sync_playbook.yml --vault-password-file=conf/vault_pass_digitalocean.txt
-  ansible-playbook -i deploy/hosts deploy/post_sync_dns_playbook.yml --vault-password-file=conf/vault_pass_digitalocean.txt  
-ansible-playbook -i deploy/hosts deploy/post_promote_playbook.yml --vault-password-file=conf/vault_pass_digitalocean.txt
+  ansible-playbook -i deploy/hosts --limit 'all:!virtualbox' deploy/sync_playbook.yml --vault-id=digitalocean@conf/vault_pass_digitalocean.txt
+  ansible-playbook -i deploy/hosts deploy/post_sync_dns_playbook.yml --vault-id=digitalocean@conf/vault_pass_digitalocean.txt
+  ansible-playbook -i deploy/hosts deploy/post_promote_playbook.yml --vault-id=digitalocean@conf/vault_pass_digitalocean.txt
 ```
 
 Delete the assets* volume which was attached to futel-prod-back.
