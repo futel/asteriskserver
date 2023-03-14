@@ -64,7 +64,7 @@ function ring_context(extension, identifier, context)
     dialstring = util.get_dialstring(extension, nil)
     app.Dial(dialstring)
     dialstatus = channel.DIALSTATUS:get()
-    metric("incoming-dialstatus-" .. dialstatus .. "-" .. identifier)
+    util.metric("incoming-dialstatus-" .. dialstatus .. "-" .. identifier)
 end
 
 function ring_ainsworth(context, exten)
