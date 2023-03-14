@@ -165,6 +165,17 @@ function ring_microcosm(context)
         context)
 end
 
+-- Set up an outgoing call coming from
+-- Twilio Programmable Voice / Twilio Service, and go to the given
+-- context.
+local function outgoing_twilio_pv(outgoing_context)
+    -- Twilio service puts caller ID on x-callerid SIP header.
+    callerid = channel.PJSIP_HEADER("read", "x-callerid"):get()
+    channel.CALLERID("number"):set(callerid)
+    app.Goto(outgoing_context, "s", 1)
+end
+
+
 -- Extension to start a call from a Twilio SIP connection. These
 -- extensions aren't entered from the keypad, they come from a SIP
 -- URI.
@@ -209,11 +220,11 @@ context_array_incoming_twilio = {
     -- having a Futel phone lets you do most anything anyway.
     -- XXX set everything normally set in pjsip endpoints
     ["outgoing_portland"] = function(context, exten)
-        app.Goto("outgoing_portland", "s", 1) end,
+        outgoing_twilio_pv("outgoing_portland") end,
     ["outgoing_safe"] = function(context, exten)
-        app.Goto("outgoing_safe", "s", 1) end,
+        outgoing_twilio_pv("outgoing_safe") end,        
     ["operator"] = function(context, exten)
-        app.Goto("operator", "s", 1) end
+        outgoing_twilio_pv("operator") end
 }
 
 local extensions = {
