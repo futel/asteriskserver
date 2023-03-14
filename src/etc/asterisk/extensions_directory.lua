@@ -174,6 +174,7 @@ local extensions = {
              {"for-the-trymet-transit-tracker", "trimet-transit-tracker"},
              {"for-a-random-number", "random_number"}},
          statement_dir="utilities"}),
+    -- XXX this is "not portland", we should have _michigan and _souwester
     utilities_generic = util.context(
         {menu_entries={
              {"for-the-current-time", "current-time-ypsi"},
