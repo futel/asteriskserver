@@ -10,12 +10,10 @@ souwester_extension = 620
 ypsi_extension = 630
 alley27_extension = 640
 taylor_extension = 655
-r2d2_extension = 670
 ainsworth_extension = 680
 detroitbusco_extension = 690
 eighth_extension = 695
 
-twilio_r2d2_incoming = "+15033828838"
 twilio_taylor_incoming = "+15039266271"
 twilio_ainsworth_incoming = "+15034449412"
 twilio_ypsi_incoming = "+17345476651"
@@ -123,13 +121,6 @@ function ring_eighth(context)
         context)
 end
 
-function ring_r2d2(context) 
-    return ring_context(
-        r2d2_extension,
-        "r2d2",
-        context)
-end
-
 function ring_central(context) 
     return ring_context(
         central_extension,
@@ -195,8 +186,6 @@ end
 context_array_incoming_twilio = {
     -- Calls received by a Twilio phone number and directd to the Twilio
     -- Elastic SIP Trunk are addressed to the E.164 phone number.
-    [twilio_r2d2_incoming]=function(context, exten)
-        ring_r2d2(context) end,
     [twilio_test_incoming]=function(context, exten)
         ring_microcosm(context) end,
     [twilio_taylor_incoming]=function(context, exten)
@@ -263,7 +252,6 @@ local extensions = {
     ring_robotron = util.destination_context(ring_robotron),
     ring_souwester = util.destination_context(ring_souwester),
     ring_eighth = util.destination_context(ring_eighth),
-    ring_r2d2 = util.destination_context(ring_r2d2),
     ring_central = util.destination_context(ring_central),
     ring_breckenridge = util.destination_context(ring_breckenridge),
     ring_saratoga = util.destination_context(ring_saratoga),
