@@ -170,8 +170,18 @@ end
 -- context.
 local function outgoing_twilio_pv(outgoing_context)
     -- Twilio service puts caller ID on x-callerid SIP header.
-    callerid = channel.PJSIP_HEADER("read", "x-callerid"):get()
-    channel.CALLERID("number"):set(callerid)
+    caller_id = channel.PJSIP_HEADER("read", "x-callerid"):get()
+    channel.CALLERID("number"):set(caller_id)    
+
+    enable_emergency = channel.PJSIP_HEADER(
+        "read", "x-enableemergency"):get()
+    if enable_emergency == "true" then
+        disable_911 = "no"
+    else
+        disable_911 = "yes"
+    end
+    channel.disable_911:set(disable_911)
+    
     app.Goto(outgoing_context, "s", 1)
 end
 
