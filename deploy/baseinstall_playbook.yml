@@ -23,3 +23,14 @@
     - include: install_misc.yml
     - include: install_asterisk.yml
     - include: install_asterisk_helpers.yml
+- hosts: digitalocean
+  tasks:
+    - include: build_volume.yml
+- hosts: baseinstall
+  become: true
+  vars:
+    ansible_user: futel
+    ansible_port: 42422
+    ansible_ssh_private_key_file: conf/id_rsa
+  tasks:
+    - include: provision_storage.yml  

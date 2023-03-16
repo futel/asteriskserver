@@ -1,4 +1,8 @@
 ---
+- hosts: digitalocean
+  tasks:
+    - include: deploy_digitalocean.yml
+    - include: dns.yml
 - hosts: prod
   become: true
   vars:
@@ -14,14 +18,13 @@
 - hosts: baseinstall
   become: true
   vars:
-    ansible_user: futel
-    ansible_port: 42422
-    ansible_ssh_private_key_file: conf/id_rsa
+    src: "../src"
   tasks:
     - include: write_stage_conf.yml
-    - include: update_secrets.yml
+    - include: users.yml
+    - include: secure.yml
+    - include: update_iptables.yml    
 - hosts: virtualbox
   become: true
   tasks:
-    - include: write_stage_conf_virtualbox.yml
-    - include: update_secrets.yml
+    - include: secure_virtualbox.yml

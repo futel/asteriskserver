@@ -1,4 +1,0 @@
----
-- hosts: digitalocean
-  tasks:
-    - include: post_sync_dns.yml

@@ -45,11 +45,8 @@ Note that the first playbook, deploy_playbook.yml, may fail if DNS takes a long 
 
 ```
   ansible-playbook -i deploy/hosts deploy/deploy_playbook.yml --vault-id=digitalocean@conf/vault_pass_digitalocean.txt --vault-id prod@conf/vault_pass_prod.txt
-  ansible-playbook -i deploy/hosts deploy/baseinstall_playbook.yml --limit 'all:!virtualbox'
-  ansible-playbook -i deploy/hosts deploy/provision_storage_playbook.yml --vault-id=digitalocean@conf/vault_pass_digitalocean.txt
-  ansible-playbook -i deploy/hosts deploy/update_asterisk_playbook.yml --limit 'all:!virtualbox' --vault-id generic@conf/vault_pass_generic.txt |cat
-  ansible-playbook -i deploy/hosts deploy/update_secrets_playbook.yml --limit 'all:!virtualbox' --vault-id=prod@conf/vault_pass_prod.txt
-  ansible-playbook -i deploy/hosts --limit 'all:!virtualbox' deploy/sync_playbook.yml
+  ansible-playbook -i deploy/hosts deploy/baseinstall_playbook.yml --limit 'all:!virtualbox' --vault-id=digitalocean@conf/vault_pass_digitalocean.txt
+  ansible-playbook -i deploy/hosts deploy/update_asterisk_playbook.yml --limit 'all:!virtualbox' --vault-id generic@conf/vault_pass_generic.txt --vault-id=prod@conf/vault_pass_prod.txt
 ```
 
 ## Test droplet
@@ -66,10 +63,7 @@ point all voip.ms DID forwarding rules to subaccounts corresponding to new conf_
   185060_prod-foo|bar subaccount
 
 ```
-  ansible-playbook -i deploy/hosts --limit 'all:!virtualbox' deploy/lock_playbook.yml
-  ansible-playbook -i deploy/hosts deploy/hostname_playbook.yml
-  ansible-playbook -i deploy/hosts --limit 'all:!virtualbox' deploy/sync_playbook.yml --vault-id=digitalocean@conf/vault_pass_digitalocean.txt
-  ansible-playbook -i deploy/hosts deploy/post_sync_dns_playbook.yml --vault-id=digitalocean@conf/vault_pass_digitalocean.txt
+  ansible-playbook -i deploy/hosts deploy/promote_playbook.yml --vault-id=digitalocean@conf/vault_pass_digitalocean.txt
   ansible-playbook -i deploy/hosts deploy/post_promote_playbook.yml --vault-id=digitalocean@conf/vault_pass_digitalocean.txt
 ```
 
