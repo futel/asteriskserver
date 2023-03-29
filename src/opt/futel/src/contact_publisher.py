@@ -10,7 +10,7 @@ import time
 import logging
 import sys
 
-publish_secs = 120
+publish_secs = 600
 
 # Event: contact_status_<status>
 # endpoint: <number>
