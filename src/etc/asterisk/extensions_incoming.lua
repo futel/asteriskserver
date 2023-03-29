@@ -194,6 +194,8 @@ context_array_incoming_twilio = {
         ring_ainsworth(context) end,
     [twilio_ypsi_incoming]=function(context, exten)
         ring_ypsi(context) end,
+    [twilio_alley27_incoming]=function(context, exten)
+        ring_alley27(context) end,
     [twilio_robotron_incoming]=function(context, exten)
         ring_robotron(context) end,
     [twilio_souwester_incoming]=function(context, exten)
