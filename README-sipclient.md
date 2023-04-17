@@ -39,9 +39,10 @@ fxs port
 account active: yes
 primary sip server: <server>
 nat traversal: no
-sip user id:
-authenticate id:
+sip user id: <extension>
+authenticate id: <extension>
 authenticate password:
+(Twilio credential list password)
 sip registration: yes
 unregister on reboot: no
 outgoing call without registration: yes
