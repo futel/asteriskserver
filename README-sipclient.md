@@ -25,8 +25,10 @@ line1: dial plan S0<:999> (or desired extension in default-outgoing context)
 
 ## set up an unlocked grandstream HT701
 
-advanced settings
+basic settings
 telnet server: no
+
+advanced settings
 admin password:
 firmware server path: blank
 config server path: blank
@@ -40,7 +42,6 @@ nat traversal: no
 sip user id:
 authenticate id:
 authenticate password:
-name:
 sip registration: yes
 unregister on reboot: no
 outgoing call without registration: yes
