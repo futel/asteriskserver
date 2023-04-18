@@ -49,6 +49,20 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
                     "dest_asset_directory" => "/vagrant/build/opt/futel"}}
   end    
 
+  config.vm.provision "update_asterisk_conf_sync", type: "ansible" do |ansible|
+    ansible.playbook = "deploy/update_asterisk_conf_sync_playbook.yml"
+    ansible.vault_password_file = "conf/vault_pass_virtualbox.txt"
+    # Our vm gets virtualbox ansible inventory group.
+    ansible.groups = {
+      "virtualbox" => ["default"]
+    }
+    # Generate an ansible hosts file with the variables we need.
+    ansible.host_vars = {
+      "default" => {"ansible_python_interpreter" => "auto",
+                    "host_asset_directory" => "..",
+                    "dest_asset_directory" => "/vagrant/build/opt/futel"}}
+  end    
+  
   config.vm.provision "update_asterisk_itests", type: "ansible" do |ansible|
     ansible.playbook = "deploy/update_asterisk_itests_playbook.yml"
     # Our vm gets virtualbox ansible inventory group.

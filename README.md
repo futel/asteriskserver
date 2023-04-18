@@ -46,7 +46,8 @@ Note that the first playbook, deploy_playbook.yml, may fail if DNS takes a long 
 ```
   ansible-playbook -i deploy/hosts deploy/deploy_playbook.yml --vault-id=digitalocean@conf/vault_pass_digitalocean.txt --vault-id prod@conf/vault_pass_prod.txt
   ansible-playbook -i deploy/hosts deploy/baseinstall_playbook.yml --limit 'all:!virtualbox' --vault-id=digitalocean@conf/vault_pass_digitalocean.txt
-  ansible-playbook -i deploy/hosts deploy/update_asterisk_playbook.yml --limit 'all:!virtualbox' --vault-id generic@conf/vault_pass_generic.txt --vault-id=prod@conf/vault_pass_prod.txt
+  ansible-playbook -i deploy/hosts deploy/update_asterisk_playbook.yml --limit 'all:!virtualbox' --vault-id generic@conf/vault_pass_generic.txt
+  ansible-playbook -i deploy/hosts deploy/update_asterisk_conf_sync_playbook.yml --limit 'all:!virtualbox' --vault-id prod@conf/vault_pass_prod.txt
 ```
 
 ## Test droplet
