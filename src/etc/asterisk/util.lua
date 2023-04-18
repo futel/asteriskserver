@@ -20,7 +20,13 @@ positions = {1, 2, 3, 4, 5, 6, 7, 8, 9, 0}
 
 lockfile_name = "/opt/futel/var/run/lockfile"
 
-twilio_pv_callerids = {"sjac", "test"}
+-- Caller IDs for calls which come from Twilio Programmable Voice.
+-- This should match the keys of extensions.private.json in
+-- twilio-sip-serverl
+twilio_pv_callerids = {
+    "demo",
+    "dome-basement", "dome-office", "dome-booth",
+    "r2d2", "sjac", "test"}
 
 -- return true if table t contains value
 local function has_value (t, value)
