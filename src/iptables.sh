@@ -30,12 +30,17 @@ iptables -A FORWARD -i tun0 -j ACCEPT
 
 # voip.ms SIP
 iptables -A INPUT -p udp -m udp -s sanjose.voip.ms --dport 5060:5080 -j ACCEPT
-iptables -A INPUT -p udp -m udp -s sanjose.voip.ms --dport 10000:20000 -j ACCEPT
+iptables -A INPUT -p udp -m udp -s sanjose.voip.ms --dport 10000:60000 -j ACCEPT
+# twilio SIP post October 10 2023
+iptables -A INPUT -p udp -m udp -s 168.86.128.0/18 --dport 5060:5061 -j ACCEPT
+iptables -A INPUT -p udp -m udp -s 168.86.128.0/18 --dport 10000:20000 -j ACCEPT
 # twilio us1 (east coast) SIP
+# This is to be removed after October 10 2023
 # https://www.twilio.com/docs/sip-trunking/ip-addresses
 iptables -A INPUT -p udp -m udp -s 54.172.60.0/30 --dport 5060:5061 -j ACCEPT
 iptables -A INPUT -p udp -m udp -s 54.172.60.0/23 --dport 10000:20000 -j ACCEPT
 # twilio us2 (west coast) SIP
+# This is to be removed after October 10 2023
 # https://www.twilio.com/docs/sip-trunking/ip-addresses
 iptables -A INPUT -p udp -m udp -s 54.244.51.0/30 --dport 5060:5061 -j ACCEPT
 iptables -A INPUT -p udp -m udp -s 54.244.51.0/24 --dport 10000:20000 -j ACCEPT
