@@ -21,8 +21,11 @@ The setup of README-aws, README-twilio, and README-bulkvs should be completed. T
 Run unit tests locally
 
 ```
-  cd src/var/lib/asterisk/agi-bin
+  pushd src/var/lib/asterisk/agi-bin
   python3 -m unittest discover test
+  popd
+  pushd src/etc/asterisk/test
+  lua test.lua
 ```
 
 Run integration tests on virtualbox
