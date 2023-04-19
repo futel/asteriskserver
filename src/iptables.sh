@@ -49,4 +49,4 @@ iptables -A INPUT -p udp -m udp -s 54.244.51.0/24 --dport 10000:20000 -j ACCEPT
 # iptables -A INPUT -p udp -m udp -s 69.12.88.198 --dport 5060:5061 -j ACCEPT
 # iptables -A INPUT -p udp -m udp -s 76.8.29.198 --dport 5060:5061 -j ACCEPT
 # philtel IAX
-iptables -A INPUT -p udp -m udp -s 137.184.53.70 --dport 4569 -j ACCEPT
+#iptables -A INPUT -p udp -m udp -s 137.184.53.70 --dport 4569 -j ACCEPT
