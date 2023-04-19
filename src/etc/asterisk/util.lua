@@ -25,7 +25,7 @@ lockfile_name = "/opt/futel/var/run/lockfile"
 -- twilio-sip-serverl
 twilio_pv_callerids = {
     "demo",
-    "dome-basement", "dome-office", "dome-booth",
+    "dome-basement", "dome-booth", "dome-garage", "dome-office", 
     "r2d2", "sjac", "test"}
 
 -- return true if table t contains value
