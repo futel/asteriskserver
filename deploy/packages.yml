@@ -15,7 +15,6 @@
       - droplet-agent
       - emacs-filesystem
       - freetype
-      - gcc
       - geolite2-city
       - geolite2-country
       - gnupg2-smime
@@ -41,7 +40,10 @@
   yum:
     name:
       - chrony
+      - gcc          # needed by luarocks at package install time
       - lua
+      - lua-devel
+      - luarocks
       - mpg123
       - rsync
       - sox
@@ -90,11 +92,13 @@
   yum:
     name: "*"
     state: latest
-- name: update pip packages
+- name: install pip packages
   pip:
     name:
       - boto3
       - redis
       - pyst
     state: present
-
+# There is a luarocks ansible module could be installed.
+- name: install lua packages
+  command: luarocks install luafilesystem
