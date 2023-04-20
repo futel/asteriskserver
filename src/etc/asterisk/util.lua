@@ -1,3 +1,5 @@
+local lfs = require("lfs")
+
 outgoingchannel = "twilio"
 
 max_iterations = 10
@@ -56,7 +58,7 @@ function lockfile_exists()
    return false
 end
 
--- return iterator over sequence
+-- Return iterator over sequence.
 function iter(t)
     local i = 0
     local n = #t
@@ -66,13 +68,58 @@ function iter(t)
     end
 end
 
--- return table from t with map_function applied to values
+-- Return table from t with map_function applied to values.
+-- XXX This function is badly named because we are working only with
+--     non-sequence tables.
 function map(t, map_function)
     out = {}
     for k,v in pairs(t) do
         out[k] = map_function(t[k])
     end
     return out
+end
+
+-- Return sequence from t containing values that pass filter_function.
+-- XXX does this require a table?
+function filter(t, filter_function)
+    -- Does lua pass tables by reference? If not, we could use iter
+    -- to do this in place and avoid copying.
+    out = {}
+    for v in iter(t) do
+        if filter_function(v) then
+            table.insert(out, v)
+        end
+    end
+    return out
+end
+
+-- Return sequence of files in directory given by path.
+function directory_filenames(path)
+    
+    -- Return path for file with path prepended.
+    -- If path is absolute, this is an abolute path.
+    local function filepath(f)
+        return path..'/'..f
+    end
+
+    local function is_file(p)
+        return lfs.attributes(p).mode == "file"
+    end
+
+    -- A stupid function to get around iterating over
+    -- the output of lfs.dir().
+    function lfs_dir_to_table(p)
+        filenames = {}
+        for i in lfs.dir(p) do
+            table.insert(filenames, i)
+        end
+        return filenames
+    end
+    -- XXX map requires a table
+    filenames = lfs_dir_to_table(path)
+    filenames = map(filenames, filepath)
+    filenames = filter(filenames, is_file)
+    return filenames
 end
 
 -- play sound file from dirname in background
@@ -369,18 +416,22 @@ function context(arg)
     return context_array(menu_function, menu_destinations)
 end
 
+-- XXX We only export some of these to unit test them, is there another way?
 local util = {
     bounce = bounce,
     context = context,
     context_array = context_array,
     destination_context = destination_context,
     dial_context = dial_context,
+    directory_filenames = directory_filenames,
+    filter = filter,
     get_dialstring = get_dialstring,    
     statement_context = statement_context,    
     internaldial = internaldial,
     iter = iter,
     lockfile_create = lockfile_create,
     lockfile_exists = lockfile_exists,
+    map = map,
     max_iterations = max_iterations,
     metric = metric,    
     play_random_background = play_random_background,

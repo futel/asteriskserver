@@ -46,5 +46,52 @@ function test_pop_stack()
     luaunit.assertEquals(entry, "foo")
 end
 
+function test_iter()
+    t = {"a", "b", "c"}
+    for k, v in util.iter(t) do
+        luaunit.assertEquals(v, t[k])
+    end
+end
+
+function test_map()
+    t = {"a", "b", "c"}
+    map_t = util.map(t, function (v) return v.."x" end)
+    -- map_t has been mapped.
+    luaunit.assertEquals(map_t[1], "ax")
+    luaunit.assertEquals(map_t[2], "bx")
+    luaunit.assertEquals(map_t[3], "cx")
+    luaunit.assertEquals(#map_t, 3)
+    -- t is unchanged.
+    luaunit.assertEquals(t[1], "a")
+    luaunit.assertEquals(t[2], "b")
+    luaunit.assertEquals(t[3], "c")
+    luaunit.assertEquals(#t, 3)
+end
+
+local function truthy(v) return true end
+local function falsy(v) return false end    
+
+function test_filter_empty_truthy_falsy()
+    luaunit.assertEquals(util.filter({}, truthy), {})
+    luaunit.assertEquals(util.filter({}, falsy), {})    
+end
+
+function test_filter_truthy_falsy()
+    t = {1, 2, 3}
+    luaunit.assertEquals(util.filter(t, truthy), t)
+    luaunit.assertEquals(util.filter(t, falsy), {})    
+end
+
+function test_filter()
+    t = {1, 2, 3}
+    local function greater_than_one(v) return v > 1 end
+    luaunit.assertEquals(util.filter(t, greater_than_one), {2, 3})
+end
+
+function test_directory_filenames()
+    -- XXX a stupid smoke test
+    _ = util.directory_filenames("/tmp")
+end
+
 
 os.exit( luaunit.LuaUnit.run() )
