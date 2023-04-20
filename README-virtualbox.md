@@ -49,7 +49,7 @@ This is only needed to update an existing VM, if no changes have been made, a su
 This assumes everything you want to do is in update_asterisk_playbook.yml and update_secrets_playbook.yml.
 
   vagrant provision --provision-with update_asterisk
-  vagrant provision --provision-with update_secrets
+  vagrant provision --provision-with update_asterisk_conf_sync
 
 ## Deploy itests to an existing VM
 
