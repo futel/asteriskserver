@@ -93,5 +93,12 @@ function test_directory_filenames()
     _ = util.directory_filenames("/tmp")
 end
 
+function test_file_exits()
+    -- XXX a stupid smoke test
+    for path in util.iter(util.directory_filenames("/tmp")) do
+        luaunit.assertTrue(util.file_exists(path))
+    end
+end
+
 
 os.exit( luaunit.LuaUnit.run() )
