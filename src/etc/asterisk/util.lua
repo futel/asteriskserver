@@ -70,7 +70,7 @@ end
 
 -- Return table from t with map_function applied to values.
 -- XXX This function is badly named because we are working only with
---     non-sequence tables.
+--     tables, not iterators.
 function map(t, map_function)
     out = {}
     for k,v in pairs(t) do
@@ -93,6 +93,11 @@ function filter(t, filter_function)
     return out
 end
 
+-- Return true if file exists at path, else return false.
+function file_exists(path)
+    return lfs.attributes(path).mode == "file"
+end
+
 -- Return sequence of files in directory given by path.
 function directory_filenames(path)
     
@@ -100,10 +105,6 @@ function directory_filenames(path)
     -- If path is absolute, this is an abolute path.
     local function filepath(f)
         return path..'/'..f
-    end
-
-    local function is_file(p)
-        return lfs.attributes(p).mode == "file"
     end
 
     -- A stupid function to get around iterating over
@@ -118,7 +119,7 @@ function directory_filenames(path)
     -- XXX map requires a table
     filenames = lfs_dir_to_table(path)
     filenames = map(filenames, filepath)
-    filenames = filter(filenames, is_file)
+    filenames = filter(filenames, file_exists)
     return filenames
 end
 
@@ -428,6 +429,7 @@ local util = {
     get_dialstring = get_dialstring,    
     statement_context = statement_context,    
     internaldial = internaldial,
+    file_exists = file_exists,
     iter = iter,
     lockfile_create = lockfile_create,
     lockfile_exists = lockfile_exists,
