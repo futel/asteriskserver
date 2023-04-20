@@ -1,0 +1,27 @@
+#!/usr/bin/env python3
+
+from asterisk import *
+import sys
+
+import challenge
+import util
+
+agi = agi.AGI()
+
+
+def seq_to_string(seq):
+    st = ""
+    for s in seq:
+        st += str(s)
+        st += ','
+    return st
+
+def main():
+    value = sys.argv[1]
+    out = challenge.get_challenge_keys_with_value(value)
+    out = seq_to_string([i for i in out])
+    agi.set_variable('agi_out', out)
+
+
+agi.answer()
+util.agi_tracebacker(agi, main)

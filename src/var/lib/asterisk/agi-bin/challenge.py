@@ -59,6 +59,10 @@ def get_challenge_keys_values():
         out[k].add(v)
     return out
 
+def get_challenge_keys_with_value(value):
+    """ Return iterator of all keys with value in challenge file."""
+    return (k for (k, v) in get_challenge_keys_values().items() if value in v)
+
 def get_challenge_leaderboard():
     """
     Return dict with challenge file scores as keys and challenge file keys as
