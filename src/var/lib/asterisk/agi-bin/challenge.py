@@ -16,7 +16,8 @@ def write_challenge_line(key, value):
     """
     Add line with key and value to challenge file.
     """
-    # note we ignore duplicates
+    # We don't care if we are adding a duplicate key or pair.
+    # The challenge file is a rudimentary CSV.
     line = "{},{}\n".format(key, value)
     with open(filename, 'a') as f:
         f.write(line)
@@ -30,7 +31,9 @@ def set_challenge_value(key, value):
     ratelimiter.block_mutex(ratelimiter.challenge_mutex_key, callback)
 
 def get_challenge_pairs():
+    """Read the challenge file and return pairs."""
     with open(filename, 'r') as f:
+        # The challenge file is a rudimentary CSV.
         return [line.strip().split(',') for line in f]
 
 def get_challenge_values(key):
@@ -48,7 +51,7 @@ def has_challenge_value(key, value):
 
 def get_challenge_keys_values():
     """
-    Return map of sets of all values for all keys in challenge file.
+    Return map of sets of all unique values for all keys in challenge file.
     """
     out = collections.defaultdict(set)
     pairs = get_challenge_pairs()
