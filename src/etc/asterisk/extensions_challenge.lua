@@ -1,5 +1,8 @@
 util = require("util")
 
+mailbox_directory = "/var/spool/asterisk/voicemail/default/"
+mailbox_filename = "/greet.wav"
+
 function vmauthenticate()
     if channel.AUTH_MAILBOX:get() then
         return channel.AUTH_MAILBOX:get()
@@ -34,8 +37,8 @@ function check_access(mailbox, requirement, achievement)
 end
 
 function challenge_mailbox(mailbox)
-    filename = "/var/spool/asterisk/voicemail/default/" .. mailbox .. "/greet.wav"
-    if not io.open(filename, "r") then
+    path = mailbox_directory .. mailbox .. mailbox_filename
+    if not io.open(path, "r") then
         for i=1,10 do
             util.say("record-your-name-in-your-voicemail-account-for-access",
                 "challenge")
