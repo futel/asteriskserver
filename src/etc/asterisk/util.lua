@@ -58,6 +58,13 @@ function lockfile_exists()
    return false
 end
 
+-- Return path with the .wav etc suffix removed.
+-- This is what app.read, app.playback want.
+function path_for_playback(path)
+    -- Assume the only . in the path is for the file suffix.
+    return split(path, '.')[1]
+end
+
 -- Return iterator over sequence.
 function iter(t)
     local i = 0
@@ -435,11 +442,13 @@ local util = {
     lockfile_exists = lockfile_exists,
     map = map,
     max_iterations = max_iterations,
-    metric = metric,    
+    metric = metric,
+    path_for_playback = path_for_playback,
     play_random_background = play_random_background,
     push_stack = push_stack,
     pop_stack = pop_stack,
     record = record,
-    say = say}
+    say = say,
+    split = split}
 
 return util
