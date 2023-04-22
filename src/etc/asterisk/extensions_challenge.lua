@@ -1,3 +1,4 @@
+sets = require("sets")
 util = require("util")
 
 mailbox_directory = "/var/spool/asterisk/voicemail/default/"
@@ -16,6 +17,78 @@ function challenge_has_value(mailbox, value)
     app.AGI("challenge_has_value.agi", mailbox, value)
     out = channel.agi_out:get()
     return out == "True"
+end
+
+function menu_challenge_admin(context, extension)
+    mailboxes = mailboxes()
+    if #mailboxes > 0 then
+        util.say("at-the-tone")
+        util.say("to-approve")
+        util.say("press-one")
+        util.say("to-reject")    
+        util.say("press-two")
+        util.say("to-skip")
+        util.say("press-any-key")
+        util.say("begin")
+        for mailbox in util.iter(mailboxes) do
+            approved = gather_mailbox(mailbox)
+            if approved == true then
+                approve_mailbox(mailbox)
+            elseif approved == false then
+                deny_mailbox(mailbox)
+            end
+        end
+    end
+    util.say("goodbye")    
+end
+
+-- Return table of all keys with achievment.
+function challenge_keys_with_value(achievement)
+    app.AGI("challenge_keys_with_value.agi", achievement)
+    local agi_out = channel.agi_out:get()
+    return util.split(agi_out, ',')
+end
+
+-- Return sequence of mailboxes with the achievement-mailbox achievement and not the
+-- achievement-mailbox-approved or achievement-mailbox-denied achievement.
+function mailboxes()
+    local out = challenge_keys_with_value("achievement-mailbox")
+    out = sets.from_table(out)
+    local to_filter = challenge_keys_with_value("achievement-mailbox-approved")
+    to_filter = sets.from_table(to_filter)
+    sets.subtract(out, to_filter)
+    to_filter = challenge_keys_with_value("achievement-mailbox-denied")
+    to_filter = sets.from_table(to_filter)
+    sets.subtract(out, to_filter)
+    out = sets.to_table(out)
+    return out
+end
+
+-- Play sound file for mailbox, gather one key, and return true if key was 1,
+-- false if key was 2, and nil otherwise.
+function gather_mailbox(mailbox)
+    -- Get the mangled path for the mailbox greeting and play it.
+    path = mailbox_directory .. mailbox .. mailbox_filename
+    app.Playback(util.path_for_playback(path))
+    -- Play beep and wait for one keypress, put it in the choice channel variable.
+    app.Read("choice", "beep", 1)    
+    choice = channel.choice:get()
+    if choice == "1" then
+        return true
+    elseif choice == "2" then
+        return false
+    end
+    return nil
+end
+
+-- Add the achievement-mailbox-approved achievement to mailbox.
+function approve_mailbox(mailbox)
+    app.AGI("challenge_write.agi", mailbox, "achievement-mailbox-approved")    
+end
+
+-- Add the achievement-mailbox-denied achievement to mailbox.
+function deny_mailbox(mailbox)
+    app.AGI("challenge_write.agi", mailbox, "achievement-mailbox-denied")
 end
 
 -- hangup if requirement is not met, notify if achievment is met
@@ -202,7 +275,7 @@ extensions = {
         {intro_statements={},
          menu_entries={
              {"to-perform-the-challenges", "challenge_authenticate"},
-             {"for-instructions", "challenge_instructions"},
+             {"for-instructions", "challenge_admin"}, -- XXX
              {"for-the-leaderboard", "challenge_leaderboard"},
              {"for-more-information-about-the-fewtel-remote-testing-facility",
               "challenge_info"}},
@@ -221,6 +294,7 @@ extensions = {
          statement_dir="challenge"}),
     challenge_incoming_main = util.context_array(
         menu_challenge_incoming_main, {}),
+    challenge_admin = util.context_array(menu_challenge_admin, {}),
     challenge_instructions = util.context(
         {intro_statements={
              "welcome-to-the-fewtel-remote-testing-facility",
