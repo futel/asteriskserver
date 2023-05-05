@@ -220,6 +220,7 @@ context_array_incoming_twilio = {
     -- whatever could call any of them here. This should be OK because
     -- having a Futel phone lets you do most anything anyway.
     -- XXX set everything normally set in pjsip endpoints
+    -- XXX 'outgoing' is obsolete?
     ["outgoing"] = function(context, exten)
         outgoing_twilio_pv("outgoing") end,        
     ["outgoing_portland"] = function(context, exten)
