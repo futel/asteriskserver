@@ -126,27 +126,38 @@ def say(agi_o, filename, preferred_sub=None, escape=False):
         return agi_o.stream_file(path, escape_digits=escape_digits)
 
 def metric(agi_o, name):
-    """ Create a metric event with name and values from agi_o. """
-    # A metric event is a key-value map, a plain metric is just a name and an
-    # optional arbitrary value and we should probably keep it simple. But we
-    # add a lot of default attributes to basically combine it with a verbose
-    # log.
+    """
+    Create a metric event with name and values from agi_o.
+    Log it to the verbose and metric logs.
+    Send a UserEvent with it.
+    """
+    # A metric event is a key-value map, a plain metric is just a name,
+    # timestamp, and optional arbitrary value and we should probably
+    # keep it simple. Only the name (and implied timestamp) gets into
+    # the UserEvent. But we add a lot of default attributes to basically
+    # turn the log entries into verbose logs.
     items = dict(
         (var, agi_o.get_variable(var))
         for var in ('UNIQUEID', 'CHANNEL', 'CALLERID(number)'))
     items['name'] = name
-    # endpoint is not as useful for Twilio, because the incoming lines and
-    # the Twlio Service all use the same "twilio" endpoint. We could use
-    # CallerIdName for an endpoint value if we want to track endpoints
-    # for those calls.
-    items['endpoint'] = agi_o.get_variable("CHANNEL(endpoint)")
-    # writer is responsible for adding timestamp
+
+    endpoint = agi_o.get_variable("CHANNEL(endpoint)")
+    if endpoint == 'twilio':
+        # CHANNEL(endpoint) is correct for incoming from Twilio Elastic
+        # SIP (phone number to SIP trunk), but we get 'twilio' for that
+        # and for Twilio PV, so we need get Twilio PV from callerid.
+        callerid_name = agi_o.get_variable("CALLERID(name)")
+        if callerid_name:
+            # Outgoing from Twilio PV.
+            endpoint = callerid_name
+    items['endpoint'] = endpoint
+
     metric_agilog(agi_o, **items)
     metric_metriclog(**items)
     agi_o.appexec("UserEvent", name)
 
 def metric_agilog(agi_o, **kwargs):
-    """ Log a formatted line to the asterisk log. """
+    """ Log a formatted metric line to the asterisk log. """
     line = ', '.join("%s=%s" % (k, v) for (k, v) in kwargs.items())
     # we only get verbose!
     agi_o.verbose(line, 1)
