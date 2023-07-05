@@ -6,6 +6,9 @@ AWS management user is operator@futel.net.
 Region is us-west-2.
 
 ## Topic and queue:
+
+Note that other components will also subscribe to the topic.
+
 - create SNS topic "asterisk-prod-events" for asterisk manager events
 - (note ARN)
 - create SQS queue "asterisk-prod-events" for asterisk manager events
