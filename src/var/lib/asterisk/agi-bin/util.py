@@ -137,7 +137,7 @@ def metric(agi_o, name):
     items['name'] = name
     # endpoint is not as useful for Twilio, because the incoming lines and
     # the Twlio Service all use the same "twilio" endpoint. We could use
-    # CALLERID(number) for an endpoint value if we want to track endpoints
+    # CallerIdName for an endpoint value if we want to track endpoints
     # for those calls.
     items['endpoint'] = agi_o.get_variable("CHANNEL(endpoint)")
     # writer is responsible for adding timestamp
