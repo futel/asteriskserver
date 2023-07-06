@@ -18,11 +18,13 @@ statement_dirs = [
     'statements/tishbite/',
     'statements/sailor/',
     'statements/sofia-general/',
-    'statements/rose-foo/',
-    'statements/rose-bar/',
     '']
 # preferred submenu directories for sound files, in order of preference
 preferred_statement_dirs = [
+    # 'statements/rose-community-services/', # not ready, rename
+    'statements/rose-directory/',
+    # 'statements/rose-outgoing/', # not ready
+    'statements/rose-voicemail/',
     'statements/karl-robotron/',
     'statements/karl-oracle-dead/',
     'statements/karl-voicemail-ivr/',
