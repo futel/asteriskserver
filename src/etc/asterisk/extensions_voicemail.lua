@@ -10,7 +10,7 @@ function voicemail_create(context, exten)
     util.bounce()
     util.metric(context)    
     util.say(
-        "voicemail-can-be-accessed-from-any-fewtel-phone-or-from-the-fewtel-incoming-line",
+        "voicemail-boxes-in-the-fewtel-voicemail-system-can-be-accessed-from-any-fewtel-phone-or-from-the-fewtel-incoming-line",
         "voicemail")
     app.AGI("next_vm.agi")
     vmbox = channel.vmbox:get()
