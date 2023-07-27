@@ -22,9 +22,27 @@ logging.basicConfig(
     level=logging.INFO,
     format='%(asctime)s %(message)s')
 
+def transformed_channel(channel):
+    # "PJSIP/voipms-00000dd9"
+    # "PJSIP/twilio-00000e1e"
+    channel = channel[6:12]
+    return channel
+
+def transformed_event(event):
+    """Add an endpoint field to event."""
+    if event['CallerIDName'] not in ('Anonymous', '<unknown>'):
+        # outgoing twilio or pjsip, ConnectedLineNum, exten, Exten may be PII
+        event['endpoint'] = event['CallerIDName']
+    else:
+        # incoming voipms or twilio, CallerIDNum, exten, Exten may be PII
+        # munged Channel "PJSIP/voipms-00000dd9"
+        event['endpoint'] = transformed_channel(event['Channel'])
+    return event
+
 def handle_interesting_event(event, manager, snsclient):
-    logging.info('publishing %s' % event.headers)
-    snspublish.publish(event.headers, snsclient)
+    event = transformed_event(event.headers)
+    logging.info('publishing %s' % event)
+    snspublish.publish(event, snsclient)
 
 # def handle_misc_event(event, manager, snsclient):
 #     #if event.headers.get('AppData') in ('OperatorAttempt', 'OperatorNoPickup'):

@@ -46,6 +46,7 @@ local extensions = {
              "voicemail-boxes-in-the-fewtel-voicemail-system-can-be-created-from-any-fewtel-phone",
              "voicemail-boxes-in-the-fewtel-voicemail-system-can-be-accessed-from-any-fewtel-phone-or-from-the-fewtel-incoming-line",
              "at",
+             -- XXX use the combined statement now that we have it
              "five",
              "zero",
              "three",

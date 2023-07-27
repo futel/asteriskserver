@@ -24,6 +24,9 @@ Run unit tests locally
   pushd src/var/lib/asterisk/agi-bin
   python3 -m unittest discover test
   popd
+  pushd src/opt/futel/src
+  python3 -m unittest discover test
+  popd
   pushd src/etc/asterisk/test
   lua test.lua
 ```
