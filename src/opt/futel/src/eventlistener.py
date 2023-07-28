@@ -30,11 +30,14 @@ def transformed_channel(channel):
 
 def transformed_event(event):
     """Add an endpoint field to event."""
+    # Remove fields which may be PII, if there.
+    for pii_field in ('ConnectedLineNum', 'CallerIDNum', 'exten', 'Exten'):
+        event.pop(pii_field, None)
     if event['CallerIDName'] not in ('Anonymous', '<unknown>'):
-        # outgoing twilio or pjsip, ConnectedLineNum, exten, Exten may be PII
+        # Outgoing twilio or pjsip.
         event['endpoint'] = event['CallerIDName']
     else:
-        # incoming voipms or twilio, CallerIDNum, exten, Exten may be PII
+        # Incoming voipms or twilio.
         # munged Channel "PJSIP/voipms-00000dd9"
         event['endpoint'] = transformed_channel(event['Channel'])
     return event
