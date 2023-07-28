@@ -8,7 +8,7 @@ import unittest
 class TestUtil(unittest.TestCase):
 
     def test_sound_path(self):
-        self.assertEqual(util.sound_path("/foo/bar"), "/foo/bar")
+        self.assertEqual(util.sound_path("dummy", "/foo/bar"), "/foo/bar")
 
     def test_timestr_to_datetime(self):
         self.assertEqual(util.timestr_to_datetime("01:01").hour, 1)
