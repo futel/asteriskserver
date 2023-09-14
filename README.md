@@ -2,7 +2,7 @@
 
 ## Meta-requirements
 
-The setup of README-aws, README-twilio, and README-bulkvs should be completed. These should only have to be done once.
+The setup of README-aws and README-twilio should be completed. Voip.ms should be set up, there is no README for that. These should only have to be done once.
 
 ## Steps
 
