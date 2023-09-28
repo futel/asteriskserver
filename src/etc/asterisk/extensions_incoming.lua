@@ -220,12 +220,32 @@ context_array_incoming_twilio = {
     -- having a Futel phone lets you do most anything anyway.
     -- XXX set everything normally set in pjsip endpoints
     -- XXX 'outgoing' is obsolete?
+    ["community_outgoing"] = function(context, exten)
+        outgoing_twilio_pv("community_outgoing") end,
+    ["community_services_michigan"] = function(context, exten)
+        outgoing_twilio_pv("community_services_michigan") end,
+    ["community_services_oregon"] = function(context, exten)
+        outgoing_twilio_pv("community_services_oregon") end,
     ["current-time"] = function(context, exten)
         outgoing_twilio_pv("current-time") end,
     ["current-time-ypsi"] = function(context, exten)
         outgoing_twilio_pv("current-time-ypsi") end,
+    ["directory_detroit"] = function(context, exten)
+        outgoing_twilio_pv("directory_detroit") end,
+    ["directory_portland"] = function(context, exten)
+        outgoing_twilio_pv("directory_portland") end,
+    ["directory_safe"] = function(context, exten)
+        outgoing_twilio_pv("directory_safe") end,
+    ["directory_souwester"] = function(context, exten)
+        outgoing_twilio_pv("directory_souwester") end,
+    ["directory_ypsi"] = function(context, exten)
+        outgoing_twilio_pv("directory_ypsi") end,
+    ["network"] = function(context, exten)
+        outgoing_twilio_pv("network") end,
     ["outgoing"] = function(context, exten)
-        outgoing_twilio_pv("outgoing") end,        
+        outgoing_twilio_pv("outgoing") end,
+    ["outgoing-dialtone-wrapper"] = function(context, exten)
+        outgoing_twilio_pv("outgoing-dialtone-wrapper") end,
     ["outgoing_portland"] = function(context, exten)
         outgoing_twilio_pv("outgoing_portland") end,
     ["outgoing_safe"] = function(context, exten)
@@ -235,7 +255,11 @@ context_array_incoming_twilio = {
     ["random_number"] = function(context, exten)
         outgoing_twilio_pv("random_number") end,
     ["trimet-transit-tracker"] = function(context, exten)
-        outgoing_twilio_pv("trimet-transit-tracker") end
+        outgoing_twilio_pv("trimet-transit-tracker") end,
+    ["utilities_generic"] = function(context, exten)
+        outgoing_twilio_pv("utilities_generic") end,
+    ["voicemail_outgoing"] = function(context, exten)
+        outgoing_twilio_pv("voicemail_outgoing") end
 }
 
 local extensions = {
