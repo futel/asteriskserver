@@ -156,9 +156,8 @@ function ring_microcosm(context)
         context)
 end
 
--- Set up an outgoing call coming from
--- Twilio Programmable Voice / Twilio Service, and go to the given
--- context.
+-- Set up attributes for an incoming call coming from our
+-- Twilio Programmable Voice SIP server, and go to the given context.
 local function outgoing_twilio_pv(outgoing_context)
     -- Twilio service puts caller ID on x-callerid SIP header.
     caller_id = channel.PJSIP_HEADER("read", "x-callerid"):get()
@@ -181,8 +180,8 @@ end
 -- extensions aren't entered from the keypad, they come from a SIP
 -- URI.
 -- In practice this is a Twilio Elastic SIP connection, used by
--- incoming calls from a Twilio phone number or a SIP Dial verb
--- from a Twilio service.
+-- incoming calls from a Twilio phone number, or a SIP call from a
+-- Twilio Programmable Voice SIP server.
 context_array_incoming_twilio = {
     -- Calls received by a Twilio phone number and directd to the Twilio
     -- Elastic SIP Trunk are addressed to the E.164 phone number.
@@ -214,13 +213,17 @@ context_array_incoming_twilio = {
         ring_cesarchavez(context) end,
     [twilio_microcosm_incoming]=function(context, exten)
         ring_microcosm(context) end,
-    -- Calls from our Twilio Service are addressed to named contexts.
+    -- Calls from our Twilio SIP server are addressed to named contexts.
     -- We don't verify that the extension is calling the context we set
     -- it up for, and someone who gets the creds from a device or
     -- whatever could call any of them here. This should be OK because
     -- having a Futel phone lets you do most anything anyway.
     -- XXX set everything normally set in pjsip endpoints
     -- XXX 'outgoing' is obsolete?
+    ["current-time"] = function(context, exten)
+        outgoing_twilio_pv("current-time") end
+    ["current-time-ypsi"] = function(context, exten)
+        outgoing_twilio_pv("current-time-ypsi") end
     ["outgoing"] = function(context, exten)
         outgoing_twilio_pv("outgoing") end,        
     ["outgoing_portland"] = function(context, exten)
@@ -229,6 +232,10 @@ context_array_incoming_twilio = {
         outgoing_twilio_pv("outgoing_safe") end,        
     ["operator"] = function(context, exten)
         outgoing_twilio_pv("operator") end
+    ["random_number"] = function(context, exten)
+        outgoing_twilio_pv("random_number") end
+    ["trimet-transit-tracker"] = function(context, exten)
+        outgoing_twilio_pv("trimet-transit-tracker") end
 }
 
 local extensions = {
