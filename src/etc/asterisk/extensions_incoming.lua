@@ -221,9 +221,9 @@ context_array_incoming_twilio = {
     -- XXX set everything normally set in pjsip endpoints
     -- XXX 'outgoing' is obsolete?
     ["current-time"] = function(context, exten)
-        outgoing_twilio_pv("current-time") end
+        outgoing_twilio_pv("current-time") end,
     ["current-time-ypsi"] = function(context, exten)
-        outgoing_twilio_pv("current-time-ypsi") end
+        outgoing_twilio_pv("current-time-ypsi") end,
     ["outgoing"] = function(context, exten)
         outgoing_twilio_pv("outgoing") end,        
     ["outgoing_portland"] = function(context, exten)
@@ -231,9 +231,9 @@ context_array_incoming_twilio = {
     ["outgoing_safe"] = function(context, exten)
         outgoing_twilio_pv("outgoing_safe") end,        
     ["operator"] = function(context, exten)
-        outgoing_twilio_pv("operator") end
+        outgoing_twilio_pv("operator") end,
     ["random_number"] = function(context, exten)
-        outgoing_twilio_pv("random_number") end
+        outgoing_twilio_pv("random_number") end,
     ["trimet-transit-tracker"] = function(context, exten)
         outgoing_twilio_pv("trimet-transit-tracker") end
 }
