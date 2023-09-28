@@ -11,4 +11,4 @@ def main(lines):
     return prod_to_stage[lines.pop()]
 
 if __name__ == "__main__":
-    print main(sys.stdin)
+    print(main(sys.stdin))
