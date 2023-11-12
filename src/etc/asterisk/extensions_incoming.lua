@@ -3,7 +3,6 @@ util = require("util")
 saratoga_extension = 405
 central_extension = 410
 breckenridge_extension = 415
-cesarchavez_extension = 420
 microcosm_extension = 445
 robotron_extension = 615
 souwester_extension = 620
@@ -25,7 +24,6 @@ twilio_breckenridge_incoming = "+13132469283"
 twilio_detroitbusco_incoming = "+13133327495"
 twilio_central_incoming = "+15034836584"
 twilio_saratoga_incoming = "+15033889637"
-twilio_cesarchavez_incoming = "+15039465227"
 -- twilio_sjac_incoming = "+15032126899"
 twilio_microcosm_incoming = "+15032945966"
 twilio_test_incoming = "+19713512383"
@@ -142,13 +140,6 @@ function ring_saratoga(context)
         context)
 end
 
-function ring_cesarchavez(context) 
-    return ring_context(
-        cesarchavez_extension,
-        "cesarchavez",
-        context)
-end
-
 function ring_microcosm(context) 
     return ring_context(
         microcosm_extension,
@@ -209,8 +200,6 @@ context_array_incoming_twilio = {
         ring_central(context) end,
     [twilio_saratoga_incoming]=function(context, exten)
         ring_saratoga(context) end,
-    [twilio_cesarchavez_incoming]=function(context, exten)
-        ring_cesarchavez(context) end,
     [twilio_microcosm_incoming]=function(context, exten)
         ring_microcosm(context) end,
     -- Calls from our Twilio SIP server are addressed to named contexts.
@@ -220,6 +209,8 @@ context_array_incoming_twilio = {
     -- having a Futel phone lets you do most anything anyway.
     -- XXX set everything normally set in pjsip endpoints
     -- XXX 'outgoing' is obsolete?
+    ["apology_intro"] = function(context, exten)
+        outgoing_twilio_pv("apology_intro") end,
     ["community_outgoing"] = function(context, exten)
         outgoing_twilio_pv("community_outgoing") end,
     ["community_services_michigan"] = function(context, exten)
@@ -240,6 +231,14 @@ context_array_incoming_twilio = {
         outgoing_twilio_pv("directory_souwester") end,
     ["directory_ypsi"] = function(context, exten)
         outgoing_twilio_pv("directory_ypsi") end,
+    ["futel-conf"] = function(context, exten)
+        outgoing_twilio_pv("futel-conf") end,
+    ["hold_the_phone_main"] = function(context, exten)
+        outgoing_twilio_pv("hold_the_phone_main") end,
+    ["information_futel"] = function(context, exten)
+        outgoing_twilio_pv("information_futel") end,
+    ["internal-dialtone-wrapper"] = function(context, exten)
+        outgoing_twilio_pv("internal-dialtone-wrapper") end,
     ["network"] = function(context, exten)
         outgoing_twilio_pv("network") end,
     ["outgoing"] = function(context, exten)
@@ -254,12 +253,16 @@ context_array_incoming_twilio = {
         outgoing_twilio_pv("operator") end,
     ["random_number"] = function(context, exten)
         outgoing_twilio_pv("random_number") end,
+    ["robotron"] = function(context, exten)
+        outgoing_twilio_pv("robotron") end,
     ["trimet-transit-tracker"] = function(context, exten)
         outgoing_twilio_pv("trimet-transit-tracker") end,
     ["utilities_generic"] = function(context, exten)
         outgoing_twilio_pv("utilities_generic") end,
     ["voicemail_outgoing"] = function(context, exten)
-        outgoing_twilio_pv("voicemail_outgoing") end
+        outgoing_twilio_pv("voicemail_outgoing") end,
+    ["wildcard_line_outgoing"] = function(context, exten)
+        outgoing_twilio_pv("wildcard_line_outgoing") end
 }
 
 local extensions = {
@@ -291,7 +294,6 @@ local extensions = {
     ring_central = util.destination_context(ring_central),
     ring_breckenridge = util.destination_context(ring_breckenridge),
     ring_saratoga = util.destination_context(ring_saratoga),
-    ring_cesarchavez = util.destination_context(ring_cesarchavez),
     ring_microcosm = util.destination_context(ring_microcosm),    
     community_incoming = util.context(
         {menu_entries={ 
