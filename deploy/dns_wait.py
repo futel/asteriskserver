@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/python3
 # Wait for DNS for given host to match given value.
 
 import sys

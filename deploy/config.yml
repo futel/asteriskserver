@@ -44,5 +44,5 @@
 # If we are a Vagrant VM, we need to remount after a reboot.
 - name: mount all
   command: mount -a
-  args:
-    warn: no
+#  args:
+#    warn: no

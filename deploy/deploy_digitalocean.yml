@@ -6,7 +6,7 @@
   digital_ocean_sshkey:
     state: present
     name: karl@dispater
-    ssh_pub_key: ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDLA29JYoC7OscF5RFJ96YTV3e7Mk3FjC29o9IfThEa4zTnQLlCqbaMbxtAgEiPimjPMPnEvnB7ZIz7JJ8ammh6H9+RuFDTAwXWgOOccSMNQidKvL4+IZFPeezb4UELAoAT7lWD2X6JttfrALgIzFUYlVgWHux0gNFOFiCb8h1Y2prVT1FqSS1gTQ5cyo9IIxoQzqeKCxEyqjBKN4LO3wqNsQzZ4EGHsD/U7HibucAE4u8jqlkd6lWtYyWH0/XyALzjlk1YHMgwIPHZw/DRWAINiRNe9t/NgzkW5DnIKTAJfKNJ2154SeMlPg6EaWuasnQ9VxpI+898Oz8v6Z6z1Qq7 karl@dispater
+    ssh_pub_key: ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQCgqvyGxe3v80utre5Gv2YASNOQGgdpn066HtKU5N/CC+iiQ/Yjl9Hvv14kRqA/vajNMZ37a1wrgXDzvNQeYgfVaerXX2+PHr+//q6PE5o6vYUpYXGuT1zTeEEMyjVtPs6CsJN+HIUpX/WNbIS3Uhrva/v2h+IbZ98qFFM7AWRI924DTGW+8BjIdDKht4XDdOc+3XpY+xxVG+PaU3IESm+veXxDLVXtIW6RPsK/e3opvWBZO9OnUaR12k0QZpa8F7OFVaX1GGfDNECRK+oGw4AywbJbqN/TM/PZ76a/MsVAAXVjF+rad9ykCPBL2KleI402jjGXn4sBKBLDWHIlC9zP9K62tyxBAQGBS90ptYY2PsPty3fz2lMdc6jNuFxScToKXkA0jbqk90Y47+KpYnNj4PL3FQwjfnzG/WUq6ZncPUWifRSlm9lNZxwNu3MKwBfoxeGz7sMwbfCGySTgg4E0r38cWGW+J5fqMzP4u+1CjM8X0QDPDdXBM1OH/YnL/SM= karl@haguel
     oauth_token: "{{ deploy_access_token }}"
   register: ssh_key
 - name: create stage droplet

@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/python3
 # given prod conf version, print stage conf version
 
 import sys
