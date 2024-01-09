@@ -248,7 +248,9 @@ context_array_incoming_twilio = {
     ["outgoing_portland"] = function(context, exten)
         outgoing_twilio_pv("outgoing_portland") end,
     ["outgoing_safe"] = function(context, exten)
-        outgoing_twilio_pv("outgoing_safe") end,        
+        outgoing_twilio_pv("outgoing_safe") end,
+    ["outgoing_ypsi"] = function(context, exten)
+        outgoing_twilio_pv("outgoing_ypsi") end,        
     ["operator"] = function(context, exten)
         outgoing_twilio_pv("operator") end,
     ["random_number"] = function(context, exten)
