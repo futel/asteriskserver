@@ -19,4 +19,4 @@ digitalocean:
 local:
   hosts:
     localhost:
-      ansible_python_interpreter: /usr/bin/python3
+      ansible_python_interpreter: ../venv/bin/python

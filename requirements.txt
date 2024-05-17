@@ -1,0 +1,3 @@
+pyyaml
+dopy
+boto3

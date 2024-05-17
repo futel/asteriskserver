@@ -18,9 +18,16 @@ The setup of README-aws and README-twilio should be completed. Voip.ms should be
 - Have src/asterisk-18.8.0-futel.1.el8.x86_64.rpm built by buildserver.
 - Create or check out release branch.
 
-Run unit tests locally
+## Create deployment virtualenv
+
+- python3 -m venv venv
+- source venv/bin/activate
+- pip install -r requirements.txt
+
+## Run unit tests locally
 
 ```
+  python3 -m venv venv
   pushd src/var/lib/asterisk/agi-bin
   python3 -m unittest discover test
   popd
@@ -31,16 +38,17 @@ Run unit tests locally
   lua test.lua
 ```
 
-Run integration tests on virtualbox
+## Run integration tests on virtualbox
 
 ```
   cd /opt/futel/itest
   sudo -u asterisk ./itest.sh
 ```
 
-Validate requirements and configuration locally
+## Validate requirements and configuration locally
 
 ```
+  python3 -m venv venv
   ansible-playbook -i deploy/hosts deploy/requirements_conf_prod_playbook.yml
   ansible-playbook -K -i deploy/hosts deploy/requirements_packages_generic_playbook.yml
 ```
