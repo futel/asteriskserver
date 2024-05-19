@@ -275,7 +275,7 @@ extensions = {
         {intro_statements={},
          menu_entries={
              {"to-perform-the-challenges", "challenge_authenticate"},
-             {"for-instructions", "challenge_admin"}, -- XXX
+             {"for-instructions", "challenge_instructions"},
              {"for-the-leaderboard", "challenge_leaderboard"},
              {"for-more-information-about-the-fewtel-remote-testing-facility",
               "challenge_info"}},
