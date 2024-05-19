@@ -49,4 +49,5 @@
 - hosts: virtualbox
   become: true
   tasks:
+    - include: pre_sync_to_stage.yml  
     - include: post_sync.yml
