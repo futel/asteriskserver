@@ -51,23 +51,21 @@ Validate requirements and configuration locally
 
 - source venv/bin/activate
 - vagrant up
+- touch /etc/asterisk/challenge.csv # XXX do this on guest
 
 # Provision an existing VM
 
 This is only needed to update an existing VM, if no changes have been made, a successful "vagrant up" will also provision.
 
-- source venv/bin/activate
 - vagrant provision
 
 # Shortcut: update asterisk conf and scripts on an existing VM
 
 This assumes everything you want to do is in update_asterisk_playbook.yml and update_secrets_playbook.yml.
 
-- source venv/bin/activate
 - vagrant provision --provision-with update_asterisk
 - vagrant provision --provision-with update_asterisk_conf_sync
 
 # Deploy itests to an existing VM
 
-- source venv/bin/activate
 - vagrant provision --provision-with deploy/update_asterisk_itests
