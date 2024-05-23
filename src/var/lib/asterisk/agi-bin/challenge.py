@@ -34,7 +34,10 @@ def get_challenge_pairs():
     """Read the challenge file and return pairs."""
     with open(filename, 'r') as f:
         # The challenge file is a rudimentary CSV.
-        return [line.strip().split(',') for line in f]
+        lines = (line.strip() for line in f)
+        lines = (line for line in lines if line)
+        lines = (line.split(',') for line in lines)
+        return list(lines)
 
 def get_challenge_values(key):
     """
