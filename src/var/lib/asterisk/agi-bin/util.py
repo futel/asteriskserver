@@ -66,11 +66,14 @@ def sound_path(agi_o, sound_name, preferred_sub=None, language='en'):
     """
     path = sound_path_find(sound_name, preferred_sub, language)
     if not path:
-    # We didn't find a path, create and return an absolute path without suffix.
-        error(agi_o,
-              "sound_path unable to find sound file %s %s %s" % (sound_name, preferred_sub, language))
+        # We didn't find a path,
+        # create and return an absolute path without suffix.
         # XXX We are forgetting localization!
         path = sound_path_create(sound_name)
+        error(agi_o,
+              "sound_path unable to find sound file %s %s %s" % (
+                  sound_name, preferred_sub, language))
+        error(agi_o, "sound_path using %s" % path)
     return path
 
 def sound_path_find(sound_name, preferred_sub=None, language='en'):
@@ -109,12 +112,12 @@ def sound_path_create(sound_name):
     Create a sound file for sound_name, which is in espeak's format,
     and return its path. Path does not include extension.
     """
-    path = "/tmp/%s" % sound_name
-    os.system("echo {} | espeak-ng -w {}.wav".format(
-        sound_name, path))
-    # flite version
-    # os.system('echo {} | /bin/flite  -o {}.wav'.format(sound_name, path))
-    # os.system('echo {} | /bin/flite_cmu_us_awb -o {}.wav'.format(sound_n\
+    path = "/tmp/{}".format(sound_name)
+    wav_path = "{}.wav".format(path)
+    sln_path = "{}.sln".format(path)
+    os.system("echo {} | espeak-ng -w {}".format(
+        sound_name, wav_path))
+    os.system("sox {} {}".format(wav_path, sln_path))
     return path
 
 def say(agi_o, filename, preferred_sub=None, escape=False):
