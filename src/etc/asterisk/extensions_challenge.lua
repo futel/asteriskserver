@@ -88,6 +88,7 @@ end
 
 -- Add the achievement-mailbox-denied achievement to mailbox.
 function deny_mailbox(mailbox)
+    -- Could just delete the greeting instead.
     app.AGI("challenge_write.agi", mailbox, "achievement-mailbox-denied")
 end
 
