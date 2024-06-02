@@ -34,8 +34,9 @@ The setup of README-aws and README-twilio should be completed. Voip.ms should be
   pushd src/opt/futel/src
   python3 -m unittest discover test
   popd
-  pushd src/etc/asterisk/test
-  lua test.lua
+  # The requirements for these are simple, but not documented here.
+  # pushd src/etc/asterisk/test
+  # lua test.lua
 ```
 
 ## Run integration tests on virtualbox
