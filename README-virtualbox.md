@@ -4,21 +4,6 @@ We use Vagrant and Virtualbox on an Ubuntu host.
 
 # Setup
 
-The guest needs a NAT network interface to communicate with external VOIP servers, and a host-only network interface to communicate with the host and/or other guests.
-
-A Virtualbox host-only network should be created with DHCP server enabled. I used the Virtualbox configurator.
-- Name vboxnet0
-- IPV4 Address 192.168.56.1 (arbitrary)
-- IPV4 Network Mask 255.255.255.0
-- DHCP server enabled
-
-The Virtualbox guest box should have a NAT interface as Adapter 1, and the host-only network as Adapter 2. This might be set up automatically by vagrant?
-
-The host's network configuration should route to the host-only network interface. This might be set up automatically by virtualbox. On Ubuntu, the net-tools package may need to be installed for automatic setup, so Virtualbox can use ifconfig. If Virtualbox and Vagrant don't do it automagically, the netowork can be manually set up on the host with (assuming the host-only network is named "vboxnet0" at 192.168.56.1):
-
-  sudo ip addr add 192.168.56.1/24 dev vboxnet0
-  sudo ip link set dev vboxnet0 up  
-
 Have a recent Rocky 8 Vagrant box.
 
   vagrant box add generic/rocky8 (if asked, choose virtualbox provider)
@@ -34,7 +19,6 @@ Have an assets package built by storageserver in src/assets.tgz.
 
 - python3 -m venv venv
 - source venv/bin/activate
-- cd app
 - pip install -r requirements.txt
 
 # Validate
@@ -51,7 +35,7 @@ Validate requirements and configuration locally
 
 - source venv/bin/activate
 - vagrant up
-- touch /etc/asterisk/challenge.csv # XXX do this on guest
+- sudo -u asterisk touch /etc/asterisk/challenge.csv # XXX do this on guest
 
 # Provision an existing VM
 
