@@ -2,5 +2,5 @@
 - hosts: virtualbox
   become: true
   tasks:
-    - include: update_asterisk_itests.yml
+    - include_tasks: update_asterisk_itests.yml
 

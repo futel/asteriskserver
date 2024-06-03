@@ -16,8 +16,3 @@
       - pyyaml
       - dopy
     state: present
-- name: have gem packages
-  gem:
-    name: sndfile
-    state: present
-    norc: true

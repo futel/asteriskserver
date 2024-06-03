@@ -1,5 +1,5 @@
 ---
 - hosts: digitalocean
   tasks:
-    - include: stage_from_snapshot.yml snapshot={{ snapshot }}
-    - include: dns.yml
+    - include_tasks: stage_from_snapshot.yml snapshot={{ snapshot }}
+    - include_tasks: dns.yml

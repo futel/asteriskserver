@@ -7,25 +7,25 @@
     ansible_port: 42422
     ansible_ssh_private_key_file: conf/id_rsa
   tasks:
-    - include: packages.yml
-    - include: config.yml
-    - include: install_misc.yml
-    - include: install_asterisk.yml
-    - include: install_asterisk_helpers.yml    
+    - include_tasks: packages.yml
+    - include_tasks: config.yml
+    - include_tasks: install_misc.yml
+    - include_tasks: install_asterisk.yml
+    - include_tasks: install_asterisk_helpers.yml    
 - hosts: virtualbox
   become: true
   vars:
     src: "../src"
   tasks:
-    - include: packages.yml
-    - include: users.yml
-    - include: config.yml
-    - include: install_misc.yml
-    - include: install_asterisk.yml
-    - include: install_asterisk_helpers.yml
+    - include_tasks: packages.yml
+    - include_tasks: users.yml
+    - include_tasks: config.yml
+    - include_tasks: install_misc.yml
+    - include_tasks: install_asterisk.yml
+    - include_tasks: install_asterisk_helpers.yml
 - hosts: digitalocean
   tasks:
-    - include: build_volume.yml
+    - include_tasks: build_volume.yml
 - hosts: baseinstall
   become: true
   vars:
@@ -33,4 +33,4 @@
     ansible_port: 42422
     ansible_ssh_private_key_file: conf/id_rsa
   tasks:
-    - include: provision_storage.yml  
+    - include_tasks: provision_storage.yml  

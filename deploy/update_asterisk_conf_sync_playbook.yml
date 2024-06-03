@@ -6,11 +6,11 @@
     ansible_port: 42422
     ansible_ssh_private_key_file: conf/id_rsa
   tasks:
-    - include: find_prod_conf.yml
+    - include_tasks: find_prod_conf.yml
 - hosts: local
   tasks:
-    - include: write_prod_conf.yml  
-    - include: find_stage_conf.yml
+    - include_tasks: write_prod_conf.yml  
+    - include_tasks: find_stage_conf.yml
 - hosts: baseinstall
   become: true
   vars:
@@ -18,16 +18,16 @@
     ansible_port: 42422
     ansible_ssh_private_key_file: conf/id_rsa
   tasks:
-    - include: write_stage_conf.yml
-    - include: update_secrets.yml
+    - include_tasks: write_stage_conf.yml
+    - include_tasks: update_secrets.yml
 - hosts: virtualbox
   become: true
   tasks:
-    - include: write_stage_conf_virtualbox.yml
-    - include: update_secrets.yml
+    - include_tasks: write_stage_conf_virtualbox.yml
+    - include_tasks: update_secrets.yml
 - hosts: local
   tasks:
-    - include: pre_sync_from_prod.yml
+    - include_tasks: pre_sync_from_prod.yml
 - hosts: prod
   become: true
   vars:
@@ -35,7 +35,7 @@
     ansible_port: 42422
     ansible_ssh_private_key_file: conf/id_rsa
   tasks:
-    - include: sync_from_prod.yml
+    - include_tasks: sync_from_prod.yml
 - hosts: baseinstall
   become: true
   vars:
@@ -43,11 +43,11 @@
     ansible_port: 42422
     ansible_ssh_private_key_file: conf/id_rsa
   tasks:
-    - include: pre_sync_to_stage.yml
-    - include: sync_to_stage.yml
-    - include: post_sync.yml
+    - include_tasks: pre_sync_to_stage.yml
+    - include_tasks: sync_to_stage.yml
+    - include_tasks: post_sync.yml
 - hosts: virtualbox
   become: true
   tasks:
-    - include: pre_sync_to_stage.yml  
-    - include: post_sync.yml
+    - include_tasks: pre_sync_to_stage.yml  
+    - include_tasks: post_sync.yml

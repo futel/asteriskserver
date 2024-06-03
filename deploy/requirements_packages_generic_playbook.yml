@@ -2,4 +2,4 @@
 - hosts: local
   become: true
   tasks:
-    - include: requirements_packages_generic.yml
+    - include_tasks: requirements_packages_generic.yml
