@@ -11,7 +11,7 @@ agi = agi.AGI()
 def main():
     lines = challenge.get_challenge_leaderboard_lines()
     for line in lines:
-        (score, key) = line
+        (score, key, _sound_path) = line
         agi.say_digits(key)
         util.say(agi, "has-a-score-of", preferred_sub='challenge')
         agi.say_digits(score)

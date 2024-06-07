@@ -143,11 +143,16 @@ def get_challenge_leaderboard_line(key):
             return "you-are-in-fifth-place"
     return None
 
+def get_leaderboard_sound_path(key):
+    """Return the path for the leaderboard name sound for key, or None."""
+    #sound_dirname = "/var/lib/asterisk/sounds/futel/sequence-challenge/"
+    return None
+
 def get_challenge_leaderboard_lines():
     """
-    Yield a sequence of strings describing the leaderboard.
+    Yield tuples describing the leaderboard.
     """
     leaderboard = get_challenge_leaderboard_positions()
     for (score, keys) in leaderboard:
         for key in keys:
-            yield (score, key)
+            yield (score, key, get_leaderboard_sound_path(key))
