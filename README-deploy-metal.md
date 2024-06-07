@@ -45,3 +45,12 @@ XXX dest_asset_directory is wrong
   ansible-playbook -i deploy/hosts deploy/update_asterisk_conf_sync_playbook.yml --limit 'all:!virtualbox' --vault-id prod@conf/vault_pass_prod.txt
 
 XXX update from here as README-virtualbox.md, README.md
+
+# Update iptables
+
+  # XXX me
+  iptables -A INPUT -p udp -m udp -s 67.171.203.32 -j ACCEPT
+  iptables -A INPUT -p tcp -m tcp -s 67.171.203.32 -j ACCEPT
+  # shadytel
+  iptables -A INPUT -p udp -m udp -s 44.31.23.100 -j ACCEPT
+  iptables -A INPUT -p tcp -m tcp -s 44.31.23.100 -j ACCEPT

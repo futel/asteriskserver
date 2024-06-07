@@ -24,7 +24,7 @@ lockfile_name = "/opt/futel/var/run/lockfile"
 
 -- Caller IDs for calls which come from Twilio Programmable Voice.
 -- This should match the keys of extensions.private.json in
--- twilio-sip-serverl
+-- twilio-sip-server
 twilio_pv_callerids = {
     "demo",
     "dome-basement", "dome-booth", "dome-garage", "dome-office", 
@@ -433,7 +433,8 @@ local util = {
     dial_context = dial_context,
     directory_filenames = directory_filenames,
     filter = filter,
-    get_dialstring = get_dialstring,    
+    get_dialstring = get_dialstring,
+    get_timeoutstring = get_timeoutstring,
     statement_context = statement_context,    
     internaldial = internaldial,
     file_exists = file_exists,

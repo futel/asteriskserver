@@ -290,8 +290,12 @@ extensions = {
              {"for-instructions", "challenge_instructions"},
              {"for-the-leaderboard", "challenge_leaderboard"},
              {"for-the-fewtel-community", "community_outgoing"},
+--             {"for-the-fewtel-community", "outgoing_portland"},             
              {"for-more-information-about-the-fewtel-remote-testing-facility",
-              "challenge_info"}},
+              "challenge_info"},
+             {nil, "toorcamp_incoming"}, -- testing
+             {nil, "toorcamp_dialtone"}  -- testing
+         },
          statement_dir="challenge"}),
     challenge_incoming_main = util.context_array(
         menu_challenge_incoming_main, {}),
@@ -329,6 +333,8 @@ extensions = {
              "all-must-be-tested"},
          menu_entries={},
          statement_dir="challenge"}),
+    challenge_test = util.destination_context(
+        challenge_test),
     challenge_authenticate = util.context_array(menu_authenticate, {}),
     challenge_list = util.context(
         {intro_statements={},
