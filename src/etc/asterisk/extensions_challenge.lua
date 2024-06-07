@@ -31,6 +31,7 @@ function menu_challenge_admin(context, extension)
         util.say("press-any-key")
         util.say("begin")
         for mailbox in util.iter(mailboxes) do
+            util.say("next-mailbox")
             approved = gather_mailbox(mailbox)
             if approved == true then
                 approve_mailbox(mailbox)
@@ -39,6 +40,7 @@ function menu_challenge_admin(context, extension)
             end
         end
     end
+    util.say("thank-you")
     util.say("goodbye")    
 end
 
@@ -156,18 +158,6 @@ function challenge_sequence_four(mailbox)
     -- if we get here we won
 end
 
-function challenge_incoming(mailbox)
-    from_incoming = channel.from_incoming:get()
-    if from_incoming ~= "True" then
-        for i=1,10 do
-            util.say("visit-this-destination-via-the-incoming-number-for-access",
-                "challenge")
-        end
-        app.Hangup()
-    end
-    -- if we get here we won
-end
-
 function challenge_hold(mailbox)
     app.AGI("waiting_game.agi")
     -- if we get here we won
@@ -237,7 +227,14 @@ function menu_challenge_sequence_four(context, extension)
 end
 
 function menu_challenge_incoming(context, extension)
-    do_challenge("achievement-mailbox", "achievement-incoming", challenge_incoming)
+    -- Determine the achievement from the callerid and grant it
+    -- with a noop challenge.
+    callerid = channel.CALLERID("number"):get()
+    achievement = "achievement-incoming" .. callerid
+    do_challenge(
+        "achievement-mailbox",
+        achievement,
+        function(mailbox) end)
 end
 
 function menu_challenge_hold(context, extension)
@@ -254,13 +251,15 @@ end
 --         challenge_conference)
 -- end
 
-function menu_challenge_incoming_main(context, extension)
-    channel.from_incoming = "True"
-    return goto_main()
-end
+-- function menu_challenge_incoming_main(context, extension)
+--     channel.from_incoming = "True"
+--     return goto_main()
+-- end
 
 function menu_authenticate(context, extension)
     mailbox = vmauthenticate()
+    -- Tell user their position and score.
+    -- XXX This should only happen after 1st auth.
     app.AGI("challenge_leaderboard_position.agi", mailbox)
     app.AGI("challenge_leaderboard_score.agi", mailbox)    
     return app.Goto("challenge_list", "s", 1)
@@ -281,29 +280,17 @@ extensions = {
              {"for-more-information-about-the-fewtel-remote-testing-facility",
               "challenge_info"}},
          statement_dir="challenge"}),
-    challenge_toorcamp_main = util.context(
-        {intro_statements={},
-         menu_entries={
-             {"to-perform-the-challenges", "challenge_authenticate"},
-             {"for-voicemail", "voicemail_outgoing"},
-             {"for-the-fewtel-voice-conference", "futel-conf"},
-             {"for-instructions", "challenge_instructions"},
-             {"for-the-leaderboard", "challenge_leaderboard"},
-             {"for-the-fewtel-community", "community_outgoing"},
-             {"for-more-information-about-the-fewtel-remote-testing-facility",
-              "challenge_info"}},
-         statement_dir="challenge"}),
-    challenge_incoming_main = util.context_array(
-        menu_challenge_incoming_main, {}),
+    -- challenge_incoming_main = util.context_array(
+    --     menu_challenge_incoming_main, {}),
     challenge_admin = util.context_array(menu_challenge_admin, {}),
     challenge_instructions = util.context(
         {intro_statements={
              "welcome-to-the-fewtel-remote-testing-facility",
              "access-is-granted-as-challenges-are-successfully-completed",
              "complete-all-challenges-to-qualify",
-             "for-more-information-contact-the-operator-from-any-fewtel-phone-or-visit-our-website-at-fewtel-dot-net",
+             -- "for-more-information-contact-the-operator-from-any-fewtel-phone-or-visit-our-website-at-fewtel-dot-net",
              "good-luck",
-             "all-must-be-tested",         
+             "all-must-be-tested",
              "all-must-be-tested",
              "all-must-be-tested"},
          menu_entries={},
@@ -329,6 +316,8 @@ extensions = {
              "all-must-be-tested"},
          menu_entries={},
          statement_dir="challenge"}),
+    challenge_test = util.destination_context(
+        challenge_test),
     challenge_authenticate = util.context_array(menu_authenticate, {}),
     challenge_list = util.context(
         {intro_statements={},
