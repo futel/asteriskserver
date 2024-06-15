@@ -35,7 +35,7 @@ Validate requirements and configuration locally
 
 - source venv/bin/activate
 - vagrant up
-- sudo -u asterisk touch /etc/asterisk/challenge.csv # XXX do this on guest
+- vagrant ssh -c 'sudo -u asterisk touch /etc/asterisk/challenge.csv'
 
 # Provision an existing VM
 
