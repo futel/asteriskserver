@@ -2,11 +2,14 @@
 - name: load secrets
   include_vars: "deploy_digitalocean_secrets_digitalocean.yml"
   no_log: true
+# This is just my key, we are assuming ansible is being run by me.
+# Other users would need their keys in the DigitalOcean org settings.
+# This key is used for the initial droplet setup, before SSH is updated.
 - name: assert ssh key is present
   digital_ocean_sshkey:
     state: present
-    name: karl@dispater
-    ssh_pub_key: ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQCgqvyGxe3v80utre5Gv2YASNOQGgdpn066HtKU5N/CC+iiQ/Yjl9Hvv14kRqA/vajNMZ37a1wrgXDzvNQeYgfVaerXX2+PHr+//q6PE5o6vYUpYXGuT1zTeEEMyjVtPs6CsJN+HIUpX/WNbIS3Uhrva/v2h+IbZ98qFFM7AWRI924DTGW+8BjIdDKht4XDdOc+3XpY+xxVG+PaU3IESm+veXxDLVXtIW6RPsK/e3opvWBZO9OnUaR12k0QZpa8F7OFVaX1GGfDNECRK+oGw4AywbJbqN/TM/PZ76a/MsVAAXVjF+rad9ykCPBL2KleI402jjGXn4sBKBLDWHIlC9zP9K62tyxBAQGBS90ptYY2PsPty3fz2lMdc6jNuFxScToKXkA0jbqk90Y47+KpYnNj4PL3FQwjfnzG/WUq6ZncPUWifRSlm9lNZxwNu3MKwBfoxeGz7sMwbfCGySTgg4E0r38cWGW+J5fqMzP4u+1CjM8X0QDPDdXBM1OH/YnL/SM= karl@haguel
+    name: karl@shahat
+    ssh_pub_key: ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKKfK9+6aHXk5vIRIeJyYW9uBL6cgdljfUAecBeKZj84 karl@shahat
     oauth_token: "{{ deploy_access_token }}"
   register: ssh_key
 - name: create stage droplet
