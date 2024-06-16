@@ -57,14 +57,14 @@ The setup of README-aws and README-twilio should be completed. Voip.ms should be
 
 ## Deploy stage droplet
 
-Note that the first playbook, deploy_playbook.yml, may fail if DNS takes a long time to propagate. Run it again if it does.
+deploy_playbook.yml may fail if DNS takes a long time to propagate. Run it again if it does.
 
-```
-  ansible-playbook -i deploy/hosts deploy/deploy_playbook.yml --vault-id=digitalocean@conf/vault_pass_digitalocean.txt --vault-id prod@conf/vault_pass_prod.txt
-  ansible-playbook -i deploy/hosts deploy/baseinstall_playbook.yml --limit 'all:!virtualbox' --vault-id=digitalocean@conf/vault_pass_digitalocean.txt
-  ansible-playbook -i deploy/hosts deploy/update_asterisk_playbook.yml --limit 'all:!virtualbox' --vault-id generic@conf/vault_pass_generic.txt
-  ansible-playbook -i deploy/hosts deploy/update_asterisk_conf_sync_playbook.yml --limit 'all:!virtualbox' --vault-id prod@conf/vault_pass_prod.txt
-```
+update_asterisk_conf_sync_playbook.yml may fail with file transfer issues. Run it again if it does.
+
+- ansible-playbook -i deploy/hosts deploy/deploy_playbook.yml --vault-id=digitalocean@conf/vault_pass_digitalocean.txt --vault-id prod@conf/vault_pass_prod.txt
+- ansible-playbook -i deploy/hosts deploy/baseinstall_playbook.yml --limit 'all:!virtualbox' --vault-id=digitalocean@conf/vault_pass_digitalocean.txt
+- ansible-playbook -i deploy/hosts deploy/update_asterisk_playbook.yml --limit 'all:!virtualbox' --vault-id generic@conf/vault_pass_generic.txt
+- ansible-playbook -i deploy/hosts deploy/update_asterisk_conf_sync_playbook.yml --limit 'all:!virtualbox' --vault-id prod@conf/vault_pass_prod.txt
 
 ## Test droplet
 
