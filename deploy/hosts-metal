@@ -1,0 +1,5 @@
+metal:
+  hosts:
+    192.168.86.29:
+      ansible_python_interpreter: auto
+      dest_asset_directory: /mnt/assets

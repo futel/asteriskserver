@@ -1,0 +1,36 @@
+# We are using iptables, the more modern toolkit is firewalld and we may
+# need to convert to that at some point.
+---
+- name: install epel yum package
+  yum:
+    name:
+      - epel-release
+- name: install yum packages
+  yum:
+    name:
+      - iptables-services
+      - firewalld
+      - openvpn
+    state: present
+- name: stop and disable firewalld
+  ansible.builtin.systemd:
+    name: firewalld
+    state: stopped
+    enabled: no
+    masked: yes
+- name: write sshd config
+  copy:
+    src: ../src/etc/ssh/sshd_config
+    dest: /etc/ssh/sshd_config
+- name: restart sshd
+  ansible.builtin.systemd:
+    name: sshd
+    state: restarted
+- name: enable iptables
+  ansible.builtin.systemd:
+    name: iptables
+    enabled: yes
+- name: enable ip6tables
+  ansible.builtin.systemd:
+    name: ip6tables
+    enabled: yes
