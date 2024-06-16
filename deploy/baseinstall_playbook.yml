@@ -11,7 +11,20 @@
     - include_tasks: config.yml
     - include_tasks: install_misc.yml
     - include_tasks: install_asterisk.yml
-    - include_tasks: install_asterisk_helpers.yml    
+    - include_tasks: install_asterisk_helpers.yml
+- hosts: metal
+  become: true
+  vars:
+    src: "../src"
+    ansible_user: futel
+    ansible_port: 42422
+    ansible_ssh_private_key_file: conf/id_rsa
+  tasks:
+    - include_tasks: packages.yml
+    - include_tasks: config.yml
+    - include_tasks: install_misc.yml
+    - include_tasks: install_asterisk.yml
+    - include_tasks: install_asterisk_helpers.yml
 - hosts: virtualbox
   become: true
   vars:

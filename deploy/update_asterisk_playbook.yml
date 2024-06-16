@@ -9,6 +9,16 @@
   tasks:
     - include_tasks: update_asterisk.yml
     - include_tasks: link_asterisk_sounds.yml
+- hosts: metal
+  become: true
+  vars:
+    ansible_user: futel
+    ansible_port: 42422
+    ansible_ssh_private_key_file: conf/id_rsa
+    src: "../src"
+  tasks:
+    - include_tasks: update_asterisk.yml
+    - include_tasks: link_asterisk_sounds.yml
 - hosts: virtualbox
   become: true
   vars:

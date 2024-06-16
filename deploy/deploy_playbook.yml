@@ -28,3 +28,12 @@
   become: true
   tasks:
     - include_tasks: secure_virtualbox.yml
+- hosts: metal
+  become: true
+  vars:
+    src: "../src"
+  tasks:
+    - include_tasks: write_stage_conf_metal.yml
+    - include_tasks: users.yml    
+    - include_tasks: secure_metal.yml
+    - include_tasks: update_iptables.yml    
