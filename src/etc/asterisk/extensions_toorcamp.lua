@@ -1,12 +1,11 @@
 util = require("util")
 
-function toorcamp_incoming(context, exten)
-    util.metric(context)
-    dial_local(context, exten)
+function toorcamp_dialtone_outgoing(context, exten)
+    app.DISA("no-password", "toorcamp_dial_outgoing")
 end
 
-function toorcamp_dialtone(context, exten)
-    app.DISA("no-password", "toorcamp_dial")
+function toorcamp_dialtone_incoming(context, exten)
+    app.DISA("no-password", "toorcamp_dial_incoming")
 end
 
 -- Return context array which immediately starts destination_function
@@ -18,7 +17,7 @@ function toorcamp_dial_context(destination_function)
     return context_array
 end
 
-function toorcamp_dial(_context, exten)
+function toorcamp_dial_outgoing(_context, exten)
     dialstring = util.get_dialstring(exten, 'shadytel-tcp')
     timeoutstring = util.get_timeoutstring(30) -- minutes
     app.Dial(dialstring, nil, timeoutstring)
@@ -32,11 +31,25 @@ function toorcamp_dial(_context, exten)
     end
 end
 
+-- ring phone at extension, then metric with identifier
+function toorcamp_dial_incoming(context, extension)
+    util.metric(context)
+    dialstring = util.get_dialstring(extension, nil)
+    -- XXX No timeout, will this DOS us or our upstream? But we want people
+    -- to be able to leave an extension on speaker.
+    app.Dial(dialstring)
+    dialstatus = channel.DIALSTATUS:get()
+    util.metric("incoming-dialstatus-" .. dialstatus .. "-" .. extension)
+end
+
 local extensions = {
-    toorcamp_dialtone = util.destination_context(toorcamp_dialtone),
-    toorcamp_dial = toorcamp_dial_context(toorcamp_dial),
-    toorcamp_incoming = util.destination_context(
-        toorcamp_incoming)
+    toorcamp_dialtone_outgoing = util.destination_context(
+        toorcamp_dialtone_outgoing),
+    -- probably only for testing
+    toorcamp_dialtone_incoming = util.destination_context(
+        toorcamp_dialtone_incoming),    
+    toorcamp_dial_outgoing = toorcamp_dial_context(toorcamp_dial_outgoing),
+    toorcamp_dial_incoming = toorcamp_dial_context(toorcamp_dial_incoming)
 }
 
 return extensions

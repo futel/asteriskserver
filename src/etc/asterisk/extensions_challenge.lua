@@ -293,8 +293,8 @@ extensions = {
 --             {"for-the-fewtel-community", "outgoing_portland"},             
              {"for-more-information-about-the-fewtel-remote-testing-facility",
               "challenge_info"},
-             {nil, "toorcamp_incoming"}, -- testing
-             {nil, "toorcamp_dialtone"}  -- testing
+             {nil, "toorcamp_dialtone_incoming"}, -- testing
+             {nil, "toorcamp_dialtone_outgoing"}  -- testing
          },
          statement_dir="challenge"}),
     challenge_incoming_main = util.context_array(

@@ -337,6 +337,7 @@ end
 
 -- Return context array which immediately starts destination_function
 -- when called with no extension.
+-- Maybe instead use context_array with no destinations?
 function destination_context(destination_function)
     local context_array = {}
     context_array.s = destination_function
