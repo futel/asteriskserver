@@ -62,7 +62,24 @@ local extensions = {
     toorcamp_dialtone_incoming = util.destination_context(
         toorcamp_dialtone_incoming),    
     toorcamp_dial_outgoing = toorcamp_dial_context(toorcamp_dial_outgoing),
-    toorcamp_dial_incoming = toorcamp_dial_context(toorcamp_dial_incoming)
+    toorcamp_dial_incoming = toorcamp_dial_context(toorcamp_dial_incoming),
+    challenge_toorcamp_main = util.context(
+        {intro_statements={},
+         menu_entries={
+             {"to-make-a-call", "toorcamp_dialtone_outgoing"},             
+             {"to-perform-the-challenges", "challenge_authenticate"},
+             {"for-voicemail", "voicemail_outgoing"},
+             {"for-the-fewtel-voice-conference", "futel-conf"},
+             {"for-instructions", "challenge_instructions"},
+             {"for-the-leaderboard", "challenge_leaderboard"},
+             {"for-the-fewtel-community", "community_outgoing"},
+--             {"for-the-fewtel-community", "outgoing_portland"},             
+             {"for-more-information-about-the-fewtel-remote-testing-facility",
+              "challenge_info"},
+             {"for-administration", "challenge_admin"}
+--             {nil, "toorcamp_dialtone_incoming"}, -- testing
+         },
+         statement_dir="challenge"})    
 }
 
 return extensions

@@ -31,6 +31,7 @@ function menu_challenge_admin(context, extension)
         util.say("press-any-key")
         util.say("begin")
         for mailbox in util.iter(mailboxes) do
+            util.say("next-mailbox")
             approved = gather_mailbox(mailbox)
             if approved == true then
                 approve_mailbox(mailbox)
@@ -39,6 +40,7 @@ function menu_challenge_admin(context, extension)
             end
         end
     end
+    util.say("thank-you")
     util.say("goodbye")    
 end
 
@@ -278,22 +280,6 @@ extensions = {
              {"for-more-information-about-the-fewtel-remote-testing-facility",
               "challenge_info"}},
          statement_dir="challenge"}),
-    challenge_toorcamp_main = util.context(
-        {intro_statements={},
-         menu_entries={
-             {"to-perform-the-challenges", "challenge_authenticate"},
-             {"for-voicemail", "voicemail_outgoing"},
-             {"for-the-fewtel-voice-conference", "futel-conf"},
-             {"for-instructions", "challenge_instructions"},
-             {"for-the-leaderboard", "challenge_leaderboard"},
-             {"for-the-fewtel-community", "community_outgoing"},
---             {"for-the-fewtel-community", "outgoing_portland"},             
-             {"for-more-information-about-the-fewtel-remote-testing-facility",
-              "challenge_info"},
-             {nil, "toorcamp_dialtone_incoming"}, -- testing
-             {nil, "toorcamp_dialtone_outgoing"}  -- testing
-         },
-         statement_dir="challenge"}),
     -- challenge_incoming_main = util.context_array(
     --     menu_challenge_incoming_main, {}),
     challenge_admin = util.context_array(menu_challenge_admin, {}),
@@ -304,7 +290,7 @@ extensions = {
              "complete-all-challenges-to-qualify",
              "for-more-information-contact-the-operator-from-any-fewtel-phone-or-visit-our-website-at-fewtel-dot-net",
              "good-luck",
-             "all-must-be-tested",         
+             "all-must-be-tested",
              "all-must-be-tested",
              "all-must-be-tested"},
          menu_entries={},
