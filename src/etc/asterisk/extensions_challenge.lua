@@ -156,18 +156,6 @@ function challenge_sequence_four(mailbox)
     -- if we get here we won
 end
 
-function challenge_incoming(mailbox)
-    from_incoming = channel.from_incoming:get()
-    if from_incoming ~= "True" then
-        for i=1,10 do
-            util.say("visit-this-destination-via-the-incoming-number-for-access",
-                "challenge")
-        end
-        app.Hangup()
-    end
-    -- if we get here we won
-end
-
 function challenge_hold(mailbox)
     app.AGI("waiting_game.agi")
     -- if we get here we won
@@ -237,7 +225,14 @@ function menu_challenge_sequence_four(context, extension)
 end
 
 function menu_challenge_incoming(context, extension)
-    do_challenge("achievement-mailbox", "achievement-incoming", challenge_incoming)
+    -- Determine the achievement from the callerid and grant it
+    -- with a noop challenge.
+    callerid = channel.CALLERID("number"):get()
+    achievement = "achievement-incoming" .. callerid
+    do_challenge(
+        "achievement-mailbox",
+        achievement,
+        function(mailbox) end)
 end
 
 function menu_challenge_hold(context, extension)
@@ -254,13 +249,15 @@ end
 --         challenge_conference)
 -- end
 
-function menu_challenge_incoming_main(context, extension)
-    channel.from_incoming = "True"
-    return goto_main()
-end
+-- function menu_challenge_incoming_main(context, extension)
+--     channel.from_incoming = "True"
+--     return goto_main()
+-- end
 
 function menu_authenticate(context, extension)
     mailbox = vmauthenticate()
+    -- Tell user their position and score.
+    -- XXX This should only happen after 1st auth.
     app.AGI("challenge_leaderboard_position.agi", mailbox)
     app.AGI("challenge_leaderboard_score.agi", mailbox)    
     return app.Goto("challenge_list", "s", 1)
@@ -297,8 +294,8 @@ extensions = {
              {nil, "toorcamp_dialtone_outgoing"}  -- testing
          },
          statement_dir="challenge"}),
-    challenge_incoming_main = util.context_array(
-        menu_challenge_incoming_main, {}),
+    -- challenge_incoming_main = util.context_array(
+    --     menu_challenge_incoming_main, {}),
     challenge_admin = util.context_array(menu_challenge_admin, {}),
     challenge_instructions = util.context(
         {intro_statements={
