@@ -25,6 +25,11 @@ The setup of README-aws and README-twilio should be completed. Voip.ms should be
 - source venv/bin/activate
 - pip install -r requirements.txt
 
+## Update local lua environment for testing
+
+- luarocks install lfs --local
+- eval "$(luarocks path --bin)"
+
 ## Run unit tests locally
 
 ```
@@ -35,9 +40,8 @@ The setup of README-aws and README-twilio should be completed. Voip.ms should be
   pushd src/opt/futel/src
   python3 -m unittest discover test
   popd
-  # The requirements for these are simple, but not documented here.
-  # pushd src/etc/asterisk/test
-  # lua test.lua
+  pushd src/etc/asterisk/test
+  lua test.lua
 ```
 
 ## Run integration tests on virtualbox
