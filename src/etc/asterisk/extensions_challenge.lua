@@ -288,7 +288,7 @@ extensions = {
              "welcome-to-the-fewtel-remote-testing-facility",
              "access-is-granted-as-challenges-are-successfully-completed",
              "complete-all-challenges-to-qualify",
-             "for-more-information-contact-the-operator-from-any-fewtel-phone-or-visit-our-website-at-fewtel-dot-net",
+             -- "for-more-information-contact-the-operator-from-any-fewtel-phone-or-visit-our-website-at-fewtel-dot-net",
              "good-luck",
              "all-must-be-tested",
              "all-must-be-tested",

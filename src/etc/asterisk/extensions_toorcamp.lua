@@ -17,9 +17,9 @@ function toorcamp_dial_context(destination_function)
     return context_array
 end
 
--- call extension at shadytel endpoint, then metric with identifier
-function toorcamp_dial_outgoing(_context, exten)
-    dialstring = util.get_dialstring(exten, 'shadytel-tcp')
+function toorcamp_dial(context, exten, outgoing_channel)
+    util.metric(context)    
+    dialstring = util.get_dialstring(exten, outgoing_channel)
     timeoutstring = util.get_timeoutstring(30) -- minutes
     -- Begin monitoring call.
     app.AGI("get_filename.agi")
@@ -34,36 +34,36 @@ function toorcamp_dial_outgoing(_context, exten)
         app.Playtones("congestion")
         app.Congestion()
     end
+end    
+
+-- Dial a random extension on the outgoing channel. Intended to be used
+-- by a call file.
+-- XXX Coming from a call file breaks the endpoint field of the metrics,
+--     util.py probably needs to be able to handle that.
+function toorcamp_dial_random_outgoing(context, exten)
+    ext = "6000"                -- XXX testing
+    return toorcamp_dial(context, ext, nil) -- XXX "shadytel-tcp"
 end
 
--- ring phone at extension, then metric with identifier
+function toorcamp_dial_outgoing(context, exten)
+    return toorcamp_dial(context, exten, "shadytel-tcp")
+end
+
 function toorcamp_dial_incoming(context, extension)
-    util.metric(context)
-    dialstring = util.get_dialstring(extension, nil)
-    -- Begin monitoring call.
-    app.AGI("get_filename.agi")
-    filename = "incoming-" .. channel.agi_out:get() .. ".wav"
-    app.MixMonitor(filename, "b")
-    -- No timeout, will this DOS us or our upstream? But we want people
-    -- to be able to leave an extension on speaker.
-    app.Dial(dialstring)
-    dialstatus = channel.DIALSTATUS:get()
-    util.metric("incoming-dialstatus-" .. dialstatus .. "-" .. extension)
-    if (dialstatus == "CHANUNAVAIL") or (dialstatus == "CONGESTION") then
-        app.Playtones("congestion")
-        app.Congestion()
-    end
+    return toorcamp_dial(context, exten, nil)
 end
 
 local extensions = {
     toorcamp_dialtone_outgoing = util.destination_context(
         toorcamp_dialtone_outgoing),
-    -- probably only for testing
+
     toorcamp_dialtone_incoming = util.destination_context(
-        toorcamp_dialtone_incoming),    
-    toorcamp_dial_outgoing = toorcamp_dial_context(toorcamp_dial_outgoing),
+        toorcamp_dialtone_incoming),
     toorcamp_dial_incoming = toorcamp_dial_context(toorcamp_dial_incoming),
-    challenge_toorcamp_main = util.context(
+    toorcamp_dial_outgoing = toorcamp_dial_context(toorcamp_dial_outgoing),
+    toorcamp_dial_random_outgoing = util.destination_context(
+        toorcamp_dial_random_outgoing),
+    challenge_toorcamp_outgoing = util.context(
         {intro_statements={},
          menu_entries={
              {"to-make-a-call", "toorcamp_dialtone_outgoing"},             
@@ -73,11 +73,25 @@ local extensions = {
              {"for-instructions", "challenge_instructions"},
              {"for-the-leaderboard", "challenge_leaderboard"},
              {"for-the-fewtel-community", "community_outgoing"},
---             {"for-the-fewtel-community", "outgoing_portland"},             
+
              {"for-more-information-about-the-fewtel-remote-testing-facility",
               "challenge_info"},
              {"for-administration", "challenge_admin"}
 --             {nil, "toorcamp_dialtone_incoming"}, -- testing
+         },
+         statement_dir="challenge"}),
+    challenge_toorcamp_incoming = util.context(
+        {intro_statements={},
+         menu_entries={
+             {"to-perform-the-challenges", "challenge_authenticate"},
+             {"for-voicemail", "voicemail_outgoing"},
+             {"for-the-fewtel-voice-conference", "futel-conf"},
+             {"for-instructions", "challenge_instructions"},
+             {"for-the-leaderboard", "challenge_leaderboard"},
+             {"for-the-fewtel-community", "community_outgoing"},
+             -- {"for-the-telecommunications-network", "network"},
+             {"for-more-information-about-the-fewtel-remote-testing-facility",
+              "challenge_info"}
          },
          statement_dir="challenge"})    
 }
