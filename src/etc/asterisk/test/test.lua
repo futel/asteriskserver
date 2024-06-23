@@ -1,6 +1,7 @@
 luaunit = require('luaunit')
 
 package.path = package.path .. ';' .. '../?.lua'
+extensions = require('extensions') -- Import everything for a smoke test.
 util = require('util')
 
 function test_split_empty()
