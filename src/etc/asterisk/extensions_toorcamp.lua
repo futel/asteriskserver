@@ -87,15 +87,19 @@ function toorcamp_dial_incoming(context, exten)
 end
 
 local extensions = {
-    toorcamp_dialtone_outgoing = util.destination_context(
-        toorcamp_dialtone_outgoing),
-
-    toorcamp_dialtone_incoming = util.destination_context(
-        toorcamp_dialtone_incoming),
-    toorcamp_dial_incoming = toorcamp_dial_context(toorcamp_dial_incoming),
-    toorcamp_dial_outgoing = toorcamp_dial_context(toorcamp_dial_outgoing),
-    toorcamp_dial_random = util.destination_context(
-        toorcamp_dial_random),
+    challenge_toorcamp_incoming = util.context(
+        {menu_entries={
+             {"to-perform-the-challenges", "challenge_authenticate"},
+             {"for-voicemail", "voicemail_outgoing"},
+             {"for-the-fewtel-voice-conference", "futel-conf"},
+             {"for-instructions", "challenge_instructions"},
+             {"for-the-leaderboard", "challenge_leaderboard"},
+             {"for-the-fewtel-community", "community_outgoing"},
+             -- {"for-the-telecommunications-network", "network"},
+             {"for-more-information-about-the-fewtel-remote-testing-facility",
+              "challenge_info"}
+         },
+         statement_dir="challenge"}),
     challenge_toorcamp_outgoing = util.context(
         {menu_entries={
              {"to-make-a-call", "toorcamp_dialtone_outgoing"},             
@@ -112,19 +116,14 @@ local extensions = {
 --             {nil, "toorcamp_dialtone_incoming"}, -- testing
          },
          statement_dir="challenge"}),
-    challenge_toorcamp_incoming = util.context(
-        {menu_entries={
-             {"to-perform-the-challenges", "challenge_authenticate"},
-             {"for-voicemail", "voicemail_outgoing"},
-             {"for-the-fewtel-voice-conference", "futel-conf"},
-             {"for-instructions", "challenge_instructions"},
-             {"for-the-leaderboard", "challenge_leaderboard"},
-             {"for-the-fewtel-community", "community_outgoing"},
-             -- {"for-the-telecommunications-network", "network"},
-             {"for-more-information-about-the-fewtel-remote-testing-facility",
-              "challenge_info"}
-         },
-         statement_dir="challenge"})    
+    toorcamp_dialtone_outgoing = util.destination_context(
+        toorcamp_dialtone_outgoing),
+    toorcamp_dialtone_incoming = util.destination_context(
+        toorcamp_dialtone_incoming),
+    toorcamp_dial_incoming = toorcamp_dial_context(toorcamp_dial_incoming),
+    toorcamp_dial_outgoing = toorcamp_dial_context(toorcamp_dial_outgoing),
+    toorcamp_dial_random = util.destination_context(
+        toorcamp_dial_random)
 }
 
 return extensions
