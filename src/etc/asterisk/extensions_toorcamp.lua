@@ -43,26 +43,32 @@ function toorcamp_dial(context, exten, outgoing_channel)
     end
 end    
 
--- Continue with a random destination. Intended to be used by a call file.
--- XXX Coming from a call file breaks the endpoint field of the metrics,
---     util.py probably needs to be able to handle that.
+-- Send caller to a random outgoing destination.
 -- XXX Coming from a call file breaks callerid.
 -- XXX Can we wait for bridge to start? Will need that for conf?
 -- XXX Dial timeout?
 function toorcamp_dial_random(context, exten)
     util.metric(context)    
+    -- XXX The extension space is probably sparse.
+    --     We want to have a list of interesting numbers to prioritize:
+    --     previous incoming callers, previous recipients, just interesting.
+    rext = tostring(math.random(1000, 9999))
+    return toorcamp_dial_outgoing(context, rext)
+end
+
+-- Continue with a random destination. Intended to be used by a call file.
+-- XXX Coming from a call file breaks the endpoint field of the metrics,
+--     util.py probably needs to be able to handle that.
+-- XXX add some content maybe, also for dedicated lines
+function toorcamp_random_destination(context, exten)
+    util.metric(context)    
     parties = channel.CONFBRIDGE_INFO("parties", "666"):get()
     if parties ~= "0" then
         -- Conf is populated, send caller there.
         return app.ConfBridge(
-            666, "futel_conf", "futel_conf_user", "futel_conf_menu")
+            "666", "futel_conf", "futel_conf_user", "futel_conf_menu")
     else
-        -- Send caller to a random destination.
-        -- XXX The extension space is probably sparse.
-        --     We want to have a list of interesting numbers to prioritize:
-        --     previous incoming callers, previous recipients, just interesting.
-        rext = tostring(math.random(1000, 9999))
-        return toorcamp_dial_outgoing(context, rext)
+        return toorcamp_dial_random(context, exten)
     end
 end
 
@@ -79,9 +85,9 @@ function toorcamp_dial_incoming(context, exten)
         util.goto_context(
             'challenge_toorcamp_incoming', context, exten)
     elseif exten == "2084" then
-        toorcamp_dial_random(context, exten)
+        toorcamp_random_destination(context, exten)
     elseif exten == "4639" then -- HNDY
-        toorcamp_dial_random(context, exten)
+        toorcamp_random_destination(context, exten)
     end
     -- also elseif exten == "5225" then -- JACK
     -- Call local extension.
@@ -120,14 +126,15 @@ local extensions = {
              {"for-an-internal-dialtone", "toorcamp_dialtone_incoming"},
              {"for-voicemail", "voicemail_outgoing"}},
          statement_dir="challenge"}),
+    toorcamp_dial_random = util.destination_context(toorcamp_dial_random),
     toorcamp_dialtone_outgoing = util.destination_context(
         toorcamp_dialtone_outgoing),
     toorcamp_dialtone_incoming = util.destination_context(
         toorcamp_dialtone_incoming),
     toorcamp_dial_incoming = toorcamp_dial_context(toorcamp_dial_incoming),
     toorcamp_dial_outgoing = toorcamp_dial_context(toorcamp_dial_outgoing),
-    toorcamp_dial_random = util.destination_context(
-        toorcamp_dial_random)
+    toorcamp_random_destination = util.destination_context(
+        toorcamp_random_destination)
 }
 
 return extensions
