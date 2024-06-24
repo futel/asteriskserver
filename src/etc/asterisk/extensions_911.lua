@@ -42,7 +42,7 @@ context_array_9 = {
     ["i"]=function(context, exten) app.Busy() end,
     ["t"]=function(context, exten) app.Busy() end,
     [1]=function(context, exten)
-        goto_context('call_911_91', context, exten) end
+        util.goto_context('call_911_91', context, exten) end
 }
 
 -- busy on anything but next 911 digit
@@ -51,7 +51,7 @@ context_array_91 = {
     ["i"]=function(context, exten) app.Busy() end,
     ["t"]=function(context, exten) app.Busy() end,
     [1]=function(context, exten)
-        goto_context('call_911_911', context, exten) end
+        util.goto_context('call_911_911', context, exten) end
 }
 
 local extensions = {

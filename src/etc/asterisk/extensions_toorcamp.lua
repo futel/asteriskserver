@@ -35,6 +35,8 @@ function toorcamp_dial(context, exten, outgoing_channel)
     -- we have completed the call, metric and react to the outcome    
     -- note that we don't get here if the caller hung up first
     metric("outgoing-dialstatus-" .. dialstatus)
+    metric(
+        "toorcamp-outgoing-dialstatus-" .. tostring(outgoing_channel) .. "-" .. dialstatus)
     if (dialstatus == "CHANUNAVAIL") or (dialstatus == "CONGESTION") then
         app.Playtones("congestion")
         app.Congestion()
@@ -69,21 +71,21 @@ function toorcamp_dial_outgoing(context, exten)
     return toorcamp_dial(context, exten, "shadytel-tcp")
 end
 
+-- Should just use the context/extension map for these.
 function toorcamp_dial_incoming(context, exten)
     util.metric(context)
     util.metric("incoming_extension_" .. exten)
     if exten == "3885" then     -- FUTL
-        fn = challenge_toorcamp_incoming
+        util.goto_context(
+            'challenge_toorcamp_incoming', context, exten)
     elseif exten == "2084" then
-        fn = toorcamp_dial_random
+        toorcamp_dial_random(context, exten)
     elseif exten == "4639" then -- HNDY
-        fn = toorcamp_dial_random
-    -- elseif exten == "5225" then -- JACK
-    --    fn = toorcamp_dial        
-    else    
-        fn = toorcamp_dial
+        toorcamp_dial_random(context, exten)
     end
-    return fn(context, exten, nil)
+    -- also elseif exten == "5225" then -- JACK
+    -- Call local extension.
+    toorcamp_dial(context, exten, nil)
 end
 
 local extensions = {
@@ -95,10 +97,8 @@ local extensions = {
              {"for-instructions", "challenge_instructions"},
              {"for-the-leaderboard", "challenge_leaderboard"},
              {"for-the-fewtel-community", "community_outgoing"},
-             -- {"for-the-telecommunications-network", "network"},
              {"for-more-information-about-the-fewtel-remote-testing-facility",
-              "challenge_info"}
-         },
+              "challenge_info"}},
          statement_dir="challenge"}),
     challenge_toorcamp_outgoing = util.context(
         {menu_entries={
@@ -109,12 +109,16 @@ local extensions = {
              {"for-instructions", "challenge_instructions"},
              {"for-the-leaderboard", "challenge_leaderboard"},
              {"for-the-fewtel-community", "community_outgoing"},
-
              {"for-more-information-about-the-fewtel-remote-testing-facility",
               "challenge_info"},
-             {"for-administration", "challenge_admin"}
---             {nil, "toorcamp_dialtone_incoming"}, -- testing
-         },
+             -- {"for-the-telecommunications-network", "network"},
+             {"for-administration", "toorcamp_admin"}},
+         statement_dir="challenge"}),
+    toorcamp_admin = util.context(
+        {menu_entries={
+             {"for-administration", "challenge_admin"},
+             {"for-an-internal-dialtone", "toorcamp_dialtone_incoming"},
+             {"for-voicemail", "voicemail_outgoing"}},
          statement_dir="challenge"}),
     toorcamp_dialtone_outgoing = util.destination_context(
         toorcamp_dialtone_outgoing),

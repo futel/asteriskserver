@@ -439,6 +439,7 @@ local util = {
     statement_context = statement_context,    
     internaldial = internaldial,
     file_exists = file_exists,
+    goto_context = goto_context,
     iter = iter,
     lockfile_create = lockfile_create,
     lockfile_exists = lockfile_exists,
