@@ -34,7 +34,6 @@ As README.md.
 - ansible-playbook -i deploy/hosts deploy/requirements_conf_vm_playbook.yml
 - # enter password when prompted, what could go wrong?
 - ansible-playbook -K -i deploy/hosts deploy/requirements_packages_generic_playbook.yml
-- ansible-playbook -K -i deploy/hosts deploy/requirements_packages_vm_playbook.yml
 
 ## Run unit tests locally
 
@@ -42,28 +41,25 @@ As README.md.
 
 # Deploy box
 
-Update hosts-demo with the address of the destination.
+Update hosts-metal with the address of the destination.
 
 - ansible-playbook -i deploy/hosts-metal deploy/deploy_playbook.yml
 - ansible-playbook -i deploy/hosts-metal deploy/baseinstall_playbook.yml --vault-id=digitalocean@conf/vault_pass_digitalocean.txt
 - ansible-playbook -i deploy/hosts-metal deploy/update_asterisk_playbook.yml --vault-id generic@conf/vault_pass_generic.txt
+- ansible-playbook -i deploy/hosts-metal deploy/update_asterisk_conf_sync_playbook.yml --vault-id demo@conf/vault_pass_demo.txt
 
-XXX update from here as README-virtualbox.md, README.md
+# Update pjsip.conf
 
-XXX copy, unpack src/assets.tgz
+If needed, update /etc/asterisk/pjsip.conf so shadytel-identify-100 matches the shadytel host.
 
-  ansible-playbook -i deploy/hosts deploy/update_asterisk_conf_sync_playbook.yml --limit 'all:!virtualbox' --vault-id demo@conf/vault_pass_demo.txt
-
-XXX update from here as README-virtualbox.md, README.md
-
-# Update iptables
+# Update iptables on box
 
   # XXX me
-  iptables -A INPUT -p udp -m udp -s 67.171.203.32 -j ACCEPT
-  iptables -A INPUT -p tcp -m tcp -s 67.171.203.32 -j ACCEPT
-  # shadytel
-  iptables -A INPUT -p udp -m udp -s 44.31.23.100 -j ACCEPT
-  iptables -A INPUT -p tcp -m tcp -s 44.31.23.100 -j ACCEPT
+  iptables -A INPUT -p udp -m udp -s 192.168.56.1 --dport 5060:5080 -j ACCEPT
+  iptables -A INPUT -p tcp -m tcp -s 192.168.56.1 --dport 10000:60000 -j ACCEPT
+  # shadytel XXX replace with host
+  iptables -A INPUT -p udp -m udp -s 192.168.56.1 --dport 5060:5080 -j ACCEPT
+  iptables -A INPUT -p tcp -m tcp -s 192.168.56.1 --dport 10000:60000 -j ACCEPT
 
 # Set up call files
 

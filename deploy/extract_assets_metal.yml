@@ -5,3 +5,5 @@
     dest: /
 - name: extract assets package
   command: tar -zxvf /assets.tgz
+  args:
+    chdir: /
