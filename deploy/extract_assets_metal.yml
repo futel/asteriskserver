@@ -1,0 +1,7 @@
+---
+- name: copy assets package
+  copy:
+    src: ../src/assets.tgz
+    dest: /
+- name: extract assets package
+  command: tar -zxvf /assets.tgz
