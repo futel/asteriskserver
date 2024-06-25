@@ -18,6 +18,7 @@
     src: "../src"
   tasks:
     - include_tasks: update_asterisk.yml
+    - include_tasks: extract_assets_metal.yml
     - include_tasks: link_asterisk_sounds.yml
 - hosts: virtualbox
   become: true

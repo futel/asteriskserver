@@ -1,5 +1,7 @@
 util = require("util")
 math = require("math")
+math.randomseed(os.clock()*100000000000)
+
 
 function directory_mayor_portland(context, exten)
     util.metric(context)

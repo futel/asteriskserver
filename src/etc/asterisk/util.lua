@@ -24,7 +24,7 @@ lockfile_name = "/opt/futel/var/run/lockfile"
 
 -- Caller IDs for calls which come from Twilio Programmable Voice.
 -- This should match the keys of extensions.private.json in
--- twilio-sip-serverl
+-- twilio-sip-server
 twilio_pv_callerids = {
     "demo",
     "dome-basement", "dome-booth", "dome-garage", "dome-office", 
@@ -337,6 +337,7 @@ end
 
 -- Return context array which immediately starts destination_function
 -- when called with no extension.
+-- Maybe instead use context_array with no destinations?
 function destination_context(destination_function)
     local context_array = {}
     context_array.s = destination_function
@@ -433,10 +434,12 @@ local util = {
     dial_context = dial_context,
     directory_filenames = directory_filenames,
     filter = filter,
-    get_dialstring = get_dialstring,    
+    get_dialstring = get_dialstring,
+    get_timeoutstring = get_timeoutstring,
     statement_context = statement_context,    
     internaldial = internaldial,
     file_exists = file_exists,
+    goto_context = goto_context,
     iter = iter,
     lockfile_create = lockfile_create,
     lockfile_exists = lockfile_exists,

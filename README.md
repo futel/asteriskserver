@@ -13,7 +13,7 @@ The setup of README-aws and README-twilio should be completed. Voip.ms should be
 
 ## Requirements and test
 
-- Have whatever the correct Ruby and Lua (for testing) environments are.
+- Have whatever the correct Lua (for testing) environments are.
 - Have no Digital Ocean droplets or domains named futel-stage.phu73l.net.
 - Have a Digital Ocean assets snapshot created by storageserver.
 - Have src/asterisk-18.8.0-futel.1.el8.x86_64.rpm built by buildserver.
@@ -25,6 +25,11 @@ The setup of README-aws and README-twilio should be completed. Voip.ms should be
 - source venv/bin/activate
 - pip install -r requirements.txt
 
+## Update local lua environment for testing
+
+- luarocks install lfs --local
+- eval "$(luarocks path --bin)"
+
 ## Run unit tests locally
 
 ```
@@ -35,9 +40,8 @@ The setup of README-aws and README-twilio should be completed. Voip.ms should be
   pushd src/opt/futel/src
   python3 -m unittest discover test
   popd
-  # The requirements for these are simple, but not documented here.
-  # pushd src/etc/asterisk/test
-  # lua test.lua
+  pushd src/etc/asterisk/test
+  lua test.lua
 ```
 
 ## Run integration tests on virtualbox
@@ -57,9 +61,11 @@ The setup of README-aws and README-twilio should be completed. Voip.ms should be
 
 ## Deploy stage droplet
 
-deploy_playbook.yml may fail if DNS takes a long time to propagate. Run it again if it does.
+deploy_playbook may fail if DNS takes a long time to propagate. Run it again if it does.
 
-update_asterisk_conf_sync_playbook.yml may fail with file transfer issues. Run it again if it does.
+deploy_playbook and baseinstall_playbook may fail with DNS or SSH issues, it should work when 'ssh root@futel-stage.phu73l.net' fails with 'permission denied'.
+
+update_asterisk_conf_sync_playbook may fail with file transfer issues. Run it again if it does.
 
 - ansible-playbook -i deploy/hosts deploy/deploy_playbook.yml --vault-id=digitalocean@conf/vault_pass_digitalocean.txt --vault-id prod@conf/vault_pass_prod.txt
 - ansible-playbook -i deploy/hosts deploy/baseinstall_playbook.yml --limit 'all:!virtualbox' --vault-id=digitalocean@conf/vault_pass_digitalocean.txt
