@@ -57,19 +57,29 @@ If needed, update /etc/asterisk/pjsip.conf so shadytel-identify-100 matches the 
   # XXX me
   iptables -A INPUT -p udp -m udp -s 192.168.56.1 --dport 5060:5080 -j ACCEPT
   iptables -A INPUT -p tcp -m tcp -s 192.168.56.1 --dport 10000:60000 -j ACCEPT
-  # shadytel XXX replace with host
-  iptables -A INPUT -p udp -m udp -s 192.168.56.1 --dport 5060:5080 -j ACCEPT
-  iptables -A INPUT -p tcp -m tcp -s 192.168.56.1 --dport 10000:60000 -j ACCEPT
+  # shadytel
+  iptables -A INPUT -p udp -m udp -s 172.16.1.204 --dport 5060:5080 -j ACCEPT
+  iptables -A INPUT -p tcp -m tcp -s 172.16.1.204 --dport 10000:60000 -j ACCEPT
 
 # Set up call files
 
+Copy source file.
+
+- cp /tmp/callfile.bak /tmp/callfile
+
 Touch access and modification time to be when we want it to run, yyyymmddtttt.
 
-- touch -a -m -t 202501010000 /tmp/foo/202501010000
+- touch -a -m -t 202501010000 /tmp/callfile
 
 Put it in the asterisk ami call file spool.
 
-- cp /tmp/foo/202501010000 /usr/spool/asterisk/outgoing
+- mv /tmp/callfile /var/spool/asterisk/outgoing
+
+callfile
+
+  Channel: local/s@toorcamp_dial_random
+  Context: toorcamp_random_destination
+  Extension: s
 
 example
 
