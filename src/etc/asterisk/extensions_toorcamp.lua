@@ -52,6 +52,7 @@ function toorcamp_dial_random(context, exten)
     --     We want to have a list of interesting numbers to prioritize:
     --     previous incoming callers, previous recipients, just interesting.
     rext = tostring(math.random(2000, 6999))
+    util.metric("dial-random-" .. rext)
     return toorcamp_dial_outgoing(context, rext)
 end
 
