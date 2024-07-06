@@ -80,6 +80,33 @@ callfile
   Channel: local/s@toorcamp_dial_random
   Context: toorcamp_random_destination
   Extension: s
+=======
+XXX update from here as README-virtualbox.md, README.md
+
+XXX copy, unpack src/assets.tgz
+
+  ansible-playbook -i deploy/hosts deploy/update_asterisk_conf_sync_playbook.yml --limit 'all:!virtualbox' --vault-id demo@conf/vault_pass_demo.txt
+
+XXX update from here as README-virtualbox.md, README.md
+
+# Update iptables
+
+  # XXX me
+  iptables -A INPUT -p udp -m udp -s 67.171.203.32 -j ACCEPT
+  iptables -A INPUT -p tcp -m tcp -s 67.171.203.32 -j ACCEPT
+  # shadytel
+  iptables -A INPUT -p udp -m udp -s 44.31.23.100 -j ACCEPT
+  iptables -A INPUT -p tcp -m tcp -s 44.31.23.100 -j ACCEPT
+
+# Set up call files
+
+Touch access and modification time to be when we want it to run, yyyymmddtttt.
+
+- touch -a -m -t 202501010000 /tmp/foo/202501010000
+
+Put it in the asterisk ami call file spool.
+
+- cp /tmp/foo/202501010000 /usr/spool/asterisk/outgoing
 
 example
 
