@@ -38,13 +38,13 @@ function directory_office_of_night_things(context, exten)
     util.internaldial("+18003900934")
 end
 
-function directory_random_payphone(context, exten)
-    util.metric(context)
-    -- no retry, queue rings all members, long timeout
-    app.Queue("payphones", "rn")
-    -- retry, queue rings members sequentially randomly, short timeout
-    app.Queue("payphonespi", "r")
-end
+-- function directory_random_payphone(context, exten)
+--     util.metric(context)
+--     -- no retry, queue rings all members, long timeout
+--     app.Queue("payphones", "rn")
+--     -- retry, queue rings members sequentially randomly, short timeout
+--     app.Queue("payphonespi", "r")
+-- end
 
 function directory_random_concentrationcamp(context, exten)
     util.metric(context)
@@ -81,7 +81,6 @@ local extensions = {
              {"for-the-mayor", "directory_mayor_portland"},
              {"for-the-druid-of-sissyphus-gardens",
               "directory_sissyphus"},
-             {"for-a-random-payphone", "directory_random_payphone"},
              {"for-nature-x-x-x", "directory_natr_xxx"},
              {"for-the-utopian-hotline", "directory_utopian_hotline"},
              {"for-they-might-be-giants-dial-a-song",
@@ -94,7 +93,6 @@ local extensions = {
              {"for-the-mayor", "directory_mayor_ypsi"},
              {"for-the-druid-of-sissyphus-gardens",
               "directory_sissyphus"},
-             {"for-a-random-payphone", "directory_random_payphone"},
              {"for-nature-x-x-x", "directory_natr_xxx"},
              {"for-the-utopian-hotline", "directory_utopian_hotline"},
              {"for-the-office-of-night-things",
@@ -109,8 +107,6 @@ local extensions = {
              {"for-the-mayor", "directory_mayor_detroit"},
              {"for-the-druid-of-sissyphus-gardens",
               "directory_sissyphus"},
-             {"for-a-random-payphone",
-              "directory_random_payphone"},
              {"for-nature-x-x-x", "directory_natr_xxx"},
              {"for-the-utopian-hotline", "directory_utopian_hotline"},
              {"for-the-office-of-night-things",
@@ -124,7 +120,6 @@ local extensions = {
         {menu_entries={
              {"for-the-druid-of-sissyphus-gardens",
               "directory_sissyphus"},
-             {"for-a-random-payphone", "directory_random_payphone"},
              {"for-nature-x-x-x", "directory_natr_xxx"},
              {"for-the-utopian-hotline", "directory_utopian_hotline"},
              {"for-the-office-of-night-things",
@@ -139,7 +134,6 @@ local extensions = {
              {"for-the-mayor", "directory_mayor_portland"},
              {"for-the-druid-of-sissyphus-gardens",
               "directory_sissyphus"},
-             {"for-a-random-payphone", "directory_random_payphone"},
              {"for-nature-x-x-x", "directory_natr_xxx"},
              {"for-the-utopian-hotline", "directory_utopian_hotline"},
              {"for-they-might-be-giants-dial-a-song",
@@ -198,8 +192,6 @@ local extensions = {
         directory_utopian_hotline),
     directory_office_of_night_things = util.destination_context(
         directory_office_of_night_things),
-    directory_random_payphone = util.destination_context(
-        directory_random_payphone),
     directory_random_concentrationcamp = util.destination_context(
         directory_random_concentrationcamp),
     directory_tmbg_dial_a_song = util.destination_context(
