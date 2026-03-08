@@ -1,3 +1,5 @@
 pyyaml
 dopy
 boto3
+packaging
+

@@ -2,12 +2,19 @@
 
 We use Vagrant and Virtualbox on an Ubuntu host.
 
+# Meta-requirements
+
+Virtualbox on a debian box is a pain because of Oracle's packaging. The easiest way to get it may be to install the sid package.
+- https://packages.debian.org/sid/virtualbox
+- https://www.virtualbox.org/wiki/Linux_Downloads
+
 # Setup
 
 Have a recent Rocky 8 Vagrant box.
 
-  vagrant box add generic/rocky8 (if asked, choose virtualbox provider)
-  vagrant box update
+- https://portal.cloud.hashicorp.com/vagrant/discover/generic/rocky8
+- vagrant box add generic/rocky8 (if asked, choose virtualbox provider)
+- vagrant box update
 
 # Requirements and test
 
